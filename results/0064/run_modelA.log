@@ -1,0 +1,7 @@
+[validacion] error identidad operador: 1.11e-16 | error dinamica n_probe: 2.55e-15
+gap_w0.0           pendiente ajustada =  0.8106 | analitica 2q =  0.8109 | kappa(eps=2..8) = 8.559e-04 1.687e-04 3.333e-05 6.588e-06
+gap_w0.5           pendiente ajustada =  0.6921 | analitica 2q =  0.7035 | kappa(eps=2..8) = 7.143e-04 1.746e-04 4.347e-05 1.087e-05
+gap_w0.9           pendiente ajustada =  0.3263 | analitica 2q =  0.3554 | kappa(eps=2..8) = 7.541e-04 3.176e-04 1.495e-04 7.424e-05
+gap_w2.0_inband    pendiente ajustada =  0.0027 | analitica 2q =  0.0000 | kappa(eps=2..8) = 8.177e-03 7.785e-04 3.027e-03 9.397e-04
+crit_w0.5          pendiente ajustada =  0.0121 | analitica 2q =  0.0000 | kappa(eps=2..8) = 3.866e-03 1.223e-02 2.006e-02 4.760e-03
+OK modelA

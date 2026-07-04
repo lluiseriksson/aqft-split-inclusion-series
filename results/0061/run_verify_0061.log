@@ -1,0 +1,22 @@
+=== A: Prop 2.7, W >= Delta F_S over random energy-conserving unitaries ===
+200 samples: min(W_cost - dF_S) = 4.765e-01  (>= 0 required by v2 Prop 2.7)
+(with v1's sign, W - dF_S can be negative: v1 Appendix A flips the final inequality)
+
+=== B: Appendix B qubit dephasing formula ===
+p=0.3, c=0.2: numeric=0.126942  formula=0.126942  2*G*C=0.122609
+p=0.5, c=0.1: numeric=0.028383  formula=0.028383  2*G*C=0.028190
+p=0.62, c=0.31: numeric=0.324363  formula=0.324363  2*G*C=0.296840
+
+=== C: rate Pythagoras, Spohn, Davies contraction (random qutrit Davies) ===
+||L(gamma)|| = 8.326672684688674e-17
+sigma=1.582997  Fdot_diag=0.978453  Cdot_loss=0.604544  split err=1.39e-13
+Spohn sigma>=0: True | diagonal contraction Fdot_diag>=0: True
+S(Delta[rho_t]||gamma) along t: [0.40801  0.295735 0.155565 0.053137 0.006123] monotone: True
+
+=== D: vacuity of v1 Definition 4.11 (unlinked pairs) ===
+Fix any s in Ctrl(rho). A diagonal baseline may append battery-burning
+cycles (unitary on W+B that dumps battery free energy into the bath is a
+battery-assisted thermal operation acting trivially on S, so it preserves
+Delta[rho] maintenance). Its asymptotic power P(s_diag) can be made any
+P0 > 0, hence inf over unlinked pairs of [P(s) - P(s_diag)] = -infinity.
+Consequently v1's Pextra = -inf and v1 Theorem 4.12 cannot hold as stated.

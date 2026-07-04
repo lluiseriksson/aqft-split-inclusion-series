@@ -1,0 +1,964 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  The Conditional Maintenance Work Theorem — Version 2 (July 2026)
+%  v1: December 2025.
+%  Main corrections (Appendix D):
+%   1. Sign of work: v1 defined W as battery free-energy INCREASE and its
+%      Appendix A flipped the final inequality; work is now defined as
+%      battery free-energy CONSUMPTION and Proposition 2.7 is proved with
+%      the correct sign (numerically verified).
+%   2. v1 Definition 4.11 (extra power as infimum over unlinked strategy
+%      pairs) is vacuous (equals -infinity); replaced by efficient-baseline
+%      comparisons and a difference-of-infima definition with explicit
+%      achievability assumption.
+%   3. New unconditional entropy-production bound P_min >= k_B T sigma(rho)
+%      (via Spohn monotonicity), of which v1's Theorem 4.9 is a corollary.
+%   4. Pure dephasing: the extra-power bound is now genuinely
+%      assumption-free (the diagonal baseline is free).
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Ctrl}{\mathrm{Ctrl}}
+\newcommand{\Pmin}{P_{\min}}
+\newcommand{\Pextra}{P_{\mathrm{extra}}}
+\newcommand{\Closs}{\dot{C}^{\Delta}_{\mathrm{loss}}}
+\newcommand{\ClossE}{\dot{C}^{E}_{\mathrm{loss}}}
+\newcommand{\Fdiag}{\dot{F}^{\Delta}_{\mathrm{diag}}}
+
+\title{The Conditional Maintenance Work Theorem:\\
+Operational Power Lower Bounds from Energy Pinching\\
+and a Split-Inclusion Blueprint for Type III AQFT}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025)}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We derive operational lower bounds on the minimal thermodynamic power required
+to maintain quantum coherence against uncontrolled open-system dynamics. Work is
+defined as the \emph{consumption} of non-equilibrium free energy stored in an
+explicit battery at bath temperature $T$, namely $W := F_W(\sigma_W) -
+F_W(\sigma_W')$ with $F_W(\sigma) = \kB T\, S(\sigma\|\gamma_W)$, and allowed
+controls are battery-assisted thermal operations implemented by
+energy-conserving global unitaries. Coherence is quantified as a relative
+entropy to a conditional expectation, $C^E(\rho) := S(\rho\|E[\rho])$. Our main
+proved results are: (i) an \emph{unconditional} maintenance bound
+$\Pmin(\rho) \ge \kB T\,\sigma(\rho)$, where $\sigma(\rho) \ge 0$ is the entropy
+production rate of the target under the uncontrolled semigroup (Spohn), which
+splits via the pinching Pythagorean identity as
+$\sigma = \Fdiag + \Closs$; (ii) the coherence-power bound
+$\Pmin \ge \kB T \Closs(\rho)$ under a diagonal-contraction hypothesis satisfied
+by Davies generators; and (iii) extra-power bounds for coherence stabilization
+relative to \emph{thermodynamically efficient} population-maintenance baselines
+--- version~1's ``assumption-free'' paired-infimum formulation is shown to be
+vacuous (the unlinked-pairs infimum is $-\infty$), and the corrected statement
+is genuinely assumption-free precisely when the pinched target is stationary
+(e.g., pure dephasing), where the baseline is free. We further provide a
+conditional extension to general $\gamma_S$-preserving conditional expectations
+and a Type III split blueprint, with external geometric inputs encoded as
+explicit interface assumptions. All finite-dimensional claims are verified by
+an exact numerical suite distributed with the paper
+(Appendix~\ref{app:numerics}). These results provide an operational resource
+criterion for quantum-to-classical behavior, not a collapse theory.
+
+\medskip
+\noindent\textbf{Version 2.} Corrects a sign error in the work definition and
+in the final step of v1's Appendix~A, replaces v1's vacuous extra-power
+definition (Remark~\ref{rem:vacuous}), and strengthens the main bound to an
+unconditional entropy-production form. See Appendix~\ref{app:changelog}.
+\end{abstract}
+
+\tableofcontents
+
+% ======================================================================
+\section{Introduction}
+
+\subsection{Problem}
+
+Maintaining coherence is a dynamical control task: an uncontrolled environment
+drives a system toward a thermal fixed point, while a controller expends work to
+hold a target state stationary. This paper asks for operational lower bounds on
+the minimal power required to maintain a target state under explicit
+thermodynamic control primitives.
+
+\subsection{Contribution and architecture}
+
+We use a deliberately modular structure:
+
+\begin{itemize}
+\item[(C1)] \textbf{From static work to dynamical power.} Static
+free-energy/work inequalities are translated into maintenance-power lower
+bounds via stroboscopic control cycles.
+\item[(C2)] \textbf{Entropy production as the unconditional floor.} The minimal
+maintenance power is bounded below by $\kB T$ times the entropy production rate
+of the target, with no structural assumption on the generator beyond a thermal
+fixed point (Theorem~\ref{thm:sigma}). The pinching Pythagorean identity splits
+this floor into a population term and a coherence term
+(Proposition~\ref{prop:ratesplit}).
+\item[(C3)] \textbf{Paired-strategy rigor.} The incremental cost of coherence
+stabilization is formulated against \emph{thermodynamically efficient}
+baselines. We show that the naive infimum over unlinked strategy pairs is
+$-\infty$ (Remark~\ref{rem:vacuous}), identify the exact assumption
+(baseline achievability) under which the difference-of-infima bound holds, and
+prove that no assumption is needed when the pinched target is stationary.
+\item[(C4)] \textbf{Proved/conditional/interface separation.}
+Finite-dimensional results are proved; general-$E$ and Type III statements are
+conditional; geometric inputs appear only as explicit interface assumptions.
+\end{itemize}
+
+\subsection{Editorial status and dependency map}
+
+This manuscript is self-contained at the level of proved results.
+
+\begin{itemize}
+\item[(S1)] \emph{Closed results proved here:} Proposition~\ref{prop:work},
+Proposition~\ref{prop:pythagoras}, Theorem~\ref{thm:sigma},
+Proposition~\ref{prop:ratesplit}, Corollary~\ref{cor:totalpower},
+Theorem~\ref{thm:extra}, Proposition~\ref{prop:freebaseline}, and
+Corollary~\ref{cor:qubit}, with full appendices.
+\item[(S2)] \emph{Conditional extensions:} Assumption~\ref{ass:pythE} and
+Theorem~\ref{thm:generalE}; the Type III blueprint in
+Section~\ref{sec:typeiii}; the achievability-based
+Corollary~\ref{cor:diffinf}.
+\item[(S3)] \emph{External geometric inputs:} encoded by
+Assumptions~\ref{ass:leak} and~\ref{ass:rate}.
+\end{itemize}
+
+% ======================================================================
+\section{Operational framework: system--bath--battery}
+
+\begin{remark}[Entropy convention]
+We use natural logarithms. All entropies are measured in nats.
+\end{remark}
+
+\begin{definition}[Thermal state]
+Let $X$ be finite-dimensional with Hamiltonian $H_X$ and inverse temperature
+$\beta := 1/(\kB T)$. Define $\gamma_X := e^{-\beta H_X}/\Tr(e^{-\beta H_X})$.
+\end{definition}
+
+\begin{definition}[Relative entropy]
+For states $\rho, \sigma$, define
+$S(\rho\|\sigma) := \Tr[\rho(\log\rho - \log\sigma)]$ when
+$\mathrm{supp}(\rho) \subseteq \mathrm{supp}(\sigma)$ and
+$S(\rho\|\sigma) = +\infty$ otherwise.
+\end{definition}
+
+\begin{definition}[Non-equilibrium free energy]
+For any finite-dimensional system $X$ at temperature $T$, define
+$F_X(\sigma) := \kB T\, S(\sigma\|\gamma_X)$.
+\end{definition}
+
+\begin{definition}[Battery-assisted thermal operation]\label{def:bato}
+A battery-assisted thermal operation on $S$ is any reduced map induced by a
+global unitary $U$ on $SBW$ such that $[U, H_S + H_B + H_W] = 0$, acting as
+\begin{equation}
+\rho_S \mapsto \Tr_{BW}\!\left(U(\rho_S \otimes \gamma_B \otimes \sigma_W)
+U^\dagger\right).
+\end{equation}
+\end{definition}
+
+\begin{definition}[Work and power]\label{def:work}
+If the battery changes from $\sigma_W$ to $\sigma_W'$, define the \emph{work
+consumed}
+\begin{equation}
+W := F_W(\sigma_W) - F_W(\sigma_W'),
+\end{equation}
+i.e., the decrease of battery free energy, and average power over time $t$ as
+$P := W/t$.
+\end{definition}
+
+\begin{remark}[Sign correction relative to v1]\label{rem:sign}
+Version~1 defined $W := F_W(\sigma_W') - F_W(\sigma_W)$ (battery
+\emph{increase}) and asserted $W \ge \Delta F_S$. With that sign the inequality
+is false --- the correct consequence of energy conservation and relative-entropy
+invariance is that the battery must be \emph{drained} by at least the system's
+free-energy gain; the final line of v1's Appendix~A reversed an inequality.
+With Definition~\ref{def:work} the statement and proof below are correct, and
+have been verified numerically over random energy-conserving unitaries
+(Appendix~\ref{app:numerics}).
+\end{remark}
+
+\begin{proposition}[Work pays for system free energy]\label{prop:work}
+Let a battery-assisted thermal operation map $\rho_S \mapsto \rho_S'$ while the
+battery changes $\sigma_W \mapsto \sigma_W'$. Then
+\begin{equation}
+W \;\ge\; F_S(\rho_S') - F_S(\rho_S).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+See Appendix~\ref{app:workproof}.
+\end{proof}
+
+% ======================================================================
+\section{Conditional expectations and coherence}
+
+\begin{definition}[Finite-dimensional conditional expectation]
+Let $\mathcal{A} \subseteq B(\mathcal{H}_S)$ be a unital *-subalgebra. A map
+$E: B(\mathcal{H}_S) \to \mathcal{A}$ is a conditional expectation if it is
+completely positive, trace-preserving, unital, idempotent, and satisfies the
+bimodule property $E(AXB) = A\,E(X)\,B$ for all $A, B \in \mathcal{A}$,
+$X \in B(\mathcal{H}_S)$.
+\end{definition}
+
+\begin{definition}[$\gamma_S$-preserving conditional expectation]
+A conditional expectation $E$ is $\gamma_S$-preserving if
+$E^\dagger(\gamma_S) = \gamma_S$, equivalently
+$\Tr(\gamma_S E(X)) = \Tr(\gamma_S X)$ for all $X$.
+\end{definition}
+
+\begin{definition}[Relative-entropy coherence to $E$]
+Define $C^E(\rho) := S(\rho\|E[\rho])$.
+\end{definition}
+
+\begin{assumption}[Faithfulness]\label{ass:faithful}
+In Sections~\ref{sec:bounds}--\ref{sec:qubit}, the target state $\rho$ is
+assumed faithful (full rank), so that $C^E(\rho) < \infty$.
+\end{assumption}
+
+\subsection{Energy pinching}
+
+Let $H_S = \sum_n E_n \Pi_n$ be the spectral decomposition. Define the energy
+pinching
+\begin{equation}
+\Delta[\rho] := \sum_n \Pi_n \rho \Pi_n.
+\end{equation}
+
+\begin{proposition}[Pythagorean identity for pinching]\label{prop:pythagoras}
+Let $\gamma_S \propto e^{-\beta H_S}$. Then
+\begin{equation}
+S(\rho\|\gamma_S) = S(\Delta[\rho]\|\gamma_S) + S(\rho\|\Delta[\rho]),
+\qquad\text{equivalently}\qquad
+F_S(\rho) = F_S(\Delta[\rho]) + \kB T\, C^\Delta(\rho).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Because $\log\gamma_S = -\beta H_S - \log Z$ is diagonal in the $\{\Pi_n\}$
+decomposition, $\Tr(\rho\log\gamma_S) = \Tr(\Delta[\rho]\log\gamma_S)$, hence
+$S(\rho\|\gamma_S) - S(\Delta[\rho]\|\gamma_S) = \Tr(\rho\log\rho) -
+\Tr(\Delta[\rho]\log\Delta[\rho]) = S(\rho\|\Delta[\rho])$.
+\end{proof}
+
+% ======================================================================
+\section{Single-law maintenance bounds}\label{sec:bounds}
+
+\subsection{Uncontrolled dynamics, maintenance, and power}
+
+\begin{assumption}[Markovian setting]\label{ass:markov}
+The uncontrolled evolution is a quantum dynamical semigroup
+$\rho_t = e^{t\mathcal{L}}(\rho)$ with a stationary thermal state $\gamma_S$,
+i.e.\ $\mathcal{L}(\gamma_S) = 0$.
+\end{assumption}
+
+\begin{definition}[Coherence-loss and entropy-production rates]\label{def:rates}
+Let $\rho_t = e^{t\mathcal{L}}(\rho)$. Define
+\begin{equation}
+\dot{C}^E_{\mathrm{loss}}(\rho) := -\frac{d}{dt} C^E(\rho_t)\Big|_{t=0},
+\qquad
+\sigma(\rho) := -\frac{d}{dt} S(\rho_t\|\gamma_S)\Big|_{t=0},
+\qquad
+\Fdiag(\rho) := -\frac{d}{dt} S(\Delta[\rho_t]\|\gamma_S)\Big|_{t=0}.
+\end{equation}
+By Spohn's theorem \cite{Spohn78}, $t \mapsto S(\rho_t\|\gamma_S)$ is
+nonincreasing, so $\sigma(\rho) \ge 0$: it is the entropy production rate of
+the target under the uncontrolled dynamics.
+\end{definition}
+
+\begin{definition}[Maintenance task; stroboscopic strategies]\label{def:maintain}
+A ($\delta t$-stroboscopic) control strategy alternates free evolution for time
+$\delta t$ with a battery-assisted thermal operation
+(Definition~\ref{def:bato}); it \emph{maintains} $\rho$ if the controlled
+reduced state returns to $\rho$ at the end of every cycle. $\Ctrl(\rho)$
+denotes the set of stroboscopic maintaining strategies (all $\delta t > 0$).
+\end{definition}
+
+\begin{remark}
+Continuous-control protocols can be treated as limits of stroboscopic ones; we
+fix the stroboscopic model to keep the accounting elementary. This restriction
+was implicit in v1 (its Lemma~4.6 covers only stroboscopic cycles) and is now
+explicit.
+\end{remark}
+
+\begin{definition}[Asymptotic power of a strategy]
+For a strategy $s$ with battery state $\sigma_W^s(t)$, define
+\begin{equation}
+P(s) := \limsup_{t\to\infty} \frac{1}{t}
+\left(F_W(\sigma_W^s(0)) - F_W(\sigma_W^s(t))\right),
+\end{equation}
+the asymptotic rate of battery free-energy consumption
+(cf.\ Remark~\ref{rem:sign}).
+\end{definition}
+
+\begin{definition}[Minimal maintenance power]
+$\displaystyle \Pmin(\rho; \mathcal{L}, T) := \inf_{s\in\Ctrl(\rho)} P(s)$.
+\end{definition}
+
+\begin{lemma}[Infinitesimal to asymptotic]\label{lem:strobo}
+Fix $\delta t > 0$ and consider $\delta t$-stroboscopic maintenance. If each
+cycle consumes at least $w(\delta t)$, then any such strategy satisfies
+$\limsup_{t\to\infty} W(t)/t \ge w(\delta t)/\delta t$. If
+$w(\delta t) = a\,\delta t + o(\delta t)$ as $\delta t \to 0$, then
+$\Pmin \ge a$.
+\end{lemma}
+
+\begin{proof}
+After $N$ cycles, $t = N\delta t$ and $W(t) \ge N w(\delta t)$, so
+$W(t)/t \ge w(\delta t)/\delta t$. Take $\limsup$ in $t$; then optimize the
+cycle time.
+\end{proof}
+
+\subsection{Unconditional entropy-production bound and its pinching split}
+
+\begin{theorem}[Entropy-production maintenance bound (proved, unconditional)]
+\label{thm:sigma}
+Assume Assumptions~\ref{ass:faithful} and~\ref{ass:markov}. Then
+\begin{equation}
+\Pmin(\rho; \mathcal{L}, T) \;\ge\; \kB T\, \sigma(\rho) \;\ge\; 0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Fix a cycle time $\delta t > 0$ and write $\rho_{\delta t} =
+e^{\delta t\mathcal{L}}(\rho)$. One maintenance cycle must implement
+$\rho_{\delta t} \mapsto \rho$ by battery-assisted thermal operations. By
+Proposition~\ref{prop:work},
+\begin{equation}
+w(\delta t) \;\ge\; F_S(\rho) - F_S(\rho_{\delta t})
+= \kB T\left[S(\rho\|\gamma_S) - S(\rho_{\delta t}\|\gamma_S)\right].
+\end{equation}
+Divide by $\delta t$, let $\delta t \to 0$, and apply
+Lemma~\ref{lem:strobo}.
+\end{proof}
+
+\begin{proposition}[Rate Pythagoras]\label{prop:ratesplit}
+Under Assumptions~\ref{ass:faithful} and~\ref{ass:markov},
+\begin{equation}
+\sigma(\rho) = \Fdiag(\rho) + \Closs(\rho).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Differentiate the Pythagorean identity of Proposition~\ref{prop:pythagoras}
+along $\rho_t$ at $t = 0$ (all three terms are differentiable for faithful
+$\rho$ under a semigroup).
+\end{proof}
+
+\begin{assumption}[Diagonal contraction]\label{ass:diagcontr}
+$t \mapsto S(\Delta[\rho_t]\|\gamma_S)$ is nonincreasing; equivalently
+$\Fdiag(e^{t\mathcal{L}}\rho) \ge 0$ for all $t \ge 0$.
+\end{assumption}
+
+\begin{proposition}[Davies generators satisfy diagonal contraction]
+\label{prop:davies}
+If $\mathcal{L}$ is a Davies generator obtained by weak coupling and secular
+approximation in the energy basis \cite{Davies74}, then populations evolve as a
+classical detailed-balance Markov semigroup with stationary distribution given
+by the diagonal of $\gamma_S$, decoupled from coherences. Consequently
+Assumption~\ref{ass:diagcontr} holds, and moreover
+$\Delta \circ e^{t\mathcal{L}} = e^{t\mathcal{L}} \circ \Delta$
+(\emph{population autonomy}).
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Under the Davies form the diagonal algebra is invariant and decouples from
+coherences; the induced classical semigroup satisfies detailed balance, and the
+classical H-theorem gives monotonicity of $S(\Delta[\rho_t]\|\gamma_S)$
+\cite{Davies74,Spohn78}.
+\end{proof}
+
+\begin{corollary}[Total-power coherence bound (v1 Theorem 4.9)]
+\label{cor:totalpower}
+Assume Assumptions~\ref{ass:faithful}, \ref{ass:markov},
+and~\ref{ass:diagcontr}. Then
+\begin{equation}
+\Pmin(\rho; \mathcal{L}, T) \;\ge\; \kB T\, \Closs(\rho).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:sigma} and Proposition~\ref{prop:ratesplit},
+$\Pmin \ge \kB T(\Fdiag + \Closs)$, and $\Fdiag \ge 0$ by
+Assumption~\ref{ass:diagcontr}.
+\end{proof}
+
+\subsection{Extra power: efficient baselines}\label{sec:extra}
+
+Version~1 defined the extra power of coherence as
+$\inf_{s\in\Ctrl(\rho),\, s_{\mathrm{diag}}\in\Ctrl(\Delta[\rho])}
+\left[P(s) - P(s_{\mathrm{diag}})\right]$ and claimed an assumption-free lower
+bound. That definition is vacuous:
+
+\begin{remark}[The unlinked-pairs infimum is $-\infty$]\label{rem:vacuous}
+Fix any $s \in \Ctrl(\rho)$. A population-maintenance strategy may append
+\emph{battery-burning} cycles: a unitary acting only on $W\!B$ that transfers
+battery free energy into the bath is energy-conserving, acts trivially on $S$,
+and hence preserves maintenance of $\Delta[\rho]$, while making
+$P(s_{\mathrm{diag}})$ arbitrarily large (assuming, as is generic, that the
+bath--battery pair contains resonant sectors permitting free-energy dumping at
+any rate; otherwise append an auxiliary work sink with dense spectrum to the
+bath). Therefore
+$\inf_{(s, s_{\mathrm{diag}})}[P(s) - P(s_{\mathrm{diag}})] = -\infty$, and
+v1's Theorem~4.12 cannot hold as stated: its proof subtracts \emph{lower}
+bounds for both strategies, which is invalid for the subtrahend. The corrected
+statements below compare against baselines that are required to be
+thermodynamically efficient.
+\end{remark}
+
+\begin{assumption}[Population autonomy]\label{ass:autonomy}
+$\Delta \circ e^{t\mathcal{L}} = e^{t\mathcal{L}} \circ \Delta$ for all
+$t \ge 0$ (automatic for Davies generators,
+Proposition~\ref{prop:davies}). Then the diagonal task's entropy production is
+$\sigma(\Delta[\rho]) = \Fdiag(\rho)$.
+\end{assumption}
+
+\begin{definition}[$\varepsilon$-efficient baseline]\label{def:efficient}
+For $\varepsilon \ge 0$, a strategy
+$s_{\mathrm{diag}} \in \Ctrl(\Delta[\rho])$ is \emph{$\varepsilon$-efficient}
+if $P(s_{\mathrm{diag}}) \le \kB T\,\sigma(\Delta[\rho]) + \varepsilon$, i.e.,
+its power exceeds the thermodynamic floor of its own task
+(Theorem~\ref{thm:sigma}) by at most $\varepsilon$.
+\end{definition}
+
+\begin{theorem}[Extra power against efficient baselines (proved)]
+\label{thm:extra}
+Assume Assumptions~\ref{ass:faithful}, \ref{ass:markov},
+and~\ref{ass:autonomy}. Then for every $s \in \Ctrl(\rho)$ and every
+$\varepsilon$-efficient $s_{\mathrm{diag}} \in \Ctrl(\Delta[\rho])$,
+\begin{equation}
+P(s) - P(s_{\mathrm{diag}}) \;\ge\; \kB T\, \Closs(\rho) - \varepsilon.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:sigma} and Proposition~\ref{prop:ratesplit},
+$P(s) \ge \kB T[\Fdiag(\rho) + \Closs(\rho)]$. By
+Definition~\ref{def:efficient} and Assumption~\ref{ass:autonomy},
+$P(s_{\mathrm{diag}}) \le \kB T\,\sigma(\Delta[\rho]) + \varepsilon =
+\kB T\,\Fdiag(\rho) + \varepsilon$. Subtract.
+\end{proof}
+
+\begin{definition}[Extra power]\label{def:extra}
+$\displaystyle \Pextra(\rho; \mathcal{L}, T) := \Pmin(\rho; \mathcal{L}, T) -
+\Pmin(\Delta[\rho]; \mathcal{L}, T)$, assuming both control sets are non-empty
+and the second infimum is finite.
+\end{definition}
+
+\begin{corollary}[Difference of infima (conditional on achievability)]
+\label{cor:diffinf}
+Assume additionally that the diagonal task is \emph{Landauer-achievable}:
+$\varepsilon$-efficient baselines exist for every $\varepsilon > 0$,
+equivalently $\Pmin(\Delta[\rho]) = \kB T\,\sigma(\Delta[\rho])$. Then
+\begin{equation}
+\Pextra(\rho; \mathcal{L}, T) \;\ge\; \kB T\, \Closs(\rho).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+$\Pmin(\rho) \ge \kB T[\Fdiag + \Closs]$ and
+$\Pmin(\Delta[\rho]) = \kB T\,\Fdiag$ by achievability and
+Assumption~\ref{ass:autonomy}.
+\end{proof}
+
+\begin{remark}
+Achievability of the classical (population) Landauer floor is a statement about
+optimal classical stochastic control of a detailed-balance Markov chain in the
+slow-driving limit; it is plausible but not proved here, which is why
+Corollary~\ref{cor:diffinf} is listed as conditional. The experimentally
+meaningful statement is Theorem~\ref{thm:extra}: the measured incremental power
+of a coherence stabilizer over a \emph{well-implemented} population stabilizer
+is at least $\kB T \Closs$.
+\end{remark}
+
+\begin{proposition}[Free baseline: stationary pinched target (proved,
+assumption-free)]\label{prop:freebaseline}
+Assume Assumptions~\ref{ass:faithful} and~\ref{ass:markov}, and suppose both
+$\mathcal{L}(\Delta[\rho]) = 0$ (the pinched target is stationary) \emph{and}
+$\Delta[\mathcal{L}(\rho)] = 0$ (the populations of the target are stationary
+along the flow); both hold simultaneously for pure dephasing and, more
+generally, in population-autonomous settings. Then the do-nothing strategy is a $0$-efficient baseline,
+$\Pmin(\Delta[\rho]) = 0$, $\Fdiag(\rho) = 0$, and
+\begin{equation}
+\Pextra(\rho; \mathcal{L}, T) = \Pmin(\rho; \mathcal{L}, T)
+\;\ge\; \kB T\,\sigma(\rho) = \kB T\, \Closs(\rho).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+If $\mathcal{L}(\Delta[\rho]) = 0$, the strategy that never touches the battery
+maintains $\Delta[\rho]$ with $P = 0$; by Theorem~\ref{thm:sigma} applied to
+the diagonal task, $\Pmin(\Delta[\rho]) \ge \kB T\,\sigma(\Delta[\rho]) = 0$,
+so $\Pmin(\Delta[\rho]) = 0$. The second hypothesis gives
+$\frac{d}{dt}\Delta[\rho_t]\big|_{t=0} = \Delta[\mathcal{L}(\rho)] = 0$,
+hence $\Fdiag(\rho) = 0$ and
+$\sigma = \Closs$ by Proposition~\ref{prop:ratesplit}.
+\end{proof}
+
+% ======================================================================
+\section{Qubit specialization}\label{sec:qubit}
+
+\begin{assumption}[Qubit pure dephasing]\label{ass:dephasing}
+Let $S$ be a qubit in the energy basis such that under uncontrolled dynamics
+$\frac{d}{dt}\rho_{01}(t) = -\Gamma_\phi\, \rho_{01}(t)$ and populations are
+constant.
+\end{assumption}
+
+\begin{corollary}[Qubit law (exact and leading order; assumption-free)]
+\label{cor:qubit}
+Under Assumptions~\ref{ass:faithful}, \ref{ass:markov},
+and~\ref{ass:dephasing}, with $\rho = \begin{pmatrix} p & c \\ \bar{c} & 1-p
+\end{pmatrix}$, $z := 2p - 1$, $r := \sqrt{z^2 + 4|c|^2}$:
+\begin{equation}
+\Pextra(\rho) = \Pmin(\rho) \;\ge\; \kB T\, \Closs(\rho)
+= \kB T\, \frac{2\Gamma_\phi |c|^2}{r}\,\log\frac{1+r}{1-r}
+= 2\kB T\, \Gamma_\phi\, C^\Delta(\rho)\,\big(1 + O(|c|^2)\big).
+\end{equation}
+No diagonal-contraction or achievability assumption is needed: this is the
+free-baseline case of Proposition~\ref{prop:freebaseline}. The exact formula
+for $\Closs$ is derived in Appendix~\ref{app:qubit} and verified numerically to
+six digits (Appendix~\ref{app:numerics}).
+\end{corollary}
+
+% ======================================================================
+\section{Conditional extension to general conditional expectations}
+
+\begin{assumption}[Pythagorean identity for general $E$]\label{ass:pythE}
+Let $E: B(\mathcal{H}_S) \to \mathcal{A}$ be a $\gamma_S$-preserving
+conditional expectation. Assume the Pythagorean identity holds for all faithful
+$\rho$:
+\begin{equation}
+S(\rho\|\gamma_S) = S(E[\rho]\|\gamma_S) + S(\rho\|E[\rho]).
+\end{equation}
+\end{assumption}
+
+\begin{remark}
+Assumption~\ref{ass:pythE} is automatic for pinching $E = \Delta$ and is
+related to sufficiency and Petz recovery structure; see
+\cite{Petz86,Takesaki03}.
+\end{remark}
+
+\begin{theorem}[Single-law bound (conditional general-$E$)]\label{thm:generalE}
+Assume Assumptions~\ref{ass:faithful}, \ref{ass:markov}, and~\ref{ass:pythE},
+and the $E$-analogue of Assumption~\ref{ass:diagcontr} (contraction of
+$t \mapsto S(E[\rho_t]\|\gamma_S)$). Then
+\begin{equation}
+\Pmin(\rho; \mathcal{L}, T) \;\ge\; \kB T\, \ClossE(\rho).
+\end{equation}
+Unconditionally (without the contraction hypothesis),
+$\Pmin \ge \kB T\,\sigma(\rho)$ with the $E$-split
+$\sigma = \dot{F}^E + \ClossE$.
+\end{theorem}
+
+\begin{proof}
+Repeat the proofs of Theorem~\ref{thm:sigma},
+Proposition~\ref{prop:ratesplit}, and Corollary~\ref{cor:totalpower},
+replacing $\Delta$ by $E$ and using Assumption~\ref{ass:pythE}.
+\end{proof}
+
+% ======================================================================
+\section{Type III split blueprint (conditional)}\label{sec:typeiii}
+
+\begin{remark}[Blueprint status]
+This section is a blueprint for a full Type III treatment: no new Type III
+technical proofs (Haagerup $L^p$, domain control, energy constraints) are
+claimed here.
+\end{remark}
+
+\begin{assumption}[Split inclusion and vacuum-preserving expectation]
+\label{ass:split}
+Let $\mathcal{A}(\mathcal{O}_1) \subset \mathcal{A}(\mathcal{O}_2) =:
+\mathcal{M}$ be a split inclusion with intermediate Type I factor $\mathcal{N}$
+and vacuum state $\omega_0$. Assume $\mathcal{N}$ is
+$\sigma_t^{\omega_0}$-invariant, hence there exists a unique
+$\omega_0$-preserving conditional expectation
+$E_{\omega_0}: \mathcal{M} \to \mathcal{N}$.
+\end{assumption}
+
+\begin{definition}[Split-relative entropy functional (Type III, conditional)]
+Define $C^{\mathrm{split}}(\omega) := S(\omega\,\|\,\omega\circ E_{\omega_0})$,
+where $S$ is Araki relative entropy.
+\end{definition}
+
+\begin{remark}[Relation to the companion paper]\label{rem:companion}
+The geometric inputs of Section~\ref{sec:geometry} and the existence statement
+in Assumption~\ref{ass:split} are developed in the companion preprint
+\cite{Companion}. Note that v2 of \cite{Companion} corrects its own
+Proposition~2.14 (the Gaussian formula there describes a conditional
+\emph{reattachment} reconstruction, not the Petz map); nothing in the present
+paper depends on that formula --- we use only (i) the existence of the
+$\omega_0$-preserving conditional expectation on the canonical split factor
+(unaffected; it follows from modular invariance of the nuclearity-map
+construction) and (ii) the Bessel-type collar suppression of vacuum
+correlations (unaffected).
+\end{remark}
+
+% ======================================================================
+\section{Geometric interface and scaling laws}\label{sec:geometry}
+
+\subsection{One-shot work vs maintenance power}
+
+We distinguish \emph{one-shot shaping} (reduce a leakage proxy at fixed collar
+width $\epsilon$, yielding a bound on $W$) from \emph{sustained maintenance}
+(keep a target stationary in time, yielding a bound on $P$).
+
+\begin{assumption}[Geometric leakage amplitude interface]\label{ass:leak}
+In a bosonic Gaussian split regime with collar width $\epsilon$ and mass gap
+$m > 0$, assume there exists a bounded leakage proxy
+$\mathrm{Leak}(\epsilon)$ satisfying the \emph{two-sided} interface bound
+\begin{equation}
+a\,(m\epsilon)^\alpha K_\nu(m\epsilon) \;\le\; \mathrm{Leak}(\epsilon)
+\;\le\; A\,(m\epsilon)^\alpha K_\nu(m\epsilon)
+\end{equation}
+for constants $A \ge a > 0$, $\alpha \ge 0$, with $K_\nu$ the modified Bessel
+function, and weak-correlation quadraticity of mutual information,
+$I(S : \mathrm{Env}) \asymp \mathrm{Leak}(\epsilon)^2$. (The upper bound alone
+--- all that v1 assumed --- yields upper, not lower, scalings; the lower bound
+encodes sharpness of the geometric suppression and is what the ``in
+particular'' scalings of Corollaries~\ref{cor:oneshot}
+and~\ref{cor:maintscale} consume.)
+\end{assumption}
+
+\begin{corollary}[One-shot geometric work scaling]\label{cor:oneshot}
+Under Assumption~\ref{ass:leak}, any thermal-operation protocol at temperature
+$T$ that reduces the leakage proxy from its baseline value
+$\mathrm{Leak}(\epsilon)$ to a target level $\delta$ satisfies a Landauer-type
+lower bound of the form
+\begin{equation}
+W \;\ge\; \kB T\, c_I \left[\mathrm{Leak}(\epsilon)^2 - \delta^2\right]_+,
+\end{equation}
+for a state-family constant $c_I > 0$; in particular
+$W \gtrsim \kB T\, K_\nu(m\epsilon)^2$ up to polynomial prefactors in
+$m\epsilon$. (In v1 the constant here was denoted $\kappa$, clashing with the
+relaxation rate of Assumption~\ref{ass:rate}; renamed.)
+\end{corollary}
+
+\begin{assumption}[Bessel-suppressed relaxation rate, two-sided]\label{ass:rate}
+Assume the uncontrolled relaxation rate satisfies
+\begin{equation}
+b\,(m\epsilon)^\beta K_\nu(m\epsilon) \;\le\; \kappa(\epsilon)
+\;\le\; B\,(m\epsilon)^\beta K_\nu(m\epsilon)
+\end{equation}
+for constants $B \ge b > 0$, $\beta \ge 0$ within the regime of interest.
+\end{assumption}
+
+\begin{corollary}[Conditional maintenance-power scaling]\label{cor:maintscale}
+Assume the uncontrolled evolution yields
+$C^\Delta(\rho_t) = C^\Delta(\rho)\,e^{-\kappa(\epsilon)t}$ for $t$ near $0$,
+population autonomy in the regime of interest, and
+Assumption~\ref{ass:rate}. Then, against $\varepsilon$-efficient baselines
+(Theorem~\ref{thm:extra}) or in the free-baseline regime
+(Proposition~\ref{prop:freebaseline}),
+\begin{equation}
+\Pextra(\epsilon) \;\ge\; \kB T\, \kappa(\epsilon)\, C^\Delta(\rho)
+\qquad\text{and in particular}\qquad
+\Pextra(\epsilon) \;\gtrsim\; \kB T\, K_\nu(m\epsilon)
+\end{equation}
+up to polynomial prefactors in $m\epsilon$.
+\end{corollary}
+
+% ======================================================================
+\section{Interpretation and scope: an operational ``cut'' (not a collapse
+theory)}
+
+\begin{remark}[What this paper does and does not claim]
+This work does not propose a collapse mechanism, does not derive the Born rule,
+and does not claim to solve the measurement problem in the strong foundational
+sense. The results are operational: they quantify minimal work/power
+requirements for maintaining a target state against uncontrolled dynamics under
+explicit thermodynamic control restrictions.
+\end{remark}
+
+\begin{remark}[Quantum-to-classical transition as resource infeasibility]
+Theorem~\ref{thm:sigma}, Corollary~\ref{cor:totalpower}, and
+Theorem~\ref{thm:extra} imply that sustaining coherence against uncontrolled
+noise requires a minimal power budget proportional to $\kB T$ times an
+intrinsic dissipation rate. When this required power exceeds available control
+resources, coherence cannot be maintained in steady state. This is an
+operational statement about control feasibility, not an ontological account of
+definite outcomes. The resource-boundary reading of the Heisenberg cut built on
+these bounds --- including an exact rate-inheritance law for gapped buffers,
+$\kappa(\epsilon) \propto e^{-2q(\omega_b)\epsilon}$, verified against exact
+Liouvillian spectra --- is developed in the companion paper \cite{HCut}.
+\end{remark}
+
+\subsection{On a proposed ``master inequality''}
+
+\begin{remark}[Work vs power, amplitude vs rate]
+This paper does not prove a universal inequality of the literal form
+$I \lesssim E\, e^{-2m\epsilon}$. What it supports, under explicit assumptions,
+is two distinct statements: one-shot work scaling
+$W \gtrsim \kB T\, K_\nu(m\epsilon)^2 \sim \kB T e^{-2m\epsilon}$
+(Corollary~\ref{cor:oneshot}), and maintenance-power scaling
+$\Pextra \gtrsim \kB T\, K_\nu(m\epsilon) \sim \kB T e^{-m\epsilon}$
+(Corollary~\ref{cor:maintscale}), each with its own hypotheses.
+\end{remark}
+
+% ======================================================================
+\section{Protocols and reproducibility}
+
+\begin{remark}
+This paper provides theoretical bounds and reproducibility templates; it does
+not claim new direct measurements of battery-accounted work in hardware.
+\end{remark}
+
+\subsection{Protocol sketch: incremental coherence stabilization}
+
+\begin{itemize}
+\item[(P1)] Stabilize populations with a \emph{well-implemented} baseline: an
+$\varepsilon$-efficient strategy in $\Ctrl(\Delta[\rho])$
+(Definition~\ref{def:efficient}); calibrate its power against the classical
+floor $\kB T\,\sigma(\Delta[\rho])$. In dephasing-dominated platforms the
+baseline is free (Proposition~\ref{prop:freebaseline}).
+\item[(P2)] Turn on phase/coherence stabilization to implement a strategy in
+$\Ctrl(\rho)$.
+\item[(P3)] Measure the incremental controller power $P(s) -
+P(s_{\mathrm{diag}})$ and compare against $\kB T\,\Closs(\rho) - \varepsilon$
+(Theorem~\ref{thm:extra}).
+\end{itemize}
+
+% ======================================================================
+\section{Conclusion}
+
+We derived single-law operational lower bounds on minimal coherence-maintenance
+power under explicit thermodynamic control constraints. The unconditional floor
+is $\kB T$ times the entropy production rate of the target, which the pinching
+Pythagorean identity splits into population and coherence contributions; the
+coherence term alone bounds the total power under diagonal contraction
+(automatic for Davies generators), and bounds the \emph{incremental} power
+against thermodynamically efficient population-maintenance baselines --- with
+no assumptions at all when the pinched target is stationary, as in pure
+dephasing. Conditional extensions to general expectations and Type III split
+configurations are provided as blueprints, and geometric inputs are
+incorporated only via explicit interface assumptions separating one-shot work
+from maintenance power. All finite-dimensional claims are verified by an exact
+numerical suite distributed with the paper.
+
+% ======================================================================
+\appendix
+
+\section{Work bound proof via product-reference decomposition}
+\label{app:workproof}
+
+\begin{definition}[Mutual information and multi-information]
+For a state $\rho_{XY}$ define
+$I_\rho(X : Y) := S(\rho_{XY}\|\rho_X \otimes \rho_Y) \ge 0$; for
+$\rho_{XYZ}$ define
+$I_\rho(X : Y : Z) := S(\rho_{XYZ}\|\rho_X \otimes \rho_Y \otimes \rho_Z)
+\ge 0$.
+\end{definition}
+
+\begin{lemma}[Relative entropy decomposition for product references]
+\label{lem:decomp}
+Let $\sigma_X, \sigma_Y$ be states and $\rho_{XY}$ any joint state. Then
+\begin{equation}
+S(\rho_{XY}\|\sigma_X \otimes \sigma_Y) = S(\rho_X\|\sigma_X) +
+S(\rho_Y\|\sigma_Y) + I_\rho(X : Y),
+\end{equation}
+and analogously for three parties.
+\end{lemma}
+
+\begin{proof}
+Expand definitions and use
+$\Tr(\rho_{XY}\log\sigma_X) = \Tr(\rho_X\log\sigma_X)$, etc., then add and
+subtract the local entropy terms to identify the mutual information.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:work}]
+Let the initial global state be $\rho_{SBW} := \rho_S \otimes \gamma_B \otimes
+\sigma_W$ and the final state $\rho_{SBW}' := U\rho_{SBW}U^\dagger$, with
+$[U, H_S + H_B + H_W] = 0$. Let $\gamma_{SBW} := \gamma_S \otimes \gamma_B
+\otimes \gamma_W$. Invariance of relative entropy under unitaries and
+$U\gamma_{SBW}U^\dagger = \gamma_{SBW}$ give
+\begin{equation}
+S(\rho_{SBW}'\|\gamma_{SBW}) = S(\rho_{SBW}\|\gamma_{SBW}).
+\end{equation}
+By Lemma~\ref{lem:decomp} applied to the final state,
+\begin{equation}
+S(\rho_{SBW}'\|\gamma_{SBW}) \ge S(\rho_S'\|\gamma_S) +
+S(\rho_W'\|\gamma_W),
+\end{equation}
+discarding $S(\rho_B'\|\gamma_B) \ge 0$ and $I_{\rho'} \ge 0$; and applied to
+the initial product state,
+\begin{equation}
+S(\rho_{SBW}\|\gamma_{SBW}) = S(\rho_S\|\gamma_S) + S(\sigma_W\|\gamma_W),
+\end{equation}
+since $S(\gamma_B\|\gamma_B) = 0$ and the initial multi-information vanishes.
+Combining,
+\begin{equation}
+S(\rho_S'\|\gamma_S) + S(\rho_W'\|\gamma_W) \;\le\; S(\rho_S\|\gamma_S) +
+S(\sigma_W\|\gamma_W),
+\end{equation}
+hence
+\begin{equation}
+S(\sigma_W\|\gamma_W) - S(\rho_W'\|\gamma_W) \;\ge\;
+S(\rho_S'\|\gamma_S) - S(\rho_S\|\gamma_S).
+\end{equation}
+Multiplying by $\kB T$ and using Definition~\ref{def:work} yields
+$W = F_W(\sigma_W) - F_W(\rho_W') \ge F_S(\rho_S') - F_S(\rho_S)$.
+(v1 stated the last display with both signs flipped on the left; see
+Remark~\ref{rem:sign}.)
+\end{proof}
+
+\section{Exact qubit formula for $\Closs$ under pure dephasing}
+\label{app:qubit}
+
+Let
+\begin{equation}
+\rho = \begin{pmatrix} p & c \\ \bar{c} & 1-p \end{pmatrix}, \qquad
+\Delta[\rho] = \begin{pmatrix} p & 0 \\ 0 & 1-p \end{pmatrix}.
+\end{equation}
+Let $z := 2p - 1$ and $r := \sqrt{z^2 + 4|c|^2}$. Under pure dephasing with
+rate $\Gamma_\phi$, $p$ is constant and $|c(t)| = |c|e^{-\Gamma_\phi t}$. Then
+\begin{equation}
+\Closs(\rho) = \frac{2\Gamma_\phi |c|^2}{r}\,\log\frac{1+r}{1-r}.
+\end{equation}
+For $|c| \ll 1$ at fixed $p$,
+$\Closs(\rho) = 2\Gamma_\phi\, C^\Delta(\rho) + O(|c|^4)$.
+
+\emph{Derivation.} $C^\Delta(\rho) = H(p) - H\!\left(\tfrac{1+r}{2}\right)$
+with $H$ the binary entropy in nats; differentiating through
+$r(t) = \sqrt{z^2 + 4|c|^2 e^{-2\Gamma_\phi t}}$ at $t = 0$ gives the display.
+Verified numerically to six digits (Appendix~\ref{app:numerics}).
+
+\section{Numerical verification}\label{app:numerics}
+
+An exact finite-dimensional suite (\texttt{verification/verify\_0061.py} in the
+companion repository) checks:
+
+\begin{enumerate}
+\item \textbf{Proposition~\ref{prop:work} and the sign correction.} Over $200$
+random energy-conserving unitaries on a qubit--qutrit--ququart $SBW$ system
+(block-Haar within total-energy eigenspaces, random faithful $\rho_S$ and
+$\sigma_W$): $\min(W - \Delta F_S) = +0.48 > 0$ with the v2 sign
+(consumption), while with v1's sign the difference reaches $-1.12$, exhibiting
+the error of Remark~\ref{rem:sign}.
+\item \textbf{Appendix~\ref{app:qubit} formula.} Central-difference derivative
+of $C^\Delta(\rho_t)$ matches the closed formula to six digits at
+$(p, c) = (0.3, 0.2), (0.5, 0.1), (0.62, 0.31)$, and the leading-order form
+$2\Gamma_\phi C^\Delta$ within the expected $O(|c|^4)$ deviation.
+\item \textbf{Rate Pythagoras, Spohn, Davies.} For a random qutrit Davies-type
+generator with detailed-balance jump rates and energy-basis dephasing
+($\|\mathcal{L}(\gamma_S)\| \sim 10^{-16}$):
+$\sigma = \Fdiag + \Closs$ holds to $10^{-13}$; $\sigma \ge 0$;
+$\Fdiag \ge 0$; and $t \mapsto S(\Delta[\rho_t]\|\gamma_S)$ is monotone along
+the flow (Assumption~\ref{ass:diagcontr}).
+\item \textbf{Vacuity of the v1 pair-infimum} (Remark~\ref{rem:vacuous}):
+battery-burning baselines make $P(s_{\mathrm{diag}})$ arbitrary, so the
+unlinked-pairs infimum is $-\infty$.
+\end{enumerate}
+
+\section{Changes relative to version 1}\label{app:changelog}
+
+\begin{enumerate}
+\item \textbf{Work sign corrected.} v1's Definition~2.6 defined $W$ as the
+battery free-energy \emph{increase} and its Appendix~A reversed the final
+inequality to conclude $W \ge \Delta F_S$; with that sign the claim is false
+(numerically: $W - \Delta F_S$ reaches $-1.12$ on random energy-conserving
+unitaries). v2 defines work as battery free-energy \emph{consumption}
+(Definition~\ref{def:work}, Remark~\ref{rem:sign}) and proves
+Proposition~\ref{prop:work} with the correct sign; all downstream power
+definitions are consumption rates.
+\item \textbf{v1 Definition~4.11 was vacuous.} The infimum over unlinked
+strategy pairs equals $-\infty$ (battery-burning baselines;
+Remark~\ref{rem:vacuous}), so v1's ``assumption-free'' Theorem~4.12 could not
+hold as stated; its proof subtracted lower bounds in the invalid direction.
+v2 replaces it with: (a) Theorem~\ref{thm:extra} against
+$\varepsilon$-efficient baselines (proved, under population autonomy); (b)
+Corollary~\ref{cor:diffinf} for the difference of infima under an explicit
+Landauer-achievability assumption; and (c)
+Proposition~\ref{prop:freebaseline}, which is genuinely assumption-free when
+the pinched target is stationary (pure dephasing), the case relevant to
+Corollary~\ref{cor:qubit}.
+\item \textbf{Unconditional strengthening.} New Theorem~\ref{thm:sigma}:
+$\Pmin \ge \kB T\,\sigma(\rho)$ with $\sigma$ the entropy production rate
+(Spohn \cite{Spohn78}), plus the rate-Pythagoras split
+(Proposition~\ref{prop:ratesplit}); v1's Theorem~4.9 becomes
+Corollary~\ref{cor:totalpower}.
+\item \textbf{Stroboscopic model made explicit}
+(Definition~\ref{def:maintain}); v1's Lemma~4.6 implicitly assumed it.
+\item \textbf{Notation fix} in Section~\ref{sec:geometry}: the constant of
+Corollary~\ref{cor:oneshot} is now $c_I$ (v1 used $\kappa$, clashing with the
+relaxation rate $\kappa(\epsilon)$ of Assumption~\ref{ass:rate}).
+\item \textbf{Companion reference updated} to v2 of \cite{Companion}, with
+Remark~\ref{rem:companion} clarifying that the Petz-related correction there
+does not affect anything used here.
+\item \textbf{Numerical verification} added
+(Appendix~\ref{app:numerics}) with scripts distributed alongside the paper.
+\end{enumerate}
+
+% ======================================================================
+\begin{thebibliography}{99}
+
+\bibitem{Davies74} E.~B.~Davies, \emph{Markovian master equations}, Commun.
+Math. Phys. \textbf{39} (1974), 91--110.
+
+\bibitem{Spohn78} H.~Spohn, \emph{Entropy production for quantum dynamical
+semigroups}, J. Math. Phys. \textbf{19} (1978), 1227--1230.
+
+\bibitem{Petz86} D.~Petz, \emph{Sufficient subalgebras and relative entropy},
+Commun. Math. Phys. \textbf{105} (1986), 123--131.
+
+\bibitem{Takesaki03} M.~Takesaki, \emph{Theory of Operator Algebras I--III},
+Springer, 2003.
+
+\bibitem{BCP14} T.~Baumgratz, M.~Cramer, and M.~B.~Plenio, \emph{Quantifying
+coherence}, Phys. Rev. Lett. \textbf{113} (2014), 140401.
+
+\bibitem{LJR15} M.~Lostaglio, D.~Jennings, and T.~Rudolph, \emph{Description of
+quantum coherence in thermodynamic processes requires constraints beyond free
+energy}, Nat. Commun. \textbf{6} (2015), 6383.
+
+\bibitem{Brandao15} F.~G.~S.~L.~Brand\~ao, M.~Horodecki, N.~Ng, J.~Oppenheim,
+and S.~Wehner, \emph{The second laws of quantum thermodynamics}, Proc. Natl.
+Acad. Sci. \textbf{112} (2015), 3275--3281.
+
+\bibitem{DoplicherLongo84} S.~Doplicher and R.~Longo, \emph{Standard and split
+inclusions of von Neumann algebras}, Invent. Math. \textbf{75} (1984),
+493--536.
+
+\bibitem{BW86} D.~Buchholz and E.~H.~Wichmann, \emph{Causal independence and
+the energy-level density of states in local quantum field theory}, Commun.
+Math. Phys. \textbf{106} (1986), 321--344.
+
+\bibitem{BDL90} D.~Buchholz, C.~D'Antoni, and R.~Longo, \emph{Nuclear maps and
+modular structures I: General properties}, J. Funct. Anal. \textbf{88} (1990),
+233--250.
+
+\bibitem{Companion} L.~Eriksson, \emph{Clustering, Recovery, and Locality in
+Algebraic Quantum Field Theory: Quantitative Bounds via Split Inclusions and
+Modular Theory}, ai.viXra:2512.0060, v2 (2026; v1: 2025). Source, PDF, and
+exact verification suite in the companion repository
+(\texttt{papers/0060-clustering-recovery}).
+
+\bibitem{HCut} L.~Eriksson, \emph{The Heisenberg Cut as a Resource Boundary: An
+Operational Outlook from Coherence Maintenance Costs}, ai.viXra:2512.0064, v2
+(2026; v1: 2025). Source, PDF, and verification suite in the companion
+repository (\texttt{papers/0064-heisenberg-cut}).
+
+\end{thebibliography}
+
+\end{document}

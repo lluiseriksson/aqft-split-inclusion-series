@@ -1,0 +1,25 @@
+=== A: repaired Theorem 4.7 (see also part2_banchi.py) ===
+nb=0.002: hypothesis (g) FAILS (adm=-0.1239) -- excluded (steering)
+nb=0.020: hypothesis (g) FAILS (adm=-0.0958) -- excluded (steering)
+nb=0.100: adm=+0.0271  1-F=2.6451e-02  bound=1.7898e+00  PASS (margin 68x)
+nb=0.400: adm=+0.4551  1-F=1.1066e-02  bound=6.3525e-01  PASS (margin 57x)
+nb=1.000: adm=+1.1459  1-F=9.6140e-03  bound=4.7275e-01  PASS (margin 49x)
+nb=3.000: adm=+2.9643  1-F=9.2848e-03  bound=4.2271e-01  PASS (margin 46x)
+
+=== B: gap-corrected fidelity lemma, random gapped pairs ===
+samples=1916  violations=0  max ratio (1-F)/bound = 0.719
+
+=== C: admissibility / steering threshold ===
+s_tms | nb   | min eig(C0 + i*Om2) | min eig(Gt + i*Om4)
+ 0.35 |  0.0 |             -0.2033 |             -0.1271
+ 0.35 |  0.1 |             -0.0440 |             +0.0271
+ 0.35 |  0.4 |             +0.4341 |             +0.4551
+ 0.80 |  0.0 |             -0.6120 |             -0.1089
+ 0.80 |  0.1 |             -0.5344 |             -0.0233
+ 0.80 |  0.4 |             -0.3016 |             +0.1817
+ 1.20 |  0.0 |             -0.8200 |             -0.0566
+ 1.20 |  0.1 |             -0.7841 |             -0.0146
+ 1.20 |  0.4 |             -0.6761 |             +0.0805
+
+=== D: lattice Klein-Gordon eta_vac decay (m=1) ===
+plain fit = 1.0040 | prefactor-corrected (r^-1/2 e^-mu r) = 0.9544 | arccosh(1+m^2/2) = 0.9624

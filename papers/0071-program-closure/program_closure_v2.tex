@@ -1,0 +1,347 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  Operational Coherence Maintenance: closure note — Version 2 (July 2026)
+%  v1: December 2025 (ai.viXra:2512.0071v1).
+%  Changes: the imported theorem is re-stated per the corrected 0061 v2
+%  (v1 imported the vacuous unlinked-pairs form); the rate-inheritance
+%  hinge is updated from "open" to "partially resolved" (proved in the
+%  quasi-free local-sink class, 0064 v2; the omega=0-floor scenario
+%  realized within the Davies class, 0070 v2); proxy-validation lesson
+%  added; references updated to the v2 series and companion repository.
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\kB}{k_{\mathrm{B}}}
+
+\title{Operational Coherence Maintenance:\\
+Proven Results, Conditional Interfaces, and Open Dynamical Gaps}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025) \quad ai.viXra:2512.0071}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\textwidth}{\small
+\textbf{Editorial status: companion note.} Architectural/closure overview of
+the coherence-maintenance series; no new technical results. The series
+consists of ai.viXra:2512.0060, 0061, 0064, 0070, all at v2 (2026), each with
+an exact verification suite; papers, scripts, and reference logs are
+distributed in a single companion repository. This note is the map.}}
+\end{center}
+
+\begin{abstract}
+Maintaining quantum coherence against uncontrolled open-system dynamics is an
+operational control task with unavoidable thermodynamic cost. In finite
+dimensions, explicit lower bounds on the minimal power required to stabilize
+coherence can be derived under standard Markovian assumptions, independently
+of geometric or field-theoretic structure. At the same time, static
+correlations in gapped systems are geometrically suppressed, raising the
+question of how such suppression influences dynamical decoherence rates and,
+consequently, coherence-maintenance power. Bridging the two domains requires
+dynamical input that static clustering alone does not provide.
+
+This note introduces no new technical results. It provides a logical closure
+of the program by separating (i) results proven without additional structure,
+(ii) conditional interfaces, and (iii) dynamical hypotheses --- and, new in
+this version, it \emph{updates the status of the central hinge}. In v1, rate
+inheritance --- the relation between static correlation envelopes and
+effective decoherence rates --- was identified as the unique unresolved
+hinge. Since then it has been \emph{partially resolved} in both directions
+anticipated by v1's scenario analysis: it is now a derived, frequency-resolved
+law in an exactly solvable quasi-free local-sink class (2512.0064 v2), and the
+failure scenario through near-zero-frequency channels has been realized within
+the Davies model class, with the persistent floor computed and the secular
+nonlocality of that construction quantified (2512.0070 v2). The imported
+maintenance bound is restated in its corrected v2 form (2512.0061 v2), whose
+v1 formulation was vacuous. The framework's design goal --- robustness under
+partial refutation --- has thus been exercised in practice, twice.
+\end{abstract}
+
+\section{Introduction: why a closure note is useful}
+
+The loss of quantum coherence under uncontrolled dynamics is a central feature
+of open quantum systems. Decoherence theory explains passive suppression of
+interference at the level of reduced dynamics, but is largely silent on a
+complementary operational question: what control resources are required to
+\emph{prevent} this loss and maintain a target coherent state in steady time?
+
+Coherence maintenance can be formulated as a thermodynamic control task. Under
+explicit control models --- battery-assisted thermal operations --- one derives
+lower bounds on the minimal power required to counteract uncontrolled dynamics
+\cite{MaintWork}. These bounds depend on dynamical quantities such as the
+intrinsic coherence-loss rate, and do not rely on spatial structure, field
+theory, or geometric separation. Independently, static correlations in gapped
+systems are suppressed with distance, often exponentially
+\cite{HastingsKoma}, with Bessel-type envelopes in continuum massive regimes
+\cite{Clustering}. It is natural to ask whether geometric suppression of
+static correlations constrains dynamical decoherence rates and the power
+required to maintain coherence across an operational interface.
+
+Four manuscripts address different parts of this question: algebraic
+kinematics and collar-suppressed correlations \cite{Clustering}, operational
+maintenance-power bounds \cite{MaintWork}, exact dynamical rate inheritance
+and its proxy pathologies \cite{HCut}, and a Davies-class stress test with
+ceiling/floor envelopes \cite{Stress}. The purpose of this note is to make the
+logical structure explicit --- what is proved, what is conditional, what
+remains open --- and, in this version, to record how the open hinge of v1 has
+since moved.
+
+\begin{remark}[What changed since v1, in one paragraph]\label{rem:whatmoved}
+Every paper in the series was revised in 2026 after an exact-verification
+campaign, and this note inherits those corrections: the reconstruction theorem
+of \cite{Clustering} is now stated for conditional reattachment (not the Petz
+map, which fails marginal preservation for correlated references); the work
+theorem of \cite{MaintWork} corrected a sign error and replaced a vacuous
+extra-power definition; the dynamical evidence of \cite{HCut} v1 was withdrawn
+and replaced by an exact law; and the envelope of \cite{Stress} v1 was split
+into a ceiling and the floor that a no-go actually needs. The architecture of
+v1 of this note survived all four revisions unchanged --- which is what it was
+for --- but its statements of the imported results and of the status of the
+hinge did not, and are updated below.
+\end{remark}
+
+\section{Layer I: proved core statements (finite-dimensional,
+model-independent)}
+
+\begin{definition}[Relative entropy, energy pinching, coherence-loss rate]
+For density operators $\rho, \sigma$ with $\mathrm{supp}(\rho) \subseteq
+\mathrm{supp}(\sigma)$, $S(\rho\|\sigma) := \Tr[\rho(\log\rho - \log\sigma)]$
+($+\infty$ otherwise). With $H = \sum_n E_n\Pi_n$, the energy pinching is
+$\Delta[\rho] := \sum_n \Pi_n\rho\Pi_n$, the coherence is $C(\rho) :=
+S(\rho\|\Delta[\rho])$, and for a Markovian semigroup $\rho_t =
+e^{t\mathcal{L}}(\rho)$ the loss rate is $\dot{C}_{\mathrm{loss}}(\rho) :=
+-\frac{d}{dt}C(\rho_t)|_{t=0}$.
+\end{definition}
+
+\subsection{Single-law lower bounds on maintenance power}
+
+\begin{theorem}[Imported, corrected form; proved in \cite{MaintWork} (v2)]
+\label{thm:imported}
+Consider a finite-dimensional system at temperature $T$ undergoing uncontrolled
+Markovian dynamics with thermal stationary state, controlled by stroboscopic
+battery-assisted thermal operations. Then:
+\begin{enumerate}
+\item[(a)] (\emph{Unconditional}) The minimal total maintenance power obeys
+$P_{\min}(\rho) \ge \kB T\,\sigma(\rho)$, where $\sigma(\rho) \ge 0$ is the
+entropy production rate of the target, which splits as $\sigma =
+\dot{F}^\Delta_{\mathrm{diag}} + \dot{C}_{\mathrm{loss}}$.
+\item[(b)] (\emph{Coherence power}) Under diagonal contraction (automatic for
+Davies generators), $P_{\min}(\rho) \ge \kB T\,\dot{C}_{\mathrm{loss}}(\rho)$.
+\item[(c)] (\emph{Extra power}) Against thermodynamically
+$\varepsilon$-efficient population-maintenance baselines, under population
+autonomy, $P(s) - P(s_{\mathrm{diag}}) \ge \kB T\,\dot{C}_{\mathrm{loss}}(\rho)
+- \varepsilon$; in the free-baseline case of \cite{MaintWork} --- e.g.\ pure
+dephasing, where both $\mathcal{L}(\Delta[\rho]) = 0$ and
+$\Delta[\mathcal{L}(\rho)] = 0$ --- one has $P_{\mathrm{extra}}(\rho) =
+P_{\min}(\rho) \ge \kB T\,\dot{C}_{\mathrm{loss}}(\rho)$ with no further
+assumptions.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Correction relative to v1 of this note]\label{rem:importfix}
+v1 imported the bound as: ``assume control strategies exist for $\rho$ and for
+$\Delta[\rho]$; then $P_{\mathrm{extra}}(\rho) \ge \kB
+T\,\dot{C}_{\mathrm{loss}}(\rho)$.'' In that generality the statement is
+\emph{false}: with $P_{\mathrm{extra}}$ defined as an infimum over unlinked
+strategy pairs (as in \cite{MaintWork} v1), the infimum is $-\infty$
+(battery-burning baselines). The corrected hierarchy is
+Theorem~\ref{thm:imported}(a)--(c); see \cite{MaintWork} (v2), whose v2 also
+corrected the sign convention of work (battery consumption, not increase).
+\end{remark}
+
+\subsection{What these bounds do and do not require}
+
+The bounds are purely operational: they depend on a control model and
+dynamical functionals, not on geometric structure. They remain valid even if
+all geometric scaling hypotheses fail. Geometry enters only when one asks how
+$\dot{C}_{\mathrm{loss}}$ or effective rates depend on a separation parameter.
+
+\section{Layer II: standard dynamical inputs}
+
+In weak-coupling limits with secular approximation, generators take the Davies
+form \cite{Davies74,BreuerPetruccione}; coherence sectors decouple and decay
+at rates fixed by the generator; detailed balance yields the classical
+H-theorem for populations (diagonal contraction) \cite{Spohn78}. These facts
+support rate domination in controlled regimes, but do not by themselves imply
+any dependence on geometric separation --- and, as \cite{Stress} (v2)
+quantifies, the secular construction has a price: at finite size its jump
+operators are delocalized, so ``local coupling'' statements within the Davies
+class must be interpreted with care.
+
+\section{Layer III: the hinge, updated from open to partially resolved}
+
+\begin{hypothesis}[Rate inheritance principle (RIP), v1 formulation]
+\label{hyp:rip}
+Let $\kappa(\epsilon)$ denote an effective coherence-loss rate associated with
+an operational separation parameter $\epsilon$ in a validated Markovian
+regime. Rate inheritance holds if there exist $A, \beta > 0$ with
+$\kappa(\epsilon) \le A\,\mathrm{poly}(m\epsilon)\, e^{-\beta m\epsilon}$
+uniformly over the regime of interest.
+\end{hypothesis}
+
+\begin{remark}[Status, July 2026]\label{rem:status}
+v1 identified Hypothesis~\ref{hyp:rip} as the unique unresolved hinge. Its
+status is now:
+\begin{itemize}
+\item \textbf{Derived in an exactly solvable quasi-free local-sink class and
+verified against exact Liouvillian spectra} \cite{HCut}: for a sub-gap
+probe coupled through a gapped quasi-free buffer to a strictly local Markovian
+sink, the exact Liouvillian rapidity obeys $\kappa(\epsilon) =
+P(\epsilon)\,e^{-2q(\omega_b)\epsilon}$ with the frequency-resolved
+Combes--Thomas exponent $\cosh q(\omega) = (\mu^2 + 4 - \omega^2)/(4\mu)$,
+verified against exact spectra over ten decades; the exponent closes at the
+band edge and vanishes in-band and at criticality.
+\item \textbf{Failure scenario realized, Davies class} \cite{Stress}: with
+near-zero-Bohr-frequency channels, the projected floor envelope persists under
+separation --- v1's ``$\omega = 0$ floors'' scenario --- \emph{within} the
+secular model class, whose jump operators are delocalized at finite size
+($\sim 90\%$ of the zero-frequency component's weight beyond the coupling
+site); the two results bracket the physics rather than contradicting each
+other.
+\item \textbf{Open}: the interacting gapped buffer with strictly local
+dissipation --- the one version not implicit in known physics --- stated as an
+explicit conjecture in \cite{HCut}.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Proxy discipline (new in v2)]\label{rem:proxy}
+v1 allowed $\kappa(\epsilon)$ to be ``any operationally extracted rate proxy
+consistent with the Markovian description.'' The series has since learned, at
+its own expense, that this is too permissive: the windowed proxy of
+\cite{HCut} v1 measured arrival kinematics, not gap physics (its evidence was
+withdrawn after a critical-point control), and the ceiling envelope of
+\cite{Stress} v1 could not feed a maintenance no-go (a floor is required).
+Valid extractions include Liouvillian rapidities, fixed-absolute-time
+exponential fits with gap-removed controls and dissipation-free baselines, and
+projected Dirichlet-form floors with declared operator subspaces
+\cite{HCut,Stress}.
+\end{remark}
+
+\begin{remark}[Falsification criterion, sharpened]
+Hypothesis~\ref{hyp:rip} is falsified in a given regime if static correlations
+decay exponentially while no envelope bound on a \emph{validly extracted}
+$\kappa(\epsilon)$ (Remark~\ref{rem:proxy}) holds there. All claims of
+geometric scaling of coherence-maintenance power depend on this hinge, now
+with its validity domain partially charted.
+\end{remark}
+
+\section{Scenario analysis (exercised, not merely stated)}
+
+\begin{itemize}
+\item \textbf{RIP holds in a regime} (now actual for the quasi-free local-sink
+class): geometric suppression of effective rates combines with
+Theorem~\ref{thm:imported} to give collar-dependent power envelopes, e.g.\
+$P_{\mathrm{extra}} \gtrsim \kB T\,K_\nu(m\epsilon)\,C^\Delta(\rho)$ under the
+two-sided interface assumptions of \cite{MaintWork} (v2), and a logarithmic
+isolation cost for coherence lifetime \cite{HCut}.
+\item \textbf{RIP fails through $\omega = 0$ floors} (now realized within the
+Davies class): maintenance remains costly at any separation; one obtains an
+operational resource horizon rather than geometric protection
+\cite{Stress}.
+\item \textbf{Markovianity fails}: the Davies picture is invalid; the
+maintenance bounds of Theorem~\ref{thm:imported} remain operational but the
+dynamical model requires revalidation.
+\end{itemize}
+
+The design goal of v1 --- robustness under partial refutation --- has been
+exercised twice in practice: the withdrawal of \cite{HCut} v1's numerical
+evidence and the vacuity of \cite{MaintWork} v1's extra-power definition both
+forced repairs, and in both cases the operational core (Layer I) survived
+unchanged while the affected layer was rebuilt with stronger statements.
+
+\section{What this program does not claim}
+
+This framework does not propose modified dynamics, collapse mechanisms,
+derivations of the Born rule, or ontological interpretations of the
+quantum--classical transition. Any notion of a ``cut'' is operational, defined
+solely by control feasibility under explicit resource constraints
+\cite{HCut}.
+
+\section{Conclusion}
+
+We provided an architectural closure of the coherence-maintenance program,
+separating proved operational power bounds from conditional
+dynamical/geometric interfaces and open hypotheses. Coherence maintenance is a
+well-defined operational resource with unavoidable dynamical cost, independent
+of geometry. Rate inheritance --- v1's unique unresolved hinge --- is now
+derived in an exactly solvable class and verified against exact Liouvillian
+spectra, realized in its failure scenario within the Davies class, and open
+precisely for interacting gapped buffers with local dissipation; the proxy-validation discipline that the series acquired along
+the way is recorded here as part of the program's method.
+
+\appendix
+
+\section{Changes relative to version 1}
+
+\begin{enumerate}
+\item Theorem~\ref{thm:imported} restates the imported maintenance bound in
+the corrected form of \cite{MaintWork} (v2); v1's import reproduced the
+vacuous unlinked-pairs formulation (Remark~\ref{rem:importfix}).
+\item The hinge status is updated from ``open'' to ``partially resolved''
+(Remark~\ref{rem:status}), with the quasi-free proof and the Davies-class
+floor realization; the missing case (interacting buffers) is delegated to the
+conjecture of \cite{HCut}.
+\item New proxy-discipline remark (Remark~\ref{rem:proxy}) distilling the
+windowed-proxy withdrawal of \cite{HCut} and the ceiling/floor correction of
+\cite{Stress}.
+\item References updated to the v2 series with companion-repository paths;
+\cite{Stress} added (absent from v1); the ``core technical reference''
+author-profile pointer of v1 is replaced by the repository.
+\end{enumerate}
+
+\begin{thebibliography}{9}\small
+
+\bibitem{Davies74} E.~B.~Davies, \emph{Markovian master equations}, Commun.
+Math. Phys. \textbf{39} (1974), 91--110.
+
+\bibitem{Spohn78} H.~Spohn, \emph{Entropy production for quantum dynamical
+semigroups}, J. Math. Phys. \textbf{19} (1978), 1227--1230.
+
+\bibitem{BreuerPetruccione} H.-P.~Breuer and F.~Petruccione, \emph{The Theory
+of Open Quantum Systems}, Oxford University Press (2002).
+
+\bibitem{HastingsKoma} M.~B.~Hastings and T.~Koma, \emph{Spectral gap and
+exponential decay of correlations}, Commun. Math. Phys. \textbf{265} (2006),
+781--804.
+
+\bibitem{Clustering} L.~Eriksson, \emph{Clustering, Recovery, and Locality in
+Algebraic Quantum Field Theory: Quantitative Bounds via Split Inclusions and
+Modular Theory}, ai.viXra:2512.0060, v2 (2026; v1: 2025). Companion
+repository, \texttt{papers/0060-clustering-recovery}.
+
+\bibitem{MaintWork} L.~Eriksson, \emph{The Conditional Maintenance Work
+Theorem: Operational Power Lower Bounds from Energy Pinching and a
+Split-Inclusion Blueprint for Type III AQFT}, ai.viXra:2512.0061, v2 (2026;
+v1: 2025). Companion repository, \texttt{papers/0061-maintenance-work}.
+
+\bibitem{HCut} L.~Eriksson, \emph{The Heisenberg Cut as a Resource Boundary:
+An Operational Outlook from Coherence Maintenance Costs}, ai.viXra:2512.0064,
+v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0064-heisenberg-cut}.
+
+\bibitem{Stress} L.~Eriksson, \emph{Stress Testing the Rate Inheritance
+Principle: Spectral Decoherence Rates and an Operational Resource Horizon},
+ai.viXra:2512.0070, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0070-rate-inheritance}.
+
+\end{thebibliography}
+
+\end{document}

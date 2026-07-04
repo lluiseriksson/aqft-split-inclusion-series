@@ -1,0 +1,20 @@
+
+--- coupling sigma_x (energy exchange), N=6, gap=1.343 ---
+eps  kappa_sup    kappa_floor
+  1   3.6786e+00   3.5933e-02
+  2   3.0365e+00   6.9429e-02
+  3   2.5791e+00   1.3696e-01
+  4   2.3485e+00   2.9334e-01
+  5   8.9310e-01   2.5689e-01
+
+--- coupling sigma_z (near-zero freq), N=6, gap=1.343 ---
+eps  kappa_sup    kappa_floor
+  1   1.1611e+00   1.7272e-01
+  2   1.1557e+00   1.7699e-01
+  3   1.1338e+00   1.7978e-01
+  4   1.1000e+00   1.1173e-01
+  5   5.2993e-01   3.4735e-01
+
+=== C: delocalization of Bohr components of sigma^z_1 ===
+omega~+0.00: rel. weight beyond distance d=1:0.901 d=2:0.838 d=3:0.747 d=4:0.642
+omega~+1.00: rel. weight beyond distance d=1:0.991 d=2:0.939 d=3:0.870 d=4:0.655

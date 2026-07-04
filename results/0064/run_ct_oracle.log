@@ -1,0 +1,5 @@
+K = 3.0*I - 1.0*(S+S^T), N=400:  c=1.0000  SchurS=5.0000
+conjugacion:  theta_adm=0.1823  cert(theta=0.1732, amp=18.37)  cota respetada: True
+nitida:       q_sharp=arccosh(mu/2t)=0.9624  ajuste kernel=0.9624  coincide: True
+holgura conjugacion/nitida: 5.3x  (esperada; cualquier tasa>0 alimenta hRpoly)
+guardarrail critico: c->0 => theta_adm=2.50e-07, q_sharp=1.00e-03  (ambas se cierran) OK

@@ -1,0 +1,19 @@
+=== Part 2: repaired Theorem 4.7 over the REATTACHMENT channel ===
+nb   kappa   Ckap   synth_err  1-F(exact)   RHS_v2(simpl)  RHS_v2(full)  OK?  [Kop, cond(i), cond(ii)]
+0.02  0.040   13.25   9.7e-02    2.719e-02     1.505e+01     2.275e+01  PASS [0.240, False, False]
+0.10  0.200    3.27   3.4e-08    2.645e-02     1.790e+00     2.088e+00  PASS [0.240, False, False]
+0.40  0.800    1.45   1.5e-02    1.122e-02     6.353e-01     6.376e-01  PASS [0.240, False, False]
+1.00  2.001    1.12   3.5e+00    1.095e-01     4.852e-01     4.493e-01  PASS [0.239, False, False]
+
+=== Part 3: Petz vs reattachment (dose-response; nb=0 is the pure counterexample) ===
+nb   | F(Petz_out, rho0) | ||Tr2(Petz)-sig1||_tr | max|G_petz - G_reatt|
+0.00 |          1.000000 |                0.3654 |               0.8143
+0.02 |          0.996925 |                0.2998 |               0.6922
+0.10 |          0.989926 |                0.1692 |               0.4432
+0.40 |          0.979933 |                0.0515 |               0.2055
+1.00 |          0.973852 |                0.0158 |               0.1072
+
+=== Part 4: Lemma 4.5 -- gap-free counterexample + gap-corrected bound ===
+vac-vs-thermal nb=0.05: 1-F = 0.02410  v1 bound (no gap) = 0.00251  VIOLATED: True
+vac-vs-thermal nb=0.1: 1-F = 0.04654  v1 bound (no gap) = 0.01013  VIOLATED: True
+vac-vs-thermal nb=0.2: 1-F = 0.08713  v1 bound (no gap) = 0.04213  VIOLATED: True
