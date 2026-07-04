@@ -1,0 +1,27 @@
+name: verify
+on: [push, pull_request]
+jobs:
+  fast-suites:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install numpy scipy
+      - name: 0060 exact Gaussian fidelity self-test
+        run: python verification/0060/gauss_fidelity.py
+      - name: 0060 covariance-level suite (repaired theorem, gapped lemma, admissibility, lattice CT)
+        run: python verification/0060/verify_covariance.py
+      - name: 0060 repaired-theorem sweep (Banchi)
+        run: python verification/0060/part2_banchi.py
+      - name: 0060 Petz pipeline control
+        run: python verification/0060/control_petz.py
+      - name: 0061 full verification
+        run: python verification/0061/verify_0061.py
+      - name: 0064 Combes-Thomas oracle
+        run: python verification/0064/ct_oracle.py
+      - name: 0070 main verification
+        run: python verification/0070/verify_0070.py
+  # Long suites (verify_repaired, verify_0060, modelB, sensitivity) are
+  # documented with reference logs in results/ and run manually.
