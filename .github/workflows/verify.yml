@@ -6,9 +6,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: paper artifact hashes
+        run: cd papers && sha256sum -c SHA256SUMS
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - run: pip install numpy scipy
+      - run: pip install -r requirements.txt
       - name: 0060 exact Gaussian fidelity self-test
         run: python verification/0060/gauss_fidelity.py
       - name: 0060 covariance-level suite (repaired theorem, gapped lemma, admissibility, lattice CT)
@@ -23,5 +25,13 @@ jobs:
         run: python verification/0064/ct_oracle.py
       - name: 0070 main verification
         run: python verification/0070/verify_0070.py
+      - name: 0072 rate-inheritance figure oracle
+        run: python verification/0072/make_rip_figure.py
+      - name: 0073 Davies corrected identity oracle
+        run: python verification/0073/verify_corrected.py
+      - name: 0073 Davies witness table oracle
+        run: python verification/0073/witness_tfim.py
+      - name: 0073 interface verification
+        run: python verification/0073/verify_0073.py
   # Long suites (verify_repaired, verify_0060, modelB, sensitivity) are
   # documented with reference logs in results/ and run manually.

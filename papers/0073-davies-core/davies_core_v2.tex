@@ -1,0 +1,589 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  Finite-Dimensional Davies Interface Lemmas and TFIM Witness Tests
+%  Version 2 (July 2026). v1: December 2025 (ai.viXra:2512.0073v1).
+%  Main changes (Appendix D):
+%   1. v1 Lemma 2 (Bohr-block commutator decomposition of the KMS Dirichlet
+%      form) is FALSE for omega != 0 (measured 30-40% deviation at beta=1);
+%      replaced by the exact modular-weighted identity (machine-verified to
+%      1.9e-10). Lemma 1 (omega=0) is the weight-1 special case and stands,
+%      so all witness numerics survive.
+%   2. v1 Lemma 3 (quadratic envelope suppression) is withdrawn as proved:
+%      its proof used the false identity, and its splitting step leaves
+%      non-commutator residuals; replaced by a linear-envelope sufficient
+%      lemma with explicit hypotheses, with the quadratic exponent left open
+%      in the Davies class (it is exact in the local-sink quasi-free class).
+%   3. Imported theorem re-anchored to 2512.0061 v2 (v1 imported the vacuous
+%      unlinked-pairs form).
+%   4. Table 2 site convention fixed (k = j0 - eps; values reproduced
+%      exactly); figure-file remark removed; program map updated to the v2
+%      series; inline Colab listings moved to the companion repository.
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\normsig}[1]{\lVert #1 \rVert_{2,\sigma}}
+
+\title{Finite-Dimensional Davies Interface Lemmas and TFIM Witness Tests\\
+for the Heisenberg Cut as a Resource Boundary}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025) \quad ai.viXra:2512.0073}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Status of claims (read first).}
+\emph{Imported result:} the maintenance inequality, in the corrected form of
+\cite{MaintWork} (v2) --- unconditional entropy-production floor; efficient
+baselines; free-baseline case (Theorem~\ref{thm:imported}).
+\emph{Proved here (finite-dimensional):} the exact $\omega = 0$ Dirichlet
+identity (Lemma~\ref{lem:zero}), the corrected modular-weighted Bohr-block
+identity (Lemma~\ref{lem:blocks}; v1's commutator version was false for
+$\omega \neq 0$), and the witness lower bound (Proposition~\ref{prop:witness}).
+\emph{Sufficient conditional bound:} the linear envelope suppression lemma
+(Lemma~\ref{lem:envelope}) under explicit hypotheses; v1's quadratic version
+is withdrawn as proved and reposed as an open question
+(Remark~\ref{rem:quadratic}).
+\emph{Numerics:} exact diagonalization, $N \le 12$, stability-checked
+finite-size diagnostics; no thermodynamic-limit uniformity claimed. All
+scripts and logs in the companion repository (\texttt{verification/0073}).}}
+\end{center}
+
+\begin{abstract}
+We present a finite-dimensional technical core for interpreting the
+quantum--classical boundary as a control-resource limitation: a state is
+operationally ``classical'' (relative to a chosen conditional expectation)
+whenever sustaining coherence is infeasible under a finite power budget.
+Using battery-assisted thermal operations at temperature $T$ and energy
+pinching $\Delta$, coherence is $C(\rho) = S(\rho\|\Delta[\rho])$ with
+instantaneous loss rate $\dot{C}_{\mathrm{loss}}(\rho)$ under uncontrolled
+Markovian dynamics; the imported maintenance bounds of \cite{MaintWork} (v2)
+give $P_{\mathrm{extra}} \ge \kB T\,\dot{C}_{\mathrm{loss}}$ in their
+corrected operational senses. We isolate the dynamical hinge required for
+geometric scaling claims and prove two interface results for Davies
+generators: a \emph{negative} result --- an active $\omega = 0$ channel
+yields a witness-based rate lower bound via a KMS commutator with $S(0)$
+(exact identity, Lemma~\ref{lem:zero}) --- and a \emph{corrected exact
+Bohr-block identity} for the KMS Dirichlet form with modular weights
+(Lemma~\ref{lem:blocks}), which replaces v1's commutator decomposition
+(measurably false for $\omega \ne 0$: $30$--$40\%$ deviation at $\beta = 1$,
+while the corrected form is machine-exact). A \emph{positive} sufficient
+lemma gives linear envelope suppression under infrared exclusion, quasi-local
+Bohr spectral tails, and thermal clustering of the reference
+(Lemma~\ref{lem:envelope}); whether the Davies class supports the quadratic
+envelope --- which \emph{is} exact in the local-sink quasi-free class
+\cite{HCut} --- is stated as an open question with the obstruction quantified.
+TFIM exact-diagonalization witness protocols ($R_{\mathrm{opt}}(\eps)$,
+scaling and temperature sweeps) and state-side micro-tests (plateau of
+$\dot{C}_{\mathrm{loss}}/C$, linear $\gamma(0)$ and $1/\beta$ scalings, with
+step-size and PSD-clipping stability checks) are reported with reproducible
+conventions.
+\end{abstract}
+
+\section{Scope, non-claims, and program map}
+
+This work does not propose modified quantum dynamics, collapse mechanisms,
+derivations of the Born rule, or ontological resolutions of the measurement
+problem. The claims are operational: minimal control resources required to
+maintain coherence against uncontrolled open-system dynamics under an
+explicit thermodynamic bookkeeping model.
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\hline
+ID & Paper & Role in the series (all at v2, 2026)\\
+\hline
+P1 & ai.viXra:2512.0060 & AQFT clustering; conditional-reattachment
+reconstruction (Petz misidentification corrected in v2)\\
+P2 & ai.viXra:2512.0061 & Maintenance work theorem (work sign and extra-power
+definition corrected in v2)\\
+P3 & ai.viXra:2512.0064 & Heisenberg cut as resource boundary; exact
+rate-inheritance law (v1 windowed evidence withdrawn)\\
+P4 & ai.viXra:2512.0072 & RIP framing note (weak form as lemma; strong-form
+status updated)\\
+P5 & ai.viXra:2512.0071 & Architectural closure map\\
+P6 & ai.viXra:2512.0070 & Davies-class stress test (ceiling/floor envelopes;
+secular delocalization)\\
+P7 & ai.viXra:2512.0073 & \textbf{This work}: finite-dimensional Davies
+interface lemmas, TFIM witnesses, micro-tests\\
+\hline
+\end{tabular}
+\end{center}
+
+All papers, verification scripts, and reference logs are distributed in a
+single companion repository; this paper's scripts live in
+\texttt{verification/0073}. (v1's remark expecting loose figure files at
+compile time is gone: all numerical artifacts are script-generated.)
+
+\section{Finite-dimensional operational core}
+
+\subsection{Thermal state, energy pinching, and coherence}
+
+Let $H_S = \sum_n E_n\Pi_n$ and, at temperature $T$,
+$\gamma_S := e^{-\beta H_S}/\Tr(e^{-\beta H_S})$, $\beta = 1/(\kB T)$. Define
+$\Delta[\rho] := \sum_n \Pi_n\rho\Pi_n$ and $C(\rho) := S(\rho\|\Delta[\rho])$
+(nats), $S(\rho\|\sigma) := \Tr[\rho(\log\rho - \log\sigma)]$.
+
+\subsection{Uncontrolled dynamics and loss rate}
+
+For a Markovian semigroup $\rho_t = e^{t\mathcal{L}}(\rho)$ with
+$\mathcal{L}(\gamma_S) = 0$, define $\dot{C}_{\mathrm{loss}}(\rho) :=
+-\frac{d}{dt}C(\rho_t)|_{t=0}$.
+
+\subsection{Control model and imported maintenance bounds}
+
+\begin{theorem}[Imported, corrected form; proved in \cite{MaintWork} (v2)]
+\label{thm:imported}
+Under stroboscopic battery-assisted thermal operations at temperature $T$:
+(a) $P_{\min}(\rho) \ge \kB T\,\sigma(\rho)$ unconditionally, with
+$\sigma(\rho) \ge 0$ the entropy production rate, split as $\sigma =
+\dot{F}^\Delta_{\mathrm{diag}} + \dot{C}_{\mathrm{loss}}$;
+(b) $P_{\min}(\rho) \ge \kB T\,\dot{C}_{\mathrm{loss}}(\rho)$ under diagonal
+contraction (automatic for Davies generators);
+(c) against thermodynamically $\varepsilon$-efficient population baselines,
+under population autonomy, $P(s) - P(s_{\mathrm{diag}}) \ge \kB
+T\,\dot{C}_{\mathrm{loss}}(\rho) - \varepsilon$; in the free-baseline case
+($\mathcal{L}(\Delta[\rho]) = 0$ and $\Delta[\mathcal{L}(\rho)] = 0$, e.g.\
+pure dephasing), $P_{\mathrm{extra}}(\rho) = P_{\min}(\rho) \ge \kB
+T\,\dot{C}_{\mathrm{loss}}(\rho)$ with no further assumptions.
+\end{theorem}
+
+\begin{remark}[Correction relative to v1]\label{rem:importfix}
+v1 imported this as ``$P_{\mathrm{extra}}$, defined as an infimum over pairs
+of strategies, satisfies $P_{\mathrm{extra}} \ge \kB
+T\,\dot{C}_{\mathrm{loss}}$ whenever both control sets are non-empty''. That
+unlinked-pairs infimum is $-\infty$ (battery-burning baselines) and the v1
+statement is vacuous; see \cite{MaintWork} (v2) and its changelog. All uses
+below are through Theorem~\ref{thm:imported}(a)--(c).
+\end{remark}
+
+\begin{corollary}[No-go from a uniform loss floor]\label{cor:nogo}
+Fix $C_0 > 0$ and a nonempty family $\mathcal{F}_{C_0} \subset \{\rho :
+C(\rho) \ge C_0\}$ within the scope of Theorem~\ref{thm:imported}(b) or (c).
+If $g(C_0) := \inf_{\rho\in\mathcal{F}_{C_0}} \dot{C}_{\mathrm{loss}}(\rho) >
+0$, then maintaining any $\rho \in \mathcal{F}_{C_0}$ requires power at least
+$\kB T\, g(C_0)$ (total power under (b); incremental over efficient baselines
+under (c)); if $P_{\max} < \kB T\, g(C_0)$, sustained maintenance is
+operationally impossible on $\mathcal{F}_{C_0}$.
+\end{corollary}
+
+\section{Davies generators, KMS Dirichlet form, and envelopes}
+
+\subsection{Bohr components, inner product, Dirichlet form}
+
+For a single Hermitian coupling $S = S^\dagger$, define Bohr components
+$S(\omega) := \sum_{E_m - E_n = \omega}\Pi_m S\Pi_n$, so $S =
+\sum_\omega S(\omega)$ and $S(\omega)^\dagger = S(-\omega)$; bath rates obey
+KMS: $\gamma(-\omega) = e^{-\beta\omega}\gamma(\omega)$. With $\sigma =
+\gamma_S$, the KMS inner product is $\langle A, B\rangle_\sigma :=
+\Tr(\sigma^{1/2}A^\dagger\sigma^{1/2}B)$, and for the Heisenberg generator
+$\mathcal{L}^\dagger$ the Dirichlet form is $\mathcal{E}_\sigma(O) :=
+-\mathrm{Re}\,\langle O, \mathcal{L}^\dagger(O)\rangle_\sigma$.
+
+\subsection{Separation and envelopes (ceiling vs.\ floor)}
+
+Fix a coupling region (site $j_0$) and let $\mathcal{A}_\eps$ be operators
+supported at distance $\ge \eps$. Define
+$\kappa(\eps) := \sup_{O\in\mathcal{A}_\eps}
+\mathcal{E}_\sigma(O)/\normsig{O}^2$.
+
+\begin{remark}[Ceiling annotation, inherited from \cite{Stress} (v2)]
+$\kappa(\eps)$ is a \emph{ceiling}; witness lower bounds
+(Proposition~\ref{prop:witness}) bound it from below, which is the correct
+direction for \emph{rate-floor} (negative) conclusions. Maintenance
+\emph{cost} conclusions on state families use the sector quantities of
+Section~\ref{sec:interface}, not $\kappa$; the floor envelope
+$\kappa_\perp$ relevant there is developed in \cite{Stress} (v2).
+\end{remark}
+
+\subsection{Pauli-string tail map}
+
+With $\Lambda$ the sites and $\Omega_\eps := \{j : d(j, j_0) \ge \eps\}$,
+define $E_{<\eps}$ as the orthogonal projection (normalized Hilbert--Schmidt)
+onto Pauli strings supported in $\Lambda\setminus\Omega_\eps$, and
+$\mathrm{tail}_\eps(X) := X - E_{<\eps}[X]$. Norm equivalences with
+$\normsig{\cdot}$ hold at fixed $(N, \beta)$ with constants containing
+$\lambda_{\min}(\sigma)^{-1/2}$ factors.
+
+\section{Interface lemmas}
+
+\subsection{Negative lemma: the $\omega = 0$ channel (exact; unchanged)}
+
+\begin{lemma}[Exact $\omega = 0$ Dirichlet identity]\label{lem:zero}
+If the $\omega = 0$ channel is $\mathcal{L}^\dagger_0(O) =
+\gamma(0)[S(0)OS(0) - \tfrac12\{S(0)^2, O\}]$ with $S(0) := \sum_n \Pi_n S
+\Pi_n$ and $\gamma(0) > 0$, then for all $O$,
+\begin{equation}
+\mathcal{E}^{(0)}_\sigma(O) = \frac{\gamma(0)}{2}\,\normsig{[S(0), O]}^2 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+$S(0)$ commutes with $H_S$, hence with $\sigma^{1/2}$; expanding both sides
+of the KMS pairing and matching terms gives the identity (all modular weights
+are $1$ at $\omega = 0$).
+\end{proof}
+
+\begin{proposition}[Fixed-separation witness lower bound]\label{prop:witness}
+If there exist $c_{\eps_0} > 0$ and $O_{\eps_0}\in\mathcal{A}_{\eps_0}$ with
+$\normsig{[S(0), O_{\eps_0}]}^2/\normsig{O_{\eps_0}}^2 \ge c_{\eps_0}$, then
+$\kappa(\eps_0) \ge \tfrac{\gamma(0)}{2}c_{\eps_0}$.
+\end{proposition}
+
+\subsection{Corrected exact Bohr-block identity}
+
+\begin{lemma}[Modular-weighted Bohr-block identity (corrected)]
+\label{lem:blocks}
+For the single-channel Davies generator $\mathcal{L}^\dagger(O) =
+\sum_\omega \gamma(\omega)[S(\omega)^\dagger O S(\omega) -
+\tfrac12\{S(\omega)^\dagger S(\omega), O\}]$ and Hermitian $O$,
+\begin{equation}\label{eq:blocks}
+\mathcal{E}_\sigma(O) \;=\; \sum_\omega \gamma(\omega)\, e^{\beta\omega/2}\,
+\mathrm{Re}\!\left[\tfrac12\normsig{S(\omega)O}^2 +
+\tfrac12\normsig{OS(\omega)^\dagger}^2 -
+\big\langle S(\omega)O,\, OS(\omega)\big\rangle_\sigma\right].
+\end{equation}
+At $\omega = 0$ the bracket equals $\tfrac12\normsig{[S(0),O]}^2$, recovering
+Lemma~\ref{lem:zero}.
+\end{lemma}
+
+\noindent\emph{Notation.} In \eqref{eq:blocks} the two norms involve
+$S(\omega)O$ and $OS(\omega)^\dagger$, while the cross term is
+$\langle S(\omega)O,\, OS(\omega)\rangle_\sigma$ --- with $S(\omega)$, not
+$S(\omega)^\dagger$, in the second slot. The bracket is therefore \emph{not}
+a commutator norm, and the expression does not reduce to v1's commutator
+square except at $\omega = 0$ (where $S(0)^\dagger = S(0)$ and all three
+terms assemble into $\tfrac12\normsig{[S(0),O]}^2$).
+
+\begin{proof}
+Fix $\omega$, write $L := S(\omega)$. Since $L$ has definite Bohr frequency,
+$\sigma^{1/2}L = e^{-\beta\omega/2}L\sigma^{1/2}$ and $\sigma^{1/2}L^\dagger =
+e^{+\beta\omega/2}L^\dagger\sigma^{1/2}$. Then, for Hermitian $O$,
+\begin{align}
+\langle O, L^\dagger O L\rangle_\sigma
+&= e^{\beta\omega/2}\langle LO, OL\rangle_\sigma, \\
+\langle O, L^\dagger L O\rangle_\sigma
+&= e^{\beta\omega/2}\langle LO, LO\rangle_\sigma, \\
+\langle O, O L^\dagger L\rangle_\sigma
+&= e^{\beta\omega/2}\langle OL^\dagger, OL^\dagger\rangle_\sigma,
+\end{align}
+by moving one $\sigma^{1/2}$ through $L^\dagger$ (first two) or cycling $L$
+through the trace (third). Assembling $-\mathrm{Re}\langle O,
+\mathcal{L}^\dagger_\omega O\rangle_\sigma$ gives the $\omega$-summand of
+\eqref{eq:blocks}.
+\end{proof}
+
+\begin{remark}[v1's Lemma 2 was false]\label{rem:l2false}
+v1 asserted $\mathcal{E}_\sigma(O) = \tfrac12\sum_\omega
+\gamma(\omega)\normsig{[S(\omega), O]}^2$. This omits the modular weights and
+mis-shapes the cross term; numerically (TFIM, $N = 8$, $\beta = 1$, random
+Hermitian $O$) it deviates from the true Dirichlet form by $30$--$40\%$,
+while \eqref{eq:blocks} agrees to $2\times 10^{-10}$
+(Appendix~\ref{app:verification}). Everything in v1 that used only the
+$\omega = 0$ case (the witness program of Section~\ref{sec:tfim}) is
+unaffected.
+\end{remark}
+
+\subsection{Positive lemma: linear envelope suppression (corrected scope)}
+
+\begin{definition}[Infrared exclusion]
+The coupling satisfies IR exclusion at scale $\omega_* > 0$ if
+$S(\omega) = 0$ for all $0 < |\omega| < \omega_*$ and the $\omega = 0$
+channel is absent ($\gamma(0) = 0$ or $S(0) \in \mathbb{C}\mathbf{1}$).
+\end{definition}
+
+\begin{lemma}[Linear envelope suppression (sufficient)]\label{lem:envelope}
+Assume: (i) IR exclusion; (ii) quasi-local Bohr tails: there are $A, \xi > 0$,
+$p \ge 0$ with $\|\mathrm{tail}_\eps(S(\omega))\|_\infty \le
+A(1+\eps)^p e^{-\eps/\xi}$ for all $|\omega| \ge \omega_*$; (iii) bounded
+weighted rates: $\Gamma_\beta := \sum_{|\omega|\ge\omega_*}
+\gamma(\omega)e^{\beta\omega/2} < \infty$; (iv) thermal clustering across the
+cut: for $O \in \mathcal{A}_\eps$ and near-supported $P$, the KMS-norm
+factorization defects obey
+$\big|\normsig{OP^\dagger}^2 - \normsig{OP}^2\big| \le
+B e^{-\eps/\xi'}\,\|P\|_\infty^2\normsig{O}^2$ for some $B, \xi' > 0$.
+Then there is $C > 0$ (explicit in $A, B, \Gamma_\beta, \|S\|_\infty$) with
+\begin{equation}
+\kappa(\eps) \;\le\; C\,(1+\eps)^{p}\, e^{-\eps/\min(\xi, \xi')}.
+\end{equation}
+All constants are fixed-$(N, \beta)$ quantities unless hypotheses
+(ii)--(iv) are assumed uniformly: $\Gamma_\beta$, the norm-equivalence
+factors, and the clustering constants of (iv) may all depend on size and
+temperature, and no thermodynamic-limit uniformity is claimed.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Apply Lemma~\ref{lem:blocks}. For $O \in \mathcal{A}_\eps$ split each block
+$S(\omega) = P_\omega + T_\omega$ with $P_\omega := E_{<\eps}[S(\omega)]$
+(near-supported, hence commuting with $O$ and with $O^\dagger$) and
+$T_\omega := \mathrm{tail}_\eps(S(\omega))$. Substituting into
+\eqref{eq:blocks} and using $[P_\omega, O] = [P_\omega^\dagger, O] = 0$, every
+term containing at least one $T_\omega$ is bounded via Cauchy--Schwarz by
+$\|T_\omega\|_\infty(\|S\|_\infty + \|T_\omega\|_\infty)\normsig{O}^2$; the
+$T$-independent residue of each block is
+$\tfrac12(\normsig{OP_\omega^\dagger}^2 - \normsig{OP_\omega}^2)$, which
+hypothesis (iv) bounds by $Be^{-\eps/\xi'}\|S\|_\infty^2\normsig{O}^2$
+(splitting defects between $P_\omega$ and $S(\omega)$ are again $T$-linear).
+Summing with weights $\gamma(\omega)e^{\beta\omega/2} \le \Gamma_\beta$ and
+taking the supremum over $O$ gives the claim.
+\end{proof}
+
+\begin{remark}[The quadratic envelope is withdrawn as proved, and reposed]
+\label{rem:quadratic}
+v1 claimed $\kappa(\eps) \le C(1+\eps)^{2p}e^{-2\eps/\xi}$ (tail-squared).
+Its proof used the false identity of Remark~\ref{rem:l2false}, and with the
+corrected identity the splitting produces $T$-\emph{linear} cross terms and
+$T$-independent thermal-clustering residues that the commutator cancellation
+of v1 no longer removes. An exact ``tail-reduction'' shortcut
+($\mathcal{E}_\sigma(O; \{S(\omega)\}) = \mathcal{E}_\sigma(O;
+\{T_\omega\})$) is also numerically false --- measured relative defect
+$\approx 5\times 10^{-3}$ at $(N, \beta, \eps) = (8, 1, 3)$
+(Appendix~\ref{app:verification}) --- because the near parts $P_\omega$ do
+not have definite Bohr frequency, so the pair-positivity argument that would
+kill the cross terms does not apply. Whether the Davies class supports a
+quadratic envelope under strengthened hypotheses is open; note that the
+quadratic (amplitude-squared) exponent \emph{is} exact in the local-sink
+quasi-free class, $\kappa(\eps) \propto e^{-2q(\omega_b)\eps}$ \cite{HCut},
+and the distinction between correlator-mediated (linear) and
+amplitude-mediated (squared) envelopes is precisely the one drawn in
+\cite{RIP} (v2).
+\end{remark}
+
+\section{TFIM witness computations (exact diagonalization)}\label{sec:tfim}
+
+\subsection{Model and conventions}
+
+TFIM on $N$ spins, open boundaries, $H_S = -J\sum\sigma^x_i\sigma^x_{i+1} -
+h\sum\sigma^z_i$, $h > J$; coupling site $j_0 = \lfloor N/2\rfloor$
+(0-indexed), $S = \sigma^z_{j_0}$; thermal $\sigma = \gamma_S$ at $\beta \in
+\{0.5, 1, 2\}$.
+
+\begin{remark}[Site convention (v2 clarification)]\label{rem:convention}
+For a distant probe site at separation $\eps$ we take $k = j_0 - \eps$
+(equivalently, the maximum of the two ratios at $j_0 \pm \eps$; on an open
+chain with even $N$, $j_0 = N/2$ sits right of center and the two sides are
+\emph{not} equivalent). v1 wrote $k = j_0 \pm \eps$ without fixing the
+branch; the tabulated values correspond to $k = j_0 - \eps$ and are
+reproduced exactly by the distributed script
+(Appendix~\ref{app:verification}).
+\end{remark}
+
+\subsection{Witness ratios and results}
+
+$R(\eps; O) := \normsig{[S(0), O]}^2/\normsig{O}^2$ and
+$R_{\mathrm{opt}}(\eps) := \max_{O\in\mathrm{span}\{\sigma^x_k, \sigma^y_k,
+\sigma^z_k\}} R(\eps; O)$; by Lemma~\ref{lem:zero}, $\kappa(\eps) \ge
+\tfrac{\gamma(0)}{2}R_{\mathrm{opt}}(\eps)$.
+
+\begin{center}
+\begin{tabular}{c c c c}
+\hline
+$N$ & $R_{\mathrm{opt}}(1)$ & $R_{\mathrm{opt}}(2)$ & $R_{\mathrm{opt}}(3)$\\
+\hline
+8 & 0.134648 & 0.0885503 & 0.0684289\\
+10 & 0.0999406 & 0.0696450 & 0.0550748\\
+12 & 0.0793451 & 0.0574518 & 0.0464596\\
+\hline
+\end{tabular}
+\end{center}
+
+Scaling tests with $\eps = \eps(N) \in \{\lfloor N/4\rfloor, \lfloor
+N/3\rfloor, \eps_{\max}(N), 3\}$ and temperature sweeps over $\beta \in
+\{0.5, 1, 2\}$ behave as in v1 (monotone decrease of
+$R_{\mathrm{opt}}(\eps(N))$ over the tested sizes, non-negligible fixed-$\eps$
+witnesses); the plots are regenerated by
+\texttt{verification/0073/witness\_tfim.py} rather than shipped as loose
+image files (v1 Remark~1 removed).
+
+\section{State-side interface micro-tests}\label{sec:micro}
+
+The weak-coherence families $\rho_E(\alpha) := \mathrm{diag}(p) +
+\alpha\sqrt{p_m p_n}(|m\rangle\langle n| + |n\rangle\langle m|)$ (energy
+basis, $\Delta[\rho(\alpha)] = \mathrm{diag}(p)$ by construction) give direct
+access to $r(\rho) := \dot{C}_{\mathrm{loss}}(\rho)/C(\rho)$. As in v1
+(unchanged; these tests use only exact semigroup steps and
+Lemma~\ref{lem:zero}-type channels): for $N = 6$, $J = 1$, $h = 1.5$,
+$\beta = 1$, center coupling, $r(\rho)$ exhibits a plateau
+$\approx 0.157$--$0.158$ ($\{\pm\omega\}$ truncation) and
+$\approx 0.160$--$0.161$ with an added $\omega = 0$ channel at
+$\gamma(0) = 0.2$; in the $\omega = 0$-only regime the plateau scales
+linearly in $\gamma(0)$ ($r/\gamma(0) = 0.2039$ across
+$\gamma_0 \in \{0.05, 0.1, 0.4\}$) and, at fixed pair $(m, n) = (0, 1)$ and
+fixed $\gamma_0$, as $1/\beta$ ($\beta\, r$ constant to $2\times 10^{-3}$
+relative across $\beta \in \{0.5, 1, 2, 4\}$). Euler step-size and
+PSD-clipping stability checks as in v1 (plateau stable to $10^{-6}$ across
+$dt \in \{10^{-4}, 5\times 10^{-5}, 10^{-5}\}$ and clipping thresholds
+$10^{-12}$--$10^{-16}$).
+
+\section{State--observable interface (explicit hypothesis)}
+\label{sec:interface}
+
+The maintenance inequality bounds power via the state functional
+$\dot{C}_{\mathrm{loss}}(\rho)$; $\kappa(\eps)$ is an observable-side ceiling.
+The bridge is stated as an explicit, falsifiable hypothesis, unchanged from
+v1: on families that are (1) weak-coherence, (2) population-nonextremal
+($\Delta[\rho] \ge p_{\min}\mathbf{1}$), (3) coherence-supported in a fixed
+Bohr sector set $\Omega$, and (4) within a validated Davies regime, one has
+$\dot{C}_{\mathrm{loss}}(\rho) \ge (1 - \eta_\eps)\,\Gamma_\Omega\, C(\rho)$
+with $\Gamma_\Omega := \min_{\omega\in\Omega}\lambda_{\min}(\Gamma(\omega))$
+and $\eta_\eps \to 0$ as the coherence scale vanishes. The micro-tests of
+Section~\ref{sec:micro} are direct numerical probes of this interface.
+
+\section{Operational consequence (conditional, well-typed)}
+
+Combining Theorem~\ref{thm:imported}(b) or (c) with the interface hypothesis:
+for $\rho$ in such a family with $C(\rho) \ge C_0$,
+\begin{equation}
+P \;\ge\; \kB T\,(1 - \eta_\eps)\,\Gamma_\Omega\, C_0,
+\end{equation}
+where $P$ is total power under diagonal contraction, or incremental power
+over $\varepsilon$-efficient baselines (up to $\varepsilon$) under population
+autonomy.
+
+\section{Conclusion}
+
+We separated the corrected, imported thermodynamic maintenance bounds from
+finite-dimensional dynamical interface results. In Davies dynamics, the exact
+$\omega = 0$ identity yields operational witness lower bounds (reproduced
+exactly under the fixed site convention), and the corrected modular-weighted
+Bohr-block identity replaces v1's false commutator decomposition ---
+machine-verified, and reducing to the $\omega = 0$ case where all v1
+numerics lived. Envelope suppression survives as a \emph{linear} sufficient
+bound with explicit hypotheses; the quadratic Davies envelope is open, while
+being exactly realized in the quasi-free local-sink class \cite{HCut}. TFIM
+witnesses ($N \le 12$) remain finite-size diagnostics, not
+thermodynamic-limit claims.
+
+\appendix
+
+\section{Numerical stability checks}
+
+As in v1: the plateau ratio $r = \dot{C}_{\mathrm{loss}}/C$ moves by less
+than $2.3\times 10^{-6}$ across Euler steps $dt \in \{10^{-4}, 5\times
+10^{-5}, 10^{-5}\}$ and is bitwise stable across PSD clipping thresholds
+$\{10^{-12}, 10^{-14}, 10^{-16}\}$.
+
+\section{Imported inequality: precise pointer map (v2)}
+
+Theorem~\ref{thm:imported}(a) = \cite{MaintWork} v2, Theorem on entropy
+production and rate-Pythagoras split; (b) = its total-power corollary under
+diagonal contraction; (c) = its efficient-baseline theorem and free-baseline
+proposition. v1's pointer map targeted the v1 statement whose extra-power
+definition was vacuous (Remark~\ref{rem:importfix}).
+
+\section{Reproducibility}
+
+All scripts formerly inlined in v1's Appendix~C are maintained, with
+reference logs, in the companion repository under
+\texttt{verification/0073}: \texttt{witness\_tfim.py} (Table values, scaling
+and $\beta$ sweeps, site convention of Remark~\ref{rem:convention}),
+\texttt{verify\_0073.py} (identity tests), and the micro-test scripts.
+
+\section{Changes relative to version 1}
+
+\begin{enumerate}
+\item \textbf{Lemma 2 corrected} (Lemma~\ref{lem:blocks},
+Remark~\ref{rem:l2false}): v1's Bohr-block commutator decomposition of the
+KMS Dirichlet form is false for $\omega \ne 0$ (measured $30$--$40\%$
+deviation at $\beta = 1$); the exact identity carries modular weights
+$e^{\beta\omega/2}$ and a non-commutator cross term, verified to
+$1.9\times 10^{-10}$. Lemma~\ref{lem:zero} ($\omega = 0$) is the weight-1
+special case and stands; all v1 witness numerics are unaffected.
+\item \textbf{Lemma 3 rescoped} (Lemma~\ref{lem:envelope},
+Remark~\ref{rem:quadratic}): the quadratic envelope is withdrawn as proved
+(its proof used the false identity; the corrected splitting leaves $T$-linear
+cross terms and thermal-clustering residues, and the exact tail-reduction
+shortcut is numerically false, defect $\approx 5\times 10^{-3}$); replaced by
+a linear-envelope sufficient lemma with explicit hypotheses, including a new
+thermal-clustering hypothesis (iv). The quadratic case is reposed as an open
+question, exactly realized in the quasi-free local-sink class \cite{HCut}.
+\item \textbf{Imported theorem re-anchored} to \cite{MaintWork} (v2)
+(Theorem~\ref{thm:imported}, Remark~\ref{rem:importfix}); the no-go corollary
+retyped accordingly.
+\item \textbf{Site convention fixed} (Remark~\ref{rem:convention}): Table
+values correspond to $k = j_0 - \eps$; reproduced exactly by script.
+\item \textbf{Editorial}: v1's compile-time figure-file remark removed
+(artifacts script-generated); program map updated to the v2 series
+(P1--P7 with corrected descriptions); inline Colab listings moved to the
+repository; ceiling/floor annotation added to $\kappa(\eps)$ per
+\cite{Stress} (v2).
+\end{enumerate}
+
+\section{Verification summary}\label{app:verification}
+
+Distributed scripts (TFIM $N = 8$, $\beta = 1$, $h = 1.5$, $J = 1$, exact
+Bohr blocks): (i) corrected identity \eqref{eq:blocks} vs.\ the direct
+Dirichlet form: worst relative deviation $1.9\times 10^{-10}$ over random
+Hermitian $O$ (positive-frequency blocks); v1's commutator form: deviations
+$0.30$--$0.39$. (ii) Witness table reproduced exactly under
+Remark~\ref{rem:convention} ($0.134648, 0.0885503, 0.0684289$ at $\eps = 1,
+2, 3$, $N = 8$); the $k = j_0 + \eps$ branch gives $0.088550, 0.068429,
+0.053108$, quantifying the open-chain asymmetry. (iii) Exact tail-reduction
+defect: $\mathcal{E}(O; S)$ vs.\ $\mathcal{E}(O; \mathrm{tail}\,S)$ differ
+by $4.6\times 10^{-3}$ relative at $\eps = 3$ for a far-supported two-site
+$O$, confirming Remark~\ref{rem:quadratic}.
+
+\begin{thebibliography}{9}\small
+
+\bibitem{Clustering} L.~Eriksson, \emph{Clustering, Recovery, and Locality in
+Algebraic Quantum Field Theory}, ai.viXra:2512.0060, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0060-clustering-recovery}.
+
+\bibitem{MaintWork} L.~Eriksson, \emph{The Conditional Maintenance Work
+Theorem}, ai.viXra:2512.0061, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0061-maintenance-work}.
+
+\bibitem{HCut} L.~Eriksson, \emph{The Heisenberg Cut as a Resource Boundary},
+ai.viXra:2512.0064, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0064-heisenberg-cut}.
+
+\bibitem{Stress} L.~Eriksson, \emph{Stress Testing the Rate Inheritance
+Principle}, ai.viXra:2512.0070, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0070-rate-inheritance}.
+
+\bibitem{Closure} L.~Eriksson, \emph{Operational Coherence Maintenance:
+Proven Results, Conditional Interfaces, and Open Dynamical Gaps},
+ai.viXra:2512.0071, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0071-program-closure}.
+
+\bibitem{RIP} L.~Eriksson, \emph{The Rate Inheritance Principle},
+ai.viXra:2512.0072, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0072-rip-principle}.
+
+\bibitem{Davies74} E.~B.~Davies, \emph{Markovian master equations}, Commun.
+Math. Phys. \textbf{39} (1974), 91--110.
+
+\bibitem{Spohn78} H.~Spohn, \emph{Entropy production for quantum dynamical
+semigroups}, J. Math. Phys. \textbf{19} (1978), 1227--1230.
+
+\bibitem{KastoryanoTemme2013} M.~J.~Kastoryano and K.~Temme, \emph{Quantum
+logarithmic Sobolev inequalities and rapid mixing}, J. Math. Phys.
+\textbf{54} (2013), 052202.
+
+\end{thebibliography}
+
+\end{document}

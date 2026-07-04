@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — five v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — seven v2 papers + exact verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Five companion papers that cite one another (ai.viXra 2512 series), each at
+Seven companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with every correction driven or confirmed by exact numerical
 verification. Scripts and reference logs are included; nothing in the checks
 relies on the approximations being tested.
@@ -13,9 +13,11 @@ relies on the approximations being tested.
 | **0061** — *The Conditional Maintenance Work Theorem* | `papers/0061-maintenance-work/` | `verification/0061/` | Thermodynamics: battery-accounted power floors for maintaining states/coherence; Type III blueprint uses 0060's split machinery |
 | **0064** — *The Heisenberg Cut as a Resource Boundary* | `papers/0064-heisenberg-cut/` | `verification/0064/` | Dynamics/interpretation: exact rate inheritance through gapped buffers; grounds its maintenance inequality in 0061 (v2) and its geometry in 0060 |
 | **0070** — *Stress Testing the Rate Inheritance Principle* | `papers/0070-rate-inheritance/` | `verification/0070/` | Stress test: Davies-generator regime where rate inheritance fails; ceiling/floor envelopes; resource-horizon no-go |
-| **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the other four |
+| **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the others |
+| **0072** — *The Rate Inheritance Principle (framing note)* | `papers/0072-rip-principle/` | `verification/0072/` (figure script; evidence inherited from 0064/0070) | Formulates RIP: weak form as a proved lemma, strong form with updated status (derived quasi-free with squared exponent; Davies-class failure) |
+| **0073** — *Finite-Dimensional Davies Interface Lemmas and TFIM Witness Tests* | `papers/0073-davies-core/` | `verification/0073/` | The technical core (P7): exact omega=0 identity, corrected modular-weighted Bohr-block identity, witness protocols, linear envelope lemma |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070} (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -72,6 +74,33 @@ nonlocality caveat), open exactly for interacting gapped buffers. A new
 proxy-discipline remark distills the windowed-proxy withdrawal and the
 ceiling/floor correction. 0070 added to its references (absent in v1).
 
+**0072** (v2 written here, replaces v1): v1's surrogate decay-curve evidence
+(quantum-trajectory proxy on a TFIM buffer chain, no critical control, plus a
+broken figure placeholder `nedladdning.png`) is withdrawn — it belongs to the
+proxy class whose failure the 0064 v2 critical control exposed — and replaced
+by exact Liouvillian-rapidity evidence generated from the 0064 verification
+data (`verification/0072/make_rip_figure.py`). The weak form is promoted to a
+proved lemma with explicit hypotheses; the strong form's status is updated
+(derived in the quasi-free local-sink class with the squared-amplitude
+exponent v1 anticipated; failure realized within the Davies class per 0070);
+secular delocalization added as failure mode; the falsification protocol
+gains the proxy-validation clause; maintenance inequality re-anchored to
+0061 v2.
+
+**0073** (v2 written here, replaces v1): (1) v1's Lemma 2 (Bohr-block
+commutator decomposition of the KMS Dirichlet form) is FALSE for omega != 0 —
+measured 30-40% deviation at beta=1; replaced by the exact modular-weighted
+identity, machine-verified to 1.9e-10 (Lemma 1 at omega=0 is the weight-1
+special case, so all witness numerics survive). (2) v1's quadratic envelope
+Lemma 3 is withdrawn as proved (broken proof; exact tail-reduction shortcut
+numerically false, defect ~5e-3) and replaced by a linear-envelope lemma with
+explicit hypotheses; the quadratic case is open in the Davies class and exact
+in 0064's local-sink class. (3) Imported theorem re-anchored to 0061 v2 (v1
+imported the vacuous form verbatim). (4) Witness Table site convention fixed
+(k = j0 - eps; values reproduced exactly: 0.134648/0.0885503/0.0684289 at
+N=8). (5) Compile-time figure remark removed; program map updated; inline
+Colab listings moved to `verification/0073/`.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -123,6 +152,12 @@ python verification/0064/ct_oracle.py           # Combes–Thomas oracle, second
 python verification/0064/modelB.py              # windowed-proxy control, long (N=10 exact)
 # 0070 (~1 min; also regenerates its figure data)
 python verification/0070/verify_0070.py
+# 0072 (regenerates the exact RIP figure)
+python verification/0072/make_rip_figure.py
+# 0073 (Davies corrected identities and witness tables)
+python verification/0073/verify_corrected.py
+python verification/0073/witness_tfim.py
+python verification/0073/verify_0073.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with

@@ -1,6 +1,7 @@
 # LaTeX
 *.aux
 *.log
+!results/**/*.log
 *.out
 *.toc
 *.synctex.gz

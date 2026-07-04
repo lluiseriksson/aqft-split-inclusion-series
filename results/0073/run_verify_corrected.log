@@ -1,0 +1,5 @@
+=== A: corrected per-block identity ===
+worst relative deviation (positive-freq blocks, random O): 1.87e-10
+
+=== B: exact tail reduction (KMS pairs) ===
+eps=3: E(O; S) = 3.1979441188e-01   E(O; tail S) = 3.2127321052e-01   rel.diff = 4.62e-03
