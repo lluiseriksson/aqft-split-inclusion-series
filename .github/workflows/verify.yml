@@ -67,8 +67,10 @@ jobs:
         run: python verification/2601-0046/verify_2601_0046.py
       - name: 2601.0047 Z2 benchmark smoke
         run: python verification/2601-0047/verify_2601_0047.py --smoke
+      - name: 2601.0050 CMI Z2 benchmark smoke
+        run: python verification/2601-0050/verify_2601_0050.py --smoke
   # Long suites (verify_repaired, verify_0060, modelB, sensitivity, 0101,
   # 2601.0023 --with-tfim, 2601.0035 --N11,
-  # 2601.0038/0040/0042/0043/0047 default/chunked grids; and
+  # 2601.0038/0040/0042/0043/0047/0050 default/chunked grids; and
   # 0105 on-device JSON reanalysis once data are restored) are
   # documented with reference logs in results/ and run manually.
