@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty-one v2 papers + verification suites
+# AQFT / Operational Coherence Series — twenty-two v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty-one companion papers that cite one another (ai.viXra 2512 series), each at
+Twenty-two companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -30,8 +30,9 @@ spelled out in the honesty statement.
 | **2601.0031** — *From Static Recoverability to Maintenance Power* | `papers/2601-0031-typed-pipeline/` | `verification/2601-0031/` (finite GNS/KMS bridge; v1 work-sign counterexample; corrected sign check; N-trend) | Typed-pipeline companion for the 2601 block: static-to-dynamic-to-thermodynamic bookkeeping with explicit finite diagnostics |
 | **2601.0034** — *Modular Recovery from Split Inclusions* | `papers/2601-0034-modular-recovery-split/` | `verification/2601-0034/` (finite-dimensional dictionary: CMI reduction, N-dependence demo, corrected Fawzi-Renner factor) | Split-inclusion-facing dictionary note for the 2601 block; v2 corrects the Fawzi-Renner factor in the finite anchor |
 | **2601.0035** — *A Non-Gaussian Clustering-Recovery Bridge via CMI* | `papers/2601-0035-nongaussian-bridge/` | `verification/2601-0035/` (finite ED benchmark; corrected Fawzi-Renner factor; v1 overshoot artifact check) | Non-Gaussian finite-chain bridge companion for 0101/0034; regenerates the Petz-vs-FR benchmark on the fast grid |
+| **2601.0038** — *Operational Signatures of Criticality from Petz Recovery* | `papers/2601-0038-criticality-petz-distance/` | `verification/2601-0038/` (CI smoke + manual finite ED benchmark; Petz-distance signal + CMI companion; chunkable) | Finite criticality-diagnostic companion for the recovery block; v2 adds the C-size caveat, window note, and CMI diagnostic |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034} (finite non-Gaussian bridge benchmark) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -272,6 +273,16 @@ against the half-scale; against the corrected scale the finite grid has
 but is left out of fast CI. These are finite ED benchmarks, not a general
 non-Gaussian AQFT theorem.
 
+**2601.0038** (v2 package integrated here): the criticality/Petz-distance note
+keeps the v1 numerical signal but adds three finite-scope qualifications: the
+absolute recovery-length reading is confounded by shrinking `|C|` at fixed
+`N`, the resolved window depends on `(epsilon, beta, N)`, and a CMI companion
+diagnostic shows the same qualitative finite-grid signal. CI runs an explicit
+`--smoke` grid that exercises the finite Petz/CMI code path; the default
+suite regenerates the longer `N=9` Petz and CMI tables, while `--N11` and
+`--chunk hz beta` are manual support modes. These are finite ED diagnostics,
+not a continuum criticality theorem.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -358,6 +369,12 @@ python verification/2601-0034/verify_2601_0034.py
 python verification/2601-0035/verify_2601_0035.py
 # Optional paper-size comparison, slower
 python verification/2601-0035/verify_2601_0035.py --N11
+# 2601.0038 (finite Petz-distance/CMI criticality diagnostic)
+python verification/2601-0038/verify_2601_0038.py --smoke
+# Longer/manual finite grids
+python verification/2601-0038/verify_2601_0038.py
+python verification/2601-0038/verify_2601_0038.py --N11
+python verification/2601-0038/verify_2601_0038.py --chunk 0.0 12.0
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -418,3 +435,9 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   benchmark for a non-Gaussian TFIM bridge. It checks the corrected
   Fawzi-Renner scale and finite-grid CMI decay; it does not prove a continuum,
   Type III, or general non-Gaussian clustering-recovery theorem.
+- **2601.0038**: verification/2601-0038 is a finite exact-diagonalization
+  Petz-distance/CMI diagnostic on fixed finite chains. CI runs only the
+  explicit smoke grid; the `N=9`, `--N11`, and chunked grids are longer manual
+  runs. The package reports a finite criticality-associated signal and its
+  `|C|` and window caveats; it does not prove a continuum criticality,
+  Type III, or general recovery-length theorem.
