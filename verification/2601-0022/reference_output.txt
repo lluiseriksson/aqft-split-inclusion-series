@@ -1,0 +1,22 @@
+== PART A: witness ED (benchmark declarado) ==
+[h=1.05 S=Z t=60s]
+  L=1: rango kappa_min = [1.789e-03, 5.721e-03]  (publicado v1: [3.2e-04, 1.2e-03])
+  L=2: rango kappa_min = [4.309e-03, 6.821e-03]  (publicado v1: [8.2e-04, 2.9e-03])
+== PART A-null: acoplo con componente omega=0 nula ==
+[h=1.05 S=X t=66s]
+  L=1: rango kappa_min = [2.424e-29, 9.594e-29]
+  L=2: rango kappa_min = [7.322e-29, 1.519e-28]
+== PART B: potencia del pipeline a n=5 ==
+umbral de deteccion de floor a n=5 (60 repeticiones por nivel):
+  D0 =  0 sigma: BIC detecta 1/60  AICc detecta 0/60
+  D0 =  1 sigma: BIC detecta 11/60  AICc detecta 0/60
+  D0 =  2 sigma: BIC detecta 12/60  AICc detecta 0/60
+  D0 =  4 sigma: BIC detecta 20/60  AICc detecta 0/60
+  D0 =  8 sigma: BIC detecta 17/60  AICc detecta 0/60
+  D0 = 16 sigma: BIC detecta 23/60  AICc detecta 0/60
+  D0 = 32 sigma: BIC detecta 51/60  AICc detecta 2/60
+deteccion >=80%: BIC a partir de D0 ~ 32 sigma; AICc a partir de D0 ~ None sigma
+=> a n=5, AICc solo detecta floors enormes (penalizacion ~20); BIC es el discriminador operativo.
+   El 'no floor' observado (dBIC ~ +1.6 = penalizacion pura) significa mejora chi2 ~ 0: genuinamente sin senal.
+[nota: rangos v1 no reproducidos exactamente porque v1 no declaro (J,h,S); mismo orden y mecanismo.
+ Esta suite regenera el benchmark declarado aqui; no incluye trayectorias TEBD/MCWF.]

@@ -1,0 +1,15 @@
+# LaTeX
+*.aux
+*.log
+!results/**/*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+# Python
+__pycache__/
+*.pyc
+*.npy
+verification/0070/tmp_*.py
+.venv/

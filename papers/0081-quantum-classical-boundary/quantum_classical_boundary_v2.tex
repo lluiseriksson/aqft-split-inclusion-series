@@ -1,0 +1,464 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  Operational Coherence Maintenance and the Quantum-Classical Boundary
+%  Version 2 (July 2026). v1: December 2025 (ai.viXra:2512.0081v1).
+%  Main changes (Appendix C):
+%   1. v1's Theorem 1 ("proved here") used the unlinked-pairs infimum for
+%      P_extra, which is vacuous (-infinity), and its Appendix A Step 4
+%      subtracted two lower bounds (invalid). v2: the salvageable part of
+%      that appendix (Steps 0-3+5) proves the unconditional entropy-
+%      production bound; the coherence and extra-power bounds are imported
+%      from 2512.0061 v2 (efficient baselines; free-baseline case).
+%   2. The paper's own Protocol B uses a dephasing dissipator, which is
+%      exactly the free-baseline case: the headline inequality is a theorem
+%      with no further assumptions in the paper's own experimental setting.
+%   3. RIP status updated (0064/0070/0072 v2); proxy-discipline paragraph
+%      added to Protocol B (whose fixed-horizon metric and unitary-baseline
+%      subtraction already comply); series references added (v1 cited none).
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\Ctrl}{\mathrm{Ctrl}}
+\newcommand{\Pextra}{P_{\mathrm{extra}}}
+\newcommand{\Pmin}{P_{\min}}
+\newcommand{\Closs}{\dot{C}_{\mathrm{loss}}}
+
+\title{Operational Coherence Maintenance and the\\
+Quantum--Classical Boundary:\\
+\large Formal Definitions, Falsifiable Protocols, and an Outlook for
+Cognitive Systems}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025) \quad ai.viXra:2512.0081}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Scope note.} No collapse mechanism is proposed; the Born rule is not
+derived; no claims are made about phenomenological consciousness.
+\textbf{Series note (v2).} This is the integrative, protocol-facing paper of
+the coherence-maintenance series (ai.viXra:2512.0060/0061/0064/0070/0071/
+0072/0073, all at v2, 2026, with verification suites in a single companion
+repository). v1 of this paper stated its central inequality as proved here
+via a paired-strategy infimum; that formulation was vacuous, and the
+corrected operational hierarchy is imported from 2512.0061 (v2)
+(Theorem~\ref{thm:hierarchy}); what \emph{is} proved here
+(Appendix~\ref{app:proof}) is the unconditional entropy-production bound.}}
+\end{center}
+
+\begin{abstract}
+Maintaining quantum coherence against uncontrolled open-system dynamics is a
+control task with unavoidable thermodynamic cost. In a finite-dimensional
+setting with battery-assisted thermal operations at bath temperature $T$, we
+present the corrected operational hierarchy for maintenance power: an
+unconditional lower bound $\Pmin(\rho) \ge \kB T\,\sigma(\rho)$ with
+$\sigma(\rho)$ the entropy production rate of the target (proved in
+Appendix~\ref{app:proof}); the coherence-power bound $\Pmin \ge \kB
+T\,\Closs(\rho)$ under diagonal contraction; and incremental (extra) power
+bounds relative to thermodynamically efficient population-maintenance
+baselines, which become assumption-free exactly when the pinched target is
+stationary --- e.g.\ under pure dephasing, the very dissipator used in this
+paper's numerical protocol. Here $C(\rho) = S(\rho\|\Delta[\rho])$ is
+relative-entropy coherence to energy pinching and $\Closs(\rho) :=
+-\frac{d}{dt}C(\rho_t)|_{t=0}$. These statements are operational,
+observer-independent, and geometry-free. We then present the Rate
+Inheritance Principle (RIP) as the falsifiable dynamical bridge between
+static clustering and decoherence rates, with its July-2026 status: weak
+form a lemma under explicit hypotheses; strong form derived, with a
+frequency-resolved squared-amplitude exponent, in an exactly solvable
+quasi-free local-sink class; failure through near-zero Bohr-frequency
+channels realized within the secular Davies class. The exact $\omega = 0$
+Dirichlet identity underlying the failure mode is quoted in its verified
+form. We provide falsifiable protocols distinguishing one-shot work from
+sustained maintenance power, including a numerical stress test
+(distance-independent influence floor without an interface vs.\
+collar-induced suppression) in a transverse-field Ising chain with remote
+dephasing, whose fixed-horizon metric and unitary-baseline subtraction
+already satisfy the proxy-validation discipline the series later codified.
+Finally, an explicitly speculative Outlook connects the resource boundary to
+the Free-Energy Principle for resource-limited agents, at a methodological
+(non-phenomenological) level.
+\end{abstract}
+
+\section{Introduction}
+
+Decoherence explains the passive suppression of interference in open quantum
+systems \cite{Zurek03,Schlosshauer07,BreuerPetruccione}. This paper focuses
+on a complementary, operational question: what minimal control resources are
+required to \emph{prevent} coherence loss and keep a desired state stationary
+against uncontrolled dynamics?
+
+We work within an explicit thermodynamic control model (battery-assisted
+thermal operations) and present the corrected hierarchy of lower bounds on
+maintenance power, proved in \cite{MaintWork} (v2) and, for the unconditional
+part, in Appendix~\ref{app:proof}. Separately, gapped systems exhibit static
+clustering \cite{HastingsKoma,NachtergaeleSims,LiebRobinson}; whether
+dynamical decoherence rates inherit that suppression is the falsifiable Rate
+Inheritance Principle, whose status has moved substantially since v1
+(Section~\ref{sec:rip}). Together these motivate an operational reading of
+the quantum--classical boundary as a \emph{resource boundary} in state
+space: coherence is ``effectively classical'' for an agent when maintaining
+it exceeds the agent's power budget \cite{HCut}.
+
+\emph{Non-claims (read first).} No collapse mechanism; no Born-rule
+derivation; no claims about phenomenological consciousness. Any ``cut''
+discussed here is operational (a feasibility boundary), not ontological.
+
+\begin{remark}[What changed in v2]\label{rem:v2}
+v1 defined the incremental power as an infimum over \emph{unlinked} strategy
+pairs and claimed the inequality $\Pextra \ge \kB T\Closs$ as proved here.
+That definition is vacuous --- the infimum is $-\infty$, since
+population-maintenance strategies can burn battery at any rate --- and v1's
+Appendix~A obtained the bound by subtracting two \emph{lower} bounds (its
+Step~4), which is invalid; the same error pattern affected the v1 of the
+companion work theorem and is documented there \cite{MaintWork}. The
+corrected statements are Theorem~\ref{thm:hierarchy} below. What v1's
+appendix does prove --- kept here as Appendix~\ref{app:proof} --- is the
+\emph{unconditional} entropy-production bound, which needs no pairing at
+all.
+\end{remark}
+
+\section{Operational framework}
+
+\subsection{States, free energy, coherence}
+
+$X$ finite-dimensional, $\gamma_X := e^{-\beta H_X}/\Tr e^{-\beta H_X}$,
+$\beta = 1/(\kB T)$; $S(\rho\|\sigma) := \Tr[\rho(\log\rho - \log\sigma)]$
+(support convention); $F_X(\rho) := \kB T\, S(\rho\|\gamma_X)$; energy
+pinching $\Delta[\rho] := \sum_n\Pi_n\rho\Pi_n$; coherence $C(\rho) :=
+S(\rho\|\Delta[\rho])$ (nats); loss rate $\Closs(\rho) :=
+-\frac{d}{dt}C(e^{t\mathcal{L}}\rho)|_{t=0}$; entropy production
+$\sigma(\rho) := -\frac{d}{dt}S(e^{t\mathcal{L}}\rho\,\|\,\gamma_S)|_{t=0}
+\ge 0$ (Spohn \cite{Spohn78}), with the pinching split $\sigma =
+\dot{F}^\Delta_{\mathrm{diag}} + \Closs$.
+
+\subsection{Control model}
+
+Strategies are stroboscopic: free evolution $e^{\Delta t\mathcal{L}}$
+alternating with battery-assisted thermal operations --- global unitaries $U$
+with $[U, H_S + H_B + H_W] = 0$ acting on $\rho_S \otimes \gamma_B \otimes
+\sigma_W$ --- with work accounted as battery free-energy \emph{consumption}
+(sign convention of \cite{MaintWork} v2). $P(s)$ is the asymptotic
+consumption rate; $\Ctrl(\rho)$ the maintaining strategies.
+
+\subsection{Incremental power, corrected definitions}
+
+\begin{definition}[$\varepsilon$-efficient baseline \cite{MaintWork}]
+$s_{\mathrm{diag}} \in \Ctrl(\Delta[\rho])$ is $\varepsilon$-efficient if
+$P(s_{\mathrm{diag}}) \le \kB T\,\sigma(\Delta[\rho]) + \varepsilon$, i.e.\
+it exceeds its own task's thermodynamic floor by at most $\varepsilon$.
+\end{definition}
+
+\begin{definition}[Extra power]
+$\Pextra(\rho) := \Pmin(\rho) - \Pmin(\Delta[\rho])$ (difference of infima,
+both over $\Ctrl$ sets assumed non-empty, the second finite).
+\end{definition}
+
+\begin{remark}[Why not unlinked pairs]\label{rem:vacuous}
+$\inf_{(s, s_{\mathrm{diag}})}[P(s) - P(s_{\mathrm{diag}})] = -\infty$: fix
+$s$ and let the baseline append battery-burning cycles (unitaries on $WB$
+dumping battery free energy into the bath act trivially on $S$ and preserve
+maintenance of $\Delta[\rho]$). v1's definition and its ``baseline
+matching'' remark did not exclude this; efficiency of the baseline is the
+operative constraint, and it is precisely what a careful experimental
+comparison implements (Appendix~\ref{app:calibration}).
+\end{remark}
+
+\section{Main bounds: the corrected hierarchy}
+
+\begin{theorem}[Maintenance-power hierarchy]\label{thm:hierarchy}
+Under (A1)--(A4) and (A6) of v1 (finite dimensions; GKLS with thermal fixed
+point; energy-conserving strokes with thermal bath inputs; battery
+free-energy accounting; full-rank $\rho$):
+\begin{enumerate}
+\item[(a)] (\emph{Unconditional; proved in Appendix~\ref{app:proof}})
+$\Pmin(\rho) \ge \kB T\,\sigma(\rho)$.
+\item[(b)] (\emph{Coherence power; \cite{MaintWork} v2}) under diagonal
+contraction (automatic for Davies generators), $\Pmin(\rho) \ge \kB
+T\,\Closs(\rho)$.
+\item[(c)] (\emph{Extra power; \cite{MaintWork} v2}) against
+$\varepsilon$-efficient baselines, under population autonomy,
+$P(s) - P(s_{\mathrm{diag}}) \ge \kB T\,\Closs(\rho) - \varepsilon$ for
+every $s \in \Ctrl(\rho)$; and in the \emph{free-baseline} case ---
+$\mathcal{L}(\Delta[\rho]) = 0$ and $\Delta[\mathcal{L}(\rho)] = 0$, e.g.\
+pure dephasing --- $\Pextra(\rho) = \Pmin(\rho) \ge \kB T\,\Closs(\rho)$
+with no further assumptions.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[The paper's own protocols live in the free-baseline case]
+\label{rem:freebaseline}
+Protocol~B below (and the numerical stress test) uses a \emph{dephasing}
+dissipator. For dephasing-dominated platforms the pinched target is
+stationary, the population baseline is free, and the headline inequality
+$\Pextra \ge \kB T\,\Closs$ is a theorem with no baseline or contraction
+assumptions --- v1's claim was thus \emph{true in its own experimental
+setting} for the corrected reason.
+\end{remark}
+
+Interpretation is unchanged from v1: the bounds are operational,
+observer-independent, geometry-free; $C$ is in nats, so $\kB T\,\Closs$ is a
+power. v1's regularity assumption (A5) is not needed for
+Theorem~\ref{thm:hierarchy} and is dropped.
+
+\section{Static clustering and the dynamical bridge (RIP)}\label{sec:rip}
+
+Gapped systems cluster statically \cite{HastingsKoma,NachtergaeleSims};
+massive-field correlators carry Bessel envelopes $K_\nu(m\eps)$
+\cite{Clustering}. Whether \emph{rates} inherit these envelopes is the Rate
+Inheritance Principle, formalized in \cite{RIP} (v2): the weak
+(upper-envelope) form is a lemma under explicit integrability hypotheses;
+the strong (envelope-class) form is a falsifiable conjecture. Status as of
+this version: \emph{derived} --- with the frequency-resolved,
+squared-amplitude exponent $\kappa(\eps) \propto e^{-2q(\omega_b)\eps}$,
+$\cosh q(\omega) = (\mu^2 + 4 - \omega^2)/(4\mu)$ --- in an exactly solvable
+quasi-free local-sink class, verified against exact Liouvillian rapidities
+\cite{HCut}; \emph{failure realized} through near-zero-frequency channels
+within the secular Davies model class, whose delocalized jump operators
+sustain a persistent projected rate floor \cite{Stress}.
+
+\subsection{A concrete failure mode: near-zero-frequency floors}
+
+For a Davies generator with coupling $S$ and an active $\omega = 0$ channel,
+the exact identity
+\begin{equation}
+\mathcal{E}^{(0)}_\sigma(O) = \frac{\gamma(0)}{2}\,
+\big\lVert [S(0), O] \big\rVert^2_{2,\sigma}
+\end{equation}
+(KMS norm; proved and machine-verified in \cite{DaviesCore} v2, where the
+general-$\omega$ decomposition requires modular weights and is \emph{not} of
+commutator form) shows that whenever $S(0)$ retains non-decaying overlap
+with observables at distance $\eps$ --- e.g.\ extensive conserved components,
+or the generic secular delocalization measured in \cite{Stress} --- a
+distance-independent rate floor arises despite static clustering. Floors are
+model-dependent (a conditional design principle, as in v1), and particularly
+relevant with persistent low-frequency channels.
+
+\section{Falsifiable protocols}\label{sec:protocols}
+
+\textbf{Protocol A (one-shot vs sustained).} Distinguish the one-shot work
+of shaping a state from the sustained power of holding it: the former scales
+with free-energy differences, the latter with $\kB T\,\Closs$
+(Theorem~\ref{thm:hierarchy}); geometric interfaces enter the two
+differently (amplitude$^2$ vs rate; see \cite{MaintWork} \S8 and \cite{HCut}).
+
+\textbf{Protocol B (interface geometry: floor vs collar).} As in v1, with
+the local $X$-basis pinching proxy $C_x$ and the \emph{fixed-horizon}
+influence metric
+\begin{equation}
+D_T(L) := \max_{t\in[0,T]}\big|\overline{C_x^{\mathrm{noisy}}}(t; L) -
+C_x^{\mathrm{unitary}}(t; L)\big|,
+\end{equation}
+comparing uniform-link and collar-link geometries at matched microscopic
+parameters (TFIM, $N_{\mathrm{tot}} = 14$, $h/J = 1.5$, $\gamma = 0.2$,
+dephasing jump at $j_{\mathrm{diss}} = L+1$, $T = 3.0$): uniform links show
+an influence floor (no suppression with $L$); collar links ($J_{\mathrm{buf}}
+\ll J$) show clear suppression, with fitted rates $\mu$ increasing as the
+collar opacifies (v1 Table~1 retained; parameters fully declared).
+
+Protocol~B is an influence-suppression \emph{diagnostic}, not by itself a
+direct measurement of the energy-pinching coherence appearing in
+Theorem~\ref{thm:hierarchy}: its readout uses the local $X$-basis pinching
+proxy $C_x$, and connecting the two requires calibrating the chosen pointer
+pinching to the relevant energy/pointer sector. Its role is to test the
+geometry-to-rate interface; Protocol~A tests the thermodynamic maintenance
+inequality directly.
+
+\begin{remark}[Proxy discipline (v2)]\label{rem:discipline}
+The series' methodology \cite{HCut,Stress,RIP} requires rate proxies to be
+validated: fixed absolute horizons (not co-moving windows), explicit
+baseline subtraction, and gap-removed/geometry controls. Protocol~B already
+complies with the first two by construction --- $D_T$ is fixed-horizon and
+subtracts the unitary baseline --- and its uniform-vs-collar comparison
+plays the role of the geometry control; a critical-point sweep ($h \to J$)
+is the recommended third control for any platform implementation. This is
+worth stating because the v1 evidence of two companion papers failed
+precisely these checks and was withdrawn \cite{HCut,Stress}.
+\end{remark}
+
+\section{The quantum--classical boundary as a resource boundary}
+
+Combining Theorem~\ref{thm:hierarchy} with rate behavior: where rate
+inheritance holds (local-sink, sub-gap regimes), isolation is exponentially
+cheap in the interface width and the cost of coherence lifetime is
+logarithmic \cite{HCut}; where floors persist ($\omega \simeq 0$ channels,
+within the Davies class), no separation reduces the bill and a finite budget
+enforces effectively classical descriptions --- an operational cut
+\cite{HCut,Closure}. Below budget, no admissible strategy can maintain,
+exploit, or reverse the coherence over the relevant operational timescale.
+
+\section{Outlook for cognitive systems (speculative)}
+
+Unchanged in substance from v1, with the corrected anchoring. Cognitive
+systems are resource-limited physical agents; the Free-Energy Principle
+\cite{Friston10,ParrFriston19} concerns what representations agents should
+maintain, while Theorem~\ref{thm:hierarchy} bounds what maintaining them
+\emph{costs} under explicit control primitives. The conditional
+multi-objective reading
+\begin{equation}
+\min_{q, \pi}\; \mathbb{E}_\pi\big[F_{\mathrm{var}}(q)\big] +
+\lambda\, \Pextra(q, \pi), \qquad \lambda > 0,
+\end{equation}
+with $\Pextra$ now in its corrected sense (efficient-baseline or
+free-baseline), predicts: fragile encodings that lower $F_{\mathrm{var}}$
+either raise measured maintenance power or are abandoned once the budget is
+capped --- a falsifiable trade-off in synthetic agents with explicit
+energy/compute budgets, methodologically continuous with metabolic-cost
+results in neuroscience \cite{Laughlin98,AttwellLaughlin01}. No claims about
+phenomenological consciousness, nor about quantum coherence in brains.
+
+\section{Limitations}
+
+Theorem~\ref{thm:hierarchy} assumes finite dimensions, GKLS dynamics with
+thermal fixed point, bath thermal inputs, and stroboscopic battery-assisted
+thermal operations; extensions to strong coupling, non-Markovian regimes, or
+algebraic (Type III) settings are conditional interfaces
+\cite{MaintWork,Clustering}. RIP remains open exactly for interacting gapped
+buffers with local dissipation \cite{HCut}. The cognitive Outlook is
+methodological only.
+
+\appendix
+
+\section{Proof of Theorem~\ref{thm:hierarchy}(a)}\label{app:proof}
+
+This is the valid core of v1's Appendix~A (its Steps 0--3 and 5; the paired
+Step~4 is removed, cf.\ Remark~\ref{rem:v2}).
+
+\emph{Step 0--1.} With $\Gamma := \gamma_S\otimes\gamma_B\otimes\gamma_W$
+and $[U, H_S + H_B + H_W] = 0$, $U\Gamma U^\dagger = \Gamma$, so
+$S(U\rho U^\dagger\|\Gamma) = S(\rho\|\Gamma)$ per stroke.
+
+\emph{Step 2.} Product-reference decomposition
+$S(\rho_{SBW}\|\Gamma) = \sum_X S(\rho_X\|\gamma_X) + I_\Gamma(\rho_{SBW})$
+with $I_\Gamma \ge 0$; applied to input (product) and output states, this
+gives the per-stroke work bound $W \ge F_S(\rho'_S) - F_S(\rho_S)$, where
+$W$ is battery free-energy consumption.
+
+\emph{Step 3.} Pinching Pythagoras: $S(\rho\|\gamma_S) =
+S(\Delta[\rho]\|\gamma_S) + C(\rho)$, i.e.\ $F_S = F_S\circ\Delta + \kB T C$.
+
+\emph{Step 5.} For any $s \in \Ctrl(\rho)$ with cycle time $\Delta t$: the
+correction must implement $e^{\Delta t\mathcal{L}}(\rho) \mapsto \rho$, so by
+Step~2 its per-cycle consumption obeys $W(\Delta t) \ge F_S(\rho) -
+F_S(e^{\Delta t\mathcal{L}}\rho) = \kB T[S(\rho\|\gamma_S) -
+S(\rho_{\Delta t}\|\gamma_S)]$. Dividing by $\Delta t$, taking $\limsup$
+over cycles and then $\Delta t \to 0$:
+$\Pmin(\rho) \ge \kB T\,\sigma(\rho) \ge 0$, nonnegativity by Spohn
+\cite{Spohn78}. With Step~3, $\sigma = \dot{F}^\Delta_{\mathrm{diag}} +
+\Closs$, from which (b) follows under diagonal contraction; (c) is proved in
+\cite{MaintWork} (v2). \hfill$\square$
+
+\section{Experimental calibration and power proxies}\label{app:calibration}
+
+As in v1, with one clarification. Wall-plug comparisons of two strategies
+``implemented with identical primitives except for the coherence-stabilizing
+component'' estimate $P_{\mathrm{wall}}(s) - P_{\mathrm{wall}}
+(s_{\mathrm{diag}})$; by Theorem~\ref{thm:hierarchy}(c) this lower-bounds
+$\kB T\,\Closs - \varepsilon$ \emph{provided the baseline is
+thermodynamically efficient} --- identical primitives is exactly the
+experimental implementation of $\varepsilon$-efficiency, and in
+dephasing-dominated platforms the baseline is free and the proviso is
+automatic (Remark~\ref{rem:freebaseline}). Thermal anchoring and error
+budgets as in v1.
+
+\section{Changes relative to version 1}
+
+\begin{enumerate}
+\item v1's Theorem~1 and its Appendix~A proof are corrected: the
+unlinked-pairs $\Pextra$ was vacuous and Step~4 subtracted lower bounds
+(Remark~\ref{rem:v2}, Remark~\ref{rem:vacuous}); v2 states the corrected
+hierarchy (Theorem~\ref{thm:hierarchy}), proves the unconditional part here
+(Appendix~\ref{app:proof} = v1's valid Steps 0--3, 5), and imports (b), (c)
+from \cite{MaintWork} (v2). v1's assumption (A5) is dropped as unnecessary.
+\item Remark~\ref{rem:freebaseline}: the paper's own protocols (dephasing)
+sit in the free-baseline case, where the headline inequality is
+assumption-free.
+\item RIP section updated to the July-2026 status (derived quasi-free with
+squared exponent \cite{HCut}; Davies-class floors \cite{Stress}; lemma-level
+weak form \cite{RIP}); the $\omega = 0$ identity is quoted in its verified
+form with the caveat that the general-$\omega$ decomposition is \emph{not}
+of commutator form \cite{DaviesCore}.
+\item Proxy-discipline remark added to Protocol~B
+(Remark~\ref{rem:discipline}); its fixed-horizon metric and unitary-baseline
+subtraction already comply, and the critical-point control is recommended
+for platform implementations. v1's Figure~1/Table~1 results are retained
+with fully declared parameters.
+\item Series references added (v1 cited only external literature);
+calibration appendix tied to $\varepsilon$-efficient baselines; work sign
+fixed to the consumption convention.
+\end{enumerate}
+
+\begin{thebibliography}{19}\small
+
+\bibitem{Zurek03} W.~H.~Zurek, Rev. Mod. Phys. \textbf{75}, 715 (2003).
+\bibitem{Schlosshauer07} M.~Schlosshauer, \emph{Decoherence and the
+Quantum-to-Classical Transition} (Springer, 2007).
+\bibitem{BreuerPetruccione} H.-P.~Breuer and F.~Petruccione, \emph{The
+Theory of Open Quantum Systems} (OUP, 2002).
+\bibitem{Davies74} E.~B.~Davies, Commun. Math. Phys. \textbf{39}, 91 (1974).
+\bibitem{Spohn78} H.~Spohn, J. Math. Phys. \textbf{19}, 1227 (1978).
+\bibitem{Baumgratz14} T.~Baumgratz, M.~Cramer, M.~B.~Plenio, Phys. Rev.
+Lett. \textbf{113}, 140401 (2014).
+\bibitem{Lostaglio15} M.~Lostaglio, D.~Jennings, T.~Rudolph, Nat. Commun.
+\textbf{6}, 6383 (2015).
+\bibitem{Brandao15} F.~G.~S.~L.~Brand\~ao et al., PNAS \textbf{112}, 3275
+(2015).
+\bibitem{HastingsKoma} M.~B.~Hastings and T.~Koma, Commun. Math. Phys.
+\textbf{265}, 781 (2006).
+\bibitem{NachtergaeleSims} B.~Nachtergaele and R.~Sims, Commun. Math. Phys.
+\textbf{265}, 119 (2006).
+\bibitem{LiebRobinson} E.~H.~Lieb and D.~W.~Robinson, Commun. Math. Phys.
+\textbf{28}, 251 (1972).
+\bibitem{Korzekwa16} K.~Korzekwa et al., New J. Phys. \textbf{18}, 023045
+(2016).
+\bibitem{Cwiklinski15} P.~\'Cwikli\'nski et al., Phys. Rev. Lett.
+\textbf{115}, 210403 (2015).
+\bibitem{Friston10} K.~Friston, Nat. Rev. Neurosci. \textbf{11}, 127 (2010).
+\bibitem{ParrFriston19} T.~Parr and K.~Friston, Biol. Cybern. \textbf{113},
+495 (2019).
+\bibitem{Laughlin98} S.~B.~Laughlin et al., Nat. Neurosci. \textbf{1}, 36
+(1998).
+\bibitem{AttwellLaughlin01} D.~Attwell and S.~B.~Laughlin, J. Cereb. Blood
+Flow Metab. \textbf{21}, 1133 (2001).
+
+\bibitem{Clustering} L.~Eriksson, ai.viXra:2512.0060, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0060-clustering-recovery}.
+\bibitem{MaintWork} L.~Eriksson, ai.viXra:2512.0061, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0061-maintenance-work}.
+\bibitem{HCut} L.~Eriksson, ai.viXra:2512.0064, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0064-heisenberg-cut}.
+\bibitem{Stress} L.~Eriksson, ai.viXra:2512.0070, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0070-rate-inheritance}.
+\bibitem{Closure} L.~Eriksson, ai.viXra:2512.0071, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0071-program-closure}.
+\bibitem{RIP} L.~Eriksson, ai.viXra:2512.0072, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0072-rip-principle}.
+\bibitem{DaviesCore} L.~Eriksson, ai.viXra:2512.0073, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0073-davies-core}.
+
+\end{thebibliography}
+
+\end{document}

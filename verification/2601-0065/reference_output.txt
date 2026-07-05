@@ -1,0 +1,21 @@
+== 1) instancia CE con omega0 producto (Prop 10.3 v2) ==
+  E unital: OK
+  E idempotente: OK [0.0e+00]
+  omega0 o E = omega0: OK
+  E completamente positiva (Choi >= 0): OK [lambda_min -3.5e-17]
+== 2) adjunto GNS E^# = inclusion iota (Remark 6.6 v2) ==
+  <E(X),Y>_w0 = <X, iota(Y)>_w0 (30 pares): OK [6.3e-16]
+  (E)_*(phi_N) = phi_N (x) rho_K (reattachment explicito): OK [1.4e-16]
+== 3) D7a = D7b (Lemma 10.2 v2) ==
+  CMI entropias = CMI diferencia-Araki (estado aleatorio): OK [dif 7.8e-16]
+== 4-6) contrato instanciado: TFIM g=1.5, A=2, C=4, B=w ==
+    w=1: I=7.236e-02  E_rec=4.341e-02  (E_rec<=I: True)
+    w=2: I=2.193e-02  E_rec=9.680e-03  (E_rec<=I: True)
+    w=3: I=7.874e-03  E_rec=3.415e-03  (E_rec<=I: True)
+    w=4: I=2.983e-03  E_rec=1.287e-03  (E_rec<=I: True)
+  FR-SPLIT con c_FR=1: E_rec <= I(A:C|B) para w=1..4 (dataset generado): OK
+  CMI-DECAY: decaimiento exponencial (alpha > 0): OK [alpha=1.06 K=1.96e-01]
+  cadena T1: E_rec <= c_FR K e^{-alpha w} (c_FR=1): OK
+  distancia purificada: P^2 = 1 - F_B y decae con w: OK [P(w=4)=3.6e-02]
+
+ALL CHECKS PASSED

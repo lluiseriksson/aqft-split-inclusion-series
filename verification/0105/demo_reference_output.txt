@@ -1,0 +1,21 @@
+[demo mode: synthetic data, known ground truth]
+
+== A) mu fit variants ==
+  P1: fixB2pts: 0.2839+-0.0094  freeB: 0.2346+-0.0157  B025: 0.2145+-0.0061
+  P2: fixB2pts: 0.5687+-0.0220  freeB: 0.5646+-0.0277  B025: 0.5552+-0.0211
+  P3: fixB2pts: 0.3522+-0.0114  freeB: 0.3274+-0.0171  B025: 0.3204+-0.0098
+  ordering P1<P3<P2 in all variants: True; min pairwise separation: 7.3 sigma
+
+== B) scale-up ==
+  S vs mu04:  rho=-0.170 p=0.494
+  S vs muAll: rho=-0.185 p=0.455
+  proxy agreement mu04 vs muAll: rho=+0.981
+
+== C) preregistered test ==
+  Delta=+0.0176  p(1-sided)=0.326  p(2-sided)=0.659
+
+== D) power ==
+  sigma_chain(mu04, scale-up)=0.0867
+  MDE (alpha=.05 one-sided, 80% power, k=5): 0.1363  [obs |Delta|=0.0176]
+
+Wrote verification/0105/demo-output/table_fit_variants.tex, verification/0105/demo-output/v2_numbers.tex

@@ -1,0 +1,11 @@
+=== A: per-block ratio  E_direct / [ (1/2)||[S(w),O]||^2 ]  vs modular weights ===
+omega=+0.2362: ratio=1.027103 (std 5.72e-02) | e^(-bw/2)=0.888628 | e^(+bw/2)=1.125330 | cosh=1.006979
+omega=+0.3827: ratio=1.133275 (std 3.81e-02) | e^(-bw/2)=0.825842 | e^(+bw/2)=1.210886 | cosh=1.018364
+omega=+0.5125: ratio=1.137822 (std 4.57e-02) | e^(-bw/2)=0.773948 | e^(+bw/2)=1.292076 | cosh=1.033012
+omega=+0.5667: ratio=1.149853 (std 1.18e-01) | e^(-bw/2)=0.753239 | e^(+bw/2)=1.327600 | cosh=1.040419
+
+=== B: witness with k = j0 - eps (and j0 + eps) ===
+eps=1: k=j0-eps -> 0.134648 | k=j0+eps -> 0.088550 | paper 0.134648
+eps=2: k=j0-eps -> 0.088550 | k=j0+eps -> 0.068429 | paper 0.0885503
+eps=3: k=j0-eps -> 0.068429 | k=j0+eps -> 0.053108 | paper 0.0684289
+note: j0=4 (0-indexed), N=8; also k=j0 itself: 0.134648

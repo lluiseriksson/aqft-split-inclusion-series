@@ -1,0 +1,26 @@
+  B(w) reconstruidos: tamanos (3, 6, 12, 14) del CSV: OK [[3, 6, 12, 14]]
+  dim del sector fisico = 256 (= dim_phys del manifest): OK
+  ancla E0 del CSV reproducida: OK [E0=-22.997180401986 dif=0.0e+00]
+  convencion v2: G_s = prod Z conmuta con H; el prod X de v1 no: OK [un Z_l de H comparte 1 link (impar) con cada estrella X]
+== 2) Tabla 1 con delta = 1e-6 (DELTA_PETZ de v1) ==
+    w=0: CMI=1.627985474e-07 (dif 2.8e-16)  1-F=2.133434196e-08 (v1 8.899e-09, rel 1.4e+00)  tr=0.9999960
+    w=1: CMI=1.659896091e-07 (dif 2.9e-13)  1-F=2.422313969e-07 (v1 2.422e-07, rel 1.6e-06)  tr=0.9999853
+    w=2: CMI=5.782748076e-05 (dif 5.2e-14)  1-F=2.589104014e-05 (v1 2.589e-05, rel 2.2e-08)  tr=0.9999855
+    w=3: CMI=5.782758918e-05 (dif 5.1e-14)  1-F=2.588881559e-05 (v1 2.589e-05, rel 4.7e-08)  tr=0.9999855
+  CMI digito a digito vs Tabla 1 (|dif| < 1e-9, w=0..3): OK
+  1-F vs Tabla 1 (rel < 2%, w=1..3 [filas LR+OB de v1], delta=1e-6): OK
+  1-F en w=0 dentro del spread dense-vs-LR+OB declarado por v1 (5.4e-8): OK [|dif|=1.2e-08]
+== 3) cross-check denso 2^11 en w=0 (espejo del check de v1) ==
+  S(ABC) denso 2^11 = patrones (w=0): OK [dif 1.1e-16]
+== 4) re-run con delta = 1e-12 ==
+    w=0: I=1.628e-07  E_rec=2.074e-08
+    w=1: I=1.660e-07  E_rec=2.264e-08 (v1 con delta=1e-6: E_rec > I; suelo de regularizacion)
+    w=2: I=5.783e-05  E_rec=2.633e-05
+    w=3: I=5.783e-05  E_rec=2.633e-05
+  con delta=1e-12: E_rec <= I en todo w (dataset regenerado): OK
+== 5) saturacion y confound de complemento ==
+  w=3: B = (A u C)^c (nD = 0), estado global puro: OK
+  plateau w=2 ~ w=3 (identidad de saturacion, cf. 2601.0050 v2): OK [rel 1.9e-06]
+  subida de CMI en w=2 coincide con |D|: 8 -> 2 (confound, cf. 0038/0040): OK [I sube x348 cuando D pasa de 8 a 2 links]
+
+ALL CHECKS PASSED

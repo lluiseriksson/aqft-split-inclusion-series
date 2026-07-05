@@ -1,0 +1,10 @@
+=== A: Lemma 2 identity test (energy basis, exact Bohr blocks) ===
+  trial 0: E_direct=2.034342e+01  sum-blocks=1.238679e+01  rel.err=3.91e-01
+  trial 1: E_direct=1.802685e+01  sum-blocks=1.240829e+01  rel.err=3.12e-01
+  trial 2: E_direct=1.660969e+01  sum-blocks=1.160950e+01  rel.err=3.01e-01
+  worst relative deviation over 6 random O: 3.91e-01
+
+=== B: Table 2 witness R_opt(eps), N=8, beta=1 ===
+  eps=1 (k=j0-eps): R_opt=0.134648   (paper: 0.134648)
+  eps=2 (k=j0-eps): R_opt=0.088550   (paper: 0.0885503)
+  eps=3 (k=j0-eps): R_opt=0.068429   (paper: 0.0684289)

@@ -1,0 +1,7 @@
+# 0101 verification reference log (independent NumPy reimplementation)
+# (a) Markov-product identity:
+ trial 0: I=0.291939 D(rho||M)=0.291939 D(rho||M/Z)=0.288903 logZ=-0.003036 check[I=D_norm+logZ]=+6.07e-03
+ trial 1: I=0.263674 D(rho||M)=0.263674 D(rho||M/Z)=0.262139 logZ=-0.001536 check[I=D_norm+logZ]=+3.07e-03
+ trial 2: I=0.252808 D(rho||M)=0.252808 D(rho||M/Z)=0.250902 logZ=-0.001906 check[I=D_norm+logZ]=+3.81e-03
+ trial 3: I=0.238482 D(rho||M)=0.238482 D(rho||M/Z)=0.233529 logZ=-0.004953 check[I=D_norm+logZ]=+9.91e-03
+# (b/c) representative slopes reproduced (see results.csv for full grid)

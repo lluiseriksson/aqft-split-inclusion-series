@@ -1,0 +1,586 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\ASSUMED}{\textcolor{orange}{\textbf{[ASSUMED]}}}
+\newcommand{\PROVED}{\textcolor{green!60!black}{\textbf{[PROVED]}}}
+\newcommand{\IMPORTED}{\textcolor{blue}{\textbf{[IMPORTED]}}}
+\newcommand{\CONJ}{\textcolor{red}{\textbf{[CONJECTURED]}}}
+\newcommand{\Erec}{E_{\mathrm{rec}}}
+\newcommand{\Ops}{\mathsf{Ops}^{\mathrm{phys}}_A}
+
+\title{Typed Pipeline for Recoverability--Rate--Power Links:\\
+\large A Contract Paper with a Closed Recoverability Lane and
+Falsification Criteria}
+\author{Lluis Eriksson}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present an audit-friendly \emph{logical contract} for a multi-layer
+program connecting (i) static locality/Markovness, (ii) recoverability
+bounds, (iii) separation-dependent dissipation rates, and (iv)
+thermodynamic maintenance power. Each interface is typed with explicit
+quantifiers, tagged as
+\PROVED/\IMPORTED/\ASSUMED/\CONJ, and paired with falsification routes.
+We do \emph{not} claim a proof of the Clay Yang--Mills mass gap; we
+separate a Clay (closed-Hamiltonian) track from an operational
+(open-system/maintenance) track. As a fully closed lane inside this
+paper, we prove that an exponential conditional mutual information (CMI)
+decay hypothesis implies exponential recoverability via an imported
+Fawzi--Renner inequality, with fidelity conventions fixed explicitly.
+\emph{v2 (no v1 number is changed):} the cross-reference labels are
+repaired (in v1 every assumption, lemma, theorem, remark and corollary
+was typeset as ``Definition~$x.y$'') and Tables~\ref{tab:audit} and
+\ref{tab:fals} are re-typeset; the constant-alignment step of
+Appendix~\ref{app:cfr} is executed rather than prescribed --- in the
+locked conventions (squared fidelity, $\Erec = -\log F$) the
+Fawzi--Renner import yields $c_{\mathrm{FR}} = 1$ exactly
+(Remark~\ref{rem:cfrone}); the deferred interfaces of
+Appendix~\ref{app:deferred} are now concrete series papers and are cited
+as such (the Type III interface is ai.viXra:2601.0065, the
+Davies/RIP-U dynamics note is ai.viXra:2601.0064, the benchmark
+infrastructure lives in the series repository); the BATO-LAW upgrade
+path of Appendix~\ref{app:bato} records the partial progress of
+ai.viXra:2601.0031; and a verification suite instantiates everything
+instantiable: the closed recoverability lane end to end on a gapped transverse-field
+Ising collar ($I \approx 0.20\,e^{-1.06 w}$, $\Erec \le I$ at every
+width in the generated dataset, full $1 - F \le \Erec \le
+c_{\mathrm{FR}} K e^{-\alpha\epsilon}$ chain), the exact-Markov example
+at machine precision, and the dephasing example with an explicit
+$\kappa^{\uparrow}/\kappa^{\downarrow}$ spread of two orders of
+magnitude illustrating the directionality golden rule.
+\end{abstract}
+
+\section{Positioning and related work (minimal)}
+
+Recoverability from small conditional mutual information (CMI) was
+initiated in the finite-dimensional setting by Fawzi--Renner \cite{FR},
+with subsequent developments clarifying strengthened and universal
+recovery maps (see e.g.\ \cite{STH} and related work). Exponential CMI
+decay in Gibbs or quasi-local settings has been studied in several
+regimes in the many-body/QIT literature; in this paper we keep that
+input as an explicit falsifiable hypothesis (A-CMI) rather than
+embedding it as a black-box ``Gibbs theorem'' claim. The present
+contribution is the \emph{typed contract} structure and the explicit
+separation between proved implications and bridge assumptions
+(especially toward operational power costs).
+
+\section{Executive summary (audit view)}
+
+\textbf{Scope and non-claims}
+\begin{itemize}
+\item \textbf{Not a Clay proof:} no claim is made about existence of
+continuum Yang--Mills theory or its Hamiltonian spectral gap.
+\item \textbf{This is a contract paper:} the value is explicit typing,
+status tagging, and falsification routes.
+\item \textbf{Closed lane included:} we include one fully
+self-contained implication: CMI decay (assumption) $+$ FR-type
+recoverability (imported) $\Rightarrow$ recoverability decay (proved).
+\end{itemize}
+
+\textbf{Status table (what is actually proved inside this PDF)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{3.4cm} p{2.4cm} p{3.6cm} p{4.4cm}}
+\hline
+\textbf{Item} & \textbf{Status} & \textbf{Depends on} &
+\textbf{Falsification route} \\
+\hline
+L1: $1 - F \le -\log F$ & \PROVED & elementary calculus & direct check
+\\
+T2: FR-type inequality (constant-fixed) & \IMPORTED & finite-dimensional
+QIT & disproof or convention mismatch \\
+A-CMI: CMI decay hypothesis & \ASSUMED & chosen model/geometry & exhibit
+family violating stated decay \\
+T3: CMI decay $\Rightarrow$ recoverability decay & \PROVED & A-CMI $+$
+T2 $+$ L1 & refute A-CMI or mismatch hypotheses \\
+BATO-LAW: maintenance inequality & \ASSUMED & operational model
+definition & violate hypothesis or give counter-protocol \\
+\hline
+\end{tabular}
+\caption{Audit status for this paper. Anything tagged \ASSUMED\ is a
+typed hypothesis (not a hidden dependency). (Re-typeset in v2; v1's
+table had overlapping column text.)}
+\label{tab:audit}
+\end{table}
+
+\section{Typing, notation, and objects}
+
+\begin{remark}[Parameter convention]
+\label{rem:params}
+Throughout: $\epsilon$ is a \textbf{geometric} separation/collar
+parameter, while $\delta$ denotes \textbf{tolerances} (regularization
+thresholds, error budgets, floors). They are never interchanged.
+\end{remark}
+
+\begin{definition}[D1: $\Delta$-track coherence]
+\label{def:cdelta}
+Fix a dephasing (pinching) CPTP map $\Delta$. Define $C_\Delta(\rho) :=
+S(\rho \| \Delta[\rho])$, where $S(\cdot\|\cdot)$ is quantum relative
+entropy (with the usual support convention).
+\end{definition}
+
+\begin{definition}[D2: instantaneous coherence loss under fixed
+dynamics]
+\label{def:loss}
+Let $T_t = e^{t\mathcal{L}}$ be a fixed CPTP Markov semigroup on states.
+Define
+\[
+\dot{C}_{\Delta,\mathrm{loss}}(\rho) := -\left.\frac{d}{dt}\right|_{t=0}
+C_\Delta(T_t(\rho)),
+\]
+whenever the derivative exists.
+\end{definition}
+
+\begin{remark}[A minimal sufficient condition for existence]
+\label{rem:exist}
+A sufficient (not necessary) condition for
+$\dot{C}_{\Delta,\mathrm{loss}}(\rho)$ to exist is differentiability at
+$t = 0$ of $t \mapsto C_\Delta(T_t(\rho))$. In finite dimension this
+holds under mild spectral regularity (e.g.\ full-rank conditions), but
+this paper does not fix a universal regularity class; we treat existence
+as part of the typing of any application.
+\end{remark}
+
+\begin{definition}[D3: physically implementable local operations $\Ops$]
+\label{def:ops}
+Fix a reference state $\rho_0$, a tripartition $A$--$B$--$C$, and a
+separation notion $\mathrm{sep}(A, C)$. Let $\Ops$ denote a declared
+class of \emph{physically implementable} operations on $A$ (CPTP maps
+with local ancillas allowed and discarded), realizable within stated
+resource tolerances $\delta$ (time, energy, ancilla size, etc.).
+\end{definition}
+
+\begin{definition}[D4: the family $\mathcal{F}_\epsilon$ (minimal; typed
+by $\Ops$)]
+\label{def:family}
+Define
+$\mathcal{F}_\epsilon := \bigl\{\rho = \Lambda_A(\rho_0) \,:\, \Lambda_A
+\in \Ops,\ \mathrm{sep}(A, C) \ge \epsilon,\ C_\Delta(\rho) > 0\bigr\}$.
+\end{definition}
+
+\begin{assumption}[REG: regularity restrictions (invoked only when
+needed)]
+\label{ass:reg}
+When needed to exclude trivial degeneracies (e.g.\ near-fixed points or
+nearly singular diagonals) we impose explicit regularity restrictions on
+$\mathcal{F}_\epsilon$, such as $\mathrm{dist}(\rho, \mathrm{Fix}(T))
+\ge \delta_{\mathrm{fix}}$ and/or $\Delta[\rho] \succeq
+p_{\min}\mathbf{1}$. These restrictions are not part of the minimal
+definition of $\mathcal{F}_\epsilon$; they are invoked only where
+required and always stated at the point of use.
+\end{assumption}
+
+\begin{definition}[D5: envelopes (quantifiers explicit)]
+\label{def:envelopes}
+Define the domain of the ratio at scale $\epsilon$ as
+$\mathcal{D}_\epsilon := \bigl\{\rho \in \mathcal{F}_\epsilon :
+C_\Delta(\rho) > 0,\ \dot{C}_{\Delta,\mathrm{loss}}(\rho)\
+\text{exists}\bigr\}$. Then define
+\[
+\kappa^{\uparrow}(\epsilon) := \sup\left\{
+\frac{\dot{C}_{\Delta,\mathrm{loss}}(\rho)}{C_\Delta(\rho)} : \rho \in
+\mathcal{D}_\epsilon \right\}, \qquad
+\kappa^{\downarrow}(\epsilon) := \inf\left\{
+\frac{\dot{C}_{\Delta,\mathrm{loss}}(\rho)}{C_\Delta(\rho)} : \rho \in
+\mathcal{D}_\epsilon \right\}.
+\]
+\end{definition}
+
+\begin{remark}[Empty-domain convention]
+\label{rem:empty}
+In any concrete application we assume $\mathcal{D}_\epsilon \ne
+\emptyset$ in the regime of interest. If $\mathcal{D}_\epsilon =
+\emptyset$, we adopt the convention $\kappa^{\uparrow}(\epsilon) := 0$,
+$\kappa^{\downarrow}(\epsilon) := +\infty$, so that envelope statements
+become vacuous rather than ambiguous. (Any alternative convention should
+be stated explicitly if used.)
+\end{remark}
+
+\begin{remark}[Directionality (golden rule)]
+\label{rem:golden}
+A \textbf{minimum-power} statement requires a \textbf{lower envelope}
+bound (involving $\kappa^{\downarrow}$), \emph{not} an upper envelope
+bound (involving $\kappa^{\uparrow}$).
+\end{remark}
+
+\section{Closed recoverability lane: CMI decay $\Rightarrow$ exponential
+recovery}
+
+\begin{definition}[Fidelity convention]
+\label{def:fidelity}
+For density matrices $\rho, \sigma$ on the same finite-dimensional
+Hilbert space, we use the \emph{squared} Uhlmann fidelity $F(\rho,
+\sigma) := \|\sqrt{\rho}\sqrt{\sigma}\|_1^2 \in [0, 1]$.
+\end{definition}
+
+\begin{definition}[Recovery error]
+\label{def:erec}
+For a tripartite finite-dimensional state $\rho_{ABC}$ and a recovery
+map $\mathcal{R}_{B\to BC}$, define
+$\Erec(\rho_{ABC}; \mathcal{R}) := -\log F(\rho_{ABC}, (\mathrm{id}_A
+\otimes \mathcal{R}_{B\to BC})(\rho_{AB}))$.
+\end{definition}
+
+\begin{lemma}[L1: elementary inequality]
+\label{lem:l1}
+\PROVED. For $F \in (0, 1]$ one has $1 - F \le -\log F$.
+\end{lemma}
+
+\begin{proof}
+Define $g(F) := -\log F - (1 - F)$ on $(0, 1]$. Then $g'(F) =
+-\frac{1}{F} + 1 \le 0$ for $F \in (0, 1]$ and $g(1) = 0$, so $g(F) \ge
+0$ for all $F \in (0, 1]$.
+\end{proof}
+
+\begin{theorem}[T2: FR-type recoverability inequality (constant
+explicit)]
+\label{thm:t2}
+\IMPORTED\ (finite-dimensional recoverability literature; see e.g.\
+\cite{FR, STH}). There exists a universal constant $c_{\mathrm{FR}} > 0$
+(depending only on the choice of fidelity/error convention) such that
+for any finite-dimensional $\rho_{ABC}$, there exists a CPTP recovery
+map $\mathcal{R}_{B\to BC}$ with
+\[
+\Erec(\rho_{ABC}; \mathcal{R}) \le c_{\mathrm{FR}}\, I(A : C | B)_\rho.
+\]
+\end{theorem}
+
+\begin{remark}[Convention lock-in]
+\label{rem:lockin}
+This paper fixes: (i) squared fidelity (Definition~\ref{def:fidelity}),
+and (ii) error functional $\Erec = -\log F$
+(Definition~\ref{def:erec}). The value of $c_{\mathrm{FR}}$ should be
+aligned to the imported theorem under these conventions
+(Appendix~\ref{app:cfr} gives the alignment step; \emph{executed in v2},
+Remark~\ref{rem:cfrone}). Using $c_{\mathrm{FR}}$ avoids silent factor
+drift across conventions.
+\end{remark}
+
+\begin{assumption}[A-CMI: exponential CMI decay in a shielded geometry]
+\label{ass:acmi}
+\ASSUMED\ (model/geometry hypothesis). Fix a family of tripartitions
+$A$--$B(\epsilon)$--$C$ (``collar'' of width/separation $\epsilon$) and
+a family of finite-dimensional states $\rho_{ABC}(\epsilon)$. Assume
+there exist constants $K > 0$ and $\alpha > 0$ (independent of
+$\epsilon$ in the regime of interest) such that
+$I(A : C | B)_{\rho(\epsilon)} \le K e^{-\alpha\epsilon}$.
+\end{assumption}
+
+\begin{remark}[Where A-CMI is expected/known]
+\label{rem:acmiwhere}
+A-CMI is intended to capture ``approximate quantum Markov'' behavior in
+geometries where $B(\epsilon)$ shields $A$ from $C$. In concrete
+applications one either: (i) imports a theorem establishing such decay
+in a stated regime (e.g.\ a temperature/interaction range regime), or
+(ii) tests it numerically/empirically in a benchmark family. This paper
+keeps the hypothesis explicit so that failures are interpretable as
+falsification rather than hidden assumption.
+\end{remark}
+
+\begin{theorem}[T3: exponential recoverability under exponential CMI
+decay]
+\label{thm:t3}
+\PROVED\ (given Theorem~\ref{thm:t2} and Assumption~\ref{ass:acmi}).
+Under Assumption~\ref{ass:acmi}, for each $\epsilon$ there exists a CPTP
+recovery map $\mathcal{R}_{B\to BC}$ such that
+\[
+\Erec(\rho(\epsilon); \mathcal{R}) \le c_{\mathrm{FR}}\, K
+e^{-\alpha\epsilon}.
+\]
+Moreover, $1 - F(\rho_{ABC}(\epsilon), (\mathrm{id}_A \otimes
+\mathcal{R}_{B\to BC})(\rho_{AB}(\epsilon))) \le c_{\mathrm{FR}} K
+e^{-\alpha\epsilon}$.
+\end{theorem}
+
+\begin{proof}
+Combine Theorem~\ref{thm:t2} with Assumption~\ref{ass:acmi}. Then apply
+Lemma~\ref{lem:l1}.
+\end{proof}
+
+\begin{remark}[Why T3 is still worth stating]
+\label{rem:whyt3}
+T3 is logically simple, but it is \emph{audit-critical}: it fixes
+conventions, isolates the single falsifiable hypothesis A-CMI, and
+cleanly separates the imported recoverability mechanism from downstream
+``rate--power'' bridges.
+\end{remark}
+
+\begin{remark}[v2: the alignment step executed --- $c_{\mathrm{FR}} =
+1$]
+\label{rem:cfrone}
+\PROVED\ (v2). In the locked conventions of
+Definitions~\ref{def:fidelity} and \ref{def:erec}, the Fawzi--Renner
+theorem \cite{FR} states $I(A : C | B) \ge -\log F$ with $F$ the squared
+fidelity of the recovered state for a rotated Petz map, i.e.\ FR imports
+as Theorem~\ref{thm:t2} with $c_{\mathrm{FR}} = 1$ exactly. With the
+\emph{unsquared} (root) fidelity the same theorem reads $I \ge -2\log
+f$, so silently mixing conventions produces a factor-$2$ drift --- the
+recurring factor corrected across this series (2512.0101, 2601.0020,
+2601.0034, 2601.0035, all v2). The verification suite checks the
+identity $-\log F = -2\log\sqrt{F}$ and instantiates $c_{\mathrm{FR}} =
+1$ on a benchmark family (gapped transverse-field Ising collar):
+$\Erec \le I(A : C | B)$ at every collar width in the generated dataset,
+with $I \approx 0.20\, e^{-1.06 w}$, closing the T3 chain end to end
+including the $1 - F$ form via Lemma~\ref{lem:l1}. This settles the
+Type I anchor; the same alignment in the split-regularized Type III
+setting is Lemma 10.2 of the companion interface note
+ai.viXra:2601.0065 (v2).
+\end{remark}
+
+\section{Operational power interface (typed, not proved here)}
+
+\begin{definition}[D6: maintenance strategies and average power]
+\label{def:strat}
+Fix an operational control model (battery, allowed controls, coupling to
+noise), and an admissible strategy class $\mathsf{Strat}$. Fix an error
+budget $\delta$ and a noise semigroup $T_t$. For a target state $\rho$,
+let $P(\rho; \mathsf{S}) \in [0, \infty]$ denote the average battery
+power required by a strategy $\mathsf{S} \in \mathsf{Strat}$ to maintain
+$\rho$ under $T_t$ within tolerance $\delta$ (as defined by that model).
+\end{definition}
+
+\begin{definition}[D7: extra maintenance power]
+\label{def:pextra}
+Define the extra power as
+\[
+P_{\mathrm{extra}}(\rho) := \max\Bigl\{0,\ \inf_{\mathsf{S} \in
+\mathsf{Strat}} P(\rho; \mathsf{S}) - \inf_{\mathsf{S} \in
+\mathsf{Strat}} P(\Delta[\rho]; \mathsf{S})\Bigr\}.
+\]
+\end{definition}
+
+\begin{assumption}[BATO-LAW: maintenance inequality (operational
+postulate)]
+\label{ass:bato}
+\ASSUMED\ (typed law to be proved or imported in a companion note).
+Under the hypotheses of the chosen control model, for all target states
+$\rho$ one has $P_{\mathrm{extra}}(\rho) \ge k_B T\,
+\dot{C}_{\Delta,\mathrm{loss}}(\rho)$, whenever
+$\dot{C}_{\Delta,\mathrm{loss}}(\rho)$ exists.
+\end{assumption}
+
+\begin{corollary}[C1: envelope consequence (directionality explicit)]
+\label{cor:c1}
+Assume Assumption~\ref{ass:bato}. Assume Assumption~\ref{ass:reg}
+whenever needed to exclude degeneracies. Then for $\rho \in
+\mathcal{F}_\epsilon$,
+\[
+P_{\mathrm{extra}}(\rho) \ge k_B T\, \kappa^{\downarrow}(\epsilon)\,
+C_\Delta(\rho).
+\]
+\end{corollary}
+
+\begin{proof}
+By Assumption~\ref{ass:bato}, $P_{\mathrm{extra}}(\rho) \ge k_B T
+\dot{C}_{\Delta,\mathrm{loss}}(\rho)$. By
+Definition~\ref{def:envelopes}, $\dot{C}_{\Delta,\mathrm{loss}}(\rho)
+\ge \kappa^{\downarrow}(\epsilon) C_\Delta(\rho)$ for $\rho \in
+\mathcal{F}_\epsilon$.
+\end{proof}
+
+\section{Two small examples (toy but honest)}
+
+\begin{example}[Exact Markov case ($I(A:C|B) = 0$ implies perfect
+recovery)]
+\label{ex:markov}
+If a state satisfies $I(A : C | B)_\rho = 0$ (i.e.\ it is a quantum
+Markov chain in the exact sense), then recoverability can be perfect:
+there exists a CPTP recovery map $\mathcal{R}$ such that
+$F(\rho_{ABC}, (\mathrm{id}_A \otimes \mathcal{R})(\rho_{AB})) = 1$,
+hence $\Erec = 0$. This anchors the interpretation of T2/T3: CMI is the
+static ``Markovness defect'' that controls recoverability; the
+implication $I(A : C | B)_\rho = 0 \Rightarrow$ exact recovery is
+standard (see e.g.\ \cite{HJPW}).
+\end{example}
+
+\begin{example}[A semigroup where $\dot{C}_{\Delta,\mathrm{loss}}$ is
+directly computable (envelope intuition)]
+\label{ex:dephasing}
+Let $\Delta$ be dephasing in a fixed basis and let $T_t$ be pure
+dephasing in the same basis (so $T_t$ commutes with $\Delta$ and damps
+off-diagonal terms exponentially). In such cases, $C_\Delta(T_t(\rho))$
+is typically monotone decreasing in $t$ on broad families, and
+$\dot{C}_{\Delta,\mathrm{loss}}(\rho)$ exists and is computable from the
+initial damping rate. This illustrates what $\kappa^{\uparrow}(\epsilon)$
+and $\kappa^{\downarrow}(\epsilon)$ measure: worst-case and best-case
+\emph{initial relative} coherence-loss rates over a typed family
+$\mathcal{F}_\epsilon$. (We do not claim a universal closed form for
+$\dot{C}_{\Delta,\mathrm{loss}}$ in this paper; the point is operational
+meaning.)
+\end{example}
+
+\begin{remark}[v2: both examples instantiated numerically]
+\label{rem:examples}
+The verification suite instantiates Example~\ref{ex:markov} with a
+random state of Hayden--Jozsa--Petz--Winter structure $\rho = \rho_{A
+B_L} \otimes \rho_{B_R C}$: $I(A : C | B) = 4\times10^{-16}$ and
+Petz-type reconstruction with $1 - F = 1.3\times10^{-15}$. It
+instantiates Example~\ref{ex:dephasing} with a $d = 3$ pure-dephasing
+semigroup with strongly unequal pair rates: $C_\Delta(T_t\rho)$ is
+monotone on all sampled trajectories, $\dot{C}_{\Delta,\mathrm{loss}} >
+0$ on the family, and the empirical envelopes spread by
+$\kappa^{\uparrow}/\kappa^{\downarrow} \approx 100$ --- a concrete
+reminder of the golden rule (Remark~\ref{rem:golden}): an upper envelope
+never certifies a floor. The same directionality is exhibited
+dynamically in the Davies setting by the companion ai.viXra:2601.0064
+(v2).
+\end{remark}
+
+\section{Falsification matrix (minimal)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{3.2cm} p{2.4cm} p{4.0cm} p{4.2cm}}
+\hline
+\textbf{Item} & \textbf{Status} & \textbf{Verification proxy} &
+\textbf{Concrete falsifier} \\
+\hline
+A-CMI (CMI decay) & \ASSUMED & compute/estimate $I(A:C|B)$ vs $\epsilon$
+& show non-decay or slower decay than claimed \\
+T2 (FR-type) & \IMPORTED & align $c_{\mathrm{FR}}$ to cited convention
+(done in v2: $c_{\mathrm{FR}} = 1$) & detect convention mismatch / wrong
+constant \\
+BATO-LAW & \ASSUMED & explicit model calculation & explicit protocol
+violating inequality \\
+Lower-envelope need & \PROVED & logic in Remark~\ref{rem:golden} and
+Corollary~\ref{cor:c1} & N/A (directionality statement) \\
+\hline
+\end{tabular}
+\caption{Minimal falsification matrix for this contract paper
+(re-typeset in v2).}
+\label{tab:fals}
+\end{table}
+
+\section{Clay vs operational track (explicit separation)}
+
+\textbf{Clay track (closed Hamiltonian).} The Clay mass gap concerns a
+\emph{closed} Yang--Mills QFT in the continuum and its spectral gap in
+an axiomatic setting.
+
+\textbf{Operational track (this paper).} This paper treats an
+open-system/maintenance track: typed inequalities relating coherence
+loss and power. Any bridge from operational rate floors to closed
+Hamiltonian gaps would require additional hypotheses not provided here.
+
+\section*{Note added in v2}
+No v1 definition, assumption, theorem statement or numbering is changed;
+new v2 material is appended at the end of the affected sections. v2:
+(1) repairs the cross-reference labels --- in v1 every reference was
+typeset as ``Definition~$x.y$'' regardless of environment, so e.g.\
+``given Definitions 4.4 and 4.6'' in v1 denotes Theorem~\ref{thm:t2} and
+Assumption~\ref{ass:acmi}, ``apply Definition 4.3'' denotes
+Lemma~\ref{lem:l1}, and ``Assume Definition 5.3'' denotes
+Assumption~\ref{ass:bato}; (2) re-typesets Tables~\ref{tab:audit} and
+\ref{tab:fals} (overlapping column text in v1); (3) executes the
+$c_{\mathrm{FR}}$ alignment of Appendix~\ref{app:cfr}: in the locked
+conventions the Fawzi--Renner import gives $c_{\mathrm{FR}} = 1$ exactly
+(Remark~\ref{rem:cfrone}); (4) updates Appendix~\ref{app:deferred}: the
+three deferred interfaces announced in v1 now exist as series papers and
+are cited concretely; (5) records in Appendix~\ref{app:bato} the partial
+progress toward BATO-LAW in ai.viXra:2601.0031 (v2); (6) adds series
+positioning (v1 cited no companion papers) and a verification suite
+(\texttt{verification/2601-0066/} in the series repository)
+instantiating the closed recoverability lane end to end and both examples
+(Remarks~\ref{rem:cfrone} and \ref{rem:examples}).
+
+\appendix
+
+\section{Imported theorem conventions (how to set $c_{\mathrm{FR}}$)}
+\label{app:cfr}
+
+To make Theorem~\ref{thm:t2} fully audit-aligned, pick a single source
+theorem statement and restate it verbatim under the conventions: squared
+fidelity $F$ (Definition~\ref{def:fidelity}), error functional $\Erec =
+-\log F$ (Definition~\ref{def:erec}). Then set $c_{\mathrm{FR}}$ to the
+numerical constant appearing in that statement after translating
+conventions. Using $c_{\mathrm{FR}}$ prevents silent factor drift across
+papers. \emph{v2: this step is executed in Remark~\ref{rem:cfrone} with
+source \cite{FR}: $c_{\mathrm{FR}} = 1$ in the locked conventions
+(equivalently, $2$ if the root-fidelity convention were used).}
+
+\section{Deferred interfaces (updated in v2: now concrete)}
+\label{app:deferred}
+
+To keep this paper self-contained and citable, we do not develop here:
+\begin{itemize}
+\item Type III/AQFT split-regularized CMI definitions and conditional
+expectations: \emph{now} the interface note ai.viXra:2601.0065 (v2),
+with the CE-pullback direction discipline of ai.viXra:2601.0046 (v2);
+\item Davies/Dirichlet-form identities and RIP-U envelope bounds:
+\emph{now} the dynamics note ai.viXra:2601.0064 (v2), with the
+Bohr-channel decomposition of ai.viXra:2601.0023 (v2);
+\item non-abelian benchmark implementation contracts and reproducibility
+harness: \emph{now} the benchmark notes ai.viXra:2601.0043, 2601.0044,
+2601.0047, 2601.0050, 2601.0051 (all v2) with suites in the series
+repository.
+\end{itemize}
+Nothing in Sections 4--6 depends on these components; the citations
+record where each deferred interface is developed.
+
+\section{Upgrade path for BATO-LAW (audit guidance)}
+\label{app:bato}
+
+In this paper, BATO-LAW is treated as \ASSUMED, since its validity is
+operational-model dependent. To upgrade Assumption~\ref{ass:bato} to
+\IMPORTED\ or \PROVED\ within a specified control model, it suffices to
+provide:
+\begin{itemize}
+\item an axiomatized specification of the control model (battery,
+admissible controls, error metric, and the maintenance criterion within
+tolerance $\delta$);
+\item either a complete proof within that model or an imported theorem
+with hypotheses restated verbatim under the present conventions;
+\item an explicit identification (or inequality) relating the model's
+dissipation functional to $\dot{C}_{\Delta,\mathrm{loss}}(\rho)$ as
+defined in Definition~\ref{def:loss}.
+\end{itemize}
+\emph{v2 note:} partial progress exists in the series:
+ai.viXra:2601.0031 (v2) proves a work-cost inequality in a GNS/KMS
+battery model (with the v1 sign error corrected there to a battery
+free-energy \emph{decrease}), which supplies the third bullet's
+dissipation-functional identification in that model class; a full
+BATO-LAW derivation remains open.
+
+\begin{thebibliography}{12}
+\bibitem{FR} O. Fawzi and R. Renner, \emph{Quantum conditional mutual
+information and approximate Markov chains}, Commun. Math. Phys.
+\textbf{340}, 575--611 (2015).
+\bibitem{STH} D. Sutter, M. Tomamichel, and P. Harremo\"es,
+\emph{Strengthened monotonicity of relative entropy via pinched Petz
+recovery map}, IEEE Trans. Inf. Theory \textbf{62}, 2907--2913 (2016).
+\bibitem{HJPW} P. Hayden, R. Jozsa, D. Petz, and A. Winter,
+\emph{Structure of states which satisfy strong subadditivity of quantum
+entropy with equality}, Commun. Math. Phys. \textbf{246}, 359--374
+(2004).
+\bibitem{S0065} L. Eriksson, ai.viXra:2601.0065 (2026; v2 2026).
+\bibitem{S0064} L. Eriksson, ai.viXra:2601.0064 (2026; v2 2026).
+\bibitem{S0046} L. Eriksson, ai.viXra:2601.0046 (2026; v2 2026).
+\bibitem{S0023} L. Eriksson, ai.viXra:2601.0023 (2026; v2 2026).
+\bibitem{S0031} L. Eriksson, ai.viXra:2601.0031 (2026; v2 2026).
+\bibitem{S0035} L. Eriksson, ai.viXra:2601.0035 (2026; v2 2026).
+\bibitem{S0043} L. Eriksson, ai.viXra:2601.0043 (2026; v2 2026).
+\bibitem{S0044} L. Eriksson, ai.viXra:2601.0044 (2026; v2 2026).
+\end{thebibliography}
+
+\end{document}

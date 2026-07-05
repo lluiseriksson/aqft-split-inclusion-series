@@ -1,0 +1,8 @@
+== PART A: semantica del collar (exacto, sin dependencias) ==
+  g=0.6: geometrico decae=True  proxy-invierte=True
+  g=1.0: geometrico decae=True  proxy-invierte=True
+  buffer geometrico decae; el proxy contiguo puede invertir: OK
+== PART B: replicacion DMRG minima (tenpy) ==
+  (sin cache_B: ejecuta --partB g con tenpy instalado)
+
+ALL CHECKS PASSED

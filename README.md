@@ -1,11 +1,11 @@
-# AQFT / Operational Coherence Series — five v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — thirty-six v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Five companion papers that cite one another (ai.viXra 2512 series), each at
-version 2, with every correction driven or confirmed by exact numerical
-verification. Scripts and reference logs are included; nothing in the checks
-relies on the approximations being tested.
+Thirty-six companion papers that cite one another (ai.viXra 2512 series), each at
+version 2, with corrections backed by scoped numerical or symbolic checks where
+applicable. Scripts and reference logs are included; each check's limits are
+spelled out in the honesty statement.
 
 | Paper | Directory | Verification | Role in the series |
 |---|---|---|---|
@@ -13,15 +13,51 @@ relies on the approximations being tested.
 | **0061** — *The Conditional Maintenance Work Theorem* | `papers/0061-maintenance-work/` | `verification/0061/` | Thermodynamics: battery-accounted power floors for maintaining states/coherence; Type III blueprint uses 0060's split machinery |
 | **0064** — *The Heisenberg Cut as a Resource Boundary* | `papers/0064-heisenberg-cut/` | `verification/0064/` | Dynamics/interpretation: exact rate inheritance through gapped buffers; grounds its maintenance inequality in 0061 (v2) and its geometry in 0060 |
 | **0070** — *Stress Testing the Rate Inheritance Principle* | `papers/0070-rate-inheritance/` | `verification/0070/` | Stress test: Davies-generator regime where rate inheritance fails; ceiling/floor envelopes; resource-horizon no-go |
-| **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the other four |
+| **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the others |
+| **0072** — *The Rate Inheritance Principle (framing note)* | `papers/0072-rip-principle/` | `verification/0072/` (figure script; evidence inherited from 0064/0070) | Formulates RIP: weak form as a proved lemma, strong form with updated status (derived quasi-free with squared exponent; Davies-class failure) |
+| **0073** — *Finite-Dimensional Davies Interface Lemmas and TFIM Witness Tests* | `papers/0073-davies-core/` | `verification/0073/` | The technical core (P7): exact omega=0 identity, corrected modular-weighted Bohr-block identity, witness protocols, linear envelope lemma |
+| **0081** — *Operational Coherence Maintenance and the Quantum-Classical Boundary* | `papers/0081-quantum-classical-boundary/` | protocol-level; verification inherited from the 0061/0064/0070/0073 suites (its MCWF stress-test parameters are fully declared in-paper) | The integrative, protocol-facing paper: corrected maintenance hierarchy, RIP status, falsifiable protocols, speculative FEP outlook |
+| **0084** — *The Maintenance Constraint: How Resource Boundaries Shape Cognitive Availability* | `papers/0084-maintenance-constraint/` | none — philosophy-of-mind paper with no theorems of its own; its single technical input (the maintenance inequality) is imported as an anchor | The outermost paper: maintainability→availability bridge, maintenance-feasibility bias, FEP/Global-Workspace connections. Explicitly speculative; no phenomenology claims |
+| **0085** — *Geometry, Membranes, and Life as a Resource Boundary* | `papers/0085-geometry-membranes-life/` | `verification/0085/` (two checkable claims: fidelity lemma + Davies upper-envelope direction) | The synthesis/pipeline paper: composes the whole program (maintenance law → static leakage → CMI recoverability → Davies interface → ceiling/floor hinge). Anticipated the κ↑/κ↓ distinction. Speculative "life" framing, operational only |
+| **0091** — *Technical Appendix: Heat Kernel, Fermions, and the Sign of Induced Gravity* | `papers/0091-heat-kernel-induced-gravity/` | `verification/0091/` (symbolic check of all 7 Seeley–DeWitt coefficients + induced-Newton sign) | Topically-adjacent support piece (induced-gravity sign bookkeeping), not part of the coherence core. **The only paper in the program with no error in v1** — v2 is enhancement (verification + updated refs) |
+| **0101** — *Beyond Gaussianity: Extending the Clustering–Recovery Bridge* | `papers/0101-beyond-gaussianity/` | `verification/0101/` (Markov-product identity; full Petz slope table; rotated-Petz subset + crossover figure) | Direct companion of 0060: non-Gaussian extension of its Conjecture 5.1 (collar geometry, Fawzi–Renner CMI route, TFIM Gibbs numerics). v2 corrects the normalized Markov-product identity (missing log Z, Lieb) |
+| **0102** — *Heat Kernel Methods and the Sign of Induced Gravity* | `papers/0102-induced-gravity-sign/` | `verification/0102/` (exact S^4 spectra: scalar, Dirac, Hodge 1-forms; A1 table + induced-Newton sign; 11/11) | Conventions companion of 0091: where the Seeley–DeWitt a1 coefficients are fixed and verified against exact S^4 spectra, anchored to the classical counting 1/G_ind ∝ N0 + 2N_{1/2} − 4N1. Complementary to 0091 (compact bookkeeping), not redundant |
+| **0105** — *Prefix-Path Bell Transport on IBM Quantum Hardware* | `papers/0105-prefix-path-bell-transport/` | `verification/0105/` (`--demo` validates the offline re-analysis code; raw on-device JSONs are pending data revision) | Experimental companion for the RIP thread: documents a geometry-dependent transport protocol, a negative static-dynamic association test with power bound, and explicit reproducibility limits |
+| **2601.0007** — *Quantitative Recovery Bounds from Vacuum Clustering* | `papers/2601-0007-gaussian-recovery-bounds/` | `verification/2601-0007/` (BBP Gaussian fidelity in numpy/scipy; 450 sampled draws; collar sweep) | Finite-mode Gaussian bridge between 0060's lattice Gaussian layer and 0101's non-Gaussian/CMI route; includes the v2 Petz-to-conditional-reattachment wording correction |
+| **2601.0020** — *Geometric Markov Bounds and Rate Inheritance Modulo Fixed Points* | `papers/2601-0020-geometric-markov-rip/` | `verification/2601-0020/` (exact Ising-Z enumeration; corrected Fawzi-Renner factor; A.4-v1 counterexamples and A.4-v2 check) | Static-to-dynamic interface paper: CMI/RIP bridge with fixed-point caveats, finite-chain diagnostics, and explicit correction of the v1 diagonal Dirichlet comparison |
+| **2601.0022** — *Operational Influence Proxies in a TFIM Surrogate* | `papers/2601-0022-influence-proxies-tfim/` | `verification/2601-0022/` (regenerable witness ED + power test; TEBD/MCWF trajectories not included) | TFIM surrogate companion for the omega=0/RIP thread: quantified no-floor power limits, positive witness benchmark for S=Z, and S=X null case |
+| **2601.0023** — *Finite-Dimensional Davies Interface Lemmas* | `papers/2601-0023-davies-interface-lemmas/` | `verification/2601-0023/` (finite exact identities; v1 counterexamples; positivity pinning; optional `--with-tfim`) | Davies-interface companion for the omega=0 witness: corrected Bohr decomposition, corrected KMS multiplication constants, and finite pinning check |
+| **2601.0031** — *From Static Recoverability to Maintenance Power* | `papers/2601-0031-typed-pipeline/` | `verification/2601-0031/` (finite GNS/KMS bridge; v1 work-sign counterexample; corrected sign check; N-trend) | Typed-pipeline companion for the 2601 block: static-to-dynamic-to-thermodynamic bookkeeping with explicit finite diagnostics |
+| **2601.0034** — *Modular Recovery from Split Inclusions* | `papers/2601-0034-modular-recovery-split/` | `verification/2601-0034/` (finite-dimensional dictionary: CMI reduction, N-dependence demo, corrected Fawzi-Renner factor) | Split-inclusion-facing dictionary note for the 2601 block; v2 corrects the Fawzi-Renner factor in the finite anchor |
+| **2601.0035** — *A Non-Gaussian Clustering-Recovery Bridge via CMI* | `papers/2601-0035-nongaussian-bridge/` | `verification/2601-0035/` (finite ED benchmark; corrected Fawzi-Renner factor; v1 overshoot artifact check) | Non-Gaussian finite-chain bridge companion for 0101/0034; regenerates the Petz-vs-FR benchmark on the fast grid |
+| **2601.0038** — *Operational Signatures of Criticality from Petz Recovery* | `papers/2601-0038-criticality-petz-distance/` | `verification/2601-0038/` (CI smoke + manual finite ED benchmark; Petz-distance signal + CMI companion; chunkable) | Finite criticality-diagnostic companion for the recovery block; v2 adds the C-size caveat, window note, and CMI diagnostic |
+| **2601.0040** — *Finite-Size Scaling of Petz Recovery Length in the TFIM* | `papers/2601-0040-petz-scaling/` | `verification/2601-0040/` (CI smoke + manual chunked finite ED benchmark; baseline and enhancement diagnostics) | Scaling sequel to 0038; v2 quantifies the C-size/baseline confound and functional-form ambiguity |
+| **2601.0042** — *Emergent Information Distance from Petz Recovery* | `papers/2601-0042-emergent-distance/` | `verification/2601-0042/` (CI smoke + manual chunked finite ED benchmark; beta and perturbation sweep) | Closes the finite d_eff mini-block 0038/0040/0042; v2 replaces a corrupted reproducibility paragraph with a real suite |
+| **2601.0043** — *Recoverability Geometry* | `papers/2601-0043-recoverability-geometry/` | `verification/2601-0043/` (CI smoke embedding demo + manual chunked finite ED control) | Geometry-facing finite diagnostic for the d_eff block; v2 flags the unstable row and adds a first in-model conjecture check |
+| **2601.0044** — *Recoverability Length Scales and Wilson Loops in LGT* | `papers/2601-0044-recoverability-gauge/` | `verification/2601-0044/` (CI smoke + manual chunked finite Z2 ladder benchmark; Gauss exact) | Gauge extension of 0043; v2 fixes the NL=13 ladder geometry and records no-tracking on a finite height-1 ladder |
+| **2601.0046** — *Petz Recoverability in AQFT via Conditional Expectations* | `papers/2601-0046-petz-aqft/` | `verification/2601-0046/` (finite-dimensional Petz/CE checks; full suite in CI) | AQFT-facing recovery interface note; v2 corrects the Petz-dual pairing and recovered-state typing |
+| **2601.0047** — *Petz Recoverability vs Wilson-Loop Diagnostics in Z2 LGT (2+1D)* | `papers/2601-0047-z2-benchmark/` | `verification/2601-0047/` (CI smoke + manual chunked finite Z2 benchmark; gap covariate) | Small-lattice 2D Z2 benchmark; v2 adds rank statistics and records that confinement specificity is unresolved |
+| **2601.0050** — *CMI-Based Recoverability vs Wilson-Loop Diagnostics in Z2 LGT* | `papers/2601-0050-cmi-gauge-benchmark/` | `verification/2601-0050/` (CI smoke + manual chunked finite CMI sweep; saturation lemma) | CMI twin of 0047; v2 adds the saturation identity, convention check, and the same finite gap covariate caveat |
+| **2601.0051** — *Petz Recoverability vs Wilson Loops: ED + TN Ladders* | `papers/2601-0051-z2-tn-ladders/` | `verification/2601-0051/` (CI smoke + manual exact-ladder Part A; optional TeNPy Part B) | Tensor-network ladder extension of the gauge benchmark; v2 fixes the inherited NL=13 Part A geometry and documents proxy semantics |
+| **2601.0064** — *RIP-U and the omega=0 obstruction in Davies dynamics* | `papers/2601-0064-ripu-davies/` | `verification/2601-0064/` (full finite Davies suite in CI) | Davies-interface note for upper envelopes; v2 checks Delta-MONO/BRIDGE-P finite instances and the omega=0 sector relation to 0023 |
+| **2601.0065** — *Split-regularized recoverability in Type III AQFT* | `papers/2601-0065-typeiii-recoverability/` | `verification/2601-0065/` (full finite Type I contract suite in CI) | AQFT companion for the conditional Type III recoverability contract; v2 fixes direction, proves the Type I reduction, and verifies the finite anchor |
+| **2601.0066** — *Typed Pipeline for Recoverability--Rate--Power Links* | `papers/2601-0066-typed-pipeline/` | `verification/2601-0066/` (full finite typed-pipeline suite in CI) | Typed operational contract tying CMI, recoverability, rate envelopes, and power interfaces; v2 fixes the `c_FR = 1` convention and replaces deferred interfaces with concrete 0064/0065 citations |
+| **2601.0099** — *Program A: Semi-infinite CMI in the 1D TFIM (iMPS)* | `papers/2601-0099-programA-cmi/` | `verification/2601-0099/` (full free-fermion/ED suite in CI; optional TeNPy path manual) | Numerical A-CMI instance for the 0066 contract; v2 repairs Appendix A/Table 1 packaging and ships executable Colab scripts plus an independent free-fermion oracle |
+| **2601.0111** — *CMI and Petz recovery in a Z2 lattice gauge ground state* | `papers/2601-0111-z2-cmi-petz/` | `verification/2601-0111/` (full finite Z2 CMI/Petz suite in CI) | Finite Gauss-sector Z2 benchmark; v2 corrects `G_s = prod Z`, reproduces Table 1 from the manifest, and documents complement-confound, saturation, and Petz-regularization effects |
+| **2601.0115** — *Algebraic Entropy and CMI in a Tiny Gauge-Invariant Truncated Hilbert Space* | `papers/2601-0115-algebraic-toy/` | `verification/2601-0115/` (full finite algebraic-toy suite in CI) | Self-contained finite algebraic toy replacing the missing v1 `descs.pkl`; v2 proves the descriptor-sector entropy lemma, checks the uniform/strong-mixing limits, and runs Haar/ablation/grid diagnostics |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070} (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0044 → {2601.0043, 2601.0038, 2601.0040, 2601.0042, 2601.0035} (finite Z2 ladder gauge diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043, 2601.0044} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0044, 2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic), 2601.0050 → {2601.0047, 2601.0046, 2601.0044, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic), 2601.0051 → {2601.0044, 2601.0047, 2601.0050, 2601.0043} (finite ED/TN ladder benchmark diagnostic), 2601.0064 → {2601.0023, 2601.0022, 2601.0031, 2601.0038, 2601.0040} (finite Davies upper-envelope diagnostic), 2601.0065 → {2601.0046, 2601.0034, 2601.0020, 2601.0035, 2601.0007, 2601.0050} (conditional Type III/finite Type I recoverability interface), 2601.0066 → {2601.0065, 2601.0064, 2601.0046, 2601.0023, 2601.0031, 2601.0035, 2601.0043, 2601.0044} (typed recoverability-rate-power interface), 2601.0099 → {2601.0066, 2601.0065, 2601.0050, 2601.0040, 2601.0038} (finite Program A A-CMI benchmark), 2601.0111 → {2601.0050, 2601.0038, 2601.0040, 2601.0044, 2601.0047, 2601.0051} (finite Z2 CMI/Petz benchmark), 2601.0115 → {2601.0111, 2601.0043, 2601.0065, 2601.0050} (finite algebraic entropy/CMI toy) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
 frequency-resolved rate law.
 
-## What each v2 fixes (all verified here)
+*Series-history note:* 0071 v2 (the closure map, submitted 2026-07-04) lists
+the series as 0060/0061/0064/0070/0072 — the inventory at its submission
+time; 0073 and 0081 joined the v2 series immediately afterwards and cite all
+predecessors. This README is the live inventory.
+
+## What each v2 fixes (scoped checks here)
 
 **0060**: (1) v1's Prop. 2.14 misidentified its Gaussian reconstruction with the
 Petz map (for a pure reference the Petz map returns the reference for *every*
@@ -71,6 +107,332 @@ failure scenario realized within the Davies class (0070 v2, with the secular
 nonlocality caveat), open exactly for interacting gapped buffers. A new
 proxy-discipline remark distills the windowed-proxy withdrawal and the
 ceiling/floor correction. 0070 added to its references (absent in v1).
+
+**0072** (v2 written here, replaces v1): v1's surrogate decay-curve evidence
+(quantum-trajectory proxy on a TFIM buffer chain, no critical control, plus a
+broken figure placeholder `nedladdning.png`) is withdrawn — it belongs to the
+proxy class whose failure the 0064 v2 critical control exposed — and replaced
+by exact Liouvillian-rapidity evidence generated from the 0064 verification
+data (`verification/0072/make_rip_figure.py`). The weak form is promoted to a
+proved lemma with explicit hypotheses; the strong form's status is updated
+(derived in the quasi-free local-sink class with the squared-amplitude
+exponent v1 anticipated; failure realized within the Davies class per 0070);
+secular delocalization added as failure mode; the falsification protocol
+gains the proxy-validation clause; maintenance inequality re-anchored to
+0061 v2.
+
+**0073** (v2 written here, replaces v1): (1) v1's Lemma 2 (Bohr-block
+commutator decomposition of the KMS Dirichlet form) is FALSE for omega != 0 —
+measured 30-40% deviation at beta=1; replaced by the exact modular-weighted
+identity, machine-verified to 1.9e-10 (Lemma 1 at omega=0 is the weight-1
+special case, so all witness numerics survive). (2) v1's quadratic envelope
+Lemma 3 is withdrawn as proved (broken proof; exact tail-reduction shortcut
+numerically false, defect ~5e-3) and replaced by a linear-envelope lemma with
+explicit hypotheses; the quadratic case is open in the Davies class and exact
+in 0064's local-sink class. (3) Imported theorem re-anchored to 0061 v2 (v1
+imported the vacuous form verbatim). (4) Witness Table site convention fixed
+(k = j0 - eps; values reproduced exactly: 0.134648/0.0885503/0.0684289 at
+N=8). (5) Compile-time figure remark removed; program map updated; inline
+Colab listings moved to `verification/0073/`.
+
+**0081** (v2 written here, replaces v1): v1's Theorem 1 ("proved here") used
+the vacuous unlinked-pairs P_extra and its Appendix A Step 4 subtracted two
+lower bounds (invalid). v2 keeps the valid core of that appendix (Steps
+0-3+5), which proves the *unconditional* entropy-production bound, and
+imports the coherence/extra-power bounds from 0061 v2. Bonus finding: the
+paper's own Protocol B uses a dephasing dissipator — exactly the
+free-baseline case, so its headline inequality is a theorem with no further
+assumptions in its own experimental setting; and its numerics were already
+proxy-compliant (fixed-horizon metric + unitary-baseline subtraction). RIP
+status updated; series references added (v1 cited only external literature);
+work sign fixed to consumption; v1's unnecessary regularity assumption (A5)
+dropped.
+
+**0084** (v2 written here, replaces v1): the outermost, philosophy-of-mind
+paper. Its single load-bearing technical input — the maintenance inequality
+P_extra >= k_B T Cdot_loss — was cited in v1 in the unqualified extra-power
+form whose companion-v1 formulation was later found vacuous. v2 cites it in
+the corrected form (efficient-baseline incremental bound + unconditional
+entropy-production floor, per 0081/0061 v2), and observes that the paper's
+own passive-stability special case is exactly the corrected inequality's
+free-baseline regime — so the correction sharpens rather than weakens the
+argument. Full series references added (v1 cited only the single anchor
+preprint); non-claims retained verbatim. No verification suite: it is
+philosophy, and claims nothing numerical.
+
+**0085** (v2 written here, replaces v1): the synthesis/pipeline paper. (1) Its
+imported core law (Theorem 1) pointed to 0061 v1's Theorem 4.12 — the vacuous
+unlinked-pairs extra-power bound; re-anchored to the corrected 0061 v2
+hierarchy, work sign fixed to consumption. (2) Notably, this paper ALREADY
+distinguished upper/lower rate envelopes (κ↑/κ↓, RIP-U/RIP-L) "to avoid
+sign/quantifier errors" — anticipating the exact ceiling/floor correction
+that 0070 needed in v2; v2 connects these to the now-proved companion results
+(exact RIP-U in 0064, Davies floors in 0070, RIP lemma in 0072, corrected
+Bohr-block identity in 0073 — whose linear upper-envelope lemma IS this
+paper's Davies interface lemma). (3) CMI/Fawzi-Renner recoverability layer
+tied to 0060 v2 (independent of its Petz→reattachment correction). (4) Two
+checkable claims verified and script distributed: the elementary fidelity
+lemma (1−F ≤ −log F) and the Davies upper-envelope direction (ω=0 witness
+rate decays with separation, exactly reproducing the 0073 table).
+
+**0091** (v2 written here, replaces v1): a self-contained heat-kernel /
+induced-gravity appendix (Seeley–DeWitt a1 coefficients; sign of the induced
+Newton constant per matter species), only heuristically linked to the
+"resource boundary" program. **This is the first and only paper in the program
+whose v1 contained no mathematical error** — all seven coefficients
+(1/6−ξ, 1/6, 1/3, 1/3, 1/6, 1/6, −2/3) and the induced-Newton sign column are
+verified symbolically (SymPy) and match standard heat-kernel references
+(Vassilevich; Gilkey). v2 is therefore an *enhancement*, not a rectification:
+verification script added, companion references updated to v2, scope note
+tightened so the cut-program link is explicitly heuristic and non-load-bearing.
+
+**0101** (v2 written here, replaces v1): the non-Gaussian companion of 0060.
+(1) v1's "CMI as relative entropy" identity equated I(A:C|B) with
+D(rho || sigma_MP) for the *normalized* Markov product state; the exact
+identity uses the unnormalized product, and the normalized version differs by
+-log Z >= 0 with Z <= 1 by Lieb's triple-matrix inequality — corrected and
+verified numerically (machine precision on the unnormalized identity).
+(2) Full independent re-implementation of the TFIM pipeline: all twenty Petz
+slope rows reproduced (4-decimal agreement for beta >= 0.6; ~2% at beta = 0.3
+where fits touch the 1e-13 arithmetic floor — caveat added in v2);
+rotated-Petz subset and the crossover w* = 3 confirmed in all eight
+disagreement cases; the v1 Colab PNG figure replaced by a script-generated
+figure + CSV.
+
+**0102** (v2 written here, replaces v1): the conventions/verification companion
+of 0091. Same species table and signs; v2 adds (1) a corollary anchoring to the
+classical counting 1/G_ind = (Λ²/12π)(N0 + 2N_{1/2} − 4N1), with A1 = 1/6 ×
+{1, 2, −4}; (2) a gauge remark (the −2/3 is Feynman-gauge; off-shell
+gauge/parametrization dependence declared, Kabat contact term); (3) a
+Weyl/Majorana caveat (the halving is of the local a1 only; chiral-determinant
+phases tracked separately); (4) a corrected Euclidean Wick weight
+(iS^(L) → −S^(E)); (5) an exact-spectrum numerical verification on S^4 (scalar,
+Dirac, Hodge–de Rham 1-forms) giving tr a1 = {+R/6, −R/3, −R/3} to <1e−5 and
+A1(vector+ghosts) = −2/3. Verified 11/11 (verification/0102/).
+
+**0105** (v2-LITE package integrated here): the IBM-hardware prefix-path Bell
+transport note is included with its paper figures and an offline re-analysis
+script. Because the processed on-device JSON artifacts are not preserved in
+this repository, the shipped verification is a synthetic-data `--demo` of the
+analysis machinery: fit-variant robustness, null scale-up association,
+preregistered-test permutation statistic, power bound and proxy agreement. A
+future data revision should recover raw job results from IBM account records,
+export the canonical JSONs documented in `results/0105/README.md`, rerun the
+same script on those files and then recompile the paper.
+
+**2601.0007** (v2 package integrated here): the finite-mode Gaussian recovery
+paper keeps its v1 theorems but corrects the language around Petz versus
+conditional reattachment, aligning with the repaired 0060 framing. Its
+verification suite implements zero-mean Gaussian fidelity via the
+Banchi-Braunstein-Pirandola formula in numpy/scipy, checks closed-form anchors,
+samples finite-mode admissible draws, records an empirical sampled-domain
+constant for the local quadratic benchmark, and runs a collar-suppression
+sweep. The suite is numerical finite-mode evidence and regression testing, not
+a replacement for the paper's hypotheses or for 0060/0101's separate layers.
+
+**2601.0020** (v2 package integrated here): the geometric Markov/RIP interface
+paper makes two explicit corrections. First, in the squared-fidelity
+convention, the Fawzi-Renner arithmetic is `I >= -log F`, so the v1 factor two
+is removed. Second, the v1 diagonal Dirichlet comparison A.4 is false as
+stated; the suite gives finite-chain counterexamples and checks the corrected
+`B+2r` formulation. The verification is exact enumeration of a finite
+classical Ising-Z chain plus random finite-dimensional Petz arithmetic tests;
+it is a finite diagnostic/interface suite, not a general AQFT theorem.
+
+**2601.0022** (v2 package integrated here): the TFIM influence-proxy paper adds
+a declared finite ED witness benchmark (`N=10`, `J=1`, `h=1.05`, center-site
+`S=Z`, `gamma0=0.1`), the corresponding `S=X` null case, and a synthetic power
+analysis showing that a five-point no-floor design has weak floor-detection
+power. No v1 result is retracted here, but the v2 package records that the
+original TEBD/MCWF trajectories are not included. The shipped suite regenerates
+the witness and power diagnostics only; it is not an interacting-buffer proof.
+The companion 2601.0023 suite also exposes an appendix-declared `h=1.5` TFIM
+witness run behind `--with-tfim`; that does not restore the missing TEBD/MCWF
+trajectory data.
+
+**2601.0023** (v2 package integrated here): the finite-dimensional Davies
+interface paper records three corrections and finite checks. The v1 Bohr-block
+Dirichlet decomposition is refuted on a small TFIM Davies model and replaced by
+the corrected KMS-weighted expression; the v1 KMS submultiplicativity step is
+refuted by a one-qubit counterexample and replaced with the stated
+`c_sigma = (lambda_max/lambda_min)^(1/4)` bound; and positivity pinning checks
+that the far-supported quadratic form scales as `delta^2` in the finite model.
+These are finite-dimensional interface diagnostics, not an interacting-buffer
+or continuum proof.
+
+**2601.0031** (v2 package integrated here): the typed-pipeline note records two
+repairs and finite diagnostics. The v1 work-cost sign in Eq. 25 is refuted by
+finite energy-conserving-unitary draws and replaced with the battery
+free-energy decrease convention; the static layer is aligned with the
+conditional-reattachment wording used in 0060/2601.0007; and the suite records
+a finite GNS-vs-KMS convention bridge plus the Figure 1 witness trend for
+`N = 6, 8, 10`. The verification is typed bookkeeping and finite-model
+regression testing, not a theorem beyond the paper's stated hypotheses.
+
+**2601.0034** (v2 package integrated here): the modular-recovery/split note
+records the same Fawzi-Renner factor correction family as 0101 and 2601.0020:
+with squared fidelity, the finite-dimensional anchor is `-log F <= I`, not
+`-log F <= I/2`. The suite checks the standard Type I CMI reduction, demonstrates
+dependence on the chosen finite split identification, verifies the `beta_0`
+normalization, checks the corrected Petz-recovery anchor on random finite
+states, and records the corrected arithmetic constant. These checks are a
+finite-dimensional dictionary/regression layer, not a Type III theorem.
+
+**2601.0035** (v2 package integrated here): the non-Gaussian bridge note records
+the same squared-fidelity Fawzi-Renner factor correction family. The suite
+regenerates a finite TFIM exact-diagonalization benchmark at `N=9`, checks CMI
+decay slopes on the finite grid, and records that the v1 Petz "overshoot" was
+against the half-scale; against the corrected scale the finite grid has
+`-log F / I < 1`. The `--N11` run is available for the paper-size comparison
+but is left out of fast CI. These are finite ED benchmarks, not a general
+non-Gaussian AQFT theorem.
+
+**2601.0038** (v2 package integrated here): the criticality/Petz-distance note
+keeps the v1 numerical signal but adds three finite-scope qualifications: the
+absolute recovery-length reading is confounded by shrinking `|C|` at fixed
+`N`, the resolved window depends on `(epsilon, beta, N)`, and a CMI companion
+diagnostic shows the same qualitative finite-grid signal. CI runs an explicit
+`--smoke` grid that exercises the finite Petz/CMI code path; the default
+suite regenerates the longer `N=9` Petz and CMI tables, while `--N11` and
+`--chunk hz beta` are manual support modes. These are finite ED diagnostics,
+not a continuum criticality theorem.
+
+**2601.0040** (v2 package integrated here): the finite-size Petz-scaling note
+keeps the v1 numerical table where the tested sizes overlap, but adds two
+finite-scope caveats. The off-critical baseline also grows with `N`, so raw
+peak-height exponents mix recovery behavior with geometry; the cleaner finite
+diagnostic is the peak-minus-baseline enhancement. The paper also records that
+power, logarithmic, and linear fits are indistinguishable on the short
+`N = 9..12` window. CI runs only an explicit `--smoke` code-path check; the
+chunked `N = 8, 9, 10` cache-regeneration run and final report are manual.
+These are finite ED diagnostics, not a scaling-law theorem.
+
+**2601.0042** (v2 package integrated here): the emergent-distance note replaces
+a corrupted v1 reproducibility paragraph with a real finite ED suite. The
+manual chunked benchmark reproduces the finite beta/perturbation sweep at
+`N = 9`, including the high-temperature/perturbed-regime comparisons and PSD
+projection sensitivity diagnostic. CI runs only an explicit `--smoke` grid;
+the `--chunk 0.0`, `--chunk 0.5`, and final report sequence is manual. These
+are finite operational-distance diagnostics, not continuum geometry or
+general recovery-length results.
+
+**2601.0043** (v2 package integrated here): the recoverability-geometry note
+adds a finite sparse-Lanczos verification layer for the fixed-target geometry
+protocol used by the d_eff block. The manual chunked benchmark regenerates the
+Table 1 control at `L = 14`, flags the unstable `g = 0.5` three-point fit under
+the paper's own stability policy, and compares `xi_rec` with a same-state
+connected-correlation length as a first finite in-model conjecture check. CI
+runs only the `--smoke`/`--demo` embedding illustration at `L = 12`; the
+`--chunk 0.5`, `--chunk 1.0`, `--chunk 2.0`, and final report sequence is
+manual. These are finite diagnostics for a geometry protocol, not continuum
+geometry or a general recoverability theorem.
+
+**2601.0044** (v2 package integrated here): the Z2 gauge-ladder note executes
+the finite testbed proposed in v1 and resolves the integration blocker by using
+the corrected `NL = 3P + 1 = 13` open-ladder geometry. The dependency-free
+manual chunks check the Gauss sector, Wilson decay proxy, and finite Petz
+recoverability profile on a height-1 ladder. CI runs only the `--smoke`
+incidence/product-state check; the `--chunk` grid and report remain manual.
+The package records no-tracking on this finite ladder and explicitly treats the
+height-1 area/perimeter degeneracy as inconclusive for the larger gauge
+question.
+
+**2601.0046** (v2 package integrated here): the Petz/AQFT conditional-
+expectation note records a finite-dimensional correction to the v1 operational
+mechanism. The suite refutes the printed v1 pairing for the "Petz dual" in
+generic finite states, verifies the trace-predual identity to machine
+precision, distinguishes the Accardi-Cecchini generalized expectation from a
+true Takesaki conditional expectation, checks the product/true-CE anchor, and
+verifies that the corrected pullback definition matches the standard
+Schrodinger Petz reconstruction in finite dimension. These are finite
+matrix-algebra regression checks and interface diagnostics, not a Type III or
+continuum AQFT theorem.
+
+**2601.0047** (v2 package integrated here): the Z2 LGT benchmark note adds a
+small-lattice 2D gauge diagnostic that now sits alongside the corrected
+2601.0044 ladder package. The manual chunked benchmark reproduces the finite
+`sigma_eff`/`E0`/Gauss checks on `2x2` and `2x3` plaquette lattices, densifies
+the `2x2` coupling sweep to eight points, and reports the spectral-gap
+covariate. CI runs only a `--smoke` geometry/product-state code-path check;
+the `--sweep22`, `--chunk23`, and final report sequence is manual. The package
+records a finite positive rank correlation but also that the gap covariate
+tracks just as strongly at these sizes, so confinement specificity is not
+resolved.
+
+**2601.0050** (v2 package integrated here): the CMI/Z2 LGT benchmark note is
+the finite CMI twin of 2601.0047 and now sits alongside the corrected
+2601.0044 ladder package. The manual chunked benchmark reproduces the
+`2x2` coupling sweep, checks the pure-state saturation identity explaining the
+uninformative saturated-buffer row, records a finite rank trend against
+`1/sigma_eff`, and also records the matching spectral-gap covariate. CI runs
+only the `--smoke` finite identity and geometry checks; the `--sweep` chunks
+and final report are manual. The package does not resolve confinement
+specificity at these sizes.
+
+**2601.0051** (v2 package integrated here): the ED/TN ladder note extends the
+gauge benchmark with tensor-network ladder diagnostics and resolves the
+inherited Part A off-by-one by using the corrected `NL = 13` ladder geometry.
+The dependency-free Part A chunks quantify the geometric-collar versus
+contiguous-MPS proxy behavior; the TeNPy Part B replication remains optional
+and manual. CI runs only the `--smoke` incidence/product-state path. This is a
+finite proxy-semantics and reproducibility check, not a thermodynamic or
+continuum gauge result.
+
+**2601.0064** (v2 package integrated here): the Davies RIP-U note adds a
+finite-dimensional verification suite for the omega-zero Dirichlet identity,
+Fourier envelope, energy-pinching Delta-MONO instance, explicit BRIDGE-P
+instance, directionality example, witness C1, and the consistency check against
+the corrected 2601.0023 Bohr decomposition. CI runs the full numpy/scipy suite.
+The package is an upper-envelope diagnostic with explicit finite assumptions;
+it does not turn RIP-U into a lower-envelope/floor statement.
+
+**2601.0065** (v2 package integrated here): the split-regularized Type III
+recoverability note records a conditional AQFT contract and a finite Type I
+anchor. The verifier checks the finite conditional-expectation instance,
+the corrected `E^# = iota` direction, the D7a/D7b CMI identity, and a
+finite TFIM contract dataset with FR-SPLIT, CMI-DECAY, and `c_FR = 1`. The
+paper also documents the `[ForthAQFT]` alias convention. CI runs the full
+finite numpy/scipy suite. This is a conditional Type III interface plus a
+finite Type I verification, not a proof of general Type III recoverability or
+any mass-gap/continuum statement.
+
+**2601.0066** (v2 package integrated here): the typed-pipeline note records
+the program-level chain from static CMI assumptions to recoverability, rate
+interfaces, and operational power bookkeeping. The verifier checks the L1
+inequality, the squared-fidelity convention giving `c_FR = 1`, an exact
+finite Markov/HJPW recovery instance, a finite TFIM closed-lane dataset, and
+a dephasing example showing distinct upper/lower rate-envelope behavior. CI
+runs the full finite numpy/scipy suite. BATO-LAW remains an explicit typed
+interface/assumption, and the package is not a Clay, continuum, or Hamiltonian
+gap result.
+
+**2601.0099** (v2 package integrated here): the Program A note supplies a
+finite numerical A-CMI instance for the 2601.0066 typed contract. The verifier
+uses a dependency-free free-fermion/Jordan-Wigner oracle on an open TFIM chain,
+validates it against exact spin ED at `L = 8`, reproduces the gapped
+`xi_rec = 1.149` window, checks the Eq. (3) entropy identity, and records the
+near-critical pre-asymptotic regime. CI runs the full dependency-free suite;
+the TeNPy/iMPS path remains optional/manual, while the shipped Colab scripts
+are syntax-checked. This is a finite numerical A-CMI benchmark, not a general
+CMI-decay theorem, Type III result, continuum statement, or gap claim.
+
+**2601.0111** (v2 package integrated here): the Z2 CMI/Petz benchmark note
+reconstructs the finite `2x4` Gauss-sector pipeline from the v1 manifest. The
+verifier checks the corrected `G_s = prod Z` convention, sector dimension,
+Table 1 CMI/Petz rows, dense `2^11` cross-check, the `delta = 1e-12`
+regularization rerun, and the complement-confound/saturation diagnostics. CI
+runs the full finite numpy/scipy suite. The package is a finite benchmark
+with documented confounds, not a universal screening curve, confinement
+proof, continuum result, or gap claim.
+
+**2601.0115** (v2 package integrated here): the algebraic toy note repairs a
+reproducibility gap from the missing v1 `descs.pkl` by printing and verifying
+a canonical eight-dimensional basis. The verifier checks the descriptor-sector
+injectivity lemma, exact uniform-state quantization and CMI cancellation,
+strong-mixing convergence, the v1 sweep, Haar baseline, `k_nn` ablations, and
+a fine `t_mix` grid. CI runs the full finite numpy suite. This is a finite
+algebraic reproducibility toy, not a physical gauge result, continuum or
+thermodynamic limit, general Markov theorem, or gap claim.
 
 ## Hardening round (pre-upload review, applied)
 
@@ -123,6 +485,117 @@ python verification/0064/ct_oracle.py           # Combes–Thomas oracle, second
 python verification/0064/modelB.py              # windowed-proxy control, long (N=10 exact)
 # 0070 (~1 min; also regenerates its figure data)
 python verification/0070/verify_0070.py
+# 0072 (regenerates the exact RIP figure)
+python verification/0072/make_rip_figure.py
+# 0073 (Davies corrected identities and witness tables)
+python verification/0073/verify_corrected.py
+python verification/0073/witness_tfim.py
+python verification/0073/verify_0073.py
+# 0085 (fidelity bound + Davies upper-envelope direction)
+python verification/0085/verify_0085.py
+# 0091 (symbolic Seeley-DeWitt coefficient/sign table)
+python verification/0091/verify_0091.py
+# 0101 (petz ~3 min; rot/fig8 longer)
+python verification/0101/verify_0101.py petz
+python verification/0101/verify_0101.py fig8
+# 0102 (exact S^4 spectra, seconds)
+python verification/0102/verify_0102.py
+# 0105 (synthetic demo of offline re-analysis machinery; raw JSON data pending)
+python verification/0105/reanalyze_0105.py --demo --output-dir /tmp/aqft-0105-demo
+# 2601.0007 (finite-mode Gaussian recovery numerical suite)
+python verification/2601-0007/verify_2601_0007.py
+# 2601.0020 (finite Ising-Z Markov/RIP interface checks)
+python verification/2601-0020/verify_2601_0020.py
+# 2601.0022 (finite TFIM influence-proxy witness + no-floor power diagnostic)
+python verification/2601-0022/verify_2601_0022.py
+# 2601.0023 (finite Davies-interface identities/counterexamples/pinning)
+python verification/2601-0023/verify_2601_0023.py
+# Optional appendix-declared TFIM witness comparison, manual/longer
+python verification/2601-0023/verify_2601_0023.py --with-tfim
+# 2601.0031 (finite typed-pipeline checks)
+python verification/2601-0031/verify_2601_0031.py
+# 2601.0034 (finite split-recovery dictionary checks)
+python verification/2601-0034/verify_2601_0034.py
+# 2601.0035 (finite non-Gaussian ED bridge benchmark)
+python verification/2601-0035/verify_2601_0035.py
+# Optional paper-size comparison, slower
+python verification/2601-0035/verify_2601_0035.py --N11
+# 2601.0038 (finite Petz-distance/CMI criticality diagnostic)
+python verification/2601-0038/verify_2601_0038.py --smoke
+# Longer/manual finite grids
+python verification/2601-0038/verify_2601_0038.py
+python verification/2601-0038/verify_2601_0038.py --N11
+python verification/2601-0038/verify_2601_0038.py --chunk 0.0 12.0
+# 2601.0040 (finite Petz scaling diagnostic)
+python verification/2601-0040/verify_2601_0040.py --smoke
+# Longer/manual chunked finite grid
+python verification/2601-0040/verify_2601_0040.py --chunk 8
+python verification/2601-0040/verify_2601_0040.py --chunk 9
+python verification/2601-0040/verify_2601_0040.py --chunk 10
+python verification/2601-0040/verify_2601_0040.py
+# 2601.0042 (finite emergent-distance diagnostic)
+python verification/2601-0042/verify_2601_0042.py --smoke
+# Longer/manual chunked finite grid
+python verification/2601-0042/verify_2601_0042.py --chunk 0.0
+python verification/2601-0042/verify_2601_0042.py --chunk 0.5
+python verification/2601-0042/verify_2601_0042.py
+# 2601.0043 (finite recoverability-geometry diagnostic)
+python verification/2601-0043/verify_2601_0043.py --smoke
+# Longer/manual sparse-Lanczos chunks and report
+python verification/2601-0043/verify_2601_0043.py --chunk 0.5
+python verification/2601-0043/verify_2601_0043.py --chunk 1.0
+python verification/2601-0043/verify_2601_0043.py --chunk 2.0
+python verification/2601-0043/verify_2601_0043.py
+# 2601.0044 (finite Z2 gauge-ladder diagnostic)
+python verification/2601-0044/verify_2601_0044.py --smoke
+# Longer/manual chunked finite ladder report
+python verification/2601-0044/verify_2601_0044.py --chunk 0.45
+python verification/2601-0044/verify_2601_0044.py --chunk 0.6
+python verification/2601-0044/verify_2601_0044.py --chunk 0.8
+python verification/2601-0044/verify_2601_0044.py --chunk 1.0
+python verification/2601-0044/verify_2601_0044.py --chunk 2.0
+python verification/2601-0044/verify_2601_0044.py
+# 2601.0046 (finite Petz/conditional-expectation interface checks)
+python verification/2601-0046/verify_2601_0046.py
+# 2601.0047 (finite 2D Z2 benchmark diagnostic)
+python verification/2601-0047/verify_2601_0047.py --smoke
+# Longer/manual chunked finite grids and report
+python verification/2601-0047/verify_2601_0047.py --sweep22 0 3
+python verification/2601-0047/verify_2601_0047.py --sweep22 3 6
+python verification/2601-0047/verify_2601_0047.py --sweep22 6 8
+python verification/2601-0047/verify_2601_0047.py --chunk23 0.5
+python verification/2601-0047/verify_2601_0047.py --chunk23 1.0
+python verification/2601-0047/verify_2601_0047.py --chunk23 2.0
+python verification/2601-0047/verify_2601_0047.py
+# 2601.0050 (finite CMI/Z2 benchmark diagnostic)
+python verification/2601-0050/verify_2601_0050.py --smoke
+# Longer/manual chunked finite sweep and report
+python verification/2601-0050/verify_2601_0050.py --sweep 0 4
+python verification/2601-0050/verify_2601_0050.py --sweep 4 8
+python verification/2601-0050/verify_2601_0050.py
+# 2601.0051 (finite ED/TN ladder proxy diagnostic)
+python verification/2601-0051/verify_2601_0051.py --smoke
+# Longer/manual exact-ladder Part A; optional TeNPy Part B
+python verification/2601-0051/verify_2601_0051.py --partA 0.6
+python verification/2601-0051/verify_2601_0051.py --partA 1.0
+python verification/2601-0051/verify_2601_0051.py
+# Optional with TeNPy installed:
+python verification/2601-0051/verify_2601_0051.py --partB 0.8
+python verification/2601-0051/verify_2601_0051.py --partB 2.0
+# 2601.0064 (finite Davies RIP-U upper-envelope suite)
+python verification/2601-0064/verify_2601_0064.py
+# 2601.0065 (finite Type I anchor for conditional Type III recoverability contract)
+python verification/2601-0065/verify_2601_0065.py
+# 2601.0066 (finite typed-pipeline recoverability-rate-power contract suite)
+python verification/2601-0066/verify_2601_0066.py
+# 2601.0099 (finite Program A A-CMI benchmark; optional TeNPy path manual)
+python verification/2601-0099/verify_2601_0099.py
+# Optional with physics-tenpy installed:
+python verification/2601-0099/verify_2601_0099.py --tenpy
+# 2601.0111 (finite Z2 CMI/Petz benchmark)
+python verification/2601-0111/verify_2601_0111.py
+# 2601.0115 (finite algebraic entropy/CMI toy)
+python verification/2601-0115/verify_2601_0115.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -147,3 +620,127 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   model class* at N=6 (secular nonlocality quantified in its Section 7); the
   spectral-floor → entropic-rate step is stated as an explicit MLSI-shaped
   hypothesis, not claimed; the no-go theorem's hypothesis is explicit.
+- **0105**: verification/0105 currently validates the re-analysis code on
+  synthetic data only. The on-device IBM JSON artifacts are explicitly pending
+  data revision; this repository does not claim fully offline reproduction of
+  the experimental numbers until those raw or processed records are added.
+- **2601.0007**: verification/2601-0007 is a finite-mode Gaussian numerical
+  suite with sampled admissible draws and closed-form anchors. It supports the
+  artifact's regression story; it is not a continuum AQFT result and does not
+  remove the explicit hypotheses of the paper or of companion 0060/0101.
+- **2601.0020**: verification/2601-0020 is an exact finite-chain/classical
+  enumeration suite plus finite-dimensional Petz arithmetic checks. It records
+  v1 counterexamples and v2 finite diagnostics; it is not a continuum or
+  interacting-buffer proof of rate inheritance.
+- **2601.0022**: verification/2601-0022 is a finite TFIM surrogate/witness ED
+  suite plus synthetic power analysis. The TEBD/MCWF trajectories behind the
+  older proxy figures are not shipped, so those figures are artifacts here,
+  not fully regenerated data products. No continuum or interacting-buffer claim
+  is made by this repository.
+- **2601.0023**: verification/2601-0023 checks finite-dimensional Davies
+  identities, finite counterexamples to v1 proof steps, and a finite positivity
+  pinning diagnostic. The optional `--with-tfim` flag reuses the finite TFIM
+  witness core only as an appendix comparison. No continuum, Type III, or
+  interacting-buffer claim is made by this repository.
+- **2601.0031**: verification/2601-0031 checks finite typed-pipeline
+  bookkeeping: GNS/KMS convention differences, a finite work-sign
+  counterexample/repair, pinching Pythagoras, secular covariance, and a finite
+  witness trend. It does not claim a continuum, Type III, or interacting-buffer
+  theorem.
+- **2601.0034**: verification/2601-0034 checks a finite-dimensional dictionary:
+  CMI reduction under natural Type I factorization, dependence on split
+  identification, beta_0 normalization, and the corrected finite
+  Fawzi-Renner/Petz anchor. It does not prove a Type III, continuum, or
+  modular-recovery theorem beyond the stated finite checks.
+- **2601.0035**: verification/2601-0035 is a finite exact-diagonalization
+  benchmark for a non-Gaussian TFIM bridge. It checks the corrected
+  Fawzi-Renner scale and finite-grid CMI decay; it does not prove a continuum,
+  Type III, or general non-Gaussian clustering-recovery theorem.
+- **2601.0038**: verification/2601-0038 is a finite exact-diagonalization
+  Petz-distance/CMI diagnostic on fixed finite chains. CI runs only the
+  explicit smoke grid; the `N=9`, `--N11`, and chunked grids are longer manual
+  runs. The package reports a finite criticality-associated signal and its
+  `|C|` and window caveats; it does not prove a continuum criticality,
+  Type III, or general recovery-length theorem.
+- **2601.0040**: verification/2601-0040 is a finite exact-diagonalization
+  diagnostic for Petz recovery length versus finite chain size. CI runs only
+  the explicit smoke grid; the chunked `N = 8, 9, 10` report is manual. The
+  package reports baseline/enhancement and fit-form caveats; it does not prove
+  a continuum scaling law, Type III statement, or general recovery-length
+  theorem.
+- **2601.0042**: verification/2601-0042 is a finite exact-diagonalization
+  diagnostic for beta/perturbation dependence of an operational
+  Petz-distance. CI runs only the explicit smoke grid; the two-regime chunked
+  report is manual. The package reports finite operational-distance behavior;
+  it does not prove continuum geometry, Type III structure, or a general
+  emergent-distance theorem.
+- **2601.0043**: verification/2601-0043 is a finite sparse-Lanczos diagnostic
+  for recoverability geometry on fixed finite chains. CI runs only the
+  embedding smoke/demo; the `g = 0.5, 1.0, 2.0` chunked control report is
+  manual. The package reports finite geometry-protocol behavior and an
+  unstable-row flag; it does not prove continuum geometry, Type III structure,
+  or a general recoverability theorem.
+- **2601.0044**: verification/2601-0044 is a finite Z2 gauge-ladder benchmark
+  on a corrected 13-link open ladder. CI runs only the incidence/product-state
+  smoke path; the chunked Gauss/Wilson/Petz report is manual. The package
+  records finite no-tracking on a height-1 ladder with area/perimeter
+  degeneracy; it does not prove or disprove a continuum gauge statement,
+  confinement specificity, Type III structure, or a general recoverability
+  theorem.
+- **2601.0046**: verification/2601-0046 is a finite-dimensional
+  matrix-algebra suite for the Petz/conditional-expectation interface. CI runs
+  the full finite suite. The package records a correction to the finite
+  pairing/typing mechanism and checks the corrected identities; it does not
+  prove a Type III, continuum, or general AQFT recoverability theorem.
+- **2601.0047**: verification/2601-0047 is a finite Z2 lattice-gauge benchmark
+  on small `2x2` and `2x3` plaquette lattices. CI runs only the explicit smoke
+  grid; the chunked sweep/report is manual. The package records finite rank
+  correlations and the matching spectral-gap covariate; it does not prove
+  confinement specificity, continuum gauge behavior, Type III structure, or a
+  general recoverability theorem.
+- **2601.0050**: verification/2601-0050 is a finite CMI/Z2 lattice-gauge
+  benchmark on a small `2x2` plaquette lattice. CI runs only the explicit smoke
+  checks; the chunked sweep/report is manual. The package records a finite
+  saturation-identity check, finite rank correlations, and the matching
+  spectral-gap covariate; it does not prove confinement specificity, continuum
+  gauge behavior, Type III structure, or a general recoverability theorem.
+- **2601.0051**: verification/2601-0051 is a finite ED/TN ladder benchmark for
+  proxy semantics. CI runs only the corrected 13-link incidence/product-state
+  smoke path; the exact-ladder Part A cache and optional TeNPy Part B are
+  manual. The package records finite proxy behavior and an optional reduced
+  DMRG replication path; it does not prove confinement specificity,
+  thermodynamic behavior, continuum gauge behavior, Type III structure, or a
+  general recoverability theorem.
+- **2601.0064**: verification/2601-0064 is a finite-dimensional Davies
+  generator suite for RIP-U upper-envelope diagnostics and the omega-zero
+  obstruction. CI runs the full finite numpy/scipy suite. The package checks
+  canonical finite instances of Delta-MONO and BRIDGE-P and a directionality
+  example; it does not prove a lower-envelope floor, Hamiltonian spectral gap,
+  continuum statement, Type III structure, or general maintenance-power bound.
+- **2601.0065**: verification/2601-0065 is a finite Type I instantiation of
+  the conditional Type III recoverability contract. CI runs the full finite
+  numpy/scipy suite. The package checks finite conditional-expectation,
+  GNS-adjoint, CMI-identity, and TFIM contract instances; it does not prove
+  Type III recoverability in general, a mass gap, continuum behavior, or an
+  unconditional AQFT theorem.
+- **2601.0066**: verification/2601-0066 is a finite typed-pipeline contract
+  suite for recoverability-rate-power bookkeeping. CI runs the full finite
+  numpy/scipy suite. The package checks finite L1, fidelity-convention,
+  Markov recovery, TFIM lane, and dephasing-envelope instances; it does not
+  prove BATO-LAW unconditionally, a Clay statement, continuum behavior, or a
+  Hamiltonian spectral gap.
+- **2601.0099**: verification/2601-0099 is a finite Program A numerical
+  A-CMI benchmark for the typed contract. CI runs the dependency-free
+  free-fermion/ED suite; the TeNPy/iMPS path is optional/manual. The package
+  does not prove general CMI decay, a Type III theorem, continuum behavior,
+  or a Hamiltonian spectral gap.
+- **2601.0111**: verification/2601-0111 is a finite Z2 CMI/Petz benchmark in
+  an exact Gauss sector. CI runs the full finite numpy/scipy suite. The
+  package documents complement-size and regularization confounds; it does
+  not prove universal screening, confinement, continuum behavior, or a
+  Hamiltonian spectral gap.
+- **2601.0115**: verification/2601-0115 is a finite algebraic entropy/CMI toy
+  for reproducibility of a canonical eight-dimensional basis and sector
+  entropy diagnostics. CI runs the full finite numpy suite. The package does
+  not prove a physical gauge result, continuum or thermodynamic behavior, a
+  general Markov theorem, or a Hamiltonian spectral gap.

@@ -1,0 +1,468 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  The Maintenance Constraint: How Resource Boundaries Shape Cognitive
+%  Availability. Version 2 (July 2026). v1: December 2025
+%  (ai.viXra:2512.0084v1).
+%  This is the outermost, philosophy-of-mind paper of the coherence-
+%  maintenance series: no theorems of its own; its single load-bearing
+%  technical input is the maintenance inequality, imported as an anchor.
+%  Main changes (Appendix A):
+%   1. The anchor inequality P_extra >= k_B T Cdot_loss is cited in its
+%      CORRECTED form: v1 cited it as an unqualified extra-power bound, but
+%      the extra-power statement is meaningful only against thermodynamically
+%      efficient baselines, or unconditionally as a total-power / entropy-
+%      production floor; the anchor references are updated to the v2 series
+%      (2512.0081 v2 and, through it, 2512.0061 v2). The philosophical
+%      argument is unchanged, and is if anything cleaner: the passive-
+%      stability special case is exactly the free-baseline case.
+%   2. Full series references added (v1 cited only [1], an unnumbered
+%      preprint).
+%   3. Non-claims retained verbatim; scope tightened where the anchor is
+%      invoked.
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\Pextra}{P_{\mathrm{extra}}}
+\newcommand{\Pmin}{P_{\min}}
+\newcommand{\Pavail}{P_{\mathrm{avail}}}
+\newcommand{\Closs}{\dot{C}_{\mathrm{loss}}}
+
+\title{The Maintenance Constraint:\\
+How Resource Boundaries Shape Cognitive Availability}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025) \quad ai.viXra:2512.0084}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Status note.} This is the outermost, philosophy-of-mind paper of the
+coherence-maintenance series (ai.viXra:2512.0060/0061/0064/0070/0071/0072/
+0073/0081, all at v2, 2026). It contains no theorems of its own; its single
+load-bearing technical input is the maintenance inequality, imported as an
+\emph{anchor}. \textbf{v2}: that inequality is cited in its corrected form
+--- the incremental (extra-power) statement holds against thermodynamically
+efficient baselines, with an unconditional total-power / entropy-production
+floor underneath it, per the corrected companion papers \cite{Anchor,Work}
+(v2); v1 cited the unqualified extra-power form, whose companion-v1
+formulation was later found vacuous. The philosophical argument is
+unaffected. \textbf{Non-claims:} no collapse mechanism, no Born-rule
+derivation, no claim about phenomenological consciousness or quantum
+coherence in brains.}}
+\end{center}
+
+\begin{abstract}
+Cognitive systems are resource-limited, but ``resource limitation'' is often
+invoked without distinguishing one-shot costs (forming a representation) from
+sustained costs (keeping it usable under noise). We argue that the
+availability of internal state features for control, integration, and report
+is constrained by their \emph{maintainability} under finite budgets. As a
+technical anchor we cite a companion preprint deriving an operational
+maintenance inequality in explicit thermodynamic control models: incremental
+maintenance power has a non-arbitrary lower bound tied to dynamical fragility
+(in its corrected form, against efficient baselines, with an unconditional
+entropy-production floor beneath). This motivates an operational cut: a
+feasibility boundary separating maintainable from unmaintainable state
+features. We develop an auditable bridge argument (maintainability $\to$
+stability $\to$ availability), propose a neutrality-friendly principle of
+\emph{maintenance-feasibility bias}, and show how it can be incorporated into
+active inference (the Free-Energy Principle) as a maintenance penalty or
+constraint, aligning secondarily with Global Workspace accounts of access
+stability. We address objections and offer falsifiable predictions for
+synthetic agents and neuromorphic systems, plus an explicitly exploratory
+psychophysics subsection framed in terms of reportability and stability
+rather than phenomenology. We do not propose collapse mechanisms, do not
+derive the Born rule, and make no claims about phenomenological
+consciousness.
+\end{abstract}
+
+\section{Introduction}
+
+Many debates in philosophy of mind and cognitive neuroscience presuppose that
+internal variables can be treated as stable quantities available for
+downstream computation, control, and report. Yet biological and artificial
+agents operate under noise, drift, coupling, and finite budgets (metabolic
+power, bandwidth, control precision, compute). This raises a neglected
+question: which internal state features are feasible to keep \emph{available}
+over task-relevant timescales?
+
+A common move is to invoke ``resource limits'' in broad terms. While true,
+this is too coarse to constrain architectures. Our aim is to sharpen it into
+an operational constraint: \emph{availability is limited by maintainability}.
+Some state features may be representable in principle but too fragile or too
+costly to keep stably available under realistic budgets; this shapes which
+representations dominate behavior and report.
+
+\paragraph{States vs.\ state features.} We speak of \emph{state features}
+rather than exact microstates: what must be stabilized is typically a
+task-relevant feature (a coarse-graining, a decoded variable, a functional
+manifold, a correlation pattern), not an entire microscopic configuration.
+
+Two methodological commitments guide the paper. (1) We treat ``availability''
+as a functional notion (access for downstream use), not a claim about
+phenomenology; this targets access-level cognition and report, not the hard
+problem \cite{Block95,Chalmers95,Chalmers96}. (2) We keep the physics anchor
+separate from philosophy-of-mind claims: the anchor supplies an example of a
+nontrivial lower bound on maintenance cost in an explicit model; it does not
+imply that brains implement quantum coherence, nor that consciousness depends
+on quantum effects.
+
+\paragraph{Non-claims (explicit).} We do not propose collapse mechanisms, do
+not derive the Born rule, and make no claims about phenomenological
+consciousness. The term ``cut'' is used operationally --- a feasibility
+boundary under resource constraints, not an ontological boundary in nature.
+
+\section{Existing approaches to physical constraints on cognition}
+
+That cognition is physically constrained is not new; what is often missing is
+a principled separation between constraints on \emph{computation/
+representation} and constraints on \emph{maintenance} of state features over
+time under noise and coupling. Computational and informational limits (bounded
+rationality \cite{Simon55}, resource-rational analysis \cite{LiederGriffiths20},
+Marr's levels \cite{Marr82}) bound what can be \emph{computed} or
+\emph{encoded}. Metabolic-cost accounts \cite{Laughlin98,AttwellLaughlin01}
+bound the \emph{energy} of signaling. The present proposal is orthogonal to
+both: it concerns the ongoing cost of \emph{holding} a state feature usable,
+which neither a computational-complexity bound nor a per-spike energy budget
+directly captures.
+
+\section{Technical anchor: a maintenance inequality and an operational cut}
+
+We summarize the anchor at a level sufficient for the philosophical argument,
+without requiring the full physics proof \cite{Anchor,Work}.
+
+\subsection{The anchor inequality (corrected form)}
+
+In an explicit thermodynamic control model (finite-dimensional system,
+Markovian uncontrolled dynamics, a work reservoir/battery interacting via
+energy-conserving global unitaries with a thermal environment at temperature
+$T$), one defines an incremental maintenance power $\Pextra(\rho)$ isolating
+the steady cost of stabilizing certain state features at fixed populations.
+The anchor result is the explicitly qualified pair of lower bounds
+\begin{equation}\label{eq:anchor}
+\Pmin(\rho) \;\ge\; \kB T\,\sigma(\rho),
+\qquad\qquad
+P^{\mathrm{eff}}_{\mathrm{inc}}(\rho) \;\ge\; \kB T\,\Closs(\rho)
+\quad\text{in the efficient/free-baseline regimes},
+\end{equation}
+where $C(\rho)$ is a relative-entropy-based coherence functional,
+$\Closs(\rho)$ its instantaneous loss rate under the uncontrolled dynamics,
+and $\sigma(\rho) \ge 0$ the target's entropy production rate. Here
+$P^{\mathrm{eff}}_{\mathrm{inc}}$ denotes the \emph{corrected} incremental
+quantity: extra power relative to thermodynamically efficient
+population-maintenance baselines, or the free-baseline case where
+$\Pextra = \Pmin$. No unqualified paired-infimum statement is intended.
+
+\paragraph{Provenance of \eqref{eq:anchor} (v2).} Both bounds are proved in
+the companion papers \cite{Work,Anchor} (v2): the first is unconditional; the
+second holds against thermodynamically efficient population-maintenance
+baselines and becomes assumption-free when the stabilized feature's
+``populations'' are already stationary (the passive-stability case of
+\S4.5). An earlier companion formulation defined the incremental cost by an
+unconstrained comparison and was vacuous; the corrected form is the one used
+here. The
+\emph{philosophically important} feature is structural and survives the
+correction intact: maintenance has a non-arbitrary lower bound tied to
+dynamical fragility.
+
+We emphasize: the anchor is a \emph{benchmark case study} of maintainability
+costs, not a claim about neural implementation. The argument does not require
+that the brain maintains quantum coherence; the relevant import is the
+existence of principled maintenance lower bounds in explicit physical models.
+
+\subsection{The operational cut}
+
+Given a finite budget $\Pavail$, define a feasibility boundary:
+\begin{quote}
+\emph{Operational cut:} the boundary between state features whose relevant
+maintenance power $P_{\mathrm{maint}}$ --- total ($\Pmin$), incremental
+against an efficient baseline ($P^{\mathrm{eff}}_{\mathrm{inc}}$), or
+free-baseline, depending on the control task --- lies below the available
+budget $\Pavail$, and those for which it does not.
+\end{quote}
+Using the task-appropriate $P_{\mathrm{maint}}$ rather than a bare
+$\Pextra$ avoids transporting the incremental notion into cognitive contexts
+where no clean ``populations baseline'' exists.
+This cut is operational and agent-relative --- it depends on available
+resources and the uncontrolled dynamics --- not an ontological division in
+nature. Its cognitive role emerges once maintainability is connected to
+stability and availability.
+
+\subsection{Methodological status}
+
+Our use of the anchor is methodological, not neurobiological. It provides an
+existence proof that, in explicit control models, holding certain features
+against uncontrolled dynamics entails non-arbitrary lower bounds tied to
+fragility. We do not infer that brains instantiate the anchor's microphysics;
+we use it to motivate a general stance: in any noisy substrate, availability
+of fine-grained internal variables over task-relevant horizons may require
+ongoing stabilization whose cost is constrained by the substrate's loss rates
+and coupling structure. The claim defended here concerns the
+architecture-shaping role of such feasibility boundaries, not the
+universality of any specific inequality.
+
+\section{From maintainability to cognitive availability}
+
+The central bridge is stated as an explicit, auditable argument. The claim is
+\emph{not} that maintainability is consciousness; rather, maintainability
+constrains which internal state features can stably participate in cognition
+in the sense of being available for control, integration, and report.
+
+\subsection{Three notions}
+
+\textbf{Maintainability (control-feasibility).} A target feature is
+maintainable, relative to the uncontrolled dynamics and control primitives, if
+there exists an admissible strategy keeping the system in (or near) a
+functionally acceptable set for the requisite duration within budget. In the
+anchor model, maintainability is constrained by a lower bound on incremental
+maintenance power.
+
+\textbf{Stability (dynamical robustness).} A feature is stable over a horizon
+if, under actual perturbations and couplings, it does not drift rapidly in
+ways that destroy its functional role. Stability concerns trajectory
+timescales, not instantaneous existence of an encoding.
+
+\textbf{Availability (cognitive-functional).} A feature is available if it can
+be reliably used for downstream tasks: guiding action, updating beliefs,
+broadcasting to other subsystems, supporting report. Following the
+access/phenomenal distinction \cite{Block95,DehaeneNaccache01}, we treat
+availability as separable from phenomenology; this paper concerns availability
+and control, not qualia.
+
+\textbf{Maintenance resources (non-quantum reading).} Measurable ongoing costs
+--- metabolic power, control effort, communication bandwidth,
+precision/feedback gain --- required to keep relevant variables within
+functional bounds.
+
+\subsection{Operational proxies}
+
+\textbf{Stability proxies.} Over a horizon $T$: (i) mean deviation from a
+functional set $K$, (ii) dwell-time in $K$ before exit, (iii) decay time of an
+autocorrelation of a task-relevant variable.
+
+\textbf{Availability proxies.} Downstream readout at latency $\tau$: (i)
+decoding accuracy under noise, (ii) control-performance degradation when the
+variable is perturbed, (iii) mutual information between the variable and
+downstream actions within the relevant window. The maintenance constraint
+predicts systematic trade-offs between these proxies and measured maintenance
+expenditure under budget manipulations.
+
+\subsection{The dependency chain}
+
+\textbf{P1 (Availability requires task-relevant persistence).} To be available
+for control, integration, or report, a feature must persist on timescales
+comparable to downstream latencies; a microstate overwritten before it can
+influence downstream processes is not available in the relevant sense.
+
+\textbf{P2 (Persistence under noise often requires maintenance).} Uncontrolled
+dynamics degrade fine-grained features toward default configurations; unless
+the target lies in a naturally stable manifold or is architecturally protected,
+persistence typically requires maintenance (feedback stabilization, metabolic
+expenditure, error correction, active control).
+
+\textbf{P3 (Maintenance can have unavoidable lower bounds).} Under explicit
+thermodynamic bookkeeping, sustaining deviations from default relaxation can
+impose non-zero lower bounds on ongoing resource use. The anchor provides a
+paradigmatic case (quantum coherence) as an operational benchmark: in its
+corrected reading,
+$P^{\mathrm{eff}}_{\mathrm{inc}}(\rho) \ge \kB T\,\Closs(\rho)$ against
+efficient baselines (unconditional total-power floor beneath), linking
+incremental maintenance power to intrinsic dynamical fragility.
+
+\textbf{C (Availability is resource-constrained).} From P1--P3: the set of
+features available to an agent is constrained by its resource budget; some
+candidates exist as encodings in principle but are unavailable in practice
+because too costly to maintain under actual noise and coupling.
+
+\begin{quote}
+\textbf{Maintenance-feasibility bias:} when multiple internal encodings serve
+comparable functional roles, finite-budget agents tend to adopt encodings
+whose stability is achievable within available maintenance resources.
+\end{quote}
+
+\emph{What the conclusion does not say.} Not that cognition is nothing but
+maintenance cost, nor that phenomenology is determined by the bound: it is a
+constraint on availability and stability of internal variables under finite
+budgets.
+
+\subsection{Loading vs.\ holding: work vs.\ power}
+
+A central operational distinction separates \emph{loading} a representation
+(one-shot shaping cost to enter a target state) from \emph{holding} it
+(sustained cost to keep it from drifting). This disentangles ``the system can
+encode $X$'' from ``the system can stably use $X$''. An encoding may be cheap
+to load but expensive to hold, or vice versa, predicting dissociations:
+transient high-fidelity microstates unavailable for report, versus
+lower-fidelity states that dominate behavior because they persist. (In the
+anchor, this is exactly the one-shot-work vs maintenance-power distinction
+made precise in \cite{Work,HCut} v2.)
+
+\subsection{Passive stability as a special case}
+
+Not all stable representations require active maintenance: strong attractors,
+passive memory traces, and structural constraints yield persistence without
+ongoing work. This is a special case where the uncontrolled dynamics already
+keep the state near target, so incremental maintenance cost is negligible ---
+in the anchor model, a vanishing loss rate for the relevant feature, making
+the bound trivial. Notably, this is \emph{precisely} the free-baseline case
+in which the corrected inequality \eqref{eq:anchor} holds without further
+assumptions \cite{Work} (v2): the correction and the passive-stability limit
+are the same statement seen from two sides. The maintenance-feasibility bias
+reduces to the correct special case: availability is unconstrained by
+maintenance when dynamics are already aligned.
+
+\section{Connections to cognitive frameworks}
+
+\subsection{Active inference / FEP with a maintenance penalty}
+
+Active inference proposes that agents minimize variational free energy as a
+proxy for surprise \cite{Friston10,ParrFriston19}. The maintenance constraint
+adds an implementational dimension: even if a representational state reduces
+variational objectives, it may be too fragile to hold under realistic
+perturbations. This motivates a multi-objective trade-off
+\begin{equation}
+\min_{q,\pi}\; \mathbb{E}_\pi\!\big[F_{\mathrm{var}}(q)\big]
++ \lambda\, P_{\mathrm{maint}}(q,\pi), \qquad \lambda > 0,
+\end{equation}
+with $P_{\mathrm{maint}}$ the task-appropriate maintenance power of \S3.2
+(in physical instances, the corrected efficient-/free-baseline
+$P^{\mathrm{eff}}_{\mathrm{inc}}$): fragile
+encodings that lower $F_{\mathrm{var}}$ either raise measured maintenance
+power or are abandoned once the budget is capped.
+
+\subsection{Global Workspace: access stability}
+
+Global Workspace accounts \cite{Baars88,DehaeneNaccache01,Dehaene14} describe
+broadcast/access dynamics for reportable content. The maintenance constraint
+is a secondary alignment: broadcast requires that content remain stable long
+enough to be accessed, so access stability is a maintainability condition on
+workspace occupancy, not a claim about the workspace's phenomenal status.
+
+\section{Objections}
+
+\textbf{``If the brain is classical, the quantum anchor is irrelevant.''} The
+anchor is not a claim about neural microphysics; it demonstrates in an
+explicit model that (a) maintenance can carry principled lower bounds, and (b)
+those bounds are a matter of physics, not engineering inefficiency. The
+philosophical constraint is substrate-general: any noisy substrate with
+nonzero loss rates for the relevant feature inherits a maintainability
+condition, whatever its microphysics.
+
+\textbf{``This is just metabolic cost renamed.''} No: metabolic-cost accounts
+bound signaling energy; the maintenance constraint bounds the ongoing cost of
+\emph{holding a feature usable}, which can be nonzero even when signaling is
+cheap, and zero (passive stability) even when signaling is expensive.
+
+\textbf{``Maintainability is not availability.''} Correct --- it is a
+\emph{necessary} condition via the P1--P3 chain, not identical to it; the
+paper claims constraint, not identity.
+
+\section{Falsifiable implications}
+
+\textbf{Synthetic/neuromorphic agents.} Under explicit energy/compute budgets,
+policies achieving lower $F_{\mathrm{var}}$ via fragile encodings will either
+increase measured maintenance power or revert to robust/low-cost encodings
+once available power is capped --- a directly testable budget-manipulation
+prediction. \textbf{Dissociation prediction.} Cheap-to-load,
+expensive-to-hold features should be underrepresented in report relative to
+their encodability, and the gap should widen as budgets tighten.
+
+\paragraph{Exploratory psychophysics (framed as reportability/stability, not
+phenomenology).} If report requires access stability, manipulations that raise
+the maintenance cost of a decoded feature (increased noise/coupling on its
+substrate) should reduce its reportability at fixed encodability, with the
+effect scaling with the feature's intrinsic loss rate. This subsection is
+explicitly exploratory and makes no phenomenological claim.
+
+\section{Conclusion}
+
+``Resource limitation'' in cognition is sharpened here into a specific,
+operational constraint: availability is limited by maintainability, and
+maintainability can carry principled lower bounds under finite budgets. A
+companion technical preprint provides a benchmark instance in which
+maintenance has a non-arbitrary lower bound tied to dynamical fragility
+\cite{Anchor,Work} (v2). The resulting maintenance-feasibility bias is a
+neutrality-friendly, falsifiable organizing principle for which internal
+representations finite-budget agents can keep available --- with the physics
+anchor kept firmly separate from, and not load-bearing for, any claim about
+phenomenology.
+
+\appendix
+
+\section{Changes relative to version 1}
+
+\begin{enumerate}
+\item \textbf{Anchor corrected, argument preserved.} v1 cited the maintenance
+inequality \eqref{eq:anchor} as an unqualified extra-power bound (its
+reference [1], an unnumbered companion preprint). The companion's v1
+extra-power definition was subsequently found vacuous (an infimum over
+unlinked strategy pairs equals $-\infty$); the corrected hierarchy
+\cite{Work,Anchor} (v2) reads \eqref{eq:anchor} as an efficient-baseline
+incremental bound with an unconditional entropy-production floor beneath.
+This paper cites the corrected form. The philosophical bridge (P1--P3,
+maintenance-feasibility bias) is unchanged and, if anything, sharper: the
+passive-stability special case (\S4.5) is now identified with the corrected
+inequality's free-baseline regime.
+\item \textbf{Series references added.} v1 cited only the single anchor
+preprint; v2 cites the full v2 series and situates the anchor within it.
+\item \textbf{Non-claims retained verbatim}; scope tightened where the anchor
+is invoked (\S3.1, P3).
+\end{enumerate}
+
+\begin{thebibliography}{99}\small
+
+\bibitem{Anchor} L.~Eriksson, \emph{Operational Coherence Maintenance and the
+Quantum--Classical Boundary: Formal Definitions, Falsifiable Protocols, and
+an Outlook for Cognitive Systems}, ai.viXra:2512.0081, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0081-quantum-classical-boundary}.
+
+\bibitem{Work} L.~Eriksson, \emph{The Conditional Maintenance Work Theorem},
+ai.viXra:2512.0061, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0061-maintenance-work}.
+
+\bibitem{HCut} L.~Eriksson, \emph{The Heisenberg Cut as a Resource Boundary},
+ai.viXra:2512.0064, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0064-heisenberg-cut}.
+
+\bibitem{Block95} N.~Block, \emph{On a confusion about a function of
+consciousness}, Behav. Brain Sci. \textbf{18}, 227 (1995).
+\bibitem{Chalmers95} D.~J.~Chalmers, \emph{Facing up to the problem of
+consciousness}, J. Conscious. Stud. \textbf{2}, 200 (1995).
+\bibitem{Chalmers96} D.~J.~Chalmers, \emph{The Conscious Mind} (OUP, 1996).
+\bibitem{DehaeneNaccache01} S.~Dehaene and L.~Naccache, \emph{Towards a
+cognitive neuroscience of consciousness}, Cognition \textbf{79}, 1 (2001).
+\bibitem{Dehaene14} S.~Dehaene, \emph{Consciousness and the Brain} (Viking,
+2014).
+\bibitem{Baars88} B.~J.~Baars, \emph{A Cognitive Theory of Consciousness}
+(CUP, 1988).
+\bibitem{Friston10} K.~Friston, \emph{The free-energy principle: a unified
+brain theory?}, Nat. Rev. Neurosci. \textbf{11}, 127 (2010).
+\bibitem{ParrFriston19} T.~Parr and K.~Friston, \emph{Generalised free energy
+and active inference}, Biol. Cybern. \textbf{113}, 495 (2019).
+\bibitem{Marr82} D.~Marr, \emph{Vision} (W.~H.~Freeman, 1982).
+\bibitem{Simon55} H.~A.~Simon, \emph{A behavioral model of rational choice},
+Q. J. Econ. \textbf{69}, 99 (1955).
+\bibitem{LiederGriffiths20} F.~Lieder and T.~L.~Griffiths,
+\emph{Resource-rational analysis}, Behav. Brain Sci. \textbf{43}, e1 (2020).
+\bibitem{Laughlin98} S.~B.~Laughlin et al., \emph{The metabolic cost of neural
+information}, Nat. Neurosci. \textbf{1}, 36 (1998).
+\bibitem{AttwellLaughlin01} D.~Attwell and S.~B.~Laughlin, \emph{An energy
+budget for signaling in the grey matter of the brain}, J. Cereb. Blood Flow
+Metab. \textbf{21}, 1133 (2001).
+\bibitem{Tononi16} G.~Tononi, M.~Boly, M.~Massimini, and C.~Koch,
+\emph{Integrated information theory}, Nat. Rev. Neurosci. \textbf{17}, 450
+(2016).
+
+\end{thebibliography}
+
+\end{document}

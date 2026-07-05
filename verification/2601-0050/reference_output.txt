@@ -1,0 +1,17 @@
+== 1) LEMA DE SATURACION ==
+  I(A:C|B=(AuC)^c) = I(A:C|vacio) en estados puros aleatorios: OK [err 1.3e-15]
+  identidad de saturacion en el GS Z2 2x2: OK [err 2.6e-15]
+  -> explica la coincidencia exacta I(w=2)=I(w=0)=0.4992999 de la Tabla 1 de v1:
+     la fila saturada no aporta informacion de buffer; rango informativo w en {0,1}.
+== 2) no-monotonia de I en B ==
+  I(A:C|B(1)) > I(A:C|vacio) en 0/8 acoplamientos del sweep
+  (agrandar B puede AUMENTAR el CMI: no hay data-processing en esa direccion)
+== 3) cross-link con 2601.0047: tendencias de rango ==
+  Spearman(I(B(1)), 1/sigma) = +1.000, p_perm=0.0001 (n=8)
+  Spearman(I(B(1)), 1/gap)   = +1.000, p_perm=0.0001
+  tendencia de rango CMI vs 1/sigma: OK
+  Gauss en el sweep: OK [min 1.00000]
+== 4) armonizacion de convencion FR ==
+  -2 log f = -log(f^2): raiz(v1) y cuadrada(companions) coinciden: OK
+
+ALL CHECKS PASSED

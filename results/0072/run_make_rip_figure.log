@@ -1,0 +1,4 @@
+fig_rip_exact.pdf written to verification/0072, results/0072, papers/0072-rip-principle; slopes (fit vs analytic):
+  gap_w0.0: fit=0.8106  2q(omega_b)=0.8106
+  gap_w0.5: fit=0.6921  2q(omega_b)=0.6921
+  gap_w0.9: fit=0.3263  2q(omega_b)=0.3217
