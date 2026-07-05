@@ -1,0 +1,17 @@
+== 1) Lemma 4.1 en GNS ==
+  identidad omega=0 exacta (GNS): OK [err 4.9e-16]
+== 2-3) puente GNS<->KMS y trend con N ==
+  N=8, eps=1: R_opt GNS=1.0173e-01  KMS=8.8550e-02  ratio=1.149
+  N=8, eps=2: R_opt GNS=8.4882e-02  KMS=6.8429e-02  ratio=1.240
+  trend eps=1: N=6,8,10 -> 1.424e-01, 1.017e-01, 7.744e-02
+  trend eps=2: N=6,8,10 -> 8.552e-02, 8.488e-02, 6.742e-02
+  R_opt decrece con N (eps=1,2): OK
+== 4) Pythagoras de pinching ==
+  S(rho||sigma)=S(rho||Drho)+S(Drho||sigma): OK [err 4.4e-16]
+== 5) Lemma 5.1: cota de trabajo con U conservadora ==
+  def v1 (eq 25): 57/100 violaciones de la Lemma 5.1 -> FALSA con ese signo
+  signo corregido W_spent >= Delta F_S: OK [0/100]
+== 6) Assumption 5.1 (covariancia del drift secular) ==
+  Delta L* = L* Delta (secular): OK [err 0.0e+00]
+
+ALL CHECKS PASSED

@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — eighteen v2 papers + verification suites
+# AQFT / Operational Coherence Series — nineteen v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Eighteen companion papers that cite one another (ai.viXra 2512 series), each at
+Nineteen companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -27,8 +27,9 @@ spelled out in the honesty statement.
 | **2601.0020** — *Geometric Markov Bounds and Rate Inheritance Modulo Fixed Points* | `papers/2601-0020-geometric-markov-rip/` | `verification/2601-0020/` (exact Ising-Z enumeration; corrected Fawzi-Renner factor; A.4-v1 counterexamples and A.4-v2 check) | Static-to-dynamic interface paper: CMI/RIP bridge with fixed-point caveats, finite-chain diagnostics, and explicit correction of the v1 diagonal Dirichlet comparison |
 | **2601.0022** — *Operational Influence Proxies in a TFIM Surrogate* | `papers/2601-0022-influence-proxies-tfim/` | `verification/2601-0022/` (regenerable witness ED + power test; TEBD/MCWF trajectories not included) | TFIM surrogate companion for the omega=0/RIP thread: quantified no-floor power limits, positive witness benchmark for S=Z, and S=X null case |
 | **2601.0023** — *Finite-Dimensional Davies Interface Lemmas* | `papers/2601-0023-davies-interface-lemmas/` | `verification/2601-0023/` (finite exact identities; v1 counterexamples; positivity pinning; optional `--with-tfim`) | Davies-interface companion for the omega=0 witness: corrected Bohr decomposition, corrected KMS multiplication constants, and finite pinning check |
+| **2601.0031** — *From Static Recoverability to Maintenance Power* | `papers/2601-0031-typed-pipeline/` | `verification/2601-0031/` (finite GNS/KMS bridge; v1 work-sign counterexample; corrected sign check; N-trend) | Typed-pipeline companion for the 2601 block: static-to-dynamic-to-thermodynamic bookkeeping with explicit finite diagnostics |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022} (Davies-interface diagnostic) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023} (typed-pipeline diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -242,6 +243,15 @@ that the far-supported quadratic form scales as `delta^2` in the finite model.
 These are finite-dimensional interface diagnostics, not an interacting-buffer
 or continuum proof.
 
+**2601.0031** (v2 package integrated here): the typed-pipeline note records two
+repairs and finite diagnostics. The v1 work-cost sign in Eq. 25 is refuted by
+finite energy-conserving-unitary draws and replaced with the battery
+free-energy decrease convention; the static layer is aligned with the
+conditional-reattachment wording used in 0060/2601.0007; and the suite records
+a finite GNS-vs-KMS convention bridge plus the Figure 1 witness trend for
+`N = 6, 8, 10`. The verification is typed bookkeeping and finite-model
+regression testing, not a theorem beyond the paper's stated hypotheses.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -320,6 +330,8 @@ python verification/2601-0022/verify_2601_0022.py
 python verification/2601-0023/verify_2601_0023.py
 # Optional appendix-declared TFIM witness comparison, manual/longer
 python verification/2601-0023/verify_2601_0023.py --with-tfim
+# 2601.0031 (finite typed-pipeline checks)
+python verification/2601-0031/verify_2601_0031.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -366,3 +378,8 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   pinning diagnostic. The optional `--with-tfim` flag reuses the finite TFIM
   witness core only as an appendix comparison. No continuum, Type III, or
   interacting-buffer claim is made by this repository.
+- **2601.0031**: verification/2601-0031 checks finite typed-pipeline
+  bookkeeping: GNS/KMS convention differences, a finite work-sign
+  counterexample/repair, pinching Pythagoras, secular covariance, and a finite
+  witness trend. It does not claim a continuum, Type III, or interacting-buffer
+  theorem.
