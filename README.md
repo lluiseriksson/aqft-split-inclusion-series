@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — fourteen v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — fifteen v2 papers + exact verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Fourteen companion papers that cite one another (ai.viXra 2512 series), each at
+Fifteen companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with every correction driven or confirmed by exact numerical
 verification. Scripts and reference logs are included; nothing in the checks
 relies on the approximations being tested.
@@ -23,8 +23,9 @@ relies on the approximations being tested.
 | **0101** — *Beyond Gaussianity: Extending the Clustering–Recovery Bridge* | `papers/0101-beyond-gaussianity/` | `verification/0101/` (Markov-product identity; full Petz slope table; rotated-Petz subset + crossover figure) | Direct companion of 0060: non-Gaussian extension of its Conjecture 5.1 (collar geometry, Fawzi–Renner CMI route, TFIM Gibbs numerics). v2 corrects the normalized Markov-product identity (missing log Z, Lieb) |
 | **0102** — *Heat Kernel Methods and the Sign of Induced Gravity* | `papers/0102-induced-gravity-sign/` | `verification/0102/` (exact S^4 spectra: scalar, Dirac, Hodge 1-forms; A1 table + induced-Newton sign; 11/11) | Conventions companion of 0091: where the Seeley–DeWitt a1 coefficients are fixed and verified against exact S^4 spectra, anchored to the classical counting 1/G_ind ∝ N0 + 2N_{1/2} − 4N1. Complementary to 0091 (compact bookkeeping), not redundant |
 | **0105** — *Prefix-Path Bell Transport on IBM Quantum Hardware* | `papers/0105-prefix-path-bell-transport/` | `verification/0105/` (`--demo` validates the offline re-analysis code; raw on-device JSONs are pending data revision) | Experimental companion for the RIP thread: documents a geometry-dependent transport protocol, a negative static-dynamic association test with power bound, and explicit reproducibility limits |
+| **2601.0007** — *Quantitative Recovery Bounds from Vacuum Clustering* | `papers/2601-0007-gaussian-recovery-bounds/` | `verification/2601-0007/` (BBP Gaussian fidelity in numpy/scipy; 450 sampled draws; collar sweep) | Finite-mode Gaussian bridge between 0060's lattice Gaussian layer and 0101's non-Gaussian/CMI route; includes the v2 Petz-to-conditional-reattachment wording correction |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -198,6 +199,16 @@ future data revision should recover raw job results from IBM account records,
 export the canonical JSONs documented in `results/0105/README.md`, rerun the
 same script on those files and then recompile the paper.
 
+**2601.0007** (v2 package integrated here): the finite-mode Gaussian recovery
+paper keeps its v1 theorems but corrects the language around Petz versus
+conditional reattachment, aligning with the repaired 0060 framing. Its
+verification suite implements zero-mean Gaussian fidelity via the
+Banchi-Braunstein-Pirandola formula in numpy/scipy, checks closed-form anchors,
+samples finite-mode admissible draws, records an empirical sampled-domain
+constant for the local quadratic benchmark, and runs a collar-suppression
+sweep. The suite is numerical finite-mode evidence and regression testing, not
+a replacement for the paper's hypotheses or for 0060/0101's separate layers.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -266,6 +277,8 @@ python verification/0101/verify_0101.py fig8
 python verification/0102/verify_0102.py
 # 0105 (synthetic demo of offline re-analysis machinery; raw JSON data pending)
 python verification/0105/reanalyze_0105.py --demo --output-dir /tmp/aqft-0105-demo
+# 2601.0007 (finite-mode Gaussian recovery numerical suite)
+python verification/2601-0007/verify_2601_0007.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -294,3 +307,7 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   synthetic data only. The on-device IBM JSON artifacts are explicitly pending
   data revision; this repository does not claim fully offline reproduction of
   the experimental numbers until those raw or processed records are added.
+- **2601.0007**: verification/2601-0007 is a finite-mode Gaussian numerical
+  suite with sampled admissible draws and closed-form anchors. It supports the
+  artifact's regression story; it is not a continuum AQFT result and does not
+  remove the explicit hypotheses of the paper or of companion 0060/0101.
