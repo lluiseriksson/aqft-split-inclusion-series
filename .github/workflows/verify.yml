@@ -63,6 +63,8 @@ jobs:
         run: python verification/2601-0042/verify_2601_0042.py --smoke
       - name: 2601.0043 recoverability geometry smoke
         run: python verification/2601-0043/verify_2601_0043.py --smoke
+      - name: 2601.0046 Petz AQFT finite-dimensional verification
+        run: python verification/2601-0046/verify_2601_0046.py
   # Long suites (verify_repaired, verify_0060, modelB, sensitivity, 0101,
   # 2601.0023 --with-tfim, 2601.0035 --N11,
   # 2601.0038/0040/0042/0043 default/chunked grids; and

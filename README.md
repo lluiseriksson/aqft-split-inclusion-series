@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty-five v2 papers + verification suites
+# AQFT / Operational Coherence Series — twenty-six v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty-five companion papers that cite one another (ai.viXra 2512 series), each at
+Twenty-six companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -34,8 +34,9 @@ spelled out in the honesty statement.
 | **2601.0040** — *Finite-Size Scaling of Petz Recovery Length in the TFIM* | `papers/2601-0040-petz-scaling/` | `verification/2601-0040/` (CI smoke + manual chunked finite ED benchmark; baseline and enhancement diagnostics) | Scaling sequel to 0038; v2 quantifies the C-size/baseline confound and functional-form ambiguity |
 | **2601.0042** — *Emergent Information Distance from Petz Recovery* | `papers/2601-0042-emergent-distance/` | `verification/2601-0042/` (CI smoke + manual chunked finite ED benchmark; beta and perturbation sweep) | Closes the finite d_eff mini-block 0038/0040/0042; v2 replaces a corrupted reproducibility paragraph with a real suite |
 | **2601.0043** — *Recoverability Geometry* | `papers/2601-0043-recoverability-geometry/` | `verification/2601-0043/` (CI smoke embedding demo + manual chunked finite ED control) | Geometry-facing finite diagnostic for the d_eff block; v2 flags the unstable row and adds a first in-model conjecture check |
+| **2601.0046** — *Petz Recoverability in AQFT via Conditional Expectations* | `papers/2601-0046-petz-aqft/` | `verification/2601-0046/` (finite-dimensional Petz/CE checks; full suite in CI) | AQFT-facing recovery interface note; v2 corrects the Petz-dual pairing and recovered-state typing |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043} (finite Petz/conditional-expectation interface diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -316,6 +317,17 @@ runs only the `--smoke`/`--demo` embedding illustration at `L = 12`; the
 manual. These are finite diagnostics for a geometry protocol, not continuum
 geometry or a general recoverability theorem.
 
+**2601.0046** (v2 package integrated here): the Petz/AQFT conditional-
+expectation note records a finite-dimensional correction to the v1 operational
+mechanism. The suite refutes the printed v1 pairing for the "Petz dual" in
+generic finite states, verifies the trace-predual identity to machine
+precision, distinguishes the Accardi-Cecchini generalized expectation from a
+true Takesaki conditional expectation, checks the product/true-CE anchor, and
+verifies that the corrected pullback definition matches the standard
+Schrodinger Petz reconstruction in finite dimension. These are finite
+matrix-algebra regression checks and interface diagnostics, not a Type III or
+continuum AQFT theorem.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -428,6 +440,8 @@ python verification/2601-0043/verify_2601_0043.py --chunk 0.5
 python verification/2601-0043/verify_2601_0043.py --chunk 1.0
 python verification/2601-0043/verify_2601_0043.py --chunk 2.0
 python verification/2601-0043/verify_2601_0043.py
+# 2601.0046 (finite Petz/conditional-expectation interface checks)
+python verification/2601-0046/verify_2601_0046.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -512,3 +526,8 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   manual. The package reports finite geometry-protocol behavior and an
   unstable-row flag; it does not prove continuum geometry, Type III structure,
   or a general recoverability theorem.
+- **2601.0046**: verification/2601-0046 is a finite-dimensional
+  matrix-algebra suite for the Petz/conditional-expectation interface. CI runs
+  the full finite suite. The package records a correction to the finite
+  pairing/typing mechanism and checks the corrected identities; it does not
+  prove a Type III, continuum, or general AQFT recoverability theorem.
