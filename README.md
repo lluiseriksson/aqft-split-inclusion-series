@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty-eight v2 papers + verification suites
+# AQFT / Operational Coherence Series — thirty v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty-eight companion papers that cite one another (ai.viXra 2512 series), each at
+Thirty companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -34,11 +34,13 @@ spelled out in the honesty statement.
 | **2601.0040** — *Finite-Size Scaling of Petz Recovery Length in the TFIM* | `papers/2601-0040-petz-scaling/` | `verification/2601-0040/` (CI smoke + manual chunked finite ED benchmark; baseline and enhancement diagnostics) | Scaling sequel to 0038; v2 quantifies the C-size/baseline confound and functional-form ambiguity |
 | **2601.0042** — *Emergent Information Distance from Petz Recovery* | `papers/2601-0042-emergent-distance/` | `verification/2601-0042/` (CI smoke + manual chunked finite ED benchmark; beta and perturbation sweep) | Closes the finite d_eff mini-block 0038/0040/0042; v2 replaces a corrupted reproducibility paragraph with a real suite |
 | **2601.0043** — *Recoverability Geometry* | `papers/2601-0043-recoverability-geometry/` | `verification/2601-0043/` (CI smoke embedding demo + manual chunked finite ED control) | Geometry-facing finite diagnostic for the d_eff block; v2 flags the unstable row and adds a first in-model conjecture check |
+| **2601.0044** — *Recoverability Length Scales and Wilson Loops in LGT* | `papers/2601-0044-recoverability-gauge/` | `verification/2601-0044/` (CI smoke + manual chunked finite Z2 ladder benchmark; Gauss exact) | Gauge extension of 0043; v2 fixes the NL=13 ladder geometry and records no-tracking on a finite height-1 ladder |
 | **2601.0046** — *Petz Recoverability in AQFT via Conditional Expectations* | `papers/2601-0046-petz-aqft/` | `verification/2601-0046/` (finite-dimensional Petz/CE checks; full suite in CI) | AQFT-facing recovery interface note; v2 corrects the Petz-dual pairing and recovered-state typing |
 | **2601.0047** — *Petz Recoverability vs Wilson-Loop Diagnostics in Z2 LGT (2+1D)* | `papers/2601-0047-z2-benchmark/` | `verification/2601-0047/` (CI smoke + manual chunked finite Z2 benchmark; gap covariate) | Small-lattice 2D Z2 benchmark; v2 adds rank statistics and records that confinement specificity is unresolved |
 | **2601.0050** — *CMI-Based Recoverability vs Wilson-Loop Diagnostics in Z2 LGT* | `papers/2601-0050-cmi-gauge-benchmark/` | `verification/2601-0050/` (CI smoke + manual chunked finite CMI sweep; saturation lemma) | CMI twin of 0047; v2 adds the saturation identity, convention check, and the same finite gap covariate caveat |
+| **2601.0051** — *Petz Recoverability vs Wilson Loops: ED + TN Ladders* | `papers/2601-0051-z2-tn-ladders/` | `verification/2601-0051/` (CI smoke + manual exact-ladder Part A; optional TeNPy Part B) | Tensor-network ladder extension of the gauge benchmark; v2 fixes the inherited NL=13 Part A geometry and documents proxy semantics |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic; 2601.0044 remains blocked in issue #3), 2601.0050 → {2601.0047, 2601.0046, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic; same 0044 blocker) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0044 → {2601.0043, 2601.0038, 2601.0040, 2601.0042, 2601.0035} (finite Z2 ladder gauge diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043, 2601.0044} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0044, 2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic), 2601.0050 → {2601.0047, 2601.0046, 2601.0044, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic), 2601.0051 → {2601.0044, 2601.0047, 2601.0050, 2601.0043} (finite ED/TN ladder benchmark diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -319,6 +321,16 @@ runs only the `--smoke`/`--demo` embedding illustration at `L = 12`; the
 manual. These are finite diagnostics for a geometry protocol, not continuum
 geometry or a general recoverability theorem.
 
+**2601.0044** (v2 package integrated here): the Z2 gauge-ladder note executes
+the finite testbed proposed in v1 and resolves the integration blocker by using
+the corrected `NL = 3P + 1 = 13` open-ladder geometry. The dependency-free
+manual chunks check the Gauss sector, Wilson decay proxy, and finite Petz
+recoverability profile on a height-1 ladder. CI runs only the `--smoke`
+incidence/product-state check; the `--chunk` grid and report remain manual.
+The package records no-tracking on this finite ladder and explicitly treats the
+height-1 area/perimeter degeneracy as inconclusive for the larger gauge
+question.
+
 **2601.0046** (v2 package integrated here): the Petz/AQFT conditional-
 expectation note records a finite-dimensional correction to the v1 operational
 mechanism. The suite refutes the printed v1 pairing for the "Petz dual" in
@@ -331,8 +343,8 @@ matrix-algebra regression checks and interface diagnostics, not a Type III or
 continuum AQFT theorem.
 
 **2601.0047** (v2 package integrated here): the Z2 LGT benchmark note adds a
-small-lattice 2D gauge diagnostic that is independent of the still-blocked
-2601.0044 package. The manual chunked benchmark reproduces the finite
+small-lattice 2D gauge diagnostic that now sits alongside the corrected
+2601.0044 ladder package. The manual chunked benchmark reproduces the finite
 `sigma_eff`/`E0`/Gauss checks on `2x2` and `2x3` plaquette lattices, densifies
 the `2x2` coupling sweep to eight points, and reports the spectral-gap
 covariate. CI runs only a `--smoke` geometry/product-state code-path check;
@@ -342,14 +354,23 @@ tracks just as strongly at these sizes, so confinement specificity is not
 resolved.
 
 **2601.0050** (v2 package integrated here): the CMI/Z2 LGT benchmark note is
-the finite CMI twin of 2601.0047 and is likewise independent of the
-still-blocked 2601.0044 package. The manual chunked benchmark reproduces the
+the finite CMI twin of 2601.0047 and now sits alongside the corrected
+2601.0044 ladder package. The manual chunked benchmark reproduces the
 `2x2` coupling sweep, checks the pure-state saturation identity explaining the
 uninformative saturated-buffer row, records a finite rank trend against
 `1/sigma_eff`, and also records the matching spectral-gap covariate. CI runs
 only the `--smoke` finite identity and geometry checks; the `--sweep` chunks
 and final report are manual. The package does not resolve confinement
 specificity at these sizes.
+
+**2601.0051** (v2 package integrated here): the ED/TN ladder note extends the
+gauge benchmark with tensor-network ladder diagnostics and resolves the
+inherited Part A off-by-one by using the corrected `NL = 13` ladder geometry.
+The dependency-free Part A chunks quantify the geometric-collar versus
+contiguous-MPS proxy behavior; the TeNPy Part B replication remains optional
+and manual. CI runs only the `--smoke` incidence/product-state path. This is a
+finite proxy-semantics and reproducibility check, not a thermodynamic or
+continuum gauge result.
 
 ## Hardening round (pre-upload review, applied)
 
@@ -463,6 +484,15 @@ python verification/2601-0043/verify_2601_0043.py --chunk 0.5
 python verification/2601-0043/verify_2601_0043.py --chunk 1.0
 python verification/2601-0043/verify_2601_0043.py --chunk 2.0
 python verification/2601-0043/verify_2601_0043.py
+# 2601.0044 (finite Z2 gauge-ladder diagnostic)
+python verification/2601-0044/verify_2601_0044.py --smoke
+# Longer/manual chunked finite ladder report
+python verification/2601-0044/verify_2601_0044.py --chunk 0.45
+python verification/2601-0044/verify_2601_0044.py --chunk 0.6
+python verification/2601-0044/verify_2601_0044.py --chunk 0.8
+python verification/2601-0044/verify_2601_0044.py --chunk 1.0
+python verification/2601-0044/verify_2601_0044.py --chunk 2.0
+python verification/2601-0044/verify_2601_0044.py
 # 2601.0046 (finite Petz/conditional-expectation interface checks)
 python verification/2601-0046/verify_2601_0046.py
 # 2601.0047 (finite 2D Z2 benchmark diagnostic)
@@ -481,6 +511,15 @@ python verification/2601-0050/verify_2601_0050.py --smoke
 python verification/2601-0050/verify_2601_0050.py --sweep 0 4
 python verification/2601-0050/verify_2601_0050.py --sweep 4 8
 python verification/2601-0050/verify_2601_0050.py
+# 2601.0051 (finite ED/TN ladder proxy diagnostic)
+python verification/2601-0051/verify_2601_0051.py --smoke
+# Longer/manual exact-ladder Part A; optional TeNPy Part B
+python verification/2601-0051/verify_2601_0051.py --partA 0.6
+python verification/2601-0051/verify_2601_0051.py --partA 1.0
+python verification/2601-0051/verify_2601_0051.py
+# Optional with TeNPy installed:
+python verification/2601-0051/verify_2601_0051.py --partB 0.8
+python verification/2601-0051/verify_2601_0051.py --partB 2.0
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -565,6 +604,13 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   manual. The package reports finite geometry-protocol behavior and an
   unstable-row flag; it does not prove continuum geometry, Type III structure,
   or a general recoverability theorem.
+- **2601.0044**: verification/2601-0044 is a finite Z2 gauge-ladder benchmark
+  on a corrected 13-link open ladder. CI runs only the incidence/product-state
+  smoke path; the chunked Gauss/Wilson/Petz report is manual. The package
+  records finite no-tracking on a height-1 ladder with area/perimeter
+  degeneracy; it does not prove or disprove a continuum gauge statement,
+  confinement specificity, Type III structure, or a general recoverability
+  theorem.
 - **2601.0046**: verification/2601-0046 is a finite-dimensional
   matrix-algebra suite for the Petz/conditional-expectation interface. CI runs
   the full finite suite. The package records a correction to the finite
@@ -582,3 +628,10 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   saturation-identity check, finite rank correlations, and the matching
   spectral-gap covariate; it does not prove confinement specificity, continuum
   gauge behavior, Type III structure, or a general recoverability theorem.
+- **2601.0051**: verification/2601-0051 is a finite ED/TN ladder benchmark for
+  proxy semantics. CI runs only the corrected 13-link incidence/product-state
+  smoke path; the exact-ladder Part A cache and optional TeNPy Part B are
+  manual. The package records finite proxy behavior and an optional reduced
+  DMRG replication path; it does not prove confinement specificity,
+  thermodynamic behavior, continuum gauge behavior, Type III structure, or a
+  general recoverability theorem.
