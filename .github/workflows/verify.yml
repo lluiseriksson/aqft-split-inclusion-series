@@ -83,6 +83,8 @@ jobs:
         run: python verification/2601-0099/verify_2601_0099.py
       - name: 2601.0111 Z2 CMI/Petz finite verification
         run: python verification/2601-0111/verify_2601_0111.py
+      - name: 2601.0115 algebraic toy finite verification
+        run: python verification/2601-0115/verify_2601_0115.py
   # Long suites (verify_repaired, verify_0060, modelB, sensitivity, 0101,
   # 2601.0023 --with-tfim, 2601.0035 --N11,
   # 2601.0038/0040/0042/0043/0044/0047/0050/0051 default/chunked grids;

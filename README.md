@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — thirty-five v2 papers + verification suites
+# AQFT / Operational Coherence Series — thirty-six v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Thirty-five companion papers that cite one another (ai.viXra 2512 series), each at
+Thirty-six companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -44,8 +44,9 @@ spelled out in the honesty statement.
 | **2601.0066** — *Typed Pipeline for Recoverability--Rate--Power Links* | `papers/2601-0066-typed-pipeline/` | `verification/2601-0066/` (full finite typed-pipeline suite in CI) | Typed operational contract tying CMI, recoverability, rate envelopes, and power interfaces; v2 fixes the `c_FR = 1` convention and replaces deferred interfaces with concrete 0064/0065 citations |
 | **2601.0099** — *Program A: Semi-infinite CMI in the 1D TFIM (iMPS)* | `papers/2601-0099-programA-cmi/` | `verification/2601-0099/` (full free-fermion/ED suite in CI; optional TeNPy path manual) | Numerical A-CMI instance for the 0066 contract; v2 repairs Appendix A/Table 1 packaging and ships executable Colab scripts plus an independent free-fermion oracle |
 | **2601.0111** — *CMI and Petz recovery in a Z2 lattice gauge ground state* | `papers/2601-0111-z2-cmi-petz/` | `verification/2601-0111/` (full finite Z2 CMI/Petz suite in CI) | Finite Gauss-sector Z2 benchmark; v2 corrects `G_s = prod Z`, reproduces Table 1 from the manifest, and documents complement-confound, saturation, and Petz-regularization effects |
+| **2601.0115** — *Algebraic Entropy and CMI in a Tiny Gauge-Invariant Truncated Hilbert Space* | `papers/2601-0115-algebraic-toy/` | `verification/2601-0115/` (full finite algebraic-toy suite in CI) | Self-contained finite algebraic toy replacing the missing v1 `descs.pkl`; v2 proves the descriptor-sector entropy lemma, checks the uniform/strong-mixing limits, and runs Haar/ablation/grid diagnostics |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0044 → {2601.0043, 2601.0038, 2601.0040, 2601.0042, 2601.0035} (finite Z2 ladder gauge diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043, 2601.0044} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0044, 2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic), 2601.0050 → {2601.0047, 2601.0046, 2601.0044, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic), 2601.0051 → {2601.0044, 2601.0047, 2601.0050, 2601.0043} (finite ED/TN ladder benchmark diagnostic), 2601.0064 → {2601.0023, 2601.0022, 2601.0031, 2601.0038, 2601.0040} (finite Davies upper-envelope diagnostic), 2601.0065 → {2601.0046, 2601.0034, 2601.0020, 2601.0035, 2601.0007, 2601.0050} (conditional Type III/finite Type I recoverability interface), 2601.0066 → {2601.0065, 2601.0064, 2601.0046, 2601.0023, 2601.0031, 2601.0035, 2601.0043, 2601.0044} (typed recoverability-rate-power interface), 2601.0099 → {2601.0066, 2601.0065, 2601.0050, 2601.0040, 2601.0038} (finite Program A A-CMI benchmark), 2601.0111 → {2601.0050, 2601.0038, 2601.0040, 2601.0044, 2601.0047, 2601.0051} (finite Z2 CMI/Petz benchmark) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0044 → {2601.0043, 2601.0038, 2601.0040, 2601.0042, 2601.0035} (finite Z2 ladder gauge diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043, 2601.0044} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0044, 2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic), 2601.0050 → {2601.0047, 2601.0046, 2601.0044, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic), 2601.0051 → {2601.0044, 2601.0047, 2601.0050, 2601.0043} (finite ED/TN ladder benchmark diagnostic), 2601.0064 → {2601.0023, 2601.0022, 2601.0031, 2601.0038, 2601.0040} (finite Davies upper-envelope diagnostic), 2601.0065 → {2601.0046, 2601.0034, 2601.0020, 2601.0035, 2601.0007, 2601.0050} (conditional Type III/finite Type I recoverability interface), 2601.0066 → {2601.0065, 2601.0064, 2601.0046, 2601.0023, 2601.0031, 2601.0035, 2601.0043, 2601.0044} (typed recoverability-rate-power interface), 2601.0099 → {2601.0066, 2601.0065, 2601.0050, 2601.0040, 2601.0038} (finite Program A A-CMI benchmark), 2601.0111 → {2601.0050, 2601.0038, 2601.0040, 2601.0044, 2601.0047, 2601.0051} (finite Z2 CMI/Petz benchmark), 2601.0115 → {2601.0111, 2601.0043, 2601.0065, 2601.0050} (finite algebraic entropy/CMI toy) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -424,6 +425,15 @@ runs the full finite numpy/scipy suite. The package is a finite benchmark
 with documented confounds, not a universal screening curve, confinement
 proof, continuum result, or gap claim.
 
+**2601.0115** (v2 package integrated here): the algebraic toy note repairs a
+reproducibility gap from the missing v1 `descs.pkl` by printing and verifying
+a canonical eight-dimensional basis. The verifier checks the descriptor-sector
+injectivity lemma, exact uniform-state quantization and CMI cancellation,
+strong-mixing convergence, the v1 sweep, Haar baseline, `k_nn` ablations, and
+a fine `t_mix` grid. CI runs the full finite numpy suite. This is a finite
+algebraic reproducibility toy, not a physical gauge result, continuum or
+thermodynamic limit, general Markov theorem, or gap claim.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -584,6 +594,8 @@ python verification/2601-0099/verify_2601_0099.py
 python verification/2601-0099/verify_2601_0099.py --tenpy
 # 2601.0111 (finite Z2 CMI/Petz benchmark)
 python verification/2601-0111/verify_2601_0111.py
+# 2601.0115 (finite algebraic entropy/CMI toy)
+python verification/2601-0115/verify_2601_0115.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -727,3 +739,8 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   package documents complement-size and regularization confounds; it does
   not prove universal screening, confinement, continuum behavior, or a
   Hamiltonian spectral gap.
+- **2601.0115**: verification/2601-0115 is a finite algebraic entropy/CMI toy
+  for reproducibility of a canonical eight-dimensional basis and sector
+  entropy diagnostics. CI runs the full finite numpy suite. The package does
+  not prove a physical gauge result, continuum or thermodynamic behavior, a
+  general Markov theorem, or a Hamiltonian spectral gap.

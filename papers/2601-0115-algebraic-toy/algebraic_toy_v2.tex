@@ -1,0 +1,559 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Salg}{S_{\mathrm{alg}}}
+
+\title{Algebraic Entropy and Conditional Mutual Information in a Tiny
+Gauge-Invariant Truncated Hilbert Space:\\
+\large A Reproducible Toy-Model Study with Effective Mixing
+Hamiltonians}
+\author{Lluis Eriksson\\
+\small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a reproducible pipeline to compute region algebraic entropies
+and conditional mutual informations (CMI) in a tiny truncated Hilbert
+space (here $\dim = 8$) indexed by discrete fusion-like descriptors
+$\mathrm{desc} = (x, \mu)$ on $L = 4$ cells. To generate nontrivial
+ground states within the descriptor-labeled subspace, we introduce an
+effective Hermitian mixing Hamiltonian based on a weighted
+$k$-nearest-neighbor (kNN) graph Laplacian over configuration labels.
+Across a parameter sweep, we identify a strong-mixing regime where the
+participation ratio approaches $\dim$ (consistent with
+Laplacian-dominated ground states on connected graphs) and algebraic CMI
+diagnostics become extremely small (down to $10^{-6}$ and below) for the
+chosen algebraic factorization, while region algebraic entropies remain
+$O(1)$ and exhibit near-quantized values $\approx n\log 2$. We stress
+that the mixing term is an ansatz used to probe information-theoretic
+diagnostics and is not claimed to coincide with a Kogut--Susskind
+plaquette operator. \emph{v2 (no v1 number is changed):} the
+reproducibility gap of v1 is repaired --- v1's pipeline loaded an
+unshipped basis file (\texttt{descs.pkl}) that was never specified, so
+the v1 dataset was not regenerable from the paper; v2 prints a canonical
+self-contained basis (Appendix~\ref{app:canonical}) whose pipeline
+reproduces every structural finding, keeping v1's Table~\ref{tab:models}
+as an archival dataset; two empirical observations are upgraded to
+proved statements --- the descriptor-to-key map is injective, making
+$\Salg$ a genuine von Neumann entropy of a sector (center-type)
+decomposition (Lemma~\ref{lem:inj}), and in the strong-mixing limit the
+ground state converges to the uniform superposition where the
+quantization $\Salg = n\log 2$ and the vanishing of both CMIs are
+\emph{exact} (Lemma~\ref{lem:uniform}); the additional experiments
+recommended in v1 (Haar baseline, $k_{\mathrm{nn}}$ ablations, finer
+$t_{\mathrm{mix}}$ grid) are executed --- the Haar median of
+$I_{\mathrm{sum}}$ is $0.39$, five to six orders of magnitude above the
+strong-mixing point, so the small-CMI regime is nontrivial; and the
+verification suite is fully self-contained (no Drive dependencies).
+\end{abstract}
+
+\section{Scope, claims, and contributions}
+
+This note is intentionally narrow in scope. It does \emph{not} attempt a
+physical construction of lattice Yang--Mills dynamics, nor any
+continuum/thermodynamic scaling analysis. Instead, it addresses a
+simpler, operational question:
+
+\emph{Given a fixed small gauge-invariant truncated Hilbert space and a
+specified algebraic factorization derived from discrete labels $(x,
+\mu)$, can we generate nontrivial ground states and quantitatively
+diagnose algebraic entanglement and conditional independence via
+algebraic entropy and algebraic CMI?}
+
+Concretely, we contribute:
+\begin{enumerate}
+\item A one-shot reproducible pipeline to compute algebraic entropies
+$\Salg(R)$ and algebraic CMI diagnostics $I(A : C \mid B)$ from a
+gauge-invariant basis indexed by $(x, \mu)$ (self-contained as of v2).
+\item A simple, tunable effective Hamiltonian family $H = H_E +
+t_{\mathrm{mix}} L$ acting entirely within the gauge-invariant subspace
+(Section~5).
+\item A numerical sweep showing that in a strong-mixing regime the
+ground state becomes close to a uniform superposition ($\mathrm{PR}
+\approx \dim$), while the resulting algebraic CMI diagnostics are
+near-zero within numerical precision for the chosen factorization
+(exactly zero in the uniform limit, Lemma~\ref{lem:uniform}).
+\end{enumerate}
+
+\textbf{Careful interpretation.} When we refer to ``approximately
+Markovian'' behavior, we mean an \emph{operational} statement: the
+computed algebraic CMI values are very small with respect to the
+specific algebraic partition induced by $(x, \mu)$ and the implemented
+definition of $\Salg$. We do not claim a general quantum Markov property
+in the usual tensor-product sense, nor any universality beyond this toy
+setting.
+
+\section{Truncated gauge-invariant Hilbert space and labels}
+
+We work in a fixed truncated Hilbert space with orthonormal basis
+$\{|i\rangle\}_{i=1}^{\dim}$, where each basis vector is indexed by a
+descriptor $\mathrm{desc} = (x, \mu)$:
+\begin{itemize}
+\item $x = (x_1, x_2, x_3)$ encodes boundary/cut labels between adjacent
+cells. Concretely, each $x_s = (x_s^{\mathrm{top}}, x_s^{\mathrm{bot}})
+\in \{0, 1\}^2$ stores two binary cut labels.
+\item $\mu = (\mu_1, \mu_2, \mu_3, \mu_4)$ encodes local discrete
+degrees of freedom per cell; each $\mu_p$ is a (possibly multi-bit)
+tuple.
+\end{itemize}
+We take $L = 4$ cells and, for the dataset studied here, $\dim = 8$.
+
+\textbf{Terminology.} We refer to the basis as ``gauge-invariant'' in
+the operational sense that it is intended to represent
+constraint-compatible (Gauss-law-like) configurations in a reduced
+description; however, in this note we do not derive $(x, \mu)$ from an
+explicit $SU(2)$ Kogut--Susskind truncation.
+
+\textbf{Basis provenance (v2).} The v1 dataset was generated from a
+basis file \texttt{descs.pkl} loaded from persistent storage; that file
+was never printed or specified in the paper, so the v1 numbers in
+Table~\ref{tab:models} are archival (kept unchanged) but not regenerable
+from the paper alone. v2 fixes this by specifying a \emph{canonical}
+self-contained basis (Appendix~\ref{app:canonical}) with the same label
+structure and $\dim = 8$; all structural claims of this paper are
+regenerated from it by the verification suite.
+
+\textbf{Logarithms.} All entropies use natural logarithms, so the unit
+is nats. Thus $\log 2 \approx 0.6931$.
+
+\section{Regions and target information-theoretic quantities}
+
+We consider contiguous regions $R \subset \{1, 2, 3, 4\}$ and compute
+algebraic entropies $\Salg(R)$. We define two conditional mutual
+informations:
+\[
+I_{w=1} = I(A : C \mid B), \quad A = \{1\},\ B = \{2\},\ C = \{3\},
+\]
+\[
+I_{w=2} = I(A : C \mid B), \quad A = \{1\},\ B = \{2, 3\},\ C = \{4\}.
+\]
+We also report $I_{\mathrm{sum}} = I_{w=1} + I_{w=2}$.
+
+\textbf{Purity sanity check.} For a pure state $|\psi\rangle$ on the
+full system, we enforce $\Salg(1..4) \approx 0$ as a numerical check.
+
+\section{Definition of algebraic entropy and algebraic CMI (as
+implemented)}
+
+Let $|\psi\rangle = \sum_{i=1}^{\dim} \psi_i |i\rangle$ be a normalized
+pure state in the gauge-invariant basis. For a region $R = [i..j]$, we
+define a discrete boundary label $\alpha = \alpha(\mathrm{desc}; i, j)$
+(a tuple extracted from $x$ at cut boundaries) which indexes
+superselection sectors for the algebraic factorization.
+
+Within each sector $\alpha$, basis states are grouped into a region key
+$k_R$ and complement key $k_C$ (deterministic functions of $(x, \mu)$,
+defined identically to the accompanying code). We build a complex matrix
+$M_\alpha$ whose entries sum amplitudes of basis states mapping to the
+same $(k_R, k_C)$ pair:
+\[
+(M_\alpha)_{r,c} = \sum_{\mathrm{desc} \mapsto (\alpha, r, c)}
+\psi(\mathrm{desc}).
+\]
+Let $\{s_{\alpha,\ell}\}_\ell$ be the singular values of $M_\alpha$, and
+define weights $w_{\alpha,\ell} = s^2_{\alpha,\ell}$. The algebraic
+entropy is
+\[
+\Salg(R) = -\sum_\alpha \sum_{\ell:\, w_{\alpha,\ell} > \varepsilon}
+w_{\alpha,\ell} \log w_{\alpha,\ell},
+\]
+where a small cutoff $\varepsilon$ discards numerical zero modes only.
+
+\textbf{Normalization check.} For normalized $|\psi\rangle$, we
+numerically verify $\sum_{\alpha,\ell} w_{\alpha,\ell} = 1$ within a
+fixed tolerance.
+
+\begin{lemma}[Injectivity: $\Salg$ is a von Neumann entropy (v2)]
+\label{lem:inj}
+Suppose the map $\mathrm{desc} \mapsto (\alpha, k_R, k_C)$ is injective
+on the basis (as holds for the canonical basis of
+Appendix~\ref{app:canonical}, verified for all six regions used, and as
+is certified in any run by the normalization check $\sum w = 1$: if two
+basis states shared a key triple, cross terms would generically break
+$\sum_{\alpha,\ell} w_{\alpha,\ell} = 1$). Then $(M_\alpha)_{r,c}$ is a
+mere re-indexing of the amplitude vector, the map $\psi \mapsto
+\bigoplus_\alpha M_\alpha$ is an isometry onto $\bigoplus_\alpha
+\mathcal{H}_R^\alpha \otimes \mathcal{H}_C^\alpha$, and
+\[
+\Salg(R) = S\bigl(\rho_R^{\mathrm{alg}}\bigr), \qquad
+\rho_R^{\mathrm{alg}} = \bigoplus_\alpha \mathrm{Tr}_{C}\,
+M_\alpha M_\alpha^\dagger,
+\]
+i.e.\ $\Salg$ is the genuine von Neumann entropy of the reduced state on
+a direct-sum (superselection-sector) decomposition --- the standard
+center-type structure for gauge-theory entanglement \cite{CHR}. It
+therefore includes the usual sector-classical (Shannon) plus
+sector-quantum contributions.
+\end{lemma}
+
+\begin{proof}
+Injectivity means every basis amplitude $\psi(\mathrm{desc})$ lands in
+exactly one entry of one $M_\alpha$, so $\sum_{\alpha}
+\|M_\alpha\|_F^2 = \|\psi\|^2 = 1$ and the map is an isometry onto its
+image. The weights $w_{\alpha,\ell}$ are then the eigenvalues of
+$\bigoplus_\alpha M_\alpha M_\alpha^\dagger$, which is exactly the
+reduced density matrix of the image state on the $R$-legs of the
+direct sum.
+\end{proof}
+
+\textbf{Algebraic CMI diagnostics.} We compute
+\[
+I(A : C \mid B) = \Salg(AB) + \Salg(BC) - \Salg(B) - \Salg(ABC).
+\]
+In the usual tensor-product setting, CMI is nonnegative by strong
+subadditivity. In our setting $\Salg$ is defined by an explicit
+sector/block coarse-graining, so nonnegativity is an empirical
+diagnostic rather than a guaranteed theorem
+(Lemma~\ref{lem:inj} makes each individual $\Salg(R)$ a genuine vN
+entropy, but the four regions' sector decompositions are not derived
+from one consistent assignment of commuting subalgebras, so SSA does not
+automatically apply). In our sweeps we observe $I(A : C \mid B) \ge
+-10^{-12}$; values below this threshold would indicate either numerical
+issues or a genuine violation of strong subadditivity for the chosen
+coarse-graining. For log-scale plots one may use the clipped version
+$I_{\mathrm{clip}} = \max(I, 10^{-16})$.
+
+\section{Effective Hamiltonian family}
+
+We study an effective Hamiltonian family acting within the
+gauge-invariant subspace: $H = H_E + t_{\mathrm{mix}} L$.
+
+\subsection{Diagonal ``electric proxy'' term $H_E$}
+
+We define a diagonal proxy $H_E$ as a sum of local contributions derived
+from the binary label bits. Each bit $b \in \{0, 1\}$ is mapped to a
+cost inspired by $j(j+1)$ for $j \in \{0, \frac12\}$: $\mathrm{cost}(b)
+= 0$ for $b = 0$ and $\frac34$ for $b = 1$. Then $H_E =
+\mathrm{diag}(E(\mathrm{desc}))$, where $E(\mathrm{desc})$ sums costs
+over all bits in $(x, \mu)$, with an overall prefactor $\frac{g^2}{2}$.
+
+\subsection{Mixing term via a weighted kNN graph Laplacian}
+
+Let $b(\mathrm{desc}) \in \{0, 1\}^m$ be the flattened bitstring for
+$(x, \mu)$. Define pairwise distances by Hamming distance $d(i, j)$
+between bitstrings. We build a weighted kNN graph on the $\dim$
+configurations: for each node $i$ we connect to its $k$ nearest
+neighbors, with symmetric edge weights $A_{ij} = \exp(-\alpha_w d(i,
+j))$, and define the graph Laplacian $L = D - A$, $D_{ii} = \sum_j
+A_{ij}$. This yields a real symmetric (hence Hermitian) mixing term. The
+design intent is to generate controllable superpositions in the
+gauge-invariant basis. No claim is made that $L$ matches a
+Kogut--Susskind magnetic plaquette term \cite{KS}.
+
+\begin{lemma}[Strong-mixing limit (v2)]
+\label{lem:uniform}
+Fix $\alpha_w = 0$ and $k$ such that the kNN graph is connected. As
+$t_{\mathrm{mix}} \to \infty$, the ground state of $H = H_E +
+t_{\mathrm{mix}} L$ converges to the uniform superposition
+$|u\rangle = \dim^{-1/2}\sum_i |i\rangle$ (the Perron--Frobenius ground
+state of $L$), so $\mathrm{PR} \to \dim$. At $|u\rangle$, for the
+canonical basis of Appendix~\ref{app:canonical}, the block combinatorics
+give \emph{exactly}
+\[
+\Salg(1..2) = \Salg(1..3) = \Salg(2..4) = \log 2, \qquad
+\Salg(2) = \Salg(2..3) = 2\log 2, \qquad \Salg(1..4) = 0,
+\]
+and hence $I_{w=1} = I_{w=2} = 0$ exactly: the near-quantization and
+near-zero CMI observed in the sweep are the finite-$t_{\mathrm{mix}}$
+shadow of an exact property of the uniform limit.
+\end{lemma}
+
+\begin{proof}
+For a connected graph, $L \succeq 0$ with a unique zero mode $\propto
+\mathbf{1}$; degenerate perturbation theory in $H_E/t_{\mathrm{mix}}$
+gives $|\psi_0\rangle = |u\rangle + O(1/t_{\mathrm{mix}})$. At
+$|u\rangle$ every $M_\alpha$ has all entries $\dim^{-1/2}$; a $d_R
+\times d_C$ all-equal matrix has the single nonzero singular value
+$\sqrt{d_R d_C}/\sqrt{\dim}$, so each sector contributes one weight
+$w_\alpha = d_R d_C / \dim$ and $\Salg = -\sum_\alpha w_\alpha \log
+w_\alpha$ is the Shannon entropy of the sector distribution. For the
+canonical basis the sector counts are $(2, 4, 4, 2, 2, 1)$ sectors of
+equal weight for the six regions, giving the displayed values; the two
+CMI combinations cancel exactly. The suite verifies all six values and
+both CMIs to $2\times10^{-16}$.
+\end{proof}
+
+\section{Numerical procedure and reported metrics}
+
+For each parameter pair $(\alpha_w, t_{\mathrm{mix}})$ on a fixed grid:
+(1) construct $H$, diagonalize it, and take the ground state
+$|\psi_0\rangle$; (2) compute region entropies $\Salg(R)$, CMI
+diagnostics $I_{w=1}$, $I_{w=2}$, and $I_{\mathrm{sum}}$; (3) compute
+the participation ratio $\mathrm{PR}(\psi_0) = 1/\sum_i |\psi_{0,i}|^4$
+and the spectral gap proxy $\Delta = E_1 - E_0$, $\xi_{\mathrm{spec}} =
+\Delta^{-1}$ ($\Delta > 0$).
+
+\textbf{Interpretation of $\xi_{\mathrm{spec}}$.} We emphasize that
+$\xi_{\mathrm{spec}} = \Delta^{-1}$ is a finite-dimensional spectral
+proxy whose value depends on the overall energy scale, in particular on
+$t_{\mathrm{mix}}$. No claim is made that it corresponds to a physical
+correlation length in any continuum or infinite-volume limit.
+
+\section{Artifacts}
+
+The v1 one-shot run generated \texttt{sweep.csv}/\texttt{sweep.json},
+the three figures, selected model dumps and an Overleaf bundle (see the
+v1 PDF for the full Colab script). \emph{v2:} the verification suite
+(\texttt{verification/2601-0115/verify\_2601\_0115.py} in the series
+repository) is fully self-contained --- no Drive mount, no
+\texttt{descs.pkl} --- and regenerates the sweep, the lemma checks, and
+the additional experiments below from the canonical basis.
+
+\section{Results}
+
+Figures~\ref{fig:pr}--\ref{fig:s23} show the v1 sweep (archival).
+Table~\ref{tab:models} reports the two automatically selected models of
+the v1 run: maximum PR, and minimum $I_{\mathrm{sum}}$ under $\mathrm{PR}
+\ge 2$; the strong-mixing point dominates and yields PR close to $\dim$
+with very small CMI.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.62\linewidth]{fig1.png}
+\caption{Participation ratio (PR) versus total algebraic CMI
+$I_{\mathrm{sum}} = I_{w=1} + I_{w=2}$ across the v1 parameter sweep
+(log scale on CMI).}
+\label{fig:pr}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.62\linewidth]{fig2.png}
+\caption{Spectral gap proxy $\Delta$ versus total algebraic CMI across
+the v1 sweep (log scale on CMI).}
+\label{fig:gap}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\linewidth]{fig3.png}
+\caption{Entropy-structure scatter: $\Salg(2..3)$ versus
+$\Salg(1..3)$ (v1 sweep).}
+\label{fig:s23}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Automatically selected models from the v1 sweep (archival; as
+reported in \texttt{paper\_summary.txt}).}
+\label{tab:models}
+\begin{tabular}{l c c}
+\toprule
+Quantity & Best-by-PR & Best-by-CMI ($\mathrm{PR} \ge 2$) \\
+\midrule
+$\alpha_w$ & 0.0 & 0.0 \\
+$t_{\mathrm{mix}}$ & 100.0 & 100.0 \\
+$k_{\mathrm{nn}}$ & 3 & 3 \\
+edges & 12 & 12 \\
+$E_0$ & 2.6179476 & 2.6179476 \\
+$\Delta$ & 199.4735852 & 199.4735852 \\
+$\xi_{\mathrm{spec}} = \Delta^{-1}$ & 0.0050132 & 0.0050132 \\
+PR & 7.9989229 & 7.9989229 \\
+$\Salg(1..2)$ & 0.6931399 & 0.6931399 \\
+$\Salg(2..3)$ & 1.3862379 & 1.3862379 \\
+$\Salg(2)$ & 1.3862571 & 1.3862571 \\
+$\Salg(1..3)$ & 0.6931190 & 0.6931190 \\
+$\Salg(2..4)$ & 0.6931190 & 0.6931190 \\
+$\Salg(1..4)$ & $2.2\times10^{-16}$ & $2.2\times10^{-16}$ \\
+$I_{w=1}$ & $1.76\times10^{-6}$ & $1.76\times10^{-6}$ \\
+$I_{w=2}$ & $1.39\times10^{-11}$ & $1.39\times10^{-11}$ \\
+$I_{\mathrm{sum}}$ & $1.76\times10^{-6}$ & $1.76\times10^{-6}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Canonical-basis regeneration (v2).} With the canonical basis,
+the strong-mixing point $(\alpha_w, t_{\mathrm{mix}}) = (0, 100)$ gives
+$\mathrm{PR} = 7.9994$ and $I_{\mathrm{sum}} = 4.4\times10^{-7}$, with
+every $\Salg$ within $10^{-3}$ of its exact uniform-limit value ---
+structurally identical to the archival Table~\ref{tab:models} (whose
+entropy pattern $(\log 2, 2\log 2, 2\log 2, \log 2, \log 2)$ matches the
+canonical uniform limit of Lemma~\ref{lem:uniform} to four decimals),
+confirming that the findings do not depend on the lost v1 basis file.
+
+\textbf{Executed additional experiments (v2; recommended in v1
+\S9.4).}
+\emph{(i) Haar baseline:} over $2000$ Haar-random pure states in
+$\mathbb{C}^8$, the empirical $I_{\mathrm{sum}}$ has median $0.389$
+(5th percentile $0.158$) --- five to six orders of magnitude above the
+strong-mixing value, so the small-CMI regime is a genuinely nontrivial
+region of state space, not a generic feature of the diagnostic.
+Empirical SSA holds for all Haar samples. \emph{(ii) $k_{\mathrm{nn}}$
+ablation:} for $k \in \{1, 2, 5\}$ the kNN graph remains connected for
+the canonical basis and the strong-mixing conclusions persist
+($\mathrm{PR} > 7.9$, $I_{\mathrm{sum}} \le 10^{-4}$), with CMI
+decreasing as connectivity grows. \emph{(iii) Finer $t_{\mathrm{mix}}$
+grid:} $\Salg(2..3)$ rises monotonically from $0$ (diagonal regime,
+$t = 0$) to $\approx 2\log 2$ across $t \in \{0, 0.1, 0.3, 1, 3, 10\}$,
+resolving the transition to the Laplacian-dominated regime.
+
+\section{Discussion}
+
+\subsection{Why $\mathrm{PR} \approx \dim$ and $\mathrm{CMI} \approx 0$
+occur in the strong-mixing regime}
+
+At $\alpha_w = 0$ the kNN adjacency weights satisfy $A_{ij} = 1$ on
+selected edges, so $L$ becomes the combinatorial graph Laplacian of a
+regular graph (in the reported run, degree 3). For a connected graph,
+$L$ has a lowest eigenvalue $0$ with eigenvector proportional to the
+all-ones vector $\mathbf{1}$. Therefore, when $t_{\mathrm{mix}}$
+dominates the diagonal proxy term $H_E$, the ground state approaches a
+near-uniform superposition, yielding PR close to $\dim$. In this regime
+the near-quantized values $\Salg(R) \approx n\log2$ and the very small
+algebraic CMI values are the finite-$t$ shadow of the exact uniform-limit
+statement of Lemma~\ref{lem:uniform}. Operationally, this indicates
+near-conditional-independence \emph{with respect to that algebraic
+factorization}.
+
+\subsection{What this does (and does not) say about ``quantum Markov''
+structure}
+
+In standard quantum information theory, exact saturation of strong
+subadditivity ($I(A : C \mid B) = 0$) implies a quantum Markov structure
+and is characterized by a recovery map \cite{HJPW}. Our setting differs
+because: entropies are computed via a sector-decomposed algebraic
+prescription tied to $(x, \mu)$ labels; the system is extremely small
+($\dim = 8$); and the Hamiltonian mixing term is an effective graph
+Laplacian ansatz. Thus, small values of the computed algebraic CMI
+should be read as a diagnostic of conditional-independence in this toy,
+label-induced algebraic setting, rather than as evidence for a
+physically universal Markov property.
+
+\subsection{Limitations}
+
+\textbf{No scaling.} We do not study how observables behave as $\dim$ or
+$L$ increase. \textbf{Hamiltonian not physical.} The mixing term is not
+derived from a Kogut--Susskind magnetic term; it is a controllable
+ansatz. \textbf{Spectral proxy.} $\xi_{\mathrm{spec}} = \Delta^{-1}$ is
+scale-dependent and should not be overinterpreted.
+
+\subsection{Series positioning (v2)}
+
+Within the series, this note is the algebraic-toy end of the gauge/CMI
+block: 2601.0111 (v2) computes tensor-product CMI and Petz recovery in
+an exact $\mathbb{Z}_2$ Gauss sector; 2601.0043 (v2) provides the
+embedding demonstrations for algebraic-vs-tensor comparisons; the
+center-type sector structure made explicit by Lemma~\ref{lem:inj} is the
+finite toy version of the split/sector discipline of the Type III
+interface 2601.0065 (v2). The Haar baseline executed here is the
+toy-scale analogue of the null-model controls used across the series'
+numerical notes.
+
+\section{Numerical precision and stability}
+
+Occasional values of CMI at the level of $10^{-16}$ (including slight
+negatives) are interpreted as floating-point round-off in double
+precision accumulated over many linear-algebra operations. For log-scale
+plots, we use $\max(I_{\mathrm{sum}}, 10^{-16})$, and when reporting
+aggregated metrics we may optionally use $I_{\mathrm{clip}} = \max(I,
+0)$.
+
+\section{Reproducibility}
+
+The v1 Colab cell (typeset in full in the v1 PDF, Appendix B) produced
+timestamped run folders under Drive and required a pre-existing
+\texttt{descs.pkl}. \emph{v2:} the self-contained verification suite
+replaces this dependency entirely; a single \texttt{python3
+verify\_2601\_0115.py} regenerates every structural claim, the lemma
+checks, the sweep, and the executed additional experiments from the
+canonical basis of Appendix~\ref{app:canonical}.
+
+\section*{Note added in v2}
+No v1 number is changed; Table~\ref{tab:models} and the three figures
+are kept as the archival v1 dataset. v2: (1) repairs the reproducibility
+gap --- v1's pipeline loaded an unshipped, never-specified
+\texttt{descs.pkl}, so the v1 dataset was not regenerable from the paper
+alone; v2 prints a canonical self-contained basis
+(Appendix~\ref{app:canonical}) and demotes the v1 dataset to archival
+status while regenerating every structural finding from the canonical
+basis (strong-mixing point: $\mathrm{PR} = 7.9994$, $I_{\mathrm{sum}} =
+4.4\times10^{-7}$, entropy pattern identical); (2) proves the
+injectivity lemma (Lemma~\ref{lem:inj}): $\Salg$ is a genuine von
+Neumann entropy of a center-type sector decomposition \cite{CHR}, and
+clarifies why SSA nonetheless remains empirical for the CMI
+combinations; (3) proves the strong-mixing lemma
+(Lemma~\ref{lem:uniform}): the quantization $\Salg = n\log2$ and
+$I_{w=1} = I_{w=2} = 0$ are exact in the uniform limit (verified to
+$2\times10^{-16}$); (4) executes the three additional experiments
+recommended in v1 \S9.4 (Haar baseline, $k_{\mathrm{nn}}$ ablation,
+finer $t_{\mathrm{mix}}$ grid); (5) adds series positioning (v1 cited no
+companion papers) and the self-contained verification suite.
+
+\appendix
+
+\section{Canonical self-contained basis (v2)}
+\label{app:canonical}
+
+The canonical basis has $\dim = 8$ states labeled by three cut bits
+$(b_1, b_2, b_3) \in \{0,1\}^3$:
+\[
+x_s = (b_s, b_s) \ \ (s = 1, 2, 3), \qquad
+\mu_1 = (b_1), \quad \mu_2 = (b_1 \oplus b_2), \quad
+\mu_3 = (b_2 \oplus b_3), \quad \mu_4 = (b_3).
+\]
+The two cut bits per boundary are equal (a constraint-compatibility
+condition) and the cell labels $\mu_p$ are parity-matched to the
+adjacent cuts (a Gauss-law-like consistency), so every descriptor is
+determined by the cut configuration. The flattened bitstring has $m =
+10$ bits (6 from $x$, 4 from $\mu$). The map $\mathrm{desc} \mapsto
+(\alpha, k_R, k_C)$ is injective for all six regions used
+(Lemma~\ref{lem:inj}; verified exhaustively), the kNN graph at $k = 3$,
+$\alpha_w = 0$ is connected with 12 edges (3-regular, as in the v1 run),
+and the uniform-limit sector counts are $(2, 4, 4, 2, 2, 1)$ for the
+regions $(1..2),\ (2..3),\ (2),\ (1..3),\ (2..4),\ (1..4)$, giving the
+exact entropies of Lemma~\ref{lem:uniform}.
+
+\section{Minimal pseudocode overview}
+
+The workflow is: (1) build the canonical descriptors (or, for the
+archival v1 dataset, load \texttt{descs.pkl}); (2) build bitstrings
+$b(\mathrm{desc}_i)$ and the Hamming distance matrix $D_{ij}$; (3) for
+each $(\alpha_w, t_{\mathrm{mix}})$: build the kNN adjacency $A$ and
+Laplacian $L$; build $H = H_E + t_{\mathrm{mix}} L$; diagonalize and
+take the normalized ground state; compute $\Salg(R)$ via sectored SVD;
+compute $I_{w=1}$, $I_{w=2}$, PR, $\Delta$; save to CSV/JSON. The full
+v1 Colab script remains typeset in the v1 PDF; the v2 suite supersedes
+it with a dependency-free implementation.
+
+\section{Notes on related literature (brief)}
+
+The present work is primarily a reproducible toy-model pipeline. For
+context, entanglement in gauge theories requires care due to constraints
+and centers (see e.g.\ \cite{CHR}). The Kogut--Susskind Hamiltonian
+formulation provides the standard lattice gauge Hamiltonian setting
+\cite{KS}. In standard quantum information, the condition $I(A : C \mid
+B) = 0$ characterizes quantum Markov states and admits structural
+theorems \cite{HJPW}.
+
+\begin{thebibliography}{9}
+\bibitem{KS} J. Kogut and L. Susskind, ``Hamiltonian formulation of
+Wilson's lattice gauge theories,'' Phys. Rev. D \textbf{11} (1975)
+395--408.
+\bibitem{CHR} H. Casini, M. Huerta, and J. A. Rosabal, ``Remarks on
+entanglement entropy for gauge fields,'' Phys. Rev. D \textbf{89} (2014)
+085012.
+\bibitem{HJPW} P. Hayden, R. Jozsa, D. Petz, and A. Winter, ``Structure
+of states which satisfy strong subadditivity of quantum entropy with
+equality,'' Commun. Math. Phys. \textbf{246} (2004) 359--374.
+\bibitem{S0111} L. Eriksson, ai.viXra:2601.0111 (2026; v2 2026).
+\bibitem{S0043} L. Eriksson, ai.viXra:2601.0043 (2026; v2 2026).
+\bibitem{S0065} L. Eriksson, ai.viXra:2601.0065 (2026; v2 2026).
+\bibitem{S0050} L. Eriksson, ai.viXra:2601.0050 (2026; v2 2026).
+\end{thebibliography}
+
+\end{document}
