@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty v2 papers + verification suites
+# AQFT / Operational Coherence Series — twenty-one v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty companion papers that cite one another (ai.viXra 2512 series), each at
+Twenty-one companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -29,8 +29,9 @@ spelled out in the honesty statement.
 | **2601.0023** — *Finite-Dimensional Davies Interface Lemmas* | `papers/2601-0023-davies-interface-lemmas/` | `verification/2601-0023/` (finite exact identities; v1 counterexamples; positivity pinning; optional `--with-tfim`) | Davies-interface companion for the omega=0 witness: corrected Bohr decomposition, corrected KMS multiplication constants, and finite pinning check |
 | **2601.0031** — *From Static Recoverability to Maintenance Power* | `papers/2601-0031-typed-pipeline/` | `verification/2601-0031/` (finite GNS/KMS bridge; v1 work-sign counterexample; corrected sign check; N-trend) | Typed-pipeline companion for the 2601 block: static-to-dynamic-to-thermodynamic bookkeeping with explicit finite diagnostics |
 | **2601.0034** — *Modular Recovery from Split Inclusions* | `papers/2601-0034-modular-recovery-split/` | `verification/2601-0034/` (finite-dimensional dictionary: CMI reduction, N-dependence demo, corrected Fawzi-Renner factor) | Split-inclusion-facing dictionary note for the 2601 block; v2 corrects the Fawzi-Renner factor in the finite anchor |
+| **2601.0035** — *A Non-Gaussian Clustering-Recovery Bridge via CMI* | `papers/2601-0035-nongaussian-bridge/` | `verification/2601-0035/` (finite ED benchmark; corrected Fawzi-Renner factor; v1 overshoot artifact check) | Non-Gaussian finite-chain bridge companion for 0101/0034; regenerates the Petz-vs-FR benchmark on the fast grid |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031} (finite split-recovery dictionary) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034} (finite non-Gaussian bridge benchmark) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -262,6 +263,15 @@ normalization, checks the corrected Petz-recovery anchor on random finite
 states, and records the corrected arithmetic constant. These checks are a
 finite-dimensional dictionary/regression layer, not a Type III theorem.
 
+**2601.0035** (v2 package integrated here): the non-Gaussian bridge note records
+the same squared-fidelity Fawzi-Renner factor correction family. The suite
+regenerates a finite TFIM exact-diagonalization benchmark at `N=9`, checks CMI
+decay slopes on the finite grid, and records that the v1 Petz "overshoot" was
+against the half-scale; against the corrected scale the finite grid has
+`-log F / I < 1`. The `--N11` run is available for the paper-size comparison
+but is left out of fast CI. These are finite ED benchmarks, not a general
+non-Gaussian AQFT theorem.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -344,6 +354,10 @@ python verification/2601-0023/verify_2601_0023.py --with-tfim
 python verification/2601-0031/verify_2601_0031.py
 # 2601.0034 (finite split-recovery dictionary checks)
 python verification/2601-0034/verify_2601_0034.py
+# 2601.0035 (finite non-Gaussian ED bridge benchmark)
+python verification/2601-0035/verify_2601_0035.py
+# Optional paper-size comparison, slower
+python verification/2601-0035/verify_2601_0035.py --N11
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -400,3 +414,7 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   identification, beta_0 normalization, and the corrected finite
   Fawzi-Renner/Petz anchor. It does not prove a Type III, continuum, or
   modular-recovery theorem beyond the stated finite checks.
+- **2601.0035**: verification/2601-0035 is a finite exact-diagonalization
+  benchmark for a non-Gaussian TFIM bridge. It checks the corrected
+  Fawzi-Renner scale and finite-grid CMI decay; it does not prove a continuum,
+  Type III, or general non-Gaussian clustering-recovery theorem.
