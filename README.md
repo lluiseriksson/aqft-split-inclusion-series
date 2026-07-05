@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — seven v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — thirteen v2 papers + exact verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Seven companion papers that cite one another (ai.viXra 2512 series), each at
+Thirteen companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with every correction driven or confirmed by exact numerical
 verification. Scripts and reference logs are included; nothing in the checks
 relies on the approximations being tested.
@@ -16,12 +16,23 @@ relies on the approximations being tested.
 | **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the others |
 | **0072** — *The Rate Inheritance Principle (framing note)* | `papers/0072-rip-principle/` | `verification/0072/` (figure script; evidence inherited from 0064/0070) | Formulates RIP: weak form as a proved lemma, strong form with updated status (derived quasi-free with squared exponent; Davies-class failure) |
 | **0073** — *Finite-Dimensional Davies Interface Lemmas and TFIM Witness Tests* | `papers/0073-davies-core/` | `verification/0073/` | The technical core (P7): exact omega=0 identity, corrected modular-weighted Bohr-block identity, witness protocols, linear envelope lemma |
+| **0081** — *Operational Coherence Maintenance and the Quantum-Classical Boundary* | `papers/0081-quantum-classical-boundary/` | protocol-level; verification inherited from the 0061/0064/0070/0073 suites (its MCWF stress-test parameters are fully declared in-paper) | The integrative, protocol-facing paper: corrected maintenance hierarchy, RIP status, falsifiable protocols, speculative FEP outlook |
+| **0084** — *The Maintenance Constraint: How Resource Boundaries Shape Cognitive Availability* | `papers/0084-maintenance-constraint/` | none — philosophy-of-mind paper with no theorems of its own; its single technical input (the maintenance inequality) is imported as an anchor | The outermost paper: maintainability→availability bridge, maintenance-feasibility bias, FEP/Global-Workspace connections. Explicitly speculative; no phenomenology claims |
+| **0085** — *Geometry, Membranes, and Life as a Resource Boundary* | `papers/0085-geometry-membranes-life/` | `verification/0085/` (two checkable claims: fidelity lemma + Davies upper-envelope direction) | The synthesis/pipeline paper: composes the whole program (maintenance law → static leakage → CMI recoverability → Davies interface → ceiling/floor hinge). Anticipated the κ↑/κ↓ distinction. Speculative "life" framing, operational only |
+| **0091** — *Technical Appendix: Heat Kernel, Fermions, and the Sign of Induced Gravity* | `papers/0091-heat-kernel-induced-gravity/` | `verification/0091/` (symbolic check of all 7 Seeley–DeWitt coefficients + induced-Newton sign) | Topically-adjacent support piece (induced-gravity sign bookkeeping), not part of the coherence core. **The only paper in the program with no error in v1** — v2 is enhancement (verification + updated refs) |
+| **0101** — *Beyond Gaussianity: Extending the Clustering–Recovery Bridge* | `papers/0101-beyond-gaussianity/` | `verification/0101/` (Markov-product identity; full Petz slope table; rotated-Petz subset + crossover figure) | Direct companion of 0060: non-Gaussian extension of its Conjecture 5.1 (collar geometry, Fawzi–Renner CMI route, TFIM Gibbs numerics). v2 corrects the normalized Markov-product identity (missing log Z, Lieb) |
+| **0102** — *Heat Kernel Methods and the Sign of Induced Gravity* | `papers/0102-induced-gravity-sign/` | `verification/0102/` (exact S^4 spectra: scalar, Dirac, Hodge 1-forms; A1 table + induced-Newton sign; 11/11) | Conventions companion of 0091: where the Seeley–DeWitt a1 coefficients are fixed and verified against exact S^4 spectra, anchored to the classical counting 1/G_ind ∝ N0 + 2N_{1/2} − 4N1. Complementary to 0091 (compact bookkeeping), not redundant |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
 frequency-resolved rate law.
+
+*Series-history note:* 0071 v2 (the closure map, submitted 2026-07-04) lists
+the series as 0060/0061/0064/0070/0072 — the inventory at its submission
+time; 0073 and 0081 joined the v2 series immediately afterwards and cite all
+predecessors. This README is the live inventory.
 
 ## What each v2 fixes (all verified here)
 
@@ -101,6 +112,81 @@ imported the vacuous form verbatim). (4) Witness Table site convention fixed
 N=8). (5) Compile-time figure remark removed; program map updated; inline
 Colab listings moved to `verification/0073/`.
 
+**0081** (v2 written here, replaces v1): v1's Theorem 1 ("proved here") used
+the vacuous unlinked-pairs P_extra and its Appendix A Step 4 subtracted two
+lower bounds (invalid). v2 keeps the valid core of that appendix (Steps
+0-3+5), which proves the *unconditional* entropy-production bound, and
+imports the coherence/extra-power bounds from 0061 v2. Bonus finding: the
+paper's own Protocol B uses a dephasing dissipator — exactly the
+free-baseline case, so its headline inequality is a theorem with no further
+assumptions in its own experimental setting; and its numerics were already
+proxy-compliant (fixed-horizon metric + unitary-baseline subtraction). RIP
+status updated; series references added (v1 cited only external literature);
+work sign fixed to consumption; v1's unnecessary regularity assumption (A5)
+dropped.
+
+**0084** (v2 written here, replaces v1): the outermost, philosophy-of-mind
+paper. Its single load-bearing technical input — the maintenance inequality
+P_extra >= k_B T Cdot_loss — was cited in v1 in the unqualified extra-power
+form whose companion-v1 formulation was later found vacuous. v2 cites it in
+the corrected form (efficient-baseline incremental bound + unconditional
+entropy-production floor, per 0081/0061 v2), and observes that the paper's
+own passive-stability special case is exactly the corrected inequality's
+free-baseline regime — so the correction sharpens rather than weakens the
+argument. Full series references added (v1 cited only the single anchor
+preprint); non-claims retained verbatim. No verification suite: it is
+philosophy, and claims nothing numerical.
+
+**0085** (v2 written here, replaces v1): the synthesis/pipeline paper. (1) Its
+imported core law (Theorem 1) pointed to 0061 v1's Theorem 4.12 — the vacuous
+unlinked-pairs extra-power bound; re-anchored to the corrected 0061 v2
+hierarchy, work sign fixed to consumption. (2) Notably, this paper ALREADY
+distinguished upper/lower rate envelopes (κ↑/κ↓, RIP-U/RIP-L) "to avoid
+sign/quantifier errors" — anticipating the exact ceiling/floor correction
+that 0070 needed in v2; v2 connects these to the now-proved companion results
+(exact RIP-U in 0064, Davies floors in 0070, RIP lemma in 0072, corrected
+Bohr-block identity in 0073 — whose linear upper-envelope lemma IS this
+paper's Davies interface lemma). (3) CMI/Fawzi-Renner recoverability layer
+tied to 0060 v2 (independent of its Petz→reattachment correction). (4) Two
+checkable claims verified and script distributed: the elementary fidelity
+lemma (1−F ≤ −log F) and the Davies upper-envelope direction (ω=0 witness
+rate decays with separation, exactly reproducing the 0073 table).
+
+**0091** (v2 written here, replaces v1): a self-contained heat-kernel /
+induced-gravity appendix (Seeley–DeWitt a1 coefficients; sign of the induced
+Newton constant per matter species), only heuristically linked to the
+"resource boundary" program. **This is the first and only paper in the program
+whose v1 contained no mathematical error** — all seven coefficients
+(1/6−ξ, 1/6, 1/3, 1/3, 1/6, 1/6, −2/3) and the induced-Newton sign column are
+verified symbolically (SymPy) and match standard heat-kernel references
+(Vassilevich; Gilkey). v2 is therefore an *enhancement*, not a rectification:
+verification script added, companion references updated to v2, scope note
+tightened so the cut-program link is explicitly heuristic and non-load-bearing.
+
+**0101** (v2 written here, replaces v1): the non-Gaussian companion of 0060.
+(1) v1's "CMI as relative entropy" identity equated I(A:C|B) with
+D(rho || sigma_MP) for the *normalized* Markov product state; the exact
+identity uses the unnormalized product, and the normalized version differs by
+-log Z >= 0 with Z <= 1 by Lieb's triple-matrix inequality — corrected and
+verified numerically (machine precision on the unnormalized identity).
+(2) Full independent re-implementation of the TFIM pipeline: all twenty Petz
+slope rows reproduced (4-decimal agreement for beta >= 0.6; ~2% at beta = 0.3
+where fits touch the 1e-13 arithmetic floor — caveat added in v2);
+rotated-Petz subset and the crossover w* = 3 confirmed in all eight
+disagreement cases; the v1 Colab PNG figure replaced by a script-generated
+figure + CSV.
+
+**0102** (v2 written here, replaces v1): the conventions/verification companion
+of 0091. Same species table and signs; v2 adds (1) a corollary anchoring to the
+classical counting 1/G_ind = (Λ²/12π)(N0 + 2N_{1/2} − 4N1), with A1 = 1/6 ×
+{1, 2, −4}; (2) a gauge remark (the −2/3 is Feynman-gauge; off-shell
+gauge/parametrization dependence declared, Kabat contact term); (3) a
+Weyl/Majorana caveat (the halving is of the local a1 only; chiral-determinant
+phases tracked separately); (4) a corrected Euclidean Wick weight
+(iS^(L) → −S^(E)); (5) an exact-spectrum numerical verification on S^4 (scalar,
+Dirac, Hodge–de Rham 1-forms) giving tr a1 = {+R/6, −R/3, −R/3} to <1e−5 and
+A1(vector+ghosts) = −2/3. Verified 11/11 (verification/0102/).
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -158,6 +244,15 @@ python verification/0072/make_rip_figure.py
 python verification/0073/verify_corrected.py
 python verification/0073/witness_tfim.py
 python verification/0073/verify_0073.py
+# 0085 (fidelity bound + Davies upper-envelope direction)
+python verification/0085/verify_0085.py
+# 0091 (symbolic Seeley-DeWitt coefficient/sign table)
+python verification/0091/verify_0091.py
+# 0101 (petz ~3 min; rot/fig8 longer)
+python verification/0101/verify_0101.py petz
+python verification/0101/verify_0101.py fig8
+# 0102 (exact S^4 spectra, seconds)
+python verification/0102/verify_0102.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with

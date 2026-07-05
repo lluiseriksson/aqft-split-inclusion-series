@@ -33,5 +33,11 @@ jobs:
         run: python verification/0073/witness_tfim.py
       - name: 0073 interface verification
         run: python verification/0073/verify_0073.py
-  # Long suites (verify_repaired, verify_0060, modelB, sensitivity) are
+      - name: 0085 synthesis verification
+        run: python verification/0085/verify_0085.py
+      - name: 0091 heat-kernel symbolic verification
+        run: python verification/0091/verify_0091.py
+      - name: 0102 induced-gravity sign verification
+        run: python verification/0102/verify_0102.py
+  # Long suites (verify_repaired, verify_0060, modelB, sensitivity, 0101) are
   # documented with reference logs in results/ and run manually.

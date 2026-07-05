@@ -1,0 +1,452 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  Geometry, Membranes, and Life as a Resource Boundary
+%  Version 2 (July 2026). v1: December 2025 (ai.viXra:2512.0085v1).
+%  Synthesis / pipeline paper of the coherence-maintenance series.
+%  Main changes (Appendix A):
+%   1. Imported core law (Theorem 1) re-anchored to 2512.0061 v2: v1 cited
+%      [6, Thm 4.12] = 0061 v1's vacuous unlinked-pairs extra-power bound.
+%      v2 states the corrected hierarchy (unconditional entropy-production
+%      floor; efficient-baseline / free-baseline incremental bound). Work
+%      sign fixed to consumption.
+%   2. The paper ALREADY distinguished upper/lower rate envelopes
+%      (kappa_up / kappa_down) and RIP-U / RIP-L -- anticipating the
+%      ceiling/floor correction later made in 2512.0070 v2. v2 connects
+%      these to the now-established companion results: exact RIP-U in the
+%      quasi-free local-sink class (0064), Davies-class floors (0070),
+%      RIP as a lemma (0072), and the corrected Davies Dirichlet identity
+%      (0073, whose linear upper-envelope lemma is exactly the Davies
+%      interface lemma of Section 7).
+%   3. CMI/Fawzi-Renner recoverability layer tied to 0060 v2, noting its
+%      Petz->reattachment correction does not affect the CMI bound.
+%   4. Full series references added; verification of the two checkable
+%      claims (fidelity lemma; Davies upper-envelope direction) distributed.
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\Pextra}{P_{\mathrm{extra}}}
+\newcommand{\Pmin}{P_{\min}}
+\newcommand{\kup}{\kappa_{\uparrow}}
+\newcommand{\kdn}{\kappa_{\downarrow}}
+\newcommand{\Closs}{\dot{C}_{\mathrm{loss}}}
+
+\title{Geometry, Membranes, and Life as a Resource Boundary:\\
+\large A Correct-by-Construction Operational Pipeline from\\
+Static Suppression to Maintenance Costs}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025) \quad ai.viXra:2512.0085}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Status note.} This is the synthesis / pipeline paper of the
+coherence-maintenance series (ai.viXra:2512.0060/0061/0064/0070/0071/0072/
+0073/0081/0084, all at v2, 2026). It composes results proved elsewhere into an
+end-to-end operational program; its only original technical content is the
+recoverability layer (\S6) and the Davies interface lemma (\S7), both
+verified where checkable. \textbf{v2}: the imported maintenance law is cited
+in its corrected form (\S4, per 2512.0061 v2); the paper's own $\kup/\kdn$
+(ceiling/floor) distinction --- which anticipated the correction later made
+to 2512.0070 --- is connected to the now-established companion results.
+\textbf{Non-claims:} no modified dynamics, no Born-rule derivation, no
+solution to the measurement problem; ``life'' is used operationally, as
+sustained maintenance of organization under finite resources, not as a
+definition.}}
+\end{center}
+
+\begin{abstract}
+We present a logically explicit operational program connecting three themes:
+\emph{geometry} as suppressibility of cross-region influence, \emph{membranes}
+as engineered interfaces implementing that suppressibility, and \emph{life}
+as sustained maintenance of internal organization under finite resources. The
+program composes: (i) a law-grade thermodynamic inequality relating
+incremental maintenance power to the instantaneous loss rate of an
+organization functional, imported in its corrected operational hierarchy;
+(ii) a static geometric suppression layer in which cross-interface leakage
+admits an envelope $f(\eps) \sim \mathrm{poly}(m\eps)e^{-m\eps}$ (with
+$K_\nu(m\eps)$ as a canonical representative in massive homogeneous models);
+and (iii) a dynamical hinge (the Rate Inheritance Principle, RIP) connecting
+static suppression to separation-dependent effective dynamical rates. This
+version distinguishes \emph{upper} and \emph{lower} rate envelopes
+$\kup(\eps)$ and $\kdn(\eps)$ to avoid sign/quantifier errors --- a
+distinction now vindicated by the companion series --- separates a law-grade
+$\Delta$-track (energy pinching) from a conditional biology-grade
+$E$-track (general conditional expectations), and adds two interface anchors:
+a recoverability layer via conditional mutual information (CMI) and the
+Fawzi--Renner guarantee, and a minimal Davies interface lemma showing how
+correlator envelopes imply Davies-rate \emph{upper} envelopes (supporting
+RIP-U microscopically in standard weak-coupling settings). A concrete
+electrical testbed using membrane-embedded spin probes is proposed to measure
+dephasing-rate envelopes and detect near-zero-frequency floors that create a
+resource horizon. A dependency and falsification matrix makes the logical
+structure audit-friendly.
+\end{abstract}
+
+\section{Scope and non-claims}
+
+This manuscript is an operational program. It does not propose modified
+quantum dynamics, does not derive the Born rule, and does not claim to solve
+the measurement problem. The central object is an operational feasibility
+boundary: maximal maintainable organization is constrained by minimal
+maintenance power implied by thermodynamic bookkeeping and uncontrolled
+dynamics. ``Life'' is used only in the operational sense of sustained
+organization maintenance under finite resources.
+
+\section{Two tracks: law-grade $\Delta$ vs biology-grade $E$}
+
+\textbf{Law-grade ($\Delta$-track).} With $H_S = \sum_n E_n\Pi_n$, energy
+pinching $\Delta[\rho] := \sum_n\Pi_n\rho\Pi_n$ and $C_\Delta(\rho) :=
+S(\rho\|\Delta[\rho])$ give the cleanest proved statements.
+
+\textbf{Biology-grade ($E$-track).} To encode membrane-relevant
+coarse-grainings, use a conditional expectation $E$ and $C_E(\rho) :=
+S(\rho\|E[\rho])$. Extending $\Delta$-track identities to general $E$ requires
+a Pythagorean/sufficiency-type condition (Petz sufficiency \cite{Petz86};
+approximate sufficiency/recovery \cite{JRSWW18}); \emph{all $E$-track power
+statements are explicitly conditional on such an extension} --- and the
+companion \cite{Clustering} (v2) shows the associated Gaussian reconstruction
+is conditional reattachment, not the Petz map, a subtlety that does not affect
+the CMI layer below.
+
+\section{Operational framework}
+
+$\gamma_S := e^{-\beta H_S}/\Tr e^{-\beta H_S}$; $S(\rho\|\sigma) :=
+\Tr[\rho(\log\rho-\log\sigma)]$ (support convention); Markovian uncontrolled
+$\rho_t = e^{t\mathcal{L}}(\rho)$; loss rates
+$\dot{C}_{\bullet,\mathrm{loss}}(\rho) :=
+-\frac{d}{dt}C_\bullet(\rho_t)|_{t=0}$. Control primitive:
+battery-assisted thermal operations at temperature $T$, with work accounted
+as battery free-energy \emph{consumption} (sign convention of \cite{Work}
+v2; v1 wrote ``increase'', the sign later corrected there).
+
+\section{Imported core law: the corrected maintenance hierarchy}
+
+\begin{theorem}[Imported, corrected form; \cite{Work} v2]\label{thm:law}
+Under battery-assisted thermal operations at temperature $T$ with a Markovian
+thermal-fixed-point generator:
+\begin{enumerate}
+\item[(a)] (unconditional) $\Pmin(\rho) \ge \kB T\,\sigma(\rho)$, with
+$\sigma \ge 0$ the entropy production rate, split as $\sigma =
+\dot{F}^\Delta_{\mathrm{diag}} + \dot{C}_{\Delta,\mathrm{loss}}$;
+\item[(b)] (coherence power) $\Pmin(\rho) \ge \kB
+T\,\dot{C}_{\Delta,\mathrm{loss}}(\rho)$ under diagonal contraction
+(automatic for Davies generators);
+\item[(c)] (extra power) against thermodynamically efficient
+population-maintenance baselines, and assumption-free in the free-baseline
+(passive) case, the incremental power obeys $\Pextra(\rho) \ge \kB
+T\,\dot{C}_{\Delta,\mathrm{loss}}(\rho)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Correction of v1's citation pointer]\label{rem:pointer}
+v1 imported this as ``$\Pextra \ge \kB T\dot{C}_{\Delta,\mathrm{loss}}$'' from
+[6, Theorem 4.12], defining $\Pextra$ as an infimum over \emph{unlinked}
+pairs of strategies. That definition is vacuous (the infimum is $-\infty$;
+battery-burning baselines), and \cite{Work} v1's Theorem~4.12 was corrected
+accordingly. Theorem~\ref{thm:law} is the corrected hierarchy; the pipeline
+uses (a)--(c) in the appropriate regime.
+\end{remark}
+
+\begin{assumption}[$E$-track extension (optional)]\label{ass:etrack}
+For general $E$, assume a sufficiency/Pythagorean identity strong enough to
+upgrade Theorem~\ref{thm:law} to $\Pmin(\rho) \ge \kB
+T\,\dot{C}_{E,\mathrm{loss}}(\rho)$; all $E$-track power statements are
+conditional on this.
+\end{assumption}
+
+\section{Static geometry as suppressibility}
+
+\begin{definition}[Static leakage proxy]
+$\mathrm{Leak}(\eps)$ is any nonnegative measure of cross-interface
+dependence at effective width $\eps$ (a correlation norm, a
+weak-correlation mutual-information proxy, or a recoverability-relevant
+cross-correlation).
+\end{definition}
+
+In massive homogeneous models the canonical envelope is $\mathrm{Leak}(\eps)
+\lesssim \mathrm{poly}(m\eps)\, K_\nu(m\eps) \sim \mathrm{poly}(m\eps)
+e^{-m\eps}$; the lattice/continuum instances (with the Combes--Thomas rate
+$\mathrm{arccosh}(1+m^2/2)$ verified in the companion) are developed in
+\cite{Clustering,NIST}.
+
+\section{Recoverability layer via conditional mutual information}
+
+\begin{lemma}[Elementary fidelity bound]\label{lem:fid}
+For all $F \in (0,1]$, $\;1 - F \le -\log F$.
+\end{lemma}
+
+\begin{proof}
+$g(F) := -\log F - (1-F)$ has $g(1) = 0$ and $g'(F) = (F-1)/F \le 0$ on
+$(0,1]$, so $g \ge 0$. (Verified numerically to the double-precision floor,
+Appendix~\ref{app:verif}.)
+\end{proof}
+
+For a tripartition $A$ (protected interior), $B$ (collar/membrane), $C$
+(exterior), the Fawzi--Renner theorem \cite{FawziRenner15} gives a recovery
+map $\mathcal{R}_B$ with $-\log F(\rho_{ABC}, \mathcal{R}_B(\rho_{AB})) \le
+\tfrac12 I(A:C|B)$, hence by Lemma~\ref{lem:fid} a \emph{recoverability proxy}
+$1 - F \le \tfrac12 I(A:C|B)$. Clustering across the collar bounds
+$I(A:C|B)$ by a leakage envelope, giving leakage $\to$ reconstruction. This
+layer uses only CMI and Fawzi--Renner and is \emph{independent} of the
+Petz/reattachment distinction of \cite{Clustering} (v2); the quantitative
+Gaussian reconstruction-fidelity bound of \cite{Clustering} is the sharper,
+model-specific companion of this soft CMI statement.
+
+\section{A minimal microscopic route to RIP-U (Davies interface lemma)}
+\label{sec:davies}
+
+\begin{lemma}[Correlator envelope $\Rightarrow$ Davies upper-rate envelope]
+\label{lem:davies}
+In a validated Davies weak-coupling--secular regime \cite{Davies74,BreuerPetruccione},
+let the coupling's Bohr components $S(\omega)$ have spatial tails beyond the
+interface obeying $\|\mathrm{tail}_\eps(S(\omega))\|_\infty \le
+A(1+\eps)^p e^{-\eps/\xi}$, with bounded weighted rates. Then the effective \emph{upper} rate envelope on observables at distance
+$\eps$ satisfies the \emph{linear} bound
+\begin{equation}
+\kup(\eps) \;\le\; C\,(1+\eps)^p\, e^{-\eps/\xi}.
+\end{equation}
+This is the upper-envelope (RIP-U) direction and coincides with the
+\emph{linear} envelope lemma of \cite{DaviesCore} (v2).
+\end{lemma}
+
+\begin{remark}[Linear vs.\ squared envelopes]\label{rem:linsq}
+The generally justified Davies (correlator-mediated) statement is the
+\emph{linear} envelope above. A \emph{squared} envelope
+$e^{-2\eps/\xi}$ belongs to amplitude-mediated local-sink / quasi-free
+settings, where it is exact with a frequency-resolved exponent
+\cite{HCut} (v2); it must \emph{not} be read as a general Davies
+consequence. This is exactly the distinction \cite{DaviesCore} (v2) had to
+draw when its v1 quadratic Bohr-block envelope --- which relied on a
+Dirichlet identity false for $\omega \neq 0$ --- was withdrawn as proved and
+replaced by the linear form.
+\end{remark}
+
+\begin{remark}[Direction and the exact Bohr-block identity]
+Only the \emph{upper}-envelope (RIP-U) direction follows from a tail bound;
+lower envelopes (floors) require a separate witness (\S8). The Dirichlet form
+underlying $\kup$ is the exact modular-weighted Bohr-block form of
+\cite{DaviesCore} (v2), \emph{not} the commutator form; at $\omega = 0$ it
+reduces to $\tfrac{\gamma(0)}{2}\|[S(0),O]\|^2_{2,\sigma}$, and the
+$\omega = 0$ witness rate is verified to decrease with separation
+(Appendix~\ref{app:verif}). The near-zero-frequency channel is precisely
+where floors arise \cite{Stress} (v2).
+\end{remark}
+
+\section{The dynamical hinge: upper and lower envelopes}
+
+\begin{definition}[Ceiling and floor envelopes]
+On a specified family of observables/states at separation $\eps$, let
+$\kup(\eps)$ be the largest effective rate (a supremum/ceiling) and
+$\kdn(\eps)$ the smallest nonzero effective rate (an infimum/floor).
+\end{definition}
+
+\begin{remark}[This distinction was ahead of its time]
+v1 already separated $\kup$ from $\kdn$ ``to avoid sign/quantifier errors''.
+The companion \cite{Stress} v1 conflated them, inferring a maintenance floor
+from a ceiling; its v2 corrected exactly this, adopting the present paper's
+distinction. Here the two envelopes drive different conclusions:
+\emph{suppression} needs $\kup \to 0$; a \emph{resource horizon} needs
+$\kdn$ bounded below.
+\end{remark}
+
+\begin{hypothesis}[RIP-U: upper-envelope inheritance]\label{hyp:ripU}
+There exist $B > 0$, $\beta \ge 0$ with $\kup(\eps) \le
+B(m\eps)^\beta e^{-m\eps}$. (Microscopically supported by
+Lemma~\ref{lem:davies}; \emph{proved} in the quasi-free local-sink class,
+with the exact frequency-resolved exponent $\kappa(\eps) \propto
+e^{-2q(\omega_b)\eps}$, in \cite{HCut} v2.)
+\end{hypothesis}
+
+\begin{hypothesis}[RIP-U with floor]\label{hyp:floor}
+There exist $\kappa_0 \ge 0$, $B > 0$, $\beta \ge 0$ with
+$\kdn(\eps) \ge \kappa_0$ and $\kup(\eps) \le \kappa_0 +
+B(m\eps)^\beta e^{-m\eps}$. (The floor $\kappa_0 > 0$ is realized within the
+Davies class through near-zero-frequency channels, \cite{Stress} v2.)
+\end{hypothesis}
+
+\begin{hypothesis}[RIP-L: lower-envelope inheritance (optional)]\label{hyp:ripL}
+A matching lower scaling $\kdn(\eps) \ge b(m\eps)^\beta e^{-m\eps}$, needed
+only if one wants power \emph{lower} bounds to \emph{decay} with $\eps$;
+posited, not assumed.
+\end{hypothesis}
+
+\section{Pipeline theorem}
+
+Let $P^\star_{\mathrm{maint}}$ denote the relevant maintenance-power
+quantity: $\Pmin$ in the total-power regime (Theorem~\ref{thm:law}(a)/(b)),
+the incremental power against efficient baselines in the extra-power regime,
+and $\Pextra = \Pmin$ in the free-baseline case
+(Theorem~\ref{thm:law}(c)).
+
+\begin{theorem}[Hypotheses $\Rightarrow$ valid implications]\label{thm:pipeline}
+Fix a family $\mathcal{F}_\eps$ and assume:
+(P1) the relevant case of the maintenance law Theorem~\ref{thm:law} holds on
+$\mathcal{F}_\eps$; (P2) rate proportionality $\Closs(\rho) \ge \kdn(\eps)
+C(\rho)$ on $\mathcal{F}_\eps$ (a validated weak-coherence-regime hypothesis).
+Then
+\begin{equation}
+P^\star_{\mathrm{maint}}(\rho) \;\ge\; \kB T\,\kdn(\eps)\,C(\rho)
+\qquad (\rho \in \mathcal{F}_\eps).
+\end{equation}
+Under RIP-U (Hyp.~\ref{hyp:ripU}) the rate-induced \emph{lower-bound
+obstruction} to maintenance decays with $\eps$; if, in addition, an
+achievability / efficient-control \emph{upper} bound matches the rate
+envelope, then a fixed budget eventually suffices at large $\eps$ (cheap
+isolation). Under a floor (Hyp.~\ref{hyp:floor}) with $\kappa_0 > 0$,
+$P^\star_{\mathrm{maint}} \ge \kB T\kappa_0 C_0$ for all $\eps$ --- a
+resource horizon that no separation removes.
+\end{theorem}
+
+\begin{remark}[Quantifier hygiene]
+The two conclusions use \emph{different} envelopes: cheap isolation is a
+statement about $\kup$ (some strategy becomes affordable), the horizon a
+statement about $\kdn$ (no strategy escapes the floor). Conflating them is the
+error \cite{Stress} v2 fixed; keeping them separate is this paper's
+organizing discipline.
+\end{remark}
+
+\section{Resource horizon and a membrane testbed}
+
+If $\kdn(\eps) \ge \kappa_0 > 0$ then, by Theorem~\ref{thm:pipeline},
+sustaining organization above $C_0$ costs at least $\kB T\kappa_0 C_0$ at any
+separation. \textbf{Proposed testbed:} membrane-embedded spin probes with a
+tunable dissipative site; measure the dephasing-rate envelope vs.\ interface
+width, engineer a DC (near-zero-frequency) leak, and verify a shift in the
+inferred floor --- an operational detection of a resource horizon. Rate
+extraction must follow the proxy-validation discipline of the series
+(fixed-absolute-time fits, gap-removed/critical control, baseline
+subtraction; \cite{HCut,Stress} v2), never co-moving windows.
+
+\section{Dependency and falsification matrix}
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\hline
+Layer & Depends on & Falsified by\\
+\hline
+Maintenance law (\S4) & \cite{Work} v2 (proved) & (proved; not at risk)\\
+Static leakage (\S5) & \cite{Clustering} v2, \cite{NIST} & no clustering in
+a gapped model\\
+Recoverability (\S6) & \cite{FawziRenner15}, Lemma~\ref{lem:fid} & CMI not
+bounded by leakage\\
+Davies interface (\S7) & \cite{DaviesCore} v2 & tail bound $\not\Rightarrow$
+rate bound in a validated regime\\
+RIP-U (\S8) & \cite{HCut} v2 (proved, quasi-free) & rate $\ge$ envelope with
+static clustering\\
+Floor (\S8) & \cite{Stress} v2 (Davies) & no persistent $\kdn$ with
+$\omega\simeq0$ channels\\
+RIP-L (\S8) & posited & (optional; only for decaying lower bounds)\\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Conclusion}
+
+The program composes a proved maintenance law, a static geometric suppression
+layer, a CMI recoverability layer, a Davies interface route to RIP-U, and a
+ceiling/floor hinge into an end-to-end operational pipeline from geometry to
+maintenance cost --- with ``life'' as sustained organization maintenance under
+finite budgets, an operational reading only. The paper's early separation of
+$\kup$ from $\kdn$ has been vindicated by the corrected companion series; its
+one genuinely original technical contribution, the CMI recoverability layer
+and the Davies upper-envelope lemma, is verified where checkable.
+
+\appendix
+
+\section{Verification of the checkable claims}\label{app:verif}
+
+Distributed as \texttt{verification/0085/verify\_0085.py}. (A)
+Lemma~\ref{lem:fid}: $\min_{F\in(0,1]}[-\log F - (1-F)] = 0$ to the
+double-precision floor. (B) Davies upper-envelope direction
+(Lemma~\ref{lem:davies}, RIP-U): for TFIM $N=8$, $\beta=1$, $h/J=1.5$, the
+exact $\omega=0$ witness rate $R_{\mathrm{opt}}(\eps)$ decreases monotonically
+with separation ($0.1346 \to 0.0886 \to 0.0684$ at $\eps = 1,2,3$),
+confirming that a decaying coupling tail yields a decaying upper-rate
+envelope. Floors ($\kdn > 0$) require the separate near-zero-frequency
+mechanism of \cite{Stress} v2 and are not produced by this local-coupling
+model.
+
+\section{Changes relative to version 1}
+
+\begin{enumerate}
+\item Imported law (Theorem~\ref{thm:law}) re-anchored to \cite{Work} v2; v1's
+pointer to [6, Thm 4.12] targeted the vacuous unlinked-pairs bound
+(Remark~\ref{rem:pointer}). Work sign fixed to consumption.
+\item $\kup/\kdn$ and RIP-U/RIP-L connected to the now-established companion
+results: exact RIP-U in the quasi-free class \cite{HCut}, Davies floors
+\cite{Stress}, RIP as a lemma \cite{RIP}, and the corrected Bohr-block
+Dirichlet identity \cite{DaviesCore} (the Davies interface lemma of \S7 is
+that paper's linear upper-envelope lemma). The paper's early $\kup/\kdn$
+distinction is noted as having anticipated the \cite{Stress} v2 correction.
+\item CMI recoverability layer tied to \cite{Clustering} v2, with the note
+that the Petz$\to$reattachment correction there does not affect the CMI
+bound.
+\item Full series references added (v1 cited only the anchor preprint and
+external literature); the two checkable claims verified and the script
+distributed (Appendix~\ref{app:verif}).
+\end{enumerate}
+
+\begin{thebibliography}{9}\small
+
+\bibitem{FawziRenner15} O.~Fawzi and R.~Renner, \emph{Quantum conditional
+mutual information and approximate Markov chains}, Commun. Math. Phys.
+\textbf{340}, 575 (2015).
+\bibitem{Davies74} E.~B.~Davies, \emph{Markovian master equations}, Commun.
+Math. Phys. \textbf{39}, 91 (1974).
+\bibitem{BreuerPetruccione} H.-P.~Breuer and F.~Petruccione, \emph{The Theory
+of Open Quantum Systems} (OUP, 2002).
+\bibitem{Petz86} D.~Petz, \emph{Sufficient subalgebras and the relative
+entropy of states of a von Neumann algebra}, Commun. Math. Phys. \textbf{105},
+123 (1986).
+\bibitem{JRSWW18} M.~Junge, R.~Renner, D.~Sutter, M.~M.~Wilde, and A.~Winter,
+\emph{Universal recovery maps and approximate sufficiency of quantum relative
+entropy}, Ann. Henri Poincar\'e \textbf{19}, 2955 (2018).
+\bibitem{NIST} NIST Digital Library of Mathematical Functions, Chapter 10
+(Bessel functions), \url{https://dlmf.nist.gov/}.
+
+\bibitem{Clustering} L.~Eriksson, \emph{Clustering, Recovery, and Locality in
+AQFT}, ai.viXra:2512.0060, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0060-clustering-recovery}.
+\bibitem{Work} L.~Eriksson, \emph{The Conditional Maintenance Work Theorem},
+ai.viXra:2512.0061, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0061-maintenance-work}.
+\bibitem{HCut} L.~Eriksson, \emph{The Heisenberg Cut as a Resource Boundary},
+ai.viXra:2512.0064, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0064-heisenberg-cut}.
+\bibitem{Stress} L.~Eriksson, \emph{Stress Testing the Rate Inheritance
+Principle}, ai.viXra:2512.0070, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0070-rate-inheritance}.
+\bibitem{RIP} L.~Eriksson, \emph{The Rate Inheritance Principle},
+ai.viXra:2512.0072, v2 (2026; v1: 2025). Companion repository,
+\texttt{papers/0072-rip-principle}.
+\bibitem{DaviesCore} L.~Eriksson, \emph{Finite-Dimensional Davies Interface
+Lemmas and TFIM Witness Tests}, ai.viXra:2512.0073, v2 (2026; v1: 2025).
+Companion repository, \texttt{papers/0073-davies-core}.
+
+\end{thebibliography}
+
+\end{document}
