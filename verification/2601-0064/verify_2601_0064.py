@@ -21,12 +21,13 @@ Uso: python3 verify_2601_0064.py
 import sys
 
 import numpy as np
+from scipy.integrate import trapezoid as scipy_trapezoid
 from scipy.linalg import expm, logm
 
 np.random.seed(20260064)
 TOL = 1e-10
 results = []
-trapz = getattr(np, "trapezoid", np.trapz)
+trapz = getattr(np, "trapezoid", scipy_trapezoid)
 
 def check(name, ok, detail=""):
     results.append((name, ok, detail))
