@@ -1,0 +1,18 @@
+[N=9, |A|=2, hx=1.05, ws=[1, 2, 3, 4, 5]]
+== 1) d_eff(1e-3) vs beta ==
+  hz=0.0: b=0.5:1.00  b=1.0:1.00  b=2.0:1.51  b=3.0:2.11  b=4.0:2.82  b=5.0:3.55
+  hz=0.5: b=0.5:1.00  b=1.0:1.00  b=2.0:1.00  b=3.0:1.00  b=4.0:1.02  b=5.0:1.04
+  crece con beta (hz=0): OK [1.00 -> 3.55]
+  casi minimo en hz=0.5: OK [max 1.04]
+== 2) ordering entre regimenes, 3 umbrales ==
+  d_eff(hz=0) >= d_eff(hz=0.5) en todo (beta, eps): OK
+== 3) mu_prefloor ==
+  hz=0.0: b=0.5:8.44  b=1.0:3.50  b=2.0:3.44  b=3.0:2.27  b=4.0:1.66  b=5.0:1.35
+  hz=0.5: b=0.5:8.56  b=1.0:6.04  b=2.0:4.72  b=3.0:5.07  b=4.0:4.41  b=5.0:4.13
+  mu decrece con beta (hz=0): OK [8.44 -> 1.35]
+== 4) identificabilidad de kappa-bar ==
+  kappa-bar solo con n_prefloor>=3 (politica): OK
+== 5) sensibilidad de la proyeccion PSD ==
+  max |Delta E_Petz| pequeno: OK [3.3e-08; v1 reporto ~3e-8 a N=11]
+
+ALL CHECKS PASSED

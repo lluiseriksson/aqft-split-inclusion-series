@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty-two v2 papers + verification suites
+# AQFT / Operational Coherence Series — twenty-four v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty-two companion papers that cite one another (ai.viXra 2512 series), each at
+Twenty-four companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -31,8 +31,10 @@ spelled out in the honesty statement.
 | **2601.0034** — *Modular Recovery from Split Inclusions* | `papers/2601-0034-modular-recovery-split/` | `verification/2601-0034/` (finite-dimensional dictionary: CMI reduction, N-dependence demo, corrected Fawzi-Renner factor) | Split-inclusion-facing dictionary note for the 2601 block; v2 corrects the Fawzi-Renner factor in the finite anchor |
 | **2601.0035** — *A Non-Gaussian Clustering-Recovery Bridge via CMI* | `papers/2601-0035-nongaussian-bridge/` | `verification/2601-0035/` (finite ED benchmark; corrected Fawzi-Renner factor; v1 overshoot artifact check) | Non-Gaussian finite-chain bridge companion for 0101/0034; regenerates the Petz-vs-FR benchmark on the fast grid |
 | **2601.0038** — *Operational Signatures of Criticality from Petz Recovery* | `papers/2601-0038-criticality-petz-distance/` | `verification/2601-0038/` (CI smoke + manual finite ED benchmark; Petz-distance signal + CMI companion; chunkable) | Finite criticality-diagnostic companion for the recovery block; v2 adds the C-size caveat, window note, and CMI diagnostic |
+| **2601.0040** — *Finite-Size Scaling of Petz Recovery Length in the TFIM* | `papers/2601-0040-petz-scaling/` | `verification/2601-0040/` (CI smoke + manual chunked finite ED benchmark; baseline and enhancement diagnostics) | Scaling sequel to 0038; v2 quantifies the C-size/baseline confound and functional-form ambiguity |
+| **2601.0042** — *Emergent Information Distance from Petz Recovery* | `papers/2601-0042-emergent-distance/` | `verification/2601-0042/` (CI smoke + manual chunked finite ED benchmark; beta and perturbation sweep) | Closes the finite d_eff mini-block 0038/0040/0042; v2 replaces a corrupted reproducibility paragraph with a real suite |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -283,6 +285,25 @@ suite regenerates the longer `N=9` Petz and CMI tables, while `--N11` and
 `--chunk hz beta` are manual support modes. These are finite ED diagnostics,
 not a continuum criticality theorem.
 
+**2601.0040** (v2 package integrated here): the finite-size Petz-scaling note
+keeps the v1 numerical table where the tested sizes overlap, but adds two
+finite-scope caveats. The off-critical baseline also grows with `N`, so raw
+peak-height exponents mix recovery behavior with geometry; the cleaner finite
+diagnostic is the peak-minus-baseline enhancement. The paper also records that
+power, logarithmic, and linear fits are indistinguishable on the short
+`N = 9..12` window. CI runs only an explicit `--smoke` code-path check; the
+chunked `N = 8, 9, 10` cache-regeneration run and final report are manual.
+These are finite ED diagnostics, not a scaling-law theorem.
+
+**2601.0042** (v2 package integrated here): the emergent-distance note replaces
+a corrupted v1 reproducibility paragraph with a real finite ED suite. The
+manual chunked benchmark reproduces the finite beta/perturbation sweep at
+`N = 9`, including the high-temperature/perturbed-regime comparisons and PSD
+projection sensitivity diagnostic. CI runs only an explicit `--smoke` grid;
+the `--chunk 0.0`, `--chunk 0.5`, and final report sequence is manual. These
+are finite operational-distance diagnostics, not continuum geometry or
+general recovery-length results.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -375,6 +396,19 @@ python verification/2601-0038/verify_2601_0038.py --smoke
 python verification/2601-0038/verify_2601_0038.py
 python verification/2601-0038/verify_2601_0038.py --N11
 python verification/2601-0038/verify_2601_0038.py --chunk 0.0 12.0
+# 2601.0040 (finite Petz scaling diagnostic)
+python verification/2601-0040/verify_2601_0040.py --smoke
+# Longer/manual chunked finite grid
+python verification/2601-0040/verify_2601_0040.py --chunk 8
+python verification/2601-0040/verify_2601_0040.py --chunk 9
+python verification/2601-0040/verify_2601_0040.py --chunk 10
+python verification/2601-0040/verify_2601_0040.py
+# 2601.0042 (finite emergent-distance diagnostic)
+python verification/2601-0042/verify_2601_0042.py --smoke
+# Longer/manual chunked finite grid
+python verification/2601-0042/verify_2601_0042.py --chunk 0.0
+python verification/2601-0042/verify_2601_0042.py --chunk 0.5
+python verification/2601-0042/verify_2601_0042.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -441,3 +475,15 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   runs. The package reports a finite criticality-associated signal and its
   `|C|` and window caveats; it does not prove a continuum criticality,
   Type III, or general recovery-length theorem.
+- **2601.0040**: verification/2601-0040 is a finite exact-diagonalization
+  diagnostic for Petz recovery length versus finite chain size. CI runs only
+  the explicit smoke grid; the chunked `N = 8, 9, 10` report is manual. The
+  package reports baseline/enhancement and fit-form caveats; it does not prove
+  a continuum scaling law, Type III statement, or general recovery-length
+  theorem.
+- **2601.0042**: verification/2601-0042 is a finite exact-diagonalization
+  diagnostic for beta/perturbation dependence of an operational
+  Petz-distance. CI runs only the explicit smoke grid; the two-regime chunked
+  report is manual. The package reports finite operational-distance behavior;
+  it does not prove continuum geometry, Type III structure, or a general
+  emergent-distance theorem.
