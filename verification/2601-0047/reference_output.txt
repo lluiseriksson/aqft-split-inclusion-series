@@ -1,0 +1,22 @@
+== 1) Tabla 1: sigma_eff/E0/Gauss reproducidos; E_rec es prescripcion-dependiente ==
+  2x2 g=0.5: sig 0.150780 (v1 0.15078)  E0 -9.5660 (v1 -9.566)  E1w[esta prescripcion]=1.99e-05
+  2x2 g=1.0: sig 1.073026 (v1 1.073026)  E0 -12.4973 (v1 -12.4973)  E1w[esta prescripcion]=7.33e-08
+  2x2 g=2.0: sig 2.418666 (v1 2.418666)  E0 -24.0625 (v1 -24.0625)  E1w[esta prescripcion]=1.74e-11
+  2x3 g=0.5: sig 0.102507 (v1 0.102507)  E0 -13.9474 (v1 -13.9474)  gauss=1.000000
+  2x3 g=1.0: sig 1.059645 (v1 1.059645)  E0 -17.7472 (v1 -17.7472)  gauss=1.000000
+  2x3 g=2.0: sig 2.417752 (v1 2.417752)  E0 -34.0937 (v1 -34.0937)  gauss=1.000000
+  sigma_eff y E0 reproducen v1 (<1%): OK
+  NOTA prescripcion: bajo la prescripcion declarada de esta suite, las
+  magnitudes de E_rec difieren de la Tabla 1 de v1 (detalles de embedding/
+  orden no fijados por el texto de v1), y la saturacion 2x3 E(0)~E(1) de
+  v1 NO se observa (aqui el buffer si reduce el error). La DIRECCION de la
+  correlacion (abajo) replica bajo ambas prescripciones.
+== 2-3) sweep densificado 2x2: correlacion con test de rango + covariable gap ==
+  Spearman(E_rec(1), 1/sigma) = +1.000, p_perm = 0.0000  (n=8)
+  Spearman(E_rec(1), 1/gap)   = +1.000, p_perm = 0.0000
+  correlacion E_rec vs 1/sigma significativa (n=8): OK
+  nota: si ambas correlaciones son comparables, la especificidad de
+  confinamiento (vs fisica generica de gap) queda sin resolver a este tamano.
+  Gauss en todo el sweep: OK [min 1.00000]
+
+ALL CHECKS PASSED

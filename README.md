@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty-six v2 papers + verification suites
+# AQFT / Operational Coherence Series — twenty-seven v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty-six companion papers that cite one another (ai.viXra 2512 series), each at
+Twenty-seven companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -35,8 +35,9 @@ spelled out in the honesty statement.
 | **2601.0042** — *Emergent Information Distance from Petz Recovery* | `papers/2601-0042-emergent-distance/` | `verification/2601-0042/` (CI smoke + manual chunked finite ED benchmark; beta and perturbation sweep) | Closes the finite d_eff mini-block 0038/0040/0042; v2 replaces a corrupted reproducibility paragraph with a real suite |
 | **2601.0043** — *Recoverability Geometry* | `papers/2601-0043-recoverability-geometry/` | `verification/2601-0043/` (CI smoke embedding demo + manual chunked finite ED control) | Geometry-facing finite diagnostic for the d_eff block; v2 flags the unstable row and adds a first in-model conjecture check |
 | **2601.0046** — *Petz Recoverability in AQFT via Conditional Expectations* | `papers/2601-0046-petz-aqft/` | `verification/2601-0046/` (finite-dimensional Petz/CE checks; full suite in CI) | AQFT-facing recovery interface note; v2 corrects the Petz-dual pairing and recovered-state typing |
+| **2601.0047** — *Petz Recoverability vs Wilson-Loop Diagnostics in Z2 LGT (2+1D)* | `papers/2601-0047-z2-benchmark/` | `verification/2601-0047/` (CI smoke + manual chunked finite Z2 benchmark; gap covariate) | Small-lattice 2D Z2 benchmark; v2 adds rank statistics and records that confinement specificity is unresolved |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043} (finite Petz/conditional-expectation interface diagnostic) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic; 2601.0044 remains blocked in issue #3) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -328,6 +329,17 @@ Schrodinger Petz reconstruction in finite dimension. These are finite
 matrix-algebra regression checks and interface diagnostics, not a Type III or
 continuum AQFT theorem.
 
+**2601.0047** (v2 package integrated here): the Z2 LGT benchmark note adds a
+small-lattice 2D gauge diagnostic that is independent of the still-blocked
+2601.0044 package. The manual chunked benchmark reproduces the finite
+`sigma_eff`/`E0`/Gauss checks on `2x2` and `2x3` plaquette lattices, densifies
+the `2x2` coupling sweep to eight points, and reports the spectral-gap
+covariate. CI runs only a `--smoke` geometry/product-state code-path check;
+the `--sweep22`, `--chunk23`, and final report sequence is manual. The package
+records a finite positive rank correlation but also that the gap covariate
+tracks just as strongly at these sizes, so confinement specificity is not
+resolved.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -442,6 +454,16 @@ python verification/2601-0043/verify_2601_0043.py --chunk 2.0
 python verification/2601-0043/verify_2601_0043.py
 # 2601.0046 (finite Petz/conditional-expectation interface checks)
 python verification/2601-0046/verify_2601_0046.py
+# 2601.0047 (finite 2D Z2 benchmark diagnostic)
+python verification/2601-0047/verify_2601_0047.py --smoke
+# Longer/manual chunked finite grids and report
+python verification/2601-0047/verify_2601_0047.py --sweep22 0 3
+python verification/2601-0047/verify_2601_0047.py --sweep22 3 6
+python verification/2601-0047/verify_2601_0047.py --sweep22 6 8
+python verification/2601-0047/verify_2601_0047.py --chunk23 0.5
+python verification/2601-0047/verify_2601_0047.py --chunk23 1.0
+python verification/2601-0047/verify_2601_0047.py --chunk23 2.0
+python verification/2601-0047/verify_2601_0047.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -531,3 +553,9 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   the full finite suite. The package records a correction to the finite
   pairing/typing mechanism and checks the corrected identities; it does not
   prove a Type III, continuum, or general AQFT recoverability theorem.
+- **2601.0047**: verification/2601-0047 is a finite Z2 lattice-gauge benchmark
+  on small `2x2` and `2x3` plaquette lattices. CI runs only the explicit smoke
+  grid; the chunked sweep/report is manual. The package records finite rank
+  correlations and the matching spectral-gap covariate; it does not prove
+  confinement specificity, continuum gauge behavior, Type III structure, or a
+  general recoverability theorem.
