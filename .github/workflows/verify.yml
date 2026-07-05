@@ -43,6 +43,8 @@ jobs:
         run: python verification/0105/reanalyze_0105.py --demo --output-dir "$RUNNER_TEMP/aqft-0105-demo"
       - name: 2601.0007 Gaussian recovery verification
         run: python verification/2601-0007/verify_2601_0007.py
+      - name: 2601.0020 geometric Markov/RIP verification
+        run: python verification/2601-0020/verify_2601_0020.py
   # Long suites (verify_repaired, verify_0060, modelB, sensitivity, 0101; and
   # 0105 on-device JSON reanalysis once data are restored) are
   # documented with reference logs in results/ and run manually.

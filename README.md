@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — fifteen v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — sixteen v2 papers + exact verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Fifteen companion papers that cite one another (ai.viXra 2512 series), each at
+Sixteen companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with every correction driven or confirmed by exact numerical
 verification. Scripts and reference logs are included; nothing in the checks
 relies on the approximations being tested.
@@ -24,8 +24,9 @@ relies on the approximations being tested.
 | **0102** — *Heat Kernel Methods and the Sign of Induced Gravity* | `papers/0102-induced-gravity-sign/` | `verification/0102/` (exact S^4 spectra: scalar, Dirac, Hodge 1-forms; A1 table + induced-Newton sign; 11/11) | Conventions companion of 0091: where the Seeley–DeWitt a1 coefficients are fixed and verified against exact S^4 spectra, anchored to the classical counting 1/G_ind ∝ N0 + 2N_{1/2} − 4N1. Complementary to 0091 (compact bookkeeping), not redundant |
 | **0105** — *Prefix-Path Bell Transport on IBM Quantum Hardware* | `papers/0105-prefix-path-bell-transport/` | `verification/0105/` (`--demo` validates the offline re-analysis code; raw on-device JSONs are pending data revision) | Experimental companion for the RIP thread: documents a geometry-dependent transport protocol, a negative static-dynamic association test with power bound, and explicit reproducibility limits |
 | **2601.0007** — *Quantitative Recovery Bounds from Vacuum Clustering* | `papers/2601-0007-gaussian-recovery-bounds/` | `verification/2601-0007/` (BBP Gaussian fidelity in numpy/scipy; 450 sampled draws; collar sweep) | Finite-mode Gaussian bridge between 0060's lattice Gaussian layer and 0101's non-Gaussian/CMI route; includes the v2 Petz-to-conditional-reattachment wording correction |
+| **2601.0020** — *Geometric Markov Bounds and Rate Inheritance Modulo Fixed Points* | `papers/2601-0020-geometric-markov-rip/` | `verification/2601-0020/` (exact Ising-Z enumeration; corrected Fawzi-Renner factor; A.4-v1 counterexamples and A.4-v2 check) | Static-to-dynamic interface paper: CMI/RIP bridge with fixed-point caveats, finite-chain diagnostics, and explicit correction of the v1 diagonal Dirichlet comparison |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -209,6 +210,15 @@ constant for the local quadratic benchmark, and runs a collar-suppression
 sweep. The suite is numerical finite-mode evidence and regression testing, not
 a replacement for the paper's hypotheses or for 0060/0101's separate layers.
 
+**2601.0020** (v2 package integrated here): the geometric Markov/RIP interface
+paper makes two explicit corrections. First, in the squared-fidelity
+convention, the Fawzi-Renner arithmetic is `I >= -log F`, so the v1 factor two
+is removed. Second, the v1 diagonal Dirichlet comparison A.4 is false as
+stated; the suite gives finite-chain counterexamples and checks the corrected
+`B+2r` formulation. The verification is exact enumeration of a finite
+classical Ising-Z chain plus random finite-dimensional Petz arithmetic tests;
+it is a finite diagnostic/interface suite, not a general AQFT theorem.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -279,6 +289,8 @@ python verification/0102/verify_0102.py
 python verification/0105/reanalyze_0105.py --demo --output-dir /tmp/aqft-0105-demo
 # 2601.0007 (finite-mode Gaussian recovery numerical suite)
 python verification/2601-0007/verify_2601_0007.py
+# 2601.0020 (finite Ising-Z Markov/RIP interface checks)
+python verification/2601-0020/verify_2601_0020.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -311,3 +323,7 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   suite with sampled admissible draws and closed-form anchors. It supports the
   artifact's regression story; it is not a continuum AQFT result and does not
   remove the explicit hypotheses of the paper or of companion 0060/0101.
+- **2601.0020**: verification/2601-0020 is an exact finite-chain/classical
+  enumeration suite plus finite-dimensional Petz arithmetic checks. It records
+  v1 counterexamples and v2 finite diagnostics; it is not a continuum or
+  interacting-buffer proof of rate inheritance.
