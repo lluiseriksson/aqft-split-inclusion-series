@@ -1,0 +1,597 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\ASSUMED}{\textcolor{orange}{\textbf{[ASSUMED]}}}
+\newcommand{\PROVED}{\textcolor{green!60!black}{\textbf{[PROVED]}}}
+\newcommand{\CONJ}{\textcolor{red}{\textbf{[CONJECTURED]}}}
+\newcommand{\Erec}{E_{\mathrm{rec}}}
+
+\title{RIP-U and the $\omega = 0$ obstruction in Davies dynamics\\
+\large Upper envelopes, witness floors, and falsification protocols for
+separation-dependent decoherence rates}
+\author{Lluis Eriksson}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We isolate the dynamic hinge in typed separation$\to$rate$\to$power
+pipelines within the Davies (weak-coupling, Markovian) setting in finite
+dimension. First, we formulate an upper-envelope statement (RIP-U): under
+an explicit factorized bath-correlation envelope with
+separation-dependent amplitude $f(\epsilon)$ and integrable time profile,
+Fourier-transformed Davies rates inherit an $O(f(\epsilon))$ envelope.
+Under additional regularity assumptions preventing trivial degeneracies,
+this yields a worst-case bound $\kappa^{\uparrow}(\epsilon) \le
+Cf(\epsilon)$ for the instantaneous relative loss rate of a coherence-like
+functional. Second, we isolate a structural obstruction to lower-envelope
+statements: we prove an exact identity for the $\omega = 0$ contribution
+to the Davies Dirichlet form,
+\[
+\mathcal{E}^{(0)}_{\sigma}(O) = \frac{\gamma(0)}{2}\,
+\left\| [S(0), O] \right\|_{2,\sigma}^{2},
+\]
+and derive a witness mechanism showing how $\omega = 0$ channels can
+enforce a non-vanishing dissipation contribution for suitable observable
+families. We emphasize directionality: RIP-U (upper) does not imply a
+positive lower envelope $\kappa^{\downarrow}(\epsilon)$ without additional
+family-qualified input. All assumptions are explicit and accompanied by
+falsification routes. \emph{v2 (no v1 number is changed):} two v1
+assumptions are upgraded to proved statements in their canonical
+instances --- $\Delta$-MONO holds unconditionally for the energy pinching
+(Davies covariance plus data processing, Lemma~\ref{lem:dmono}), and a
+sufficient bridge with an explicit constant is proved
+(Proposition~\ref{prop:bridgep}); the paper's cross-reference labels are
+repaired (in v1 every assumption and theorem was typeset as
+``Definition~$x.y$''); Table~\ref{tab:fals} is re-typeset (overlapping
+text in v1); the $\omega=0$ identity is placed within the corrected
+Bohr-channel decomposition of the companion 2601.0023 (it is exactly the
+$\omega=0$ sector, and the plain-commutator form provably fails at
+$\omega \ne 0$); and a verification suite reproduces every proved item
+numerically, including the identity at machine precision and an explicit
+family with $\kappa^{\downarrow} \ll \kappa^{\uparrow}$ under the same
+envelope.
+\end{abstract}
+
+\section{Scope and conventions}
+
+\textbf{What this paper does.}
+\begin{itemize}
+\item Proves a Fourier-envelope inheritance lemma for rate coefficients
+under a factorized correlator bound.
+\item States a clean upper-envelope implication (RIP-U) under explicit
+additional bridge assumptions, and (v2) proves a sufficient bridge with
+an explicit constant on a regularized family.
+\item Proves an exact $\omega = 0$ Dirichlet identity in standard Davies
+form and a witness corollary.
+\end{itemize}
+
+\textbf{What this paper does not do.} We do not claim a Hamiltonian
+spectral gap and we do not claim RIP-U implies a family-wide true floor
+$\kappa^{\downarrow}(\epsilon) \ge \kappa_0$.
+
+\textbf{Parameter convention.} $\epsilon$ is geometric separation/buffer
+width; $\delta$ is tolerance/regularization. They are never interchanged.
+
+\section{Davies setting and typed envelopes}
+
+We work in finite dimension: system Hilbert space $\mathcal{H}$ with
+$\dim \mathcal{H} = d < \infty$.
+
+\begin{assumption}[DAVIES: weak-coupling Markovian dynamics]
+\label{ass:davies}
+\ASSUMED. The system dynamics is governed by a CPTP semigroup
+$\mathcal{T}_t = e^{t\mathcal{L}}$ with a Davies-type GKLS generator
+$\mathcal{L}$ and a faithful stationary state $\sigma$ (typically
+$\sigma \propto e^{-\beta H}$). We assume the standard Bohr-frequency
+decomposition and GKLS form used in Davies theory \cite{Davies,BP,SL}.
+\end{assumption}
+
+\subsection{A coherence-like functional and instantaneous loss}
+
+\begin{definition}[D1: $\Delta$-track coherence]
+\label{def:cdelta}
+Fix a dephasing (pinching) CPTP map $\Delta$ on $\mathcal{B}(\mathcal{H})$.
+Define
+\[
+C_{\Delta}(\rho) := S(\rho \| \Delta[\rho]),
+\]
+where $S(\rho\|\tau) := \mathrm{Tr}(\rho(\log\rho - \log\tau))$ when
+well-defined.
+\end{definition}
+
+\begin{definition}[D2: instantaneous loss]
+\label{def:loss}
+Define the instantaneous change of $C_\Delta$ under $\mathcal{T}_t$ by
+\[
+\dot{C}_{\Delta,\mathrm{loss}}(\rho) := -\left.\frac{d}{dt}\right|_{t=0}
+C_\Delta(\mathcal{T}_t(\rho)),
+\]
+whenever the derivative exists.
+\end{definition}
+
+\begin{assumption}[$\Delta$-MONO: sign convention for ``loss'']
+\label{ass:dmono}
+\ASSUMED\ (family restriction; \emph{proved for the energy pinching in
+v2}, Lemma~\ref{lem:dmono}). For the chosen $\Delta$ and semigroup
+$\mathcal{T}_t$, we restrict attention to families $\mathcal{F}_\epsilon$
+such that $\dot{C}_{\Delta,\mathrm{loss}}(\rho) \ge 0$ for all
+$\rho \in \mathcal{F}_\epsilon$.
+\end{assumption}
+
+\begin{definition}[D3: ratios and envelopes]
+\label{def:ratios}
+Whenever $C_\Delta(\rho) > 0$, define
+$r(\rho) := \dot{C}_{\Delta,\mathrm{loss}}(\rho) / C_\Delta(\rho)$.
+For a specified family $\mathcal{F}_\epsilon$ define
+\[
+\kappa^{\uparrow}(\epsilon) := \sup_{\substack{\rho\in\mathcal{F}_\epsilon:\,
+C_\Delta(\rho)>0,\ \dot{C}_{\Delta,\mathrm{loss}}(\rho)\ \mathrm{exists}}}
+r(\rho), \qquad
+\kappa^{\downarrow}(\epsilon) := \inf_{\substack{\rho\in\mathcal{F}_\epsilon:\,
+C_\Delta(\rho)>0,\ \dot{C}_{\Delta,\mathrm{loss}}(\rho)\ \mathrm{exists}}}
+r(\rho).
+\]
+\end{definition}
+
+\begin{remark}[Directionality]
+\label{rem:dir}
+RIP-U targets $\kappa^{\uparrow}(\epsilon)$ (worst-case upper envelope).
+Minimum-maintenance-power lower bounds require
+$\kappa^{\downarrow}(\epsilon)$; RIP-U alone does not provide them.
+\end{remark}
+
+\subsection{$\Delta$-MONO is unconditional for the energy pinching (v2)}
+
+\begin{lemma}[Energy pinching: covariance and monotone loss]
+\label{lem:dmono}
+\PROVED\ (v2). Let $\Delta_H$ be the pinching over the spectral projectors
+$\{\Pi_E\}$ of $H$ and let $\mathcal{L}$ be a Davies generator built from
+Bohr components of the coupling (Assumption~\ref{ass:bohr}). Then:
+\emph{(i)} $\Delta_H \circ \mathcal{T}_t = \mathcal{T}_t \circ \Delta_H$
+for all $t \ge 0$; \emph{(ii)} for every state $\rho$ in the domain,
+$t \mapsto C_{\Delta_H}(\mathcal{T}_t(\rho))$ is nonincreasing, hence
+$\dot{C}_{\Delta_H,\mathrm{loss}}(\rho) \ge 0$ with no family
+restriction.
+\end{lemma}
+
+\begin{proof}
+(i) The Davies generator commutes with the Hamiltonian dressing
+$e^{iHt}(\cdot)e^{-iHt}$ (covariance is built into the Bohr construction:
+each dissipator term maps the $\omega'$ Bohr sector of its argument into
+itself). Since $\Delta_H$ is the Ces\`aro average of the dressing,
+$\mathcal{L} \circ \Delta_H = \Delta_H \circ \mathcal{L}$, and the
+semigroup inherits the commutation. (ii) By (i) and monotonicity of
+relative entropy under the CPTP map $\mathcal{T}_s$,
+\[
+C_{\Delta_H}(\mathcal{T}_{t+s}\rho)
+= S(\mathcal{T}_s \mathcal{T}_t \rho \,\|\, \mathcal{T}_s \Delta_H
+\mathcal{T}_t \rho)
+\le S(\mathcal{T}_t \rho \,\|\, \Delta_H \mathcal{T}_t \rho)
+= C_{\Delta_H}(\mathcal{T}_t\rho). \qedhere
+\]
+\end{proof}
+
+\begin{lemma}[Derivative identity]
+\label{lem:deriv}
+\PROVED\ (v2). Let $\Delta = \Delta_H$ and let $\rho$ be full rank. Then
+\[
+\dot{C}_{\Delta,\mathrm{loss}}(\rho)
+= -\mathrm{Tr}\bigl(\mathcal{L}(\rho)\,(\log\rho - \log\Delta[\rho])\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+$\frac{d}{dt}\mathrm{Tr}(\rho_t \log \rho_t) =
+\mathrm{Tr}(\mathcal{L}(\rho)\log\rho)$ by $\mathrm{Tr}\,\mathcal{L}(\rho)
+= 0$. For the second term, $\frac{d}{dt}\mathrm{Tr}(\rho_t \log
+\Delta[\rho_t]) = \mathrm{Tr}(\mathcal{L}(\rho)\log\Delta[\rho]) +
+\mathrm{Tr}(\rho \,\tfrac{d}{dt}\log\Delta[\rho_t])$; since
+$\tfrac{d}{dt}\log\Delta[\rho_t]$ lies in the pinched (commutative)
+algebra, self-duality of $\Delta$ gives
+$\mathrm{Tr}(\rho\,\tfrac{d}{dt}\log\Delta[\rho_t]) =
+\mathrm{Tr}(\Delta[\rho]\,\tfrac{d}{dt}\log\Delta[\rho_t]) =
+\tfrac{d}{dt}\mathrm{Tr}(\Delta[\rho_t]) = 0$.
+\end{proof}
+
+\section{Correlator envelope $\Rightarrow$ Fourier rate envelope}
+
+\begin{assumption}[CORR: factorized correlator envelope]
+\label{ass:corr}
+\ASSUMED. For each $\epsilon$, the relevant bath correlators satisfy
+\[
+|G_{\alpha\beta}(t;\epsilon)| \le g_{\alpha\beta}(t)\, f(\epsilon),
+\]
+where $g_{\alpha\beta} \in L^1(\mathbb{R})$ and $f(\epsilon) \ge 0$
+captures separation dependence.
+\end{assumption}
+
+\begin{definition}[D4: Fourier rate coefficients]
+\label{def:fourier}
+Define the (formal) Fourier rate coefficients by
+$\gamma_{\alpha\beta}(\omega;\epsilon) := \int_{\mathbb{R}} dt\,
+e^{i\omega t}\, G_{\alpha\beta}(t;\epsilon)$, whenever the integral exists
+(or under the regularity hypotheses used in Davies theory).
+\end{definition}
+
+\begin{lemma}[Fourier envelope inheritance]
+\label{lem:envelope}
+\PROVED\ (under Assumption~\ref{ass:corr} and integrability). Under
+Assumption~\ref{ass:corr}, for all $\omega$ and $\epsilon$ for which
+Definition~\ref{def:fourier} is well-defined,
+\[
+|\gamma_{\alpha\beta}(\omega;\epsilon)| \le
+\|g_{\alpha\beta}\|_{L^1}\, f(\epsilon).
+\]
+\end{lemma}
+
+\begin{proof}
+By the triangle inequality and Assumption~\ref{ass:corr},
+$|\gamma_{\alpha\beta}(\omega;\epsilon)| \le \int_{\mathbb{R}} dt\,
+|G_{\alpha\beta}(t;\epsilon)| \le \int_{\mathbb{R}} dt\,
+|g_{\alpha\beta}(t)|\, f(\epsilon) = \|g_{\alpha\beta}\|_{L^1}
+f(\epsilon)$.
+\end{proof}
+
+\section{RIP-U: an upper envelope on instantaneous loss}
+
+\begin{assumption}[REG: non-degeneracy for relative-entropy ratios]
+\label{ass:reg}
+\ASSUMED\ (family restriction). The family $\mathcal{F}_\epsilon$ is
+restricted so that: (i) $C_\Delta(\rho) \ge c_{\min}(\delta) > 0$
+uniformly over $\rho \in \mathcal{F}_\epsilon$; (ii) $\Delta[\rho]
+\succeq p_{\min}(\delta)\mathbf{1}$ uniformly over $\rho \in
+\mathcal{F}_\epsilon$; (iii) when needed, $\rho$ stays a fixed distance
+(within tolerance $\delta$) away from $\mathrm{Fix}(\mathcal{T}_t)$.
+\end{assumption}
+
+\begin{assumption}[BRIDGE: rate envelope $\Rightarrow$ loss envelope]
+\label{ass:bridge}
+\ASSUMED\ (\emph{a proved sufficient instance in v2:}
+Proposition~\ref{prop:bridgep}). Assume Assumptions~\ref{ass:davies},
+\ref{ass:corr} and \ref{ass:reg}. Suppose the Davies generator is built
+from Fourier rate coefficients $\gamma_{\alpha\beta}(\omega;\epsilon)$ in
+such a way that the envelope from Lemma~\ref{lem:envelope} implies: there
+exists a constant $C_{\mathrm{RIP}} > 0$ such that for all $\rho \in
+\mathcal{F}_\epsilon$,
+\[
+\dot{C}_{\Delta,\mathrm{loss}}(\rho) \le C_{\mathrm{RIP}}\, f(\epsilon)\,
+C_\Delta(\rho).
+\]
+\end{assumption}
+
+\begin{theorem}[T1: RIP-U (upper envelope)]
+\label{thm:ripu}
+\PROVED\ (given Assumptions~\ref{ass:davies}, \ref{ass:dmono},
+\ref{ass:corr}, \ref{ass:reg} and \ref{ass:bridge}). Under
+Assumptions~\ref{ass:davies}, \ref{ass:dmono}, \ref{ass:corr},
+\ref{ass:reg} and \ref{ass:bridge}, for all $\rho \in
+\mathcal{F}_\epsilon$,
+\[
+r(\rho) \le C_{\mathrm{RIP}}\, f(\epsilon), \qquad \text{and hence}
+\qquad \kappa^{\uparrow}(\epsilon) \le C_{\mathrm{RIP}}\, f(\epsilon).
+\]
+\end{theorem}
+
+\begin{proof}
+By Assumption~\ref{ass:bridge}, $\dot{C}_{\Delta,\mathrm{loss}}(\rho)
+\le C_{\mathrm{RIP}} f(\epsilon) C_\Delta(\rho)$ for all $\rho \in
+\mathcal{F}_\epsilon$ with $C_\Delta(\rho) > 0$, hence $r(\rho) \le
+C_{\mathrm{RIP}} f(\epsilon)$. Taking the supremum yields the stated
+envelope.
+\end{proof}
+
+\begin{remark}[RIP-U does not imply a floor]
+\label{rem:nofloor}
+RIP-U controls worst-case \emph{upper} loss rates. It is compatible with
+$\kappa^{\downarrow}(\epsilon)$ being arbitrarily small on a large
+family. Thus RIP-U alone does not imply minimum maintenance power lower
+bounds in pipelines requiring a positive lower envelope. (The v2 suite
+exhibits this concretely: a weakly coupled level pair yields
+$\kappa^{\downarrow} \sim 10^{-3}\,\kappa^{\uparrow}$ under the same
+correlator envelope.)
+\end{remark}
+
+\subsection{A proved sufficient bridge (v2)}
+
+\begin{proposition}[BRIDGE-P: explicit-constant bridge on a regularized
+family]
+\label{prop:bridgep}
+\PROVED\ (v2). Let $\Delta = \Delta_H$, and strengthen
+Assumption~\ref{ass:reg} to REG$^{+}$: (i) $C_\Delta(\rho) \ge c_{\min} >
+0$ and (ii$'$) $\rho \succeq p_{\min}\mathbf{1}$ (hence also
+$\Delta[\rho] \succeq p_{\min}\mathbf{1}$) over $\mathcal{F}_\epsilon$.
+Let the Davies dissipator be built from Bohr components $S(\omega)$ with
+rates $\gamma(\omega;\epsilon)$ obeying the envelope of
+Lemma~\ref{lem:envelope} with a common profile,
+$\gamma(\omega;\epsilon) \le \bar{g} f(\epsilon)$, and let $N_B$ be the
+number of Bohr channels and $M^2 := \max_\omega \|S(\omega)\|^2$. Then
+Assumption~\ref{ass:bridge} holds with the explicit constant
+\[
+C_{\mathrm{RIP}} = \frac{4\, N_B\, \bar{g}\, M^2 \,
+\log(1/p_{\min})}{c_{\min}}.
+\]
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:deriv} and H\"older,
+$\dot{C}_{\Delta,\mathrm{loss}}(\rho) \le
+\|\mathcal{L}_D(\rho)\|_1\, \|\log\rho - \log\Delta[\rho]\|_\infty$.
+Under REG$^{+}$, $\|\log\rho\|_\infty \le \log(1/p_{\min})$ and likewise
+for $\Delta[\rho]$, so the second factor is at most
+$2\log(1/p_{\min})$. Each dissipator term is $1$-norm bounded by
+$2\gamma(\omega;\epsilon)\|S(\omega)\|^2$, so
+$\|\mathcal{L}_D(\rho)\|_1 \le 2 N_B \bar{g} M^2 f(\epsilon)$.
+(The Hamiltonian part contributes zero loss: unitary conjugation
+commuting with $\Delta_H$ leaves $C_\Delta$ invariant.) Dividing by
+$C_\Delta(\rho) \ge c_{\min}$ gives the claim.
+\end{proof}
+
+\begin{remark}
+\label{rem:bridgep}
+BRIDGE-P demotes the bridge from an assumption to a checkable statement
+on the regularized family: the constant is explicit, dimension-aware
+through $N_B$ and $M$, and blows up only as $p_{\min} \to 0$ or
+$c_{\min} \to 0$, which is the honest signature of the relative-entropy
+ratio degenerating. The v2 suite instantiates it numerically (worst
+observed $r / (C_{\mathrm{RIP}} f) \approx 2\times 10^{-3}$, i.e.\ the
+bound is loose but never violated).
+\end{remark}
+
+\section{The $\omega = 0$ obstruction: an exact Dirichlet identity}
+
+\begin{definition}[D5: $\sigma$-weighted 2-norm]
+\label{def:kmsnorm}
+For a faithful state $\sigma$, define $\|X\|_{2,\sigma} :=
+\sqrt{\mathrm{Tr}\bigl(\sigma^{1/2}X^{\dagger}\sigma^{1/2}X\bigr)}$.
+\end{definition}
+
+\begin{definition}[D6: Dirichlet form (one convenient convention)]
+\label{def:dirichlet}
+Let $\mathcal{L}$ be a GKLS generator with faithful stationary state
+$\sigma$. Define the Dirichlet form on observables by
+\[
+\mathcal{E}_\sigma(O) := -\mathrm{Tr}\Bigl(\sigma^{1/2}O^{\dagger}
+\sigma^{1/2}\, \mathcal{L}^{\sharp}(O)\Bigr),
+\]
+where $\mathcal{L}^{\sharp}$ denotes the Heisenberg-picture action of the
+generator on observables.
+\end{definition}
+
+\begin{assumption}[BOHR: frequency decomposition]
+\label{ass:bohr}
+\ASSUMED\ (standard in Davies theory). Let $H$ be the system Hamiltonian
+with spectral projectors $\{\Pi_E\}$. For a system coupling operator $S$,
+define its Bohr components $S(\omega) := \sum_{E'-E=\omega} \Pi_E S
+\Pi_{E'}$. Assume the Davies generator uses dissipators built from
+$S(\omega)$ with scalar rates $\gamma(\omega) \ge 0$.
+\end{assumption}
+
+\begin{lemma}[Commutation at zero frequency]
+\label{lem:commute}
+\PROVED. If $\sigma \propto e^{-\beta H}$ and $S(0)$ is the $\omega = 0$
+Bohr component, then $[S(0), H] = 0$, and hence $[S(0), \sigma] = 0$ and
+$[S(0), \sigma^{1/2}] = 0$.
+\end{lemma}
+
+\begin{proof}
+By construction, $S(0) = \sum_E \Pi_E S \Pi_E$ commutes with $H = \sum_E
+E\, \Pi_E$, hence with any function of $H$, in particular $\sigma$ and
+$\sigma^{1/2}$.
+\end{proof}
+
+\begin{theorem}[T2: $\omega = 0$ Dirichlet identity]
+\label{thm:omega0}
+\PROVED\ (under Assumptions~\ref{ass:davies} and \ref{ass:bohr} in
+standard Davies form). The zero-frequency contribution
+$\mathcal{E}^{(0)}_\sigma$ to the Dirichlet form satisfies
+\[
+\mathcal{E}^{(0)}_\sigma(O) = \frac{\gamma(0)}{2}\,
+\|[S(0), O]\|^{2}_{2,\sigma}.
+\]
+\end{theorem}
+
+\begin{proof}
+We give a direct expansion in Appendix~\ref{app:proof}.
+\end{proof}
+
+\begin{remark}[The $\gamma(0) = 0$ case]
+\label{rem:gamma0}
+If $\gamma(0) = 0$ (e.g.\ baths with vanishing zero-frequency spectral
+density), then $\mathcal{E}^{(0)}_\sigma \equiv 0$ and this particular
+$\omega = 0$ obstruction mechanism disappears. Any lower-envelope floor
+must then come from other frequency sectors or from structural
+restrictions defining the family.
+\end{remark}
+
+\begin{corollary}[C1: $\omega = 0$ witness mechanism]
+\label{cor:witness}
+\PROVED. Assume $\gamma(0) > 0$. If there exists an observable family
+$O_\epsilon$ such that
+$\|[S(0), O_\epsilon]\|^{2}_{2,\sigma} \big/ \|O_\epsilon\|^{2}_{2,\sigma}
+\ge c > 0$, then
+$\mathcal{E}^{(0)}_\sigma(O_\epsilon) \ge \frac{\gamma(0)}{2}\, c\,
+\|O_\epsilon\|^{2}_{2,\sigma}$.
+\end{corollary}
+
+\begin{proof}
+Immediate from Theorem~\ref{thm:omega0}.
+\end{proof}
+
+\begin{remark}[C1 is not RIP-L]
+\label{rem:notripl}
+C1 is a mechanism for a chosen observable family. Converting it into a
+uniform lower-envelope bound $\kappa^{\downarrow}(\epsilon) \ge \kappa_0$
+over a state family requires additional typed bridges.
+\end{remark}
+
+\begin{assumption}[RIP-L: true floor (family-qualified)]
+\label{ass:ripl}
+\CONJ. There exist $\epsilon_* > 0$ and $\kappa_0 > 0$ such that
+$\kappa^{\downarrow}(\epsilon) \ge \kappa_0$ for all $\epsilon \ge
+\epsilon_*$, for a specified family $\mathcal{F}_\epsilon$ (with any
+regularity restrictions stated explicitly).
+\end{assumption}
+
+\begin{remark}[Position within the Bohr-channel decomposition of
+2601.0023 (v2)]
+\label{rem:0023}
+The companion 2601.0023 (v2) proves the exact channel-wise decomposition
+$\mathcal{E}_\sigma(O) = \sum_\omega \gamma(\omega)\, e^{\beta\omega/2}\,
+\mathrm{Re}\langle S(\omega)O, [S(\omega), O]\rangle_{\mathrm{KMS}}$ and
+shows that the naive plain-commutator form
+$\frac{\gamma(\omega)}{2}\|[S(\omega),O]\|^2_{2,\sigma}$ \emph{fails} at
+$\omega \ne 0$ (deviations of order $20\%$ there; up to $57\%$ in the
+present suite's model). Theorem~\ref{thm:omega0} is exactly the
+$\omega = 0$ sector of that decomposition: at $\omega = 0$ the KMS weight
+$e^{\beta\omega/2}$ is $1$ and $S(0)$ commutes with $\sigma^{1/2}$
+(Lemma~\ref{lem:commute}), which is precisely what collapses the exact
+quadratic form to the plain commutator. The verification suite checks
+both facts side by side: machine-precision agreement at $\omega = 0$,
+systematic deviation at every $\omega \ne 0$.
+\end{remark}
+
+\section{Falsification matrix}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{2.6cm} p{3.2cm} p{4.0cm} p{4.6cm}}
+\hline
+\textbf{Item} & \textbf{Status} & \textbf{Verification proxy} &
+\textbf{Concrete falsifier} \\
+\hline
+CORR & \ASSUMED & compute $G_{\alpha\beta}(t;\epsilon)$ & separation
+dependence not factorizable as $g(t)f(\epsilon)$ \\
+Fourier envelope lemma & \PROVED & compute $\|g\|_{L^1}$ & violate
+integrability/envelope inequality \\
+$\Delta$-MONO & \ASSUMED\ general; \PROVED\ for $\Delta_H$ (v2) &
+evaluate $\dot{C}_{\Delta,\mathrm{loss}}(\rho)$ & find $\rho$ with
+$\dot{C}_{\Delta,\mathrm{loss}}(\rho) < 0$ in family (for $\Delta \ne
+\Delta_H$) \\
+REG & \ASSUMED & lower-bound spectrum of $\Delta[\rho]$ & sequence with
+$\Delta[\rho_n]$ nearly singular \\
+BRIDGE & \ASSUMED\ general; sufficient instance \PROVED\ (v2) & compute
+$r(\rho)$ on the family & show $r(\rho)$ violates $O(f(\epsilon))$
+despite CORR \\
+RIP-U & \PROVED & apply Theorem~\ref{thm:ripu} & refute any upstream
+assumption \\
+$\omega = 0$ identity & \PROVED & direct Dirichlet-form expansion &
+refute Davies form/hypotheses \\
+RIP-L & \CONJ & estimate $\kappa^{\downarrow}(\epsilon)$ & construct
+$\rho_\epsilon$ with $r(\rho_\epsilon) \to 0$ \\
+\hline
+\end{tabular}
+\caption{Falsification matrix for the dynamic layer (re-typeset in v2;
+v1's table had overlapping column text).}
+\label{tab:fals}
+\end{table}
+
+\section*{Note added in v2}
+No v1 definition, assumption label, theorem statement or numbering is
+changed; new v2 material is appended at the end of the affected sections.
+v2: (1) repairs the cross-reference labels --- in v1 every reference was
+typeset as ``Definition~$x.y$'' regardless of environment, so e.g.\ ``By
+Definition 4.2'' in v1 denotes Assumption~\ref{ass:bridge} and
+``Immediate from Definition 5.5'' denotes Theorem~\ref{thm:omega0}; (2)
+re-typesets Table~\ref{tab:fals}, which in v1 printed overlapping,
+partially illegible status/proxy entries; (3) proves $\Delta$-MONO
+unconditionally for the canonical energy pinching via Davies covariance
+plus data processing (Lemma~\ref{lem:dmono}), together with the
+derivative identity used downstream (Lemma~\ref{lem:deriv}); (4) proves a
+sufficient bridge with an explicit constant on a regularized family
+(Proposition~\ref{prop:bridgep}), demoting BRIDGE from assumption to
+checkable statement in that instance; (5) places
+Theorem~\ref{thm:omega0} as the $\omega = 0$ sector of the corrected
+Bohr-channel decomposition of 2601.0023 v2 (Remark~\ref{rem:0023}); (6)
+adds series positioning (v1 cited no companion papers) and a verification
+suite (\texttt{verification/2601-0064/} in the series repository)
+reproducing every proved item: the identity at machine precision
+($2.9\times10^{-16}$ over random $O$), the envelope lemma with a concrete
+correlator, covariance and nonnegative loss for $\Delta_H$, BRIDGE-P, an
+explicit weak-pair family with $\kappa^{\downarrow} \approx
+10^{-3}\kappa^{\uparrow}$ (Remark~\ref{rem:nofloor}), the witness C1, and
+the $\omega \ne 0$ failure of the plain-commutator form.
+
+\begin{thebibliography}{9}
+\bibitem{Davies} E. B. Davies, \emph{Markovian master equations},
+Commun. Math. Phys. \textbf{39}, 91--110 (1974).
+\bibitem{BP} H.-P. Breuer and F. Petruccione, \emph{The Theory of Open
+Quantum Systems}, Oxford University Press, 2002.
+\bibitem{SL} H. Spohn and J. L. Lebowitz, \emph{Irreversible
+thermodynamics for quantum systems weakly coupled to thermal reservoirs},
+Adv. Chem. Phys. \textbf{38}, 109--142 (1978).
+\bibitem{S0023} L. Eriksson, ai.viXra:2601.0023 (2026; v2 2026).
+\bibitem{S0022} L. Eriksson, ai.viXra:2601.0022 (2026; v2 2026).
+\bibitem{S0031} L. Eriksson, ai.viXra:2601.0031 (2026; v2 2026).
+\bibitem{S0038} L. Eriksson, ai.viXra:2601.0038 (2026; v2 2026).
+\bibitem{S0040} L. Eriksson, ai.viXra:2601.0040 (2026; v2 2026).
+\end{thebibliography}
+
+\appendix
+
+\section{Line-by-line proof of the $\omega = 0$ identity}
+\label{app:proof}
+
+We give a direct expansion showing $\mathcal{E}^{(0)}_\sigma(O) =
+\frac{\gamma(0)}{2}\|[S(0),O]\|^2_{2,\sigma}$. For clarity we present the
+Hermitian case $S(0)^\dagger = S(0)$; the general case replaces $S(0)^2$
+by $S(0)^\dagger S(0)$ and yields the same commutator structure.
+
+The $\omega = 0$ Heisenberg dissipator has the standard GKLS form
+\[
+\mathcal{L}^{\sharp,(0)}(O) = \gamma(0)\Bigl(S(0)\,O\,S(0) -
+\tfrac12\{S(0)^2, O\}\Bigr).
+\]
+Using the Dirichlet form convention from
+Definition~\ref{def:dirichlet},
+\[
+\mathcal{E}^{(0)}_\sigma(O) = -\mathrm{Tr}\Bigl(\sigma^{1/2}O^\dagger
+\sigma^{1/2}\,\mathcal{L}^{\sharp,(0)}(O)\Bigr).
+\]
+Expand:
+\begin{align*}
+\mathcal{E}^{(0)}_\sigma(O) ={}& -\gamma(0)\,\mathrm{Tr}\Bigl(
+\sigma^{1/2}O^\dagger\sigma^{1/2} S(0)\,O\,S(0)\Bigr)
++ \frac{\gamma(0)}{2}\mathrm{Tr}\Bigl(\sigma^{1/2}O^\dagger\sigma^{1/2}
+S(0)^2 O\Bigr) \\
+&+ \frac{\gamma(0)}{2}\mathrm{Tr}\Bigl(\sigma^{1/2}O^\dagger\sigma^{1/2}
+O\,S(0)^2\Bigr).
+\end{align*}
+On the other hand,
+\begin{align*}
+\|[S(0),O]\|^2_{2,\sigma}
+&= \mathrm{Tr}\Bigl(\sigma^{1/2}\bigl(S(0)O - OS(0)\bigr)^\dagger
+\sigma^{1/2}\bigl(S(0)O - OS(0)\bigr)\Bigr) \\
+&= \mathrm{Tr}\Bigl(\sigma^{1/2}(O^\dagger S(0) - S(0)O^\dagger)
+\sigma^{1/2}(S(0)O - OS(0))\Bigr).
+\end{align*}
+Using Lemma~\ref{lem:commute} to commute $S(0)$ through $\sigma^{1/2}$
+and expanding the product yields
+\[
+\|[S(0),O]\|^2_{2,\sigma} = \mathrm{Tr}\Bigl(\sigma^{1/2}O^\dagger
+\sigma^{1/2}S(0)^2 O\Bigr) - 2\,\mathrm{Tr}\Bigl(\sigma^{1/2}O^\dagger
+\sigma^{1/2}S(0)\,O\,S(0)\Bigr) + \mathrm{Tr}\Bigl(\sigma^{1/2}O^\dagger
+\sigma^{1/2}O\,S(0)^2\Bigr).
+\]
+Comparing with the expression for $\mathcal{E}^{(0)}_\sigma(O)$ gives
+$\mathcal{E}^{(0)}_\sigma(O) = \frac{\gamma(0)}{2}
+\|[S(0),O]\|^2_{2,\sigma}$, as claimed.
+
+\end{document}

@@ -73,6 +73,8 @@ jobs:
         run: python verification/2601-0050/verify_2601_0050.py --smoke
       - name: 2601.0051 Z2 ED/TN ladder smoke
         run: python verification/2601-0051/verify_2601_0051.py --smoke
+      - name: 2601.0064 RIP-U Davies finite verification
+        run: python verification/2601-0064/verify_2601_0064.py
   # Long suites (verify_repaired, verify_0060, modelB, sensitivity, 0101,
   # 2601.0023 --with-tfim, 2601.0035 --N11,
   # 2601.0038/0040/0042/0043/0044/0047/0050/0051 default/chunked grids; and
