@@ -1,0 +1,14 @@
+== 1-3) identidades de Dirichlet (TFIM N=4, canal unico Davies) ==
+  Lemma 4.1 exacta: OK [err 2.2e-16]
+  forma v1 de Lemma 4.3: desviacion max = 0.210 (FALSA como identidad)
+  Lemma 4.3 corregida exacta: OK [err 2.2e-16]
+== 4) positividad por pares ==
+  pares +-omega no negativos: OK [0 negativos]
+== 5) cota de multiplicacion KMS ==
+  contraejemplo 1-qubit = e^{bD/4}: OK [4.4817]
+  cota corregida c_sigma: OK [peor ratio 0.710 <= c_sigma 7.567]
+== 6) positivity pinning: E_delta = delta^2 E_tail ==
+  E_near(Ofar)=0: OK
+  E_{N+dT}(Ofar) = d^2 E_T(Ofar) exacta: OK [E_T=1.7020e+00]
+
+ALL CHECKS PASSED
