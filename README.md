@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — thirteen v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — fourteen v2 papers + exact verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Thirteen companion papers that cite one another (ai.viXra 2512 series), each at
+Fourteen companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with every correction driven or confirmed by exact numerical
 verification. Scripts and reference logs are included; nothing in the checks
 relies on the approximations being tested.
@@ -22,8 +22,9 @@ relies on the approximations being tested.
 | **0091** — *Technical Appendix: Heat Kernel, Fermions, and the Sign of Induced Gravity* | `papers/0091-heat-kernel-induced-gravity/` | `verification/0091/` (symbolic check of all 7 Seeley–DeWitt coefficients + induced-Newton sign) | Topically-adjacent support piece (induced-gravity sign bookkeeping), not part of the coherence core. **The only paper in the program with no error in v1** — v2 is enhancement (verification + updated refs) |
 | **0101** — *Beyond Gaussianity: Extending the Clustering–Recovery Bridge* | `papers/0101-beyond-gaussianity/` | `verification/0101/` (Markov-product identity; full Petz slope table; rotated-Petz subset + crossover figure) | Direct companion of 0060: non-Gaussian extension of its Conjecture 5.1 (collar geometry, Fawzi–Renner CMI route, TFIM Gibbs numerics). v2 corrects the normalized Markov-product identity (missing log Z, Lieb) |
 | **0102** — *Heat Kernel Methods and the Sign of Induced Gravity* | `papers/0102-induced-gravity-sign/` | `verification/0102/` (exact S^4 spectra: scalar, Dirac, Hodge 1-forms; A1 table + induced-Newton sign; 11/11) | Conventions companion of 0091: where the Seeley–DeWitt a1 coefficients are fixed and verified against exact S^4 spectra, anchored to the classical counting 1/G_ind ∝ N0 + 2N_{1/2} − 4N1. Complementary to 0091 (compact bookkeeping), not redundant |
+| **0105** — *Prefix-Path Bell Transport on IBM Quantum Hardware* | `papers/0105-prefix-path-bell-transport/` | `verification/0105/` (`--demo` validates the offline re-analysis code; raw on-device JSONs are pending data revision) | Experimental companion for the RIP thread: documents a geometry-dependent transport protocol, a negative static-dynamic association test with power bound, and explicit reproducibility limits |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -187,6 +188,16 @@ phases tracked separately); (4) a corrected Euclidean Wick weight
 Dirac, Hodge–de Rham 1-forms) giving tr a1 = {+R/6, −R/3, −R/3} to <1e−5 and
 A1(vector+ghosts) = −2/3. Verified 11/11 (verification/0102/).
 
+**0105** (v2-LITE package integrated here): the IBM-hardware prefix-path Bell
+transport note is included with its paper figures and an offline re-analysis
+script. Because the processed on-device JSON artifacts are not preserved in
+this repository, the shipped verification is a synthetic-data `--demo` of the
+analysis machinery: fit-variant robustness, null scale-up association,
+preregistered-test permutation statistic, power bound and proxy agreement. A
+future data revision should recover raw job results from IBM account records,
+export the canonical JSONs documented in `results/0105/README.md`, rerun the
+same script on those files and then recompile the paper.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -253,6 +264,8 @@ python verification/0101/verify_0101.py petz
 python verification/0101/verify_0101.py fig8
 # 0102 (exact S^4 spectra, seconds)
 python verification/0102/verify_0102.py
+# 0105 (synthetic demo of offline re-analysis machinery; raw JSON data pending)
+python verification/0105/reanalyze_0105.py --demo --output-dir /tmp/aqft-0105-demo
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -277,3 +290,7 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   model class* at N=6 (secular nonlocality quantified in its Section 7); the
   spectral-floor → entropic-rate step is stated as an explicit MLSI-shaped
   hypothesis, not claimed; the no-go theorem's hypothesis is explicit.
+- **0105**: verification/0105 currently validates the re-analysis code on
+  synthetic data only. The on-device IBM JSON artifacts are explicitly pending
+  data revision; this repository does not claim fully offline reproduction of
+  the experimental numbers until those raw or processed records are added.
