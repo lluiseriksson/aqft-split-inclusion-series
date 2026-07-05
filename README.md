@@ -1,11 +1,11 @@
-# AQFT / Operational Coherence Series — sixteen v2 papers + exact verification suites
+# AQFT / Operational Coherence Series — seventeen v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Sixteen companion papers that cite one another (ai.viXra 2512 series), each at
-version 2, with every correction driven or confirmed by exact numerical
-verification. Scripts and reference logs are included; nothing in the checks
-relies on the approximations being tested.
+Seventeen companion papers that cite one another (ai.viXra 2512 series), each at
+version 2, with corrections backed by scoped numerical or symbolic checks where
+applicable. Scripts and reference logs are included; each check's limits are
+spelled out in the honesty statement.
 
 | Paper | Directory | Verification | Role in the series |
 |---|---|---|---|
@@ -25,8 +25,9 @@ relies on the approximations being tested.
 | **0105** — *Prefix-Path Bell Transport on IBM Quantum Hardware* | `papers/0105-prefix-path-bell-transport/` | `verification/0105/` (`--demo` validates the offline re-analysis code; raw on-device JSONs are pending data revision) | Experimental companion for the RIP thread: documents a geometry-dependent transport protocol, a negative static-dynamic association test with power bound, and explicit reproducibility limits |
 | **2601.0007** — *Quantitative Recovery Bounds from Vacuum Clustering* | `papers/2601-0007-gaussian-recovery-bounds/` | `verification/2601-0007/` (BBP Gaussian fidelity in numpy/scipy; 450 sampled draws; collar sweep) | Finite-mode Gaussian bridge between 0060's lattice Gaussian layer and 0101's non-Gaussian/CMI route; includes the v2 Petz-to-conditional-reattachment wording correction |
 | **2601.0020** — *Geometric Markov Bounds and Rate Inheritance Modulo Fixed Points* | `papers/2601-0020-geometric-markov-rip/` | `verification/2601-0020/` (exact Ising-Z enumeration; corrected Fawzi-Renner factor; A.4-v1 counterexamples and A.4-v2 check) | Static-to-dynamic interface paper: CMI/RIP bridge with fixed-point caveats, finite-chain diagnostics, and explicit correction of the v1 diagonal Dirichlet comparison |
+| **2601.0022** — *Operational Influence Proxies in a TFIM Surrogate* | `papers/2601-0022-influence-proxies-tfim/` | `verification/2601-0022/` (regenerable witness ED + power test; TEBD/MCWF trajectories not included) | TFIM surrogate companion for the omega=0/RIP thread: quantified no-floor power limits, positive witness benchmark for S=Z, and S=X null case |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020} (TFIM influence-proxy diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -219,6 +220,14 @@ stated; the suite gives finite-chain counterexamples and checks the corrected
 classical Ising-Z chain plus random finite-dimensional Petz arithmetic tests;
 it is a finite diagnostic/interface suite, not a general AQFT theorem.
 
+**2601.0022** (v2 package integrated here): the TFIM influence-proxy paper adds
+a declared finite ED witness benchmark (`N=10`, `J=1`, `h=1.05`, center-site
+`S=Z`, `gamma0=0.1`), the corresponding `S=X` null case, and a synthetic power
+analysis showing that a five-point no-floor design has weak floor-detection
+power. No v1 result is retracted here, but the v2 package records that the
+original TEBD/MCWF trajectories are not included. The shipped suite regenerates
+the witness and power diagnostics only; it is not an interacting-buffer proof.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -291,6 +300,8 @@ python verification/0105/reanalyze_0105.py --demo --output-dir /tmp/aqft-0105-de
 python verification/2601-0007/verify_2601_0007.py
 # 2601.0020 (finite Ising-Z Markov/RIP interface checks)
 python verification/2601-0020/verify_2601_0020.py
+# 2601.0022 (finite TFIM influence-proxy witness + no-floor power diagnostic)
+python verification/2601-0022/verify_2601_0022.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -327,3 +338,8 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   enumeration suite plus finite-dimensional Petz arithmetic checks. It records
   v1 counterexamples and v2 finite diagnostics; it is not a continuum or
   interacting-buffer proof of rate inheritance.
+- **2601.0022**: verification/2601-0022 is a finite TFIM surrogate/witness ED
+  suite plus synthetic power analysis. The TEBD/MCWF trajectories behind the
+  older proxy figures are not shipped, so those figures are artifacts here,
+  not fully regenerated data products. No continuum or interacting-buffer claim
+  is made by this repository.
