@@ -1,0 +1,17 @@
+== 1) reduccion a CMI estandar (N natural) ==
+  I^N = CMI (identidad de cadena): OK [err 1.9e-15]
+== 2) dependencia de N: identificacion AB rotada ==
+  I(A:BC)=0.0532; I^N sobre 20 identificaciones: rango [-0.4640, -0.1849], negativos: 20/20
+  I^N varia con N y puede ser negativo: OK
+== 3) normalizacion del peso beta_0 ==
+  int beta_0 = 1: OK [1.000000000000]
+== 4) ancla finito-dim de la Assumption 4.4 corregida ==
+  -log F <= I (corregida): 40/40 draws la cumplen
+  -log F <= I/2 (v1):      0/40 draws la cumplen -> la half-form NO es importable
+  assumption corregida consistente (Petz): OK [0/40]
+  half-form de v1 refutada como ancla: OK [40/40 violaciones]
+== 5) aritmetica del Teorema 4.5 ==
+  1-x <= -log x: OK
+  P <= sqrt(K) e^{-aw/2} (constante corregida): OK
+
+ALL CHECKS PASSED
