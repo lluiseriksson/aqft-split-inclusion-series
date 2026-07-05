@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — thirty-two v2 papers + verification suites
+# AQFT / Operational Coherence Series — thirty-three v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Thirty-two companion papers that cite one another (ai.viXra 2512 series), each at
+Thirty-three companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -41,8 +41,9 @@ spelled out in the honesty statement.
 | **2601.0051** — *Petz Recoverability vs Wilson Loops: ED + TN Ladders* | `papers/2601-0051-z2-tn-ladders/` | `verification/2601-0051/` (CI smoke + manual exact-ladder Part A; optional TeNPy Part B) | Tensor-network ladder extension of the gauge benchmark; v2 fixes the inherited NL=13 Part A geometry and documents proxy semantics |
 | **2601.0064** — *RIP-U and the omega=0 obstruction in Davies dynamics* | `papers/2601-0064-ripu-davies/` | `verification/2601-0064/` (full finite Davies suite in CI) | Davies-interface note for upper envelopes; v2 checks Delta-MONO/BRIDGE-P finite instances and the omega=0 sector relation to 0023 |
 | **2601.0065** — *Split-regularized recoverability in Type III AQFT* | `papers/2601-0065-typeiii-recoverability/` | `verification/2601-0065/` (full finite Type I contract suite in CI) | AQFT companion for the conditional Type III recoverability contract; v2 fixes direction, proves the Type I reduction, and verifies the finite anchor |
+| **2601.0066** — *Typed Pipeline for Recoverability--Rate--Power Links* | `papers/2601-0066-typed-pipeline/` | `verification/2601-0066/` (full finite typed-pipeline suite in CI) | Typed operational contract tying CMI, recoverability, rate envelopes, and power interfaces; v2 fixes the `c_FR = 1` convention and replaces deferred interfaces with concrete 0064/0065 citations |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0044 → {2601.0043, 2601.0038, 2601.0040, 2601.0042, 2601.0035} (finite Z2 ladder gauge diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043, 2601.0044} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0044, 2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic), 2601.0050 → {2601.0047, 2601.0046, 2601.0044, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic), 2601.0051 → {2601.0044, 2601.0047, 2601.0050, 2601.0043} (finite ED/TN ladder benchmark diagnostic), 2601.0064 → {2601.0023, 2601.0022, 2601.0031, 2601.0038, 2601.0040} (finite Davies upper-envelope diagnostic), 2601.0065 → {2601.0046, 2601.0034, 2601.0020, 2601.0035, 2601.0007, 2601.0050} (conditional Type III/finite Type I recoverability interface) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic), 2601.0044 → {2601.0043, 2601.0038, 2601.0040, 2601.0042, 2601.0035} (finite Z2 ladder gauge diagnostic), 2601.0046 → {2601.0034, 2601.0035, 2601.0038, 2601.0040, 2601.0042, 2601.0043, 2601.0044} (finite Petz/conditional-expectation interface diagnostic), 2601.0047 → {2601.0044, 2601.0043, 2601.0046, 2601.0035} (finite 2D Z2 benchmark diagnostic), 2601.0050 → {2601.0047, 2601.0046, 2601.0044, 2601.0043, 2601.0035} (finite CMI/Z2 benchmark diagnostic), 2601.0051 → {2601.0044, 2601.0047, 2601.0050, 2601.0043} (finite ED/TN ladder benchmark diagnostic), 2601.0064 → {2601.0023, 2601.0022, 2601.0031, 2601.0038, 2601.0040} (finite Davies upper-envelope diagnostic), 2601.0065 → {2601.0046, 2601.0034, 2601.0020, 2601.0035, 2601.0007, 2601.0050} (conditional Type III/finite Type I recoverability interface), 2601.0066 → {2601.0065, 2601.0064, 2601.0046, 2601.0023, 2601.0031, 2601.0035, 2601.0043, 2601.0044} (typed recoverability-rate-power interface) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -392,6 +393,16 @@ finite numpy/scipy suite. This is a conditional Type III interface plus a
 finite Type I verification, not a proof of general Type III recoverability or
 any mass-gap/continuum statement.
 
+**2601.0066** (v2 package integrated here): the typed-pipeline note records
+the program-level chain from static CMI assumptions to recoverability, rate
+interfaces, and operational power bookkeeping. The verifier checks the L1
+inequality, the squared-fidelity convention giving `c_FR = 1`, an exact
+finite Markov/HJPW recovery instance, a finite TFIM closed-lane dataset, and
+a dephasing example showing distinct upper/lower rate-envelope behavior. CI
+runs the full finite numpy/scipy suite. BATO-LAW remains an explicit typed
+interface/assumption, and the package is not a Clay, continuum, or Hamiltonian
+gap result.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -544,6 +555,8 @@ python verification/2601-0051/verify_2601_0051.py --partB 2.0
 python verification/2601-0064/verify_2601_0064.py
 # 2601.0065 (finite Type I anchor for conditional Type III recoverability contract)
 python verification/2601-0065/verify_2601_0065.py
+# 2601.0066 (finite typed-pipeline recoverability-rate-power contract suite)
+python verification/2601-0066/verify_2601_0066.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -671,3 +684,9 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   GNS-adjoint, CMI-identity, and TFIM contract instances; it does not prove
   Type III recoverability in general, a mass gap, continuum behavior, or an
   unconditional AQFT theorem.
+- **2601.0066**: verification/2601-0066 is a finite typed-pipeline contract
+  suite for recoverability-rate-power bookkeeping. CI runs the full finite
+  numpy/scipy suite. The package checks finite L1, fidelity-convention,
+  Markov recovery, TFIM lane, and dephasing-envelope instances; it does not
+  prove BATO-LAW unconditionally, a Clay statement, continuum behavior, or a
+  Hamiltonian spectral gap.
