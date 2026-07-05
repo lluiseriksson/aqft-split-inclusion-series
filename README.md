@@ -1,8 +1,8 @@
-# AQFT / Operational Coherence Series — twenty-four v2 papers + verification suites
+# AQFT / Operational Coherence Series — twenty-five v2 papers + verification suites
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Twenty-four companion papers that cite one another (ai.viXra 2512 series), each at
+Twenty-five companion papers that cite one another (ai.viXra 2512 series), each at
 version 2, with corrections backed by scoped numerical or symbolic checks where
 applicable. Scripts and reference logs are included; each check's limits are
 spelled out in the honesty statement.
@@ -33,8 +33,9 @@ spelled out in the honesty statement.
 | **2601.0038** — *Operational Signatures of Criticality from Petz Recovery* | `papers/2601-0038-criticality-petz-distance/` | `verification/2601-0038/` (CI smoke + manual finite ED benchmark; Petz-distance signal + CMI companion; chunkable) | Finite criticality-diagnostic companion for the recovery block; v2 adds the C-size caveat, window note, and CMI diagnostic |
 | **2601.0040** — *Finite-Size Scaling of Petz Recovery Length in the TFIM* | `papers/2601-0040-petz-scaling/` | `verification/2601-0040/` (CI smoke + manual chunked finite ED benchmark; baseline and enhancement diagnostics) | Scaling sequel to 0038; v2 quantifies the C-size/baseline confound and functional-form ambiguity |
 | **2601.0042** — *Emergent Information Distance from Petz Recovery* | `papers/2601-0042-emergent-distance/` | `verification/2601-0042/` (CI smoke + manual chunked finite ED benchmark; beta and perturbation sweep) | Closes the finite d_eff mini-block 0038/0040/0042; v2 replaces a corrupted reproducibility paragraph with a real suite |
+| **2601.0043** — *Recoverability Geometry* | `papers/2601-0043-recoverability-geometry/` | `verification/2601-0043/` (CI smoke embedding demo + manual chunked finite ED control) | Geometry-facing finite diagnostic for the d_eff block; v2 flags the unstable row and adds a first in-model conjecture check |
 
-Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic) (each bibliography
+Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070, 0072}, 0072 → all five, 0073 → all six, 0081 → all seven, 0084 → {0081, 0061, 0064}, 0085 → {0060, 0061, 0064, 0070, 0072, 0073}, 0091 → all ten (context only, non-load-bearing), 0105 → {0070, 0072} (experimental companion), 2601.0007 → {0060, 0101} (finite-mode Gaussian bridge), 2601.0020 → {0060, 0064, 0070, 0072, 0101, 2601.0007} (static-to-dynamic interface), 2601.0022 → {0064, 0070, 0105, 2601.0020}, 2601.0023 → {0061, 0064, 0070, 2601.0020, 2601.0022}, 2601.0031 → {0060, 0061, 0064, 0070, 2601.0007, 2601.0020, 2601.0022, 2601.0023}, 2601.0034 → {0060, 0101, 2601.0007, 2601.0020, 2601.0031}, 2601.0035 → {0060, 0101, 2601.0007, 2601.0020, 2601.0034}, 2601.0038 → {0060, 0101, 2601.0035} (finite Petz/CMI criticality diagnostic), 2601.0040 → {2601.0038, 2601.0035, 0101} (finite-size Petz scaling diagnostic), 2601.0042 → {2601.0038, 2601.0040, 2601.0035, 0101} (finite emergent-distance diagnostic), 2601.0043 → {2601.0038, 2601.0040, 2601.0042, 2601.0035, 0101} (finite recoverability-geometry diagnostic) (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
 exponent appears in all three: `arccosh(1+m²/2)` for the 0060 lattice vacuum,
 `arccosh(μ/2t)` in the 0064 oracle, `cosh q(ω) = (μ²+4−ω²)/(4μ)` in 0064's
@@ -304,6 +305,17 @@ the `--chunk 0.0`, `--chunk 0.5`, and final report sequence is manual. These
 are finite operational-distance diagnostics, not continuum geometry or
 general recovery-length results.
 
+**2601.0043** (v2 package integrated here): the recoverability-geometry note
+adds a finite sparse-Lanczos verification layer for the fixed-target geometry
+protocol used by the d_eff block. The manual chunked benchmark regenerates the
+Table 1 control at `L = 14`, flags the unstable `g = 0.5` three-point fit under
+the paper's own stability policy, and compares `xi_rec` with a same-state
+connected-correlation length as a first finite in-model conjecture check. CI
+runs only the `--smoke`/`--demo` embedding illustration at `L = 12`; the
+`--chunk 0.5`, `--chunk 1.0`, `--chunk 2.0`, and final report sequence is
+manual. These are finite diagnostics for a geometry protocol, not continuum
+geometry or a general recoverability theorem.
+
 ## Hardening round (pre-upload review, applied)
 
 All four papers passed an external pre-upload review; the following surgical
@@ -409,6 +421,13 @@ python verification/2601-0042/verify_2601_0042.py --smoke
 python verification/2601-0042/verify_2601_0042.py --chunk 0.0
 python verification/2601-0042/verify_2601_0042.py --chunk 0.5
 python verification/2601-0042/verify_2601_0042.py
+# 2601.0043 (finite recoverability-geometry diagnostic)
+python verification/2601-0043/verify_2601_0043.py --smoke
+# Longer/manual sparse-Lanczos chunks and report
+python verification/2601-0043/verify_2601_0043.py --chunk 0.5
+python verification/2601-0043/verify_2601_0043.py --chunk 1.0
+python verification/2601-0043/verify_2601_0043.py --chunk 2.0
+python verification/2601-0043/verify_2601_0043.py
 ```
 
 Reference outputs and data in `results/`. In the 0060 Fock suite, rows with
@@ -487,3 +506,9 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
   report is manual. The package reports finite operational-distance behavior;
   it does not prove continuum geometry, Type III structure, or a general
   emergent-distance theorem.
+- **2601.0043**: verification/2601-0043 is a finite sparse-Lanczos diagnostic
+  for recoverability geometry on fixed finite chains. CI runs only the
+  embedding smoke/demo; the `g = 0.5, 1.0, 2.0` chunked control report is
+  manual. The package reports finite geometry-protocol behavior and an
+  unstable-row flag; it does not prove continuum geometry, Type III structure,
+  or a general recoverability theorem.
