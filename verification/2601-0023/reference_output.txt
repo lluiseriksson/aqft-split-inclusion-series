@@ -9,6 +9,6 @@
   cota corregida c_sigma: OK [peor ratio 0.710 <= c_sigma 7.567]
 == 6) positivity pinning: E_delta = delta^2 E_tail ==
   E_near(Ofar)=0: OK
-  E_{N+dT}(Ofar) = d^2 E_T(Ofar) exacta: OK [E_T=1.7020e+00]
+  E_{N+dT}(Ofar) = d^2 E_T(Ofar) exacta: OK [E_T=1.7020e+00, max_abs=7.7e-17, max_rel=4.5e-11]
 
 ALL CHECKS PASSED

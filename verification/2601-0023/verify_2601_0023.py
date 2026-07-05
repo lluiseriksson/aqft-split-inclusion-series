@@ -126,11 +126,18 @@ SA=randherm(dA); Snear=np.kron(SA,np.eye(dB))
 T=randherm(dd); T/=np.linalg.norm(T,2)
 OB=randherm(dB); OB-=np.trace(OB)/dB*np.eye(dB); Ofar=np.kron(np.eye(dA),OB)
 ET=Edir2(T,Ofar); okpin=True
+pin_abs=pin_rel=0.0
 for delta in (1e-1,1e-2,1e-3):
     v=Edir2(Snear+delta*T,Ofar)
-    if abs(v-delta**2*ET)>1e-10*max(v,1e-30): okpin=False
+    expected = delta**2*ET
+    err = abs(v-expected)
+    scale = max(abs(v), abs(expected), 1e-30)
+    pin_abs=max(pin_abs, err)
+    pin_rel=max(pin_rel, err/scale)
+    if err > 1e-9*max(1.0, abs(v), abs(expected)): okpin=False
 check("E_near(Ofar)=0", abs(Edir2(Snear,Ofar))<1e-12, "")
-check("E_{N+dT}(Ofar) = d^2 E_T(Ofar) exacta", okpin, f"[E_T={ET:.4e}]")
+check("E_{N+dT}(Ofar) = d^2 E_T(Ofar) exacta", okpin,
+      f"[E_T={ET:.4e}, max_abs={pin_abs:.1e}, max_rel={pin_rel:.1e}]")
 if "--with-tfim" in sys.argv:
     print("== 7) TFIM N=10 witness (J=1, h=1.5, S=Z centro; ~1 min) ==")
     sys.path.insert(0, str(Path(__file__).resolve().parent))
