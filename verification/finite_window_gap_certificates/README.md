@@ -30,3 +30,15 @@ explicit Chebyshev visibility/noise tradeoff.
 python verification/finite_window_gap_certificates/exact_and_robust_certificates.py
 python verification/finite_window_gap_certificates/exact_and_robust_certificates.py --check
 ```
+
+To audit every theorem-level claim used by the paper (including the tracked
+local and Colab ANNNI records) in one command, run:
+
+```bash
+python verification/finite_window_gap_certificates/verify_all.py
+```
+
+The large Colab run is recorded in `colab_run_summary.json`, including the
+source commit, numerical environment, full-result SHA-256, and the complete
+summary printed by the notebook. `make_figures.py` regenerates every plot used
+by the manuscript from the tracked artifacts.

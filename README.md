@@ -1,4 +1,4 @@
-# AQFT / Operational Coherence Series — five v2 papers, a spectral framework, and exact verification suites
+# AQFT / Operational Coherence Series — five v2 papers and two spectral studies
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
@@ -15,6 +15,15 @@ from affordability horizons, and ships exact rational support certificates.
 It is intentionally not counted as a sixth paper in the original 2512 companion
 series.
 
+A second standalone paper, **Noisy Euclidean Correlators Do Not Certify a
+Spectral Gap Without Visibility**, goes beyond the abstract framework.  It
+proves an algorithm-independent finite-noise non-identifiability theorem,
+derives the minimax-optimal Chebyshev recovery threshold when a quantitative
+visibility condition is supplied, proves exact terminal recovery from flat
+block-Hankel data, and tests the certificates on an interacting ANNNI chain up
+to a 65,536-dimensional Hilbert space.  Exact, local, Colab, and Lean audits are
+linked from the manuscript.
+
 | Paper | Directory | Verification | Role in the series |
 |---|---|---|---|
 | **0060** — *Clustering, Recovery, and Locality in AQFT* | `papers/0060-clustering-recovery/` | `verification/0060/` | Kinematics: split inclusions, collar-suppressed vacuum correlations (Bessel/Combes–Thomas), reconstruction-fidelity theorem |
@@ -23,6 +32,7 @@ series.
 | **0070** — *Stress Testing the Rate Inheritance Principle* | `papers/0070-rate-inheritance/` | `verification/0070/` | Stress test: Davies-generator regime where rate inheritance fails; ceiling/floor envelopes; resource-horizon no-go |
 | **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the other four |
 | **Standalone** — *Positive Spectral Measures as Operational Resource Boundaries* | `papers/spectral-resource-boundaries/` | `verification/spectral_resource_boundary/` | Abstract spectral layer: support $\leftrightarrow$ decay, total-family gap, finite support falsifiers, conditional rate inheritance, and two operational horizons |
+| **Standalone** — *Noisy Euclidean Correlators Do Not Certify a Spectral Gap Without Visibility* | `papers/finite-window-gap-identifiability/` | `verification/finite_window_gap_certificates/` | Sharp identifiability boundary: hidden-atom no-go, flat Krylov termination, minimax Chebyshev witnesses, multichannel ANNNI experiment |
 
 Cross-citation graph: 0060 ⇄ 0061, 0060 ⇄ 0064, 0061 ⇄ 0064, 0070 → {0060, 0061, 0064}, 0064 → {0070, 0071}, 0071 → {0060, 0061, 0064, 0070} (each bibliography
 points to the others' directories in this repository). The same Combes–Thomas
