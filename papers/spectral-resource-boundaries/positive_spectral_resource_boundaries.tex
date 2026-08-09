@@ -1,0 +1,805 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.55cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Positive Spectral Measures as Operational Resource Boundaries},
+  pdfauthor={Lluis Eriksson},
+  pdfsubject={Correlations, resolvents, mass gaps, and rate inheritance}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\kB}{k_{\mathrm B}}
+
+\title{Positive Spectral Measures as Operational Resource Boundaries:\\
+Correlations, Resolvents, Mass Gaps, and Rate Inheritance}
+\author{Lluis Eriksson\\Independent Researcher\\
+\href{mailto:lluiseriksson@gmail.com}{lluiseriksson@gmail.com}}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give a common positive-measure formulation of four statements that are
+often discussed separately: exponential Euclidean clustering, a Hamiltonian or
+transfer-operator mass gap, Stieltjes resolvent positivity, and the exponential
+suppression of a dissipative rate transmitted through a buffer.  For a
+positive self-adjoint Hamiltonian and a vacuum-orthogonal vector, we prove that
+absence of spectral weight below $m$ is equivalent to an exponential
+correlation envelope with exponent $m$.  Uniform support exclusion on a total
+family is then equivalent to an operatorial mass gap.  In discrete transfer
+time, the same statement becomes a Hausdorff support problem: Hankel and
+localizing moment matrices provide finite falsifiers of an overstated gap.  We
+separate this closed spectral theorem from the genuinely model-dependent
+open-system interface.  Once a rate is bounded by the square of a mediated
+amplitude, its exponent doubles.  Conversely, a two-sided rate--correlator
+comparison on a total positive family recovers a transfer gap.  We also correct
+an operational ambiguity: a lower bound on maintenance power defines an
+impossibility horizon, not an affordability horizon; a sharp resource boundary
+requires a constructive upper bound.  Reflection-positive lattice gauge theory
+and prime-built resolvent programmes share this spectral-measure architecture,
+but no implication between the Yang--Mills mass-gap problem and the Riemann
+hypothesis follows.  Exact rational certificates, an independent checker, and
+deterministic numerical stress tests accompany the paper.
+\end{abstract}
+
+\section{Introduction}
+
+A spatial buffer can suppress the amplitude by which a disturbance reaches a
+protected system.  If the dissipative rate is quadratic in that amplitude, an
+amplitude law $e^{-m\ell}$ becomes a rate law $e^{-2m\ell}$.  This mechanism is
+elementary in exactly solvable band-gap models, yet its interpretation touches
+three harder questions: what spectral statement is actually being measured,
+when a family of such measurements certifies a mass gap, and when a suppressed
+rate makes coherence maintenance affordable.
+
+The motivating calculation is the quasi-free gapped-buffer model of
+Ref.~\cite{Eriksson0064}, where an exact Liouvillian computation gives a
+frequency-resolved rate exponent twice the evanescent-amplitude exponent.  A
+companion stress test~\cite{Eriksson0070} shows why ceiling and floor quantities
+must not be interchanged.  Here we extract the model-independent mathematical
+core and identify the interfaces that remain physical input.
+
+The organizing object is not a decay curve but a positive spectral measure.
+Let $H\geq0$ be a self-adjoint Hamiltonian, let $\Omega$ be a vacuum, and let
+$\psi\perp\Omega$.  The measure
+\[
+  \mu_\psi(B)=\langle\psi,E_H(B)\psi\rangle
+\]
+simultaneously generates the Euclidean correlation
+\[
+  C_\psi(t)=\int e^{-t\lambda}\,d\mu_\psi(\lambda)
+\]
+and the one-point resolvent
+\[
+  S_\psi(x)=\int\frac{d\mu_\psi(\lambda)}{\lambda+x}.
+\]
+The first is a Laplace transform, the second a Stieltjes transform, and a mass
+gap is a lower support edge.  This triangle is the precise common structure
+behind the correlations used in constructive field theory, the transfer
+operators used in reflection-positive reconstruction, and the positive
+resolvents used in spectral criteria.
+
+The contributions are as follows.
+\begin{enumerate}
+  \item We prove a vectorwise equivalence between a spectral support edge and
+  an exponential correlation exponent, and lift it to an operator gap through
+  a total-family criterion.
+  \item We formulate the discrete transfer version as a Hausdorff moment
+  problem and give finite localizing-matrix falsifiers for claimed support
+  edges.
+  \item We isolate a rate-mediation lemma that explains exponent doubling, and
+  a converse rate-to-gap criterion whose strong hypotheses are fully visible.
+  \item We replace a single ``resource boundary'' by two operational horizons:
+  certified impossibility and constructive affordability.
+  \item We state exactly how the framework can be consumed by
+  Osterwalder--Schrader reconstruction and lattice Yang--Mills, and exactly why
+  the analogous Stieltjes architecture in prime-resolvent programmes does not
+  imply a Yang--Mills--Riemann equivalence.
+\end{enumerate}
+
+The spectral results are applications of standard functional calculus.  The
+novelty claimed here is the operational assembly, the two-sided audit of what a
+rate can certify, and a reproducible support-certificate layer---not a new proof
+of the spectral theorem, the Yang--Mills mass gap, or the Riemann hypothesis.
+
+\section{The positive spectral triangle}
+\label{sec:triangle}
+
+Let $\mathcal H$ be a complex Hilbert space and let $H$ be a nonnegative
+self-adjoint operator.  We assume a unique normalized vacuum,
+\[
+  \ker H=\C\Omega,\qquad \|\Omega\|=1.
+\]
+For $\psi\in\Omega^\perp$, let $\mu_\psi$ be its finite spectral measure,
+\[
+  \mu_\psi(B)=\langle\psi,E_H(B)\psi\rangle,
+  \qquad \mu_\psi([0,\infty))=\|\psi\|^2.
+\]
+
+\begin{proposition}[Laplace and Stieltjes faces]
+\label{prop:faces}
+For $t>0$ and $x>0$, define
+\begin{align}
+  C_\psi(t)&=\langle\psi,e^{-tH}\psi\rangle,
+  &S_\psi(x)&=\langle\psi,(H+x)^{-1}\psi\rangle.
+\end{align}
+Then
+\begin{align}
+  C_\psi(t)&=\int_{[0,\infty)}e^{-t\lambda}\,d\mu_\psi(\lambda),
+  \label{eq:laplace-face}\\
+  S_\psi(x)&=\int_{[0,\infty)}\frac{d\mu_\psi(\lambda)}{\lambda+x}.
+  \label{eq:stieltjes-face}
+\end{align}
+Moreover, $C_\psi$ is completely monotone on $(0,\infty)$ and $S_\psi$ is a
+Stieltjes function.  We use the continuous extension
+$C_\psi(0)=\|\psi\|^2$ whenever $t=0$ appears below.
+\end{proposition}
+
+\begin{proof}
+Equations~\eqref{eq:laplace-face} and \eqref{eq:stieltjes-face} are the
+spectral functional calculus.  For every $n\in\N$ and $t>0$,
+\[
+  (-1)^n C_\psi^{(n)}(t)
+  =\int\lambda^n e^{-t\lambda}\,d\mu_\psi(\lambda)\geq0.
+\]
+The Stieltjes representation is Eq.~\eqref{eq:stieltjes-face} itself.
+\end{proof}
+
+The next theorem identifies the exponential exponent without assuming a
+discrete spectrum.
+
+\begin{theorem}[Support--decay equivalence]
+\label{thm:support-decay}
+Let $m\geq0$.  The following are equivalent:
+\begin{enumerate}
+  \item $\mu_\psi([0,m))=0$;
+  \item $C_\psi(t)\leq\|\psi\|^2e^{-mt}$ for every $t\geq0$;
+  \item there exists a finite $K_\psi$ such that
+  $C_\psi(t)\leq K_\psi e^{-mt}$ for every $t\geq0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If the measure is supported in $[m,\infty)$, then
+$e^{-t\lambda}\leq e^{-mt}$ and (2) follows by integration.  Statement (2)
+implies (3).  Conversely, suppose (3) holds but
+$\mu_\psi([0,m))>0$.  Since
+$[0,m)=\bigcup_{n\geq1}[0,m-1/n]$ after discarding empty terms, there is a
+$\delta>0$ with $a:=\mu_\psi([0,m-\delta])>0$.  Positivity gives
+\[
+  C_\psi(t)\geq a e^{-(m-\delta)t}.
+\]
+The ratio of this lower bound to $K_\psi e^{-mt}$ is
+$(a/K_\psi)e^{\delta t}$, which exceeds one for sufficiently large $t$, a
+contradiction.
+\end{proof}
+
+\begin{corollary}[Resolvent bound from a support edge]
+\label{cor:resolvent-bound}
+Under the equivalent conditions of Theorem~\ref{thm:support-decay},
+\[
+  S_\psi(x)\leq\frac{\|\psi\|^2}{m+x},\qquad x>0.
+  \label{eq:resolvent-bound}
+\]
+\end{corollary}
+
+\begin{proof}
+On the support of the measure,
+$(\lambda+x)^{-1}\leq(m+x)^{-1}$.
+\end{proof}
+
+A single vector can be blind to a gapless sector.  The correct upgrade is a
+total-family condition.
+
+\begin{theorem}[Total-family gap criterion]
+\label{thm:total-family}
+Let $\mathcal D\subset\Omega^\perp$ have dense linear span in
+$\Omega^\perp$.  If there is an $m>0$ such that every $\psi\in\mathcal D$
+satisfies any of the equivalent conditions of
+Theorem~\ref{thm:support-decay}, then
+\[
+  H|_{\Omega^\perp}\geq m
+\]
+in the spectral, equivalently quadratic-form, sense.  Conversely, this operator
+gap implies the support condition for every $\psi\perp\Omega$.
+\end{theorem}
+
+\begin{proof}
+Let $P=E_H([0,m))$.  The hypothesis says $P\psi=0$ for every
+$\psi\in\mathcal D$.  As $P$ is bounded, it vanishes on the closure of
+$\Span\mathcal D=\Omega^\perp$.  Hence the spectrum of $H$ on
+$\Omega^\perp$ lies in $[m,\infty)$.  The converse follows immediately from
+spectral support.
+\end{proof}
+
+\begin{remark}[Uniform exponent versus uniform prefactor]
+Theorem~\ref{thm:total-family} needs a common exponent $m$, but it does not
+need a common prefactor $K_\psi$.  Volume-uniform physical applications are
+harder because one must also control how the family, normalization, and
+finite-volume reconstruction behave as the volume changes.
+\end{remark}
+
+\begin{corollary}[Off-diagonal transfer amplitude]
+\label{cor:offdiagonal}
+Under the operator gap of Theorem~\ref{thm:total-family}, let
+$P_\perp=I-|\Omega\rangle\langle\Omega|$.  Then
+\[
+  \|e^{-tH}P_\perp\|\leq e^{-mt},
+\]
+and for all $\phi,\psi\perp\Omega$,
+\[
+  |\langle\phi,e^{-tH}\psi\rangle|
+  \leq e^{-mt}\|\phi\|\,\|\psi\|.
+  \label{eq:offdiagonal}
+\]
+\end{corollary}
+
+\begin{proof}
+The operator-norm bound is the spectral calculus on $\Omega^\perp$; the
+matrix-element bound follows from Cauchy--Schwarz.
+\end{proof}
+
+\section{Transfer operators and finite support certificates}
+\label{sec:transfer}
+
+Let $T$ be a positive self-adjoint contraction with $T\Omega=\Omega$.  For
+$\psi\perp\Omega$, write $\nu_\psi$ for the spectral measure of $T$ on
+$[0,1]$ and
+\[
+  b_n(\psi)=\langle\psi,T^n\psi\rangle
+  =\int_{[0,1]}r^n\,d\nu_\psi(r).
+  \label{eq:transfer-moments}
+\]
+Thus the transfer correlation sequence is a Hausdorff moment sequence.  The
+continuous and discrete pictures agree under $T=e^{-aH}$: a support edge
+$H\geq m$ becomes $T\leq\rho=e^{-am}$ on $\Omega^\perp$.
+
+\begin{proposition}[Discrete support--decay equivalence]
+\label{prop:discrete-support}
+For $0<\rho<1$, the following are equivalent:
+\begin{enumerate}
+  \item $\nu_\psi((\rho,1])=0$;
+  \item $b_n(\psi)\leq\|\psi\|^2\rho^n$ for every $n\in\N$;
+  \item $b_n(\psi)\leq K_\psi\rho^n$ for every $n\in\N$ and some finite
+  $K_\psi$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The forward implication is immediate.  If the measure has positive mass on
+$[\rho+\delta,1]$ for some $\delta>0$, that mass gives a lower bound
+$a(\rho+\delta)^n$, contradicting any finite multiple of $\rho^n$ as
+$n\to\infty$.
+\end{proof}
+
+Finite moments cannot prove an infinite support theorem, but they can refute a
+false support claim exactly.  For $N\geq0$ define
+\begin{align}
+  H_N&=(b_{i+j})_{0\leq i,j\leq N},\\
+  L_N^\theta&=(\theta b_{i+j}-b_{i+j+1})_{0\leq i,j\leq N}.
+  \label{eq:moment-matrices}
+\end{align}
+
+\begin{proposition}[Finite support falsifier]
+\label{prop:finite-falsifier}
+If $\nu_\psi$ is supported in $[0,\theta]$, then
+$H_N\succeq0$ and $L_N^\theta\succeq0$ for every $N$.  Consequently, a
+single vector $q$ with
+\[
+  q^{\mathsf T}L_N^\theta q<0
+\]
+is an exact finite falsifier of the claimed support edge $\theta$.
+\end{proposition}
+
+\begin{proof}
+For $p_q(r)=\sum_{i=0}^Nq_ir^i$,
+\begin{align}
+  q^{\mathsf T}H_Nq
+  &=\int p_q(r)^2\,d\nu_\psi(r)\geq0,\\
+  q^{\mathsf T}L_N^\theta q
+  &=\int(\theta-r)p_q(r)^2\,d\nu_\psi(r)\geq0.
+\end{align}
+\end{proof}
+
+Passing all finite tests is only consistency.  A proof of support requires the
+whole hierarchy plus the measure/reconstruction hypotheses, or an independent
+analytic argument.  This one-sided epistemology is valuable: negative
+certificates are decisive, positive finite certificates are not terminal.
+
+\section{Rate inheritance and its converse}
+\label{sec:rate}
+
+The spectral triangle is closed.  A dissipative statement requires an
+additional interface connecting the system, the buffer, and the sink.  Let
+$M_{LR}(\ell,\omega)$ be a boundary-to-boundary amplitude at system Bohr
+frequency $\omega$, and let $\kappa_\ell(\omega)$ be the induced rate.
+
+\begin{definition}[Mediation interface]
+We say that a model has a $(\Gamma,r)$ mediation upper interface when
+\[
+  \kappa_\ell(\omega)
+  \leq\Gamma(\omega)|M_{LR}(\ell,\omega)|^2
+  +r_T(\ell,\omega),
+  \label{eq:mediation-interface}
+\]
+where $r_T$ contains the thermal floor and controlled open-system reduction
+errors.
+\end{definition}
+
+\begin{lemma}[Exponent squaring]
+\label{lem:exponent-squaring}
+If Eq.~\eqref{eq:mediation-interface} holds and
+\[
+  |M_{LR}(\ell,\omega)|
+  \leq C(\omega)(1+\ell)^p e^{-m(\omega)\ell},
+  \label{eq:amplitude-bound}
+\]
+then
+\[
+  \kappa_\ell(\omega)
+  \leq\Gamma(\omega)C(\omega)^2(1+\ell)^{2p}
+  e^{-2m(\omega)\ell}+r_T(\ell,\omega).
+  \label{eq:rate-bound}
+\]
+\end{lemma}
+
+\begin{proof}
+Square Eq.~\eqref{eq:amplitude-bound} and substitute it into
+Eq.~\eqref{eq:mediation-interface}.
+\end{proof}
+
+The lemma is intentionally simple.  It identifies the actual interacting
+frontier: proving a volume-uniform amplitude bound and a width-uniform
+open-system reduction in the presence of the sink.  Static exponential
+clustering alone does not automatically control the real-time spectral density
+or the state driven by that sink.
+
+There is a converse, but only after excluding blindness and cancellations.
+
+\begin{theorem}[Operational rate-to-gap criterion]
+\label{thm:rate-to-gap}
+Let $T$ be as in Section~\ref{sec:transfer}, and let
+$\mathcal D\subset\Omega^\perp$ be total.  Suppose that for every
+$\psi\in\mathcal D$ the measured channel obeys, for all $n$,
+\[
+  \gamma_- b_n(\psi)^2\leq\kappa_n(\psi)
+  \leq\gamma_+ b_n(\psi)^2,
+  \qquad 0<\gamma_-\leq\gamma_+<\infty,
+  \label{eq:two-sided-rate}
+\]
+and that a common $0<\rho<1$ satisfies
+\[
+  \kappa_n(\psi)\leq K_\psi\rho^{2n}
+\]
+with finite $K_\psi$.  Then $T|_{\Omega^\perp}\leq\rho$.  If
+$T=e^{-aH}$, then $H|_{\Omega^\perp}\geq-a^{-1}\log\rho$.
+\end{theorem}
+
+\begin{proof}
+The lower half of Eq.~\eqref{eq:two-sided-rate} gives
+\[
+  b_n(\psi)\leq\sqrt{K_\psi/\gamma_-}\,\rho^n.
+\]
+Proposition~\ref{prop:discrete-support} excludes transfer spectral weight above
+$\rho$ for every $\psi\in\mathcal D$.  Totality and the projection argument of
+Theorem~\ref{thm:total-family} give the operator bound.  Spectral calculus for
+$T=e^{-aH}$ gives the Hamiltonian bound.
+\end{proof}
+
+\begin{remark}[Why the hypotheses are strong]
+An upper rate bound alone cannot yield a gap: the probe may decouple from a
+gapless sector, or interference may suppress a complex amplitude.  Reflection
+positivity supplies nonnegative transfer correlations, while totality and the
+lower comparison in Eq.~\eqref{eq:two-sided-rate} eliminate the two loopholes.
+These are obligations, not consequences of observing one exponential curve.
+\end{remark}
+
+\section{A resource boundary has two horizons}
+\label{sec:horizons}
+
+Let $P_{\min}(\ell)$ be the minimum power required to maintain a target
+coherence against the induced channel, within a specified operational model.
+Thermodynamic arguments commonly provide a lower bound such as
+$P_{\min}\geq\kB T\dot C_{\rm loss}$.  A small lower bound is not an upper
+bound and therefore does not exhibit an affordable protocol.
+
+\begin{definition}[Operational horizons]
+For a power budget $P_{\max}$:
+\begin{enumerate}
+  \item the \emph{impossibility region} is where a proved lower bound on
+  $P_{\min}$ exceeds $P_{\max}$;
+  \item the \emph{affordability region} is where a constructive protocol gives
+  an upper bound on $P_{\min}$ below $P_{\max}$.
+\end{enumerate}
+The interval between the two certified regions is an epistemic, not
+necessarily physical, uncertainty region.
+\end{definition}
+
+\begin{proposition}[Two-horizon bracket]
+\label{prop:horizon-bracket}
+Assume an exactly exponential lane
+$\kappa_\ell=\kappa_0e^{-\alpha\ell}$ and a two-sided power comparison
+\[
+  a_-\kappa_\ell\leq P_{\min}(\ell)\leq a_+\kappa_\ell,
+  \qquad 0<a_-\leq a_+.
+  \label{eq:power-comparison}
+\]
+When $a_-\kappa_0>P_{\max}$, maintenance is certified impossible for
+\[
+  \ell<\ell_{\rm imp}
+  :=\frac1\alpha\log\frac{a_-\kappa_0}{P_{\max}}.
+\]
+When $a_+\kappa_0>P_{\max}$, the constructive protocol is certified affordable
+for
+\[
+  \ell\geq\ell_{\rm aff}
+  :=\frac1\alpha\log\frac{a_+\kappa_0}{P_{\max}}.
+\]
+The unresolved width is
+\[
+  \ell_{\rm aff}-\ell_{\rm imp}
+  =\frac1\alpha\log\frac{a_+}{a_-}.
+  \label{eq:horizon-width}
+\]
+\end{proposition}
+
+\begin{proof}
+Substitute the exponential rate into the lower and upper halves of
+Eq.~\eqref{eq:power-comparison} and solve the two budget inequalities.
+\end{proof}
+
+Thermal activation or bypass channels replace the asymptotic zero by a floor.
+The horizons then saturate or disappear; adding buffer no longer buys
+arbitrarily cheap isolation.  This is a physical limitation, not a proof
+failure.
+
+\section{Reflection positivity and an operational mass-gap dictionary}
+\label{sec:os}
+
+Reflection positivity can turn a Euclidean measure into a Hilbert space, a
+vacuum, and a positive transfer semigroup through the
+Osterwalder--Schrader/GNS quotient~\cite{OS1973,OS1975,FILS1978}.  In that
+setting a centered positive-time observable $A$ produces
+$\psi_A=(A-\langle A\rangle)\Omega$, and its Euclidean two-point function is
+the Laplace face of $\mu_A$.
+
+\begin{corollary}[Conditional operational consequence of a mass gap]
+\label{cor:ym-operational}
+Suppose a reflection-positive lattice theory reconstructs a Hamiltonian with
+gap $m>0$ on the vacuum-orthogonal sector.  For any gauge-invariant probe whose
+boundary mediation amplitude is bounded by the corresponding transfer
+amplitude, and whose open-system reduction satisfies
+Eq.~\eqref{eq:mediation-interface}, the induced rate has exponential part at
+most
+\[
+  \mathrm{poly}(\ell)e^{-2m\ell}
+\]
+up to lattice-spacing conventions, the thermal floor, and the reduction
+remainder.
+\end{corollary}
+
+\begin{proof}
+The gap gives the boundary-to-boundary amplitude exponent through
+Corollary~\ref{cor:offdiagonal}, provided the centered boundary vectors lie in
+$\Omega^\perp$.  Lemma~\ref{lem:exponent-squaring} gives the rate exponent.
+\end{proof}
+
+This corollary is a dictionary, not a Yang--Mills mass-gap proof.  In the
+four-dimensional problem one must still construct the continuum theory,
+establish reflection positivity and reconstruction in the required limit, prove a
+volume-uniform gap for a total gauge-invariant family, and justify the
+open-system mediation interface.  The current Eriksson Yang--Mills programme
+contains a machine-checked strong-coupling lattice core, cluster-expansion
+clustering, and explicit conditional interfaces, while keeping the continuum
+and Clay boundary open~\cite{ErikssonProgramme}.  Rooted-tree and polymer
+machinery may help control a two-boundary interacting amplitude, but abstract
+summation does not produce the model-specific activity estimate.
+
+The reverse direction is nevertheless conceptually useful.  If a
+reflection-positive theory supplies a total positive family and a two-sided
+rate identity of the form \eqref{eq:two-sided-rate}, uniform rate suppression
+becomes a gap certificate through Theorem~\ref{thm:rate-to-gap}.  The theorem
+states what would be sufficient; it does not assert that Yang--Mills currently
+satisfies those hypotheses.
+
+\section{Prime resolvents: the shared structure and its limit}
+\label{sec:riemann}
+
+The Stieltjes face of Proposition~\ref{prop:faces} also appears in spectral
+approaches to the Riemann hypothesis.  With $\xi$ the completed zeta function,
+pairing conjugate zeros in its Hadamard product gives under RH
+\cite{TitchmarshZeta}
+\[
+  \mathcal S_\Xi(x)
+  :=\frac{1}{2\sqrt{x}}\frac{\xi'}{\xi}
+      \left(\frac12+\sqrt{x}\right)
+  =\sum_{\gamma>0}\frac{1}{\gamma^2+x},
+  \qquad x>\frac14,
+  \label{eq:xi-stieltjes}
+\]
+with zeros counted by multiplicity.  The prime-resolvent
+programme~\cite{PrimeResolvent} asks whether prime-built finite operators can
+converge to that positive resolvent with explicit error budgets.
+
+The common architecture is
+\[
+  \text{positive measure}
+  \longrightarrow
+  \text{Stieltjes resolvent}
+  \longrightarrow
+  \text{moment/localizing positivity}.
+\]
+It supports a common audit method: a negative finite Hankel or localizing
+certificate can refute a proposed positive-measure or support representation,
+whereas finitely many positive certificates establish consistency only.
+
+No physical or logical equivalence follows.  In Yang--Mills, the measure is a
+spectral measure of a reconstructed Hamiltonian and the gap concerns its lower
+support on $\Omega^\perp$.  In the Riemann programme, positivity is tied to the
+location of zeta zeros and the unresolved step is the convergence/continuation
+of a prime-built resolvent.  Neither problem supplies the missing producer for
+the other.  The statement that ``the universe constructed the primes'' is not
+a mathematical consequence: primes are arithmetically defined.  What is
+mathematically meaningful is that both problems can be tested through the same
+positive-transform language.
+
+\section{Exact finite certificates and reproducibility}
+\label{sec:verification}
+
+The repository contains a deterministic generator and an independent checker
+at
+\begin{center}
+\href{https://github.com/lluiseriksson/aqft-split-inclusion-series/tree/agent/positive-spectral-resource-boundaries/verification/spectral_resource_boundary}
+{\texttt{verification/spectral\_resource\_boundary/}}.
+\end{center}
+The exact layer uses rational arithmetic.  Consider the transfer atoms
+\[
+  r=(1/2,1/3,1/5),\qquad w=(2/7,3/7,2/7).
+\]
+For the correct edge $\theta=1/2$, the localizing matrix has the explicit
+atomic Gram decomposition
+\[
+  L_2^{1/2}=\sum_k w_k(1/2-r_k)
+  (1,r_k,r_k^2)^{\mathsf T}(1,r_k,r_k^2)\succeq0.
+\]
+For the false edge $\theta=2/5$, the polynomial
+$p(r)=1-8r+15r^2$ vanishes at $1/3$ and $1/5$ but not at $1/2$.  The exact
+witness is
+\[
+  (1,-8,15)L_2^{2/5}(1,-8,15)^{\mathsf T}=-\frac9{560}<0.
+\]
+
+The continuous model has excited energies $(2,3,5)$ with the same weights.
+At $x=1$ its exact resolvent is
+\[
+  S(1)=\frac14\leq\frac13=\frac{\|\psi\|^2}{m+1},
+  \qquad m=2.
+\]
+The tracked stress test also demonstrates that the overstated gap $m=2.1$
+fails: at $t=30$ the ratio to its claimed envelope is approximately $5.739$.
+Squaring the correlation and fitting $t=20,\ldots,40$ gives the log-rate slope
+$-4.00000000012$, against the analytic value $-4$, with absolute error
+$1.20\times10^{-10}$.
+
+For the horizon example, $\alpha=4$, $P_{\max}=10^{-6}$,
+$a_-=1$, and $a_+=4$ give
+\[
+  \ell_{\rm imp}=3.45388,\qquad
+  \ell_{\rm aff}=3.80045,
+\]
+with uncertainty width $\log 4/4=0.346574$.  Table~\ref{tab:checks}
+summarizes the audit.
+
+\begin{table}[ht]
+\centering
+\caption{Deterministic verification outcomes.  ``Exact'' means rational
+arithmetic with no floating-point decisions.}
+\label{tab:checks}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Check & Arithmetic & Outcome \\
+\midrule
+$H_2$ moment positivity & exact & atomic Gram certificate \\
+$L_2^{1/2}$ support test & exact & PSD Gram certificate \\
+$L_2^{2/5}$ false edge & exact & witness $-9/560$ \\
+$S(1)\leq(m+1)^{-1}$ & exact & $1/4\leq1/3$ \\
+False gap $2.1$ & deterministic float & violated at $t=30$ \\
+Squared-rate slope & deterministic float & error $1.20\times10^{-10}$ \\
+Two-horizon ordering & deterministic float & $\ell_{\rm imp}<\ell_{\rm aff}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Run from the repository root:
+\begin{verbatim}
+python verification/spectral_resource_boundary/generate_artifacts.py --check
+python verification/spectral_resource_boundary/verify_artifact.py
+\end{verbatim}
+The JSON artifact is byte-deterministic.  Its scope is finite certification and
+toy-model falsification; it is not numerical evidence for a continuum mass gap
+or for RH.
+
+\section{Open producers and a research programme}
+\label{sec:open}
+
+The framework separates reusable consumers from model-specific producers.
+This makes the next steps testable.
+
+\paragraph{Interacting buffers.}
+Prove a two-boundary amplitude estimate in the state actually perturbed by the
+sink, not only static ground-state clustering.  A viable first target is a
+finite-range commuting chain at low temperature with a uniform mixing or
+stability estimate.  Lieb--Robinson bounds~\cite{LiebRobinson,Poulin2010} and
+gap--clustering results~\cite{HastingsKoma} control parts of the problem; the
+uniform Davies limit and sink back-reaction remain separate obligations.
+
+\paragraph{Polymer route.}
+For a weakly interacting or strong-coupling regime, introduce a two-marked
+activity whose clusters connect the protected and dissipative boundaries.  A
+source estimate
+\[
+  \sum_{\Gamma:L\leftrightarrow R}|w(\Gamma)|
+  \leq C e^{-m\ell}
+\]
+would feed the abstract rooted-tree and Koteck\'y--Preiss summation machinery.
+The hard step is the physical activity estimate, not closing the already
+abstracted geometric series.
+
+\paragraph{Reflection-positive gauge models.}
+First prove the forward statement of Corollary~\ref{cor:ym-operational} in an
+exactly controlled two-dimensional or finite transfer model.  Only then test
+which ingredients survive volume and continuum limits.  An operational
+reverse theorem requires a total gauge-invariant probe family and a uniform
+lower comparison, not a selected Wilson loop.
+
+\paragraph{Moment falsifiers.}
+Use exact or interval localizing matrices to challenge claimed transfer edges
+and resolvent support windows.  A negative certificate is a genuine finite
+obstruction.  A long sequence of positive certificates is a useful stress
+test, not a substitute for the infinite theorem.
+
+\section{Discussion}
+
+The framework clarifies four distinctions.
+
+First, a gap is not merely a fitted slope.  It is a support exclusion for a
+positive spectral measure.  The fitted slope becomes decisive only when the
+observable family is total and the correlation or rate is tied to that measure
+without blind sectors.
+
+Second, rate inheritance is not identical to clustering.  The spectral theorem
+controls Euclidean correlations; an induced dissipative rate additionally
+requires a dynamical mediation identity and control of the sink.  Once that
+interface is present, the doubled exponent is unavoidable and elementary.
+
+Third, operational classicality has two certification directions.  A power
+lower bound can certify impossibility.  Affordability needs an upper bound or a
+protocol.  Collapsing the two produces a boundary sharper than the evidence.
+
+Fourth, common mathematics is not common ontology.  Yang--Mills transfer
+spectra and prime-resolvent criteria both use positive measures and Stieltjes
+transforms.  This licenses shared lemmas, certificates, and falsification
+protocols; it does not license a physical identification of primes with field
+excitations or a logical implication between open problems.
+
+\section{Conclusion}
+
+Positive spectral measures provide a compact, auditable language for
+correlation decay, transfer gaps, resolvent positivity, and mediated rates.  A
+support edge is equivalent to a vectorwise exponential exponent; a common edge
+on a total family is an operator mass gap.  Finite moment matrices can refute
+false support claims.  A squared mediation law doubles the exponent, while a
+two-sided rate identity can, under positivity and totality, recover the gap.
+Finally, a resource boundary is generally an interval between impossibility
+and affordability horizons, not a single point read from a lower bound.
+
+The result is a theorem-and-interface architecture.  It advances the
+operational programme by closing the universal spectral layer and making every
+remaining physical producer explicit.  That is also the appropriate level at
+which the Yang--Mills and prime-resolvent programmes meet: shared positive
+spectral technology, with their hardest claims still separate and open.
+
+\section*{Acknowledgements}
+The exact certificate scripts and all numerical values in
+Section~\ref{sec:verification} are included with the source.  Computational
+assistance was used for drafting and verification; all claim boundaries and
+remaining errors are the author's responsibility.
+
+\begin{thebibliography}{99}
+
+\bibitem{Bernstein1929}
+S.~Bernstein, \emph{Sur les fonctions absolument monotones}, Acta Math.
+\textbf{52}, 1--66 (1929).
+
+\bibitem{Widder1941}
+D.~V.~Widder, \emph{The Laplace Transform}, Princeton University Press (1941).
+
+\bibitem{ReedSimon}
+M.~Reed and B.~Simon, \emph{Methods of Modern Mathematical Physics I:
+Functional Analysis}, revised edition, Academic Press (1980).
+
+\bibitem{CombesThomas}
+J.~M.~Combes and L.~Thomas, \emph{Asymptotic behaviour of eigenfunctions for
+multiparticle Schr\"odinger operators}, Commun. Math. Phys. \textbf{34},
+251--270 (1973).
+
+\bibitem{LiebRobinson}
+E.~H.~Lieb and D.~W.~Robinson, \emph{The finite group velocity of quantum spin
+systems}, Commun. Math. Phys. \textbf{28}, 251--257 (1972).
+
+\bibitem{HastingsKoma}
+M.~B.~Hastings and T.~Koma, \emph{Spectral gap and exponential decay of
+correlations}, Commun. Math. Phys. \textbf{265}, 781--804 (2006).
+
+\bibitem{Poulin2010}
+D.~Poulin, \emph{Lieb--Robinson bound and locality for general Markovian
+quantum dynamics}, Phys. Rev. Lett. \textbf{104}, 190401 (2010).
+
+\bibitem{Davies1974}
+E.~B.~Davies, \emph{Markovian master equations}, Commun. Math. Phys.
+\textbf{39}, 91--110 (1974).
+
+\bibitem{OS1973}
+K.~Osterwalder and R.~Schrader, \emph{Axioms for Euclidean Green's functions},
+Commun. Math. Phys. \textbf{31}, 83--112 (1973).
+
+\bibitem{OS1975}
+K.~Osterwalder and R.~Schrader, \emph{Axioms for Euclidean Green's functions
+II}, Commun. Math. Phys. \textbf{42}, 281--305 (1975).
+
+\bibitem{FILS1978}
+J.~Fr\"ohlich, R.~Israel, E.~H.~Lieb, and B.~Simon, \emph{Phase transitions
+and reflection positivity. I. General theory and long range lattice models},
+Commun. Math. Phys. \textbf{62}, 1--34 (1978).
+
+\bibitem{Akhiezer}
+N.~I.~Akhiezer, \emph{The Classical Moment Problem}, Oliver \& Boyd (1965).
+
+\bibitem{TitchmarshZeta}
+E.~C.~Titchmarsh, revised by D.~R.~Heath-Brown, \emph{The Theory of the Riemann
+Zeta-Function}, second edition, Oxford University Press (1986).
+
+\bibitem{Eriksson0064}
+L.~Eriksson, \emph{The Heisenberg cut as a resource boundary: an operational
+outlook from coherence maintenance costs}, ai.viXra:2512.0064v2 (2026),
+\href{https://github.com/lluiseriksson/aqft-split-inclusion-series/tree/main/papers/0064-heisenberg-cut}
+{source and verification repository}.
+
+\bibitem{Eriksson0070}
+L.~Eriksson, \emph{Stress testing the rate inheritance principle: spectral
+decoherence rates and an operational resource horizon}, ai.viXra:2512.0070v2
+(2026),
+\href{https://github.com/lluiseriksson/aqft-split-inclusion-series/tree/main/papers/0070-rate-inheritance}
+{source and verification repository}.
+
+\bibitem{ErikssonProgramme}
+L.~Eriksson, \emph{The Eriksson Programme: a Lean 4/Mathlib formalization
+toward the Yang--Mills mass gap---with honest goalposts} (2026),
+\href{https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME}
+{GitHub repository}.
+
+\bibitem{PrimeResolvent}
+L.~Eriksson, \emph{Riemann prime--resolvent programme} (2026),
+\href{https://github.com/lluiseriksson/riemann-prime-resolvent}
+{GitHub repository}.
+
+\end{thebibliography}
+
+\end{document}
