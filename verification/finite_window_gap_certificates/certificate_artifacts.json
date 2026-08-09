@@ -139,6 +139,7 @@
     ],
     "max_degree": 14,
     "first_degree_from_analytic_bound": 6,
+    "first_degree_from_robust_visibility_bound": 6,
     "first_degree_with_noise_safe_certificate": 5,
     "degrees": [
       {
@@ -150,6 +151,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 1.8e-14,
         "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.799000000000036,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.24155000000003604,
         "certificate_survives_moment_error": false
       },
       {
@@ -161,6 +165,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 1.4111999999999998e-13,
         "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.5110000000002823,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.03793274000028226,
         "certificate_survives_moment_error": false
       },
       {
@@ -172,6 +179,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 2.201356401384083e-12,
         "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.1761626297621882,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.023388336561499495,
         "certificate_survives_moment_error": false
       },
       {
@@ -183,6 +193,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 2.8270761656804735e-11,
         "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.047473372837606616,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.006345242777960976,
         "certificate_survives_moment_error": false
       },
       {
@@ -194,6 +207,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 3.3982152934942236e-10,
         "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.011402913668484676,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.0018845290202339786,
         "certificate_survives_moment_error": false
       },
       {
@@ -205,6 +221,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 4.014489670175371e-09,
         "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.002118913442423719,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": -0.0008336219425303681,
         "certificate_survives_moment_error": true
       },
       {
@@ -216,6 +235,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 4.72179640566561e-08,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.00021903689414552385,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0008973243487152635,
         "certificate_survives_moment_error": true
       },
       {
@@ -227,6 +249,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 5.547628964422043e-07,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.0008036018138824161,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0009515825063221257,
         "certificate_survives_moment_error": true
       },
       {
@@ -238,6 +263,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 6.516108347125851e-06,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.0009381411483877623,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0009815454946956136,
         "certificate_survives_moment_error": true
       },
       {
@@ -249,6 +277,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 7.653134885010447e-05,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.0008347303641815157,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0008454149487987316,
         "certificate_survives_moment_error": true
       },
       {
@@ -260,7 +291,10 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 0.0008988412260794187,
         "analytic_bound_detects_outlier": true,
-        "certificate_survives_moment_error": true
+        "robust_visibility_certificate_upper_bound": 0.0008007342041505797,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.0007981977054419215,
+        "certificate_survives_moment_error": false
       },
       {
         "degree": 11,
@@ -271,6 +305,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 0.010556616271101191,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 0.02011399548129171,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.02011276601851037,
         "certificate_survives_moment_error": false
       },
       {
@@ -282,6 +319,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 0.12398410786860407,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 0.24696840647204868,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.24696574607835653,
         "certificate_survives_moment_error": false
       },
       {
@@ -293,6 +333,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 1.4561536088934623,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 2.911307265470639,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 2.9112603456479476,
         "certificate_survives_moment_error": false
       },
       {
@@ -304,6 +347,9 @@
         "componentwise_moment_error": 1e-14,
         "worst_case_polynomial_error_radius": 17.102056279324316,
         "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 34.20311257056956,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 34.202674966142226,
         "certificate_survives_moment_error": false
       }
     ]

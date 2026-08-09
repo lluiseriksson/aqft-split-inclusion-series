@@ -105,6 +105,7 @@ def chebyshev_visibility_test(
 
     rows: list[dict[str, object]] = []
     first_analytic_degree = None
+    first_robust_visibility_degree = None
     first_noise_safe_degree = None
     for degree in range(max_degree + 1):
         basis = Chebyshev.basis(degree, domain=[0.0, theta])
@@ -123,9 +124,14 @@ def chebyshev_visibility_test(
             np.sum(np.abs(coefficients)) ** 2
         )
         analytic_detects = analytic_upper_bound < 0.0
-        noise_safe = exact_localizer + error_radius < 0.0
+        robust_visibility_upper_bound = analytic_upper_bound + 2.0 * error_radius
+        realized_measure_upper_bound = exact_localizer + 2.0 * error_radius
+        robust_visibility_detects = robust_visibility_upper_bound < 0.0
+        noise_safe = realized_measure_upper_bound < 0.0
         if analytic_detects and first_analytic_degree is None:
             first_analytic_degree = degree
+        if robust_visibility_detects and first_robust_visibility_degree is None:
+            first_robust_visibility_degree = degree
         if noise_safe and first_noise_safe_degree is None:
             first_noise_safe_degree = degree
         rows.append(
@@ -138,6 +144,9 @@ def chebyshev_visibility_test(
                 "componentwise_moment_error": moment_error,
                 "worst_case_polynomial_error_radius": error_radius,
                 "analytic_bound_detects_outlier": analytic_detects,
+                "robust_visibility_certificate_upper_bound": robust_visibility_upper_bound,
+                "robust_visibility_bound_detects_outlier": robust_visibility_detects,
+                "realized_measure_certificate_upper_bound": realized_measure_upper_bound,
                 "certificate_survives_moment_error": noise_safe,
             }
         )
@@ -150,6 +159,7 @@ def chebyshev_visibility_test(
         "weights": weights.tolist(),
         "max_degree": max_degree,
         "first_degree_from_analytic_bound": first_analytic_degree,
+        "first_degree_from_robust_visibility_bound": first_robust_visibility_degree,
         "first_degree_with_noise_safe_certificate": first_noise_safe_degree,
         "degrees": rows,
     }

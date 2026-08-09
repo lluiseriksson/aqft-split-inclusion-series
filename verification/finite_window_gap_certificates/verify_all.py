@@ -44,6 +44,7 @@ def check_exact_artifacts() -> None:
 
     cheb = data["chebyshev_visibility"]
     require(cheb["first_degree_from_analytic_bound"] == 6, "analytic degree changed")
+    require(cheb["first_degree_from_robust_visibility_bound"] == 6, "robust visibility degree changed")
     require(cheb["first_degree_with_noise_safe_certificate"] == 5, "noise-safe degree changed")
 
 

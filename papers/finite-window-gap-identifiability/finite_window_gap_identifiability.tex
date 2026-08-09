@@ -216,8 +216,10 @@ then $\K_N=\K_{N+1}$, the space $\K_N$ is invariant under $T$, and
 \end{equation}
 The finite generalized pencil $(G_N,H_N)$ on the quotient by $\ker H_N$
 recovers the complete visible spectrum, with multiplicities in the cyclic
-representation.  If in addition $\K_V=\K$, the recovered edge certifies the
-full gap $m=-\log\rho_N$.
+representation.  If in addition $\K_V=\K$ and $T=e^{-aH}$ on the excitation
+space, the recovered edge certifies the full gap
+$m=-a^{-1}\log\rho_N$ (with the usual extended-value convention at
+$\rho_N=0$).
 \end{theorem}
 
 \begin{proof}
@@ -286,7 +288,7 @@ $\|B_n^{(w)}-B_n\|\leq w$.
 Since $0\leq x^n\leq1$ on $[0,1]$, one has $0\leq m_n\leq1$.
 Equation~\eqref{eq:hiddenbound} follows by direct subtraction.  The added atom
 places positive spectral mass at $x=1$, so the support edge is one and
-$-\log1=0$.  Choose any $w\leq\eps$.  The matrix statement is identical after
+$-\log1=0$.  Choose any $0<w\leq\min\{\eps,1\}$.  The matrix statement is identical after
 replacing scalar order by Loewner order.
 \end{proof}
 
@@ -450,7 +452,7 @@ Therefore
 is a rigorous noisy-data falsifier of support in $[0,\theta]$.  Under the
 visibility alternative, the sufficient worst-case condition
 \begin{equation}
- \theta\alpha_N^2-\delta\gamma+R_N<0                  \label{eq:robustdepth}
+ \theta\alpha_N^2-\delta\gamma+2R_N<0                 \label{eq:robustdepth}
 \end{equation}
 guarantees detection for every admissible error realization.
 \end{proposition}
@@ -459,7 +461,10 @@ guarantees detection for every admissible error realization.
 If $p_N^2=\sum_{k=0}^{2N}b_kx^k$, then
 $Q_N=\theta\sum b_km_k-\sum b_km_{k+1}$.  Hence the error is at most
 $(1+\theta)\eps\sum|b_k|$.  Convolution gives
-$\sum|b_k|\leq(\sum|a_j|)^2$.  The sign and worst-case conclusions follow.
+$\sum|b_k|\leq(\sum|a_j|)^2$.  Under the visibility alternative,
+$\widetilde Q_N+R_N\leq Q_N+2R_N\leq
+\theta\alpha_N^2-\delta\gamma+2R_N$, which proves the stated worst-case
+condition.
 \end{proof}
 
 Power-basis coefficients can grow rapidly.  Thus increasing $N$ is not
