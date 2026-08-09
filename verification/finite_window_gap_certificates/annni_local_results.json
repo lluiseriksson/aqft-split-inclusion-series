@@ -1,0 +1,498 @@
+{
+  "model": "open-boundary quantum ANNNI chain",
+  "convention": "H=-J1 sum ZZ-J2 sum Z_i Z_(i+2)-hx sum X",
+  "results": [
+    {
+      "length": 6,
+      "parameters": {
+        "j1": 1.0,
+        "j2": 0.37,
+        "hx": 2.2,
+        "tau": 0.2
+      },
+      "energies": [
+        -13.971087973293589,
+        -11.886501722566123,
+        -10.404711075059401,
+        -9.139089354093814,
+        -8.439703758585722,
+        -8.352758229213247
+      ],
+      "low_state_parities": [
+        1.0000000000000016,
+        -0.999999999999998,
+        -1.0000000000000004,
+        -0.9999999999999974,
+        0.9999999999999979,
+        -1.0000000000000004
+      ],
+      "probe_overlap_weights": {
+        "rows_are_excited_states_1_to_5": [
+          [
+            3.387472616114028e-31,
+            0.45160291042812745
+          ],
+          [
+            2.801017417755246e-32,
+            0.042844101991136564
+          ],
+          [
+            1.7985992546323958e-32,
+            0.13791205082904773
+          ],
+          [
+            0.03820768035408942,
+            5.695594682585292e-28
+          ],
+          [
+            1.2053007270662936e-27,
+            0.056850960561432747
+          ]
+        ],
+        "columns": [
+          "X_center_even",
+          "Z_center_odd"
+        ]
+      },
+      "true_gap": 2.0845862507274653,
+      "true_transfer_edge": 0.6590754560857608,
+      "false_gap_factor": 1.35,
+      "false_gap_claim": 2.8141914384820783,
+      "claimed_transfer_edge": 0.5695901068105761,
+      "finite_window": [
+        {
+          "degree": 0,
+          "x_only_ritz": 0.19964659252978043,
+          "block_ritz": 0.48080003864107973,
+          "x_only_hankel_rank": 1,
+          "block_hankel_rank": 2,
+          "x_only_false_gap_localizer_min": 0.06557260695465472,
+          "block_false_gap_localizer_min": 0.06557260695465472
+        },
+        {
+          "degree": 1,
+          "x_only_ritz": 0.31113667470837153,
+          "block_ritz": 0.6500273266131036,
+          "x_only_hankel_rank": 2,
+          "block_hankel_rank": 4,
+          "x_only_false_gap_localizer_min": 0.0002908481962625997,
+          "block_false_gap_localizer_min": -0.006340217690951305
+        },
+        {
+          "degree": 2,
+          "x_only_ritz": 0.3286895465100942,
+          "block_ritz": 0.6575109292378856,
+          "x_only_hankel_rank": 3,
+          "block_hankel_rank": 6,
+          "x_only_false_gap_localizer_min": 1.2582987119079935e-06,
+          "block_false_gap_localizer_min": -0.01271485264848536
+        },
+        {
+          "degree": 3,
+          "x_only_ritz": 0.33045817770995617,
+          "block_ritz": 0.6588706183759357,
+          "x_only_hankel_rank": 4,
+          "block_hankel_rank": 8,
+          "x_only_false_gap_localizer_min": 4.121937943280234e-09,
+          "block_false_gap_localizer_min": -0.016472070655100722
+        },
+        {
+          "degree": 4,
+          "x_only_ritz": 0.33072755319808,
+          "block_ritz": 0.6590638210737604,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 10,
+          "x_only_false_gap_localizer_min": 1.677742303349774e-11,
+          "block_false_gap_localizer_min": -0.018328860027708685
+        },
+        {
+          "degree": 5,
+          "x_only_ritz": 0.330736194010908,
+          "block_ritz": 0.6590751465151217,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 6.348417789585523e-14,
+          "block_false_gap_localizer_min": -0.0191866585848459
+        },
+        {
+          "degree": 6,
+          "x_only_ritz": 0.3307396568382348,
+          "block_ritz": 0.659075266568949,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 1.0365726236777516e-16,
+          "block_false_gap_localizer_min": -0.019571390785432984
+        }
+      ]
+    },
+    {
+      "length": 8,
+      "parameters": {
+        "j1": 1.0,
+        "j2": 0.37,
+        "hx": 2.2,
+        "tau": 0.2
+      },
+      "energies": [
+        -18.707605849168345,
+        -16.850125449833985,
+        -15.719715028007085,
+        -14.578889781757082,
+        -13.930820978135332,
+        -13.679372145979597
+      ],
+      "low_state_parities": [
+        1.0000000000000004,
+        -1.0000000000000027,
+        -1.0000000000000004,
+        -0.9999999999999976,
+        0.9999999999999983,
+        -1.000000000000002
+      ],
+      "probe_overlap_weights": {
+        "rows_are_excited_states_1_to_5": [
+          [
+            4.26142092851057e-32,
+            0.3973348275102584
+          ],
+          [
+            7.52316384526264e-33,
+            0.02451658602349657
+          ],
+          [
+            1.0653552321276425e-30,
+            0.15749227875312113
+          ],
+          [
+            0.02507690278415056,
+            3.774822690998982e-32
+          ],
+          [
+            4.6643522553396687e-29,
+            0.054442326700748805
+          ]
+        ],
+        "columns": [
+          "X_center_even",
+          "Z_center_odd"
+        ]
+      },
+      "true_gap": 1.85748039933436,
+      "true_transfer_edge": 0.6897017095463487,
+      "false_gap_factor": 1.35,
+      "false_gap_claim": 2.5075985391013864,
+      "claimed_transfer_edge": 0.6056096103660421,
+      "finite_window": [
+        {
+          "degree": 0,
+          "x_only_ritz": 0.2077610060770842,
+          "block_ritz": 0.4851290007146834,
+          "x_only_hankel_rank": 1,
+          "block_hankel_rank": 2,
+          "x_only_false_gap_localizer_min": 0.07443675051519369,
+          "block_false_gap_localizer_min": 0.07443675051519369
+        },
+        {
+          "degree": 1,
+          "x_only_ritz": 0.3422382208821652,
+          "block_ritz": 0.6735267845950907,
+          "x_only_hankel_rank": 2,
+          "block_hankel_rank": 4,
+          "x_only_false_gap_localizer_min": 0.00037955297216948425,
+          "block_false_gap_localizer_min": -0.004746253549229878
+        },
+        {
+          "degree": 2,
+          "x_only_ritz": 0.37885939973771715,
+          "block_ritz": 0.687430919825933,
+          "x_only_hankel_rank": 3,
+          "block_hankel_rank": 6,
+          "x_only_false_gap_localizer_min": 2.986194700564114e-06,
+          "block_false_gap_localizer_min": -0.010121524760803203
+        },
+        {
+          "degree": 3,
+          "x_only_ritz": 0.384003400978323,
+          "block_ritz": 0.6892929684437152,
+          "x_only_hankel_rank": 4,
+          "block_hankel_rank": 8,
+          "x_only_false_gap_localizer_min": 1.5069704373218572e-08,
+          "block_false_gap_localizer_min": -0.013694797000943573
+        },
+        {
+          "degree": 4,
+          "x_only_ritz": 0.38453269121997,
+          "block_ritz": 0.689639697929321,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 10,
+          "x_only_false_gap_localizer_min": 6.837829642482653e-11,
+          "block_false_gap_localizer_min": -0.015665040273323896
+        },
+        {
+          "degree": 5,
+          "x_only_ritz": 0.38455134064428964,
+          "block_ritz": 0.6896950717460629,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 3.4080887755584087e-13,
+          "block_false_gap_localizer_min": -0.016672954532426582
+        },
+        {
+          "degree": 6,
+          "x_only_ritz": 0.3845603366288509,
+          "block_ritz": 0.6896977880173399,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 1.3619336842001893e-15,
+          "block_false_gap_localizer_min": -0.017171508501425212
+        }
+      ]
+    },
+    {
+      "length": 10,
+      "parameters": {
+        "j1": 1.0,
+        "j2": 0.37,
+        "hx": 2.2,
+        "tau": 0.2
+      },
+      "energies": [
+        -23.44432243303772,
+        -21.722602984674143,
+        -20.83830098295118,
+        -19.856820295484276,
+        -19.159160543075473,
+        -18.982565626618992
+      ],
+      "low_state_parities": [
+        0.9999999999999987,
+        -1.0000000000000013,
+        -1.0000000000000022,
+        -1.0000000000000013,
+        1.0000000000000004,
+        -0.9999999999999996
+      ],
+      "probe_overlap_weights": {
+        "rows_are_excited_states_1_to_5": [
+          [
+            9.750020343460382e-34,
+            0.35389758500479684
+          ],
+          [
+            9.058566354442292e-32,
+            0.015818885960409628
+          ],
+          [
+            3.478710962049445e-33,
+            0.1621953142189118
+          ],
+          [
+            0.016710621334489292,
+            9.611846425530264e-28
+          ],
+          [
+            2.7215827619277508e-28,
+            0.03712205592036682
+          ]
+        ],
+        "columns": [
+          "X_center_even",
+          "Z_center_odd"
+        ]
+      },
+      "true_gap": 1.7217194483635758,
+      "true_transfer_edge": 0.7086851766266662,
+      "false_gap_factor": 1.35,
+      "false_gap_claim": 2.3243212552908274,
+      "claimed_transfer_edge": 0.6282203796533276,
+      "finite_window": [
+        {
+          "degree": 0,
+          "x_only_ritz": 0.21129595211569868,
+          "block_ritz": 0.4867623252589558,
+          "x_only_hankel_rank": 1,
+          "block_hankel_rank": 2,
+          "x_only_false_gap_localizer_min": 0.07951891860356823,
+          "block_false_gap_localizer_min": 0.07951891860356823
+        },
+        {
+          "degree": 1,
+          "x_only_ritz": 0.3591429089068755,
+          "block_ritz": 0.684411938062165,
+          "x_only_hankel_rank": 2,
+          "block_hankel_rank": 4,
+          "x_only_false_gap_localizer_min": 0.00043305572607423275,
+          "block_false_gap_localizer_min": -0.0036545782868204007
+        },
+        {
+          "degree": 2,
+          "x_only_ritz": 0.4120478272865888,
+          "block_ritz": 0.705133127643478,
+          "x_only_hankel_rank": 3,
+          "block_hankel_rank": 6,
+          "x_only_false_gap_localizer_min": 4.2535258558346225e-06,
+          "block_false_gap_localizer_min": -0.0081885793945701
+        },
+        {
+          "degree": 3,
+          "x_only_ritz": 0.4228450397310246,
+          "block_ritz": 0.7081129350904941,
+          "x_only_hankel_rank": 4,
+          "block_hankel_rank": 8,
+          "x_only_false_gap_localizer_min": 3.078196325634424e-08,
+          "block_false_gap_localizer_min": -0.011458958579113932
+        },
+        {
+          "degree": 4,
+          "x_only_ritz": 0.4241673760656691,
+          "block_ritz": 0.7085359007721918,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 10,
+          "x_only_false_gap_localizer_min": 1.8606924146630806e-10,
+          "block_false_gap_localizer_min": -0.01339938478990106
+        },
+        {
+          "degree": 5,
+          "x_only_ritz": 0.4242076945672111,
+          "block_ritz": 0.7086507173714421,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 9.395629505909785e-13,
+          "block_false_gap_localizer_min": -0.01446123374125982
+        },
+        {
+          "degree": 6,
+          "x_only_ritz": 0.4242276877041328,
+          "block_ritz": 0.7086640651373226,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 6.214942869980208e-15,
+          "block_false_gap_localizer_min": -0.015020987004074976
+        }
+      ]
+    },
+    {
+      "length": 12,
+      "parameters": {
+        "j1": 1.0,
+        "j2": 0.37,
+        "hx": 2.2,
+        "tau": 0.2
+      },
+      "energies": [
+        -28.181077421635734,
+        -26.547497245935862,
+        -25.83831500060586,
+        -24.999866625998727,
+        -24.23297833143527,
+        -24.19625153665652
+      ],
+      "low_state_parities": [
+        1.0000000000000009,
+        -0.999999999999997,
+        -0.9999999999999984,
+        -0.9999999999999993,
+        1.0000000000000024,
+        -1.0000000000000022
+      ],
+      "probe_overlap_weights": {
+        "rows_are_excited_states_1_to_5": [
+          [
+            4.299758971466028e-31,
+            0.31836857183338824
+          ],
+          [
+            9.487680097012228e-31,
+            0.010832329994078132
+          ],
+          [
+            4.26142092851057e-32,
+            0.16251802232765716
+          ],
+          [
+            0.011414061146517579,
+            2.6916736043369766e-26
+          ],
+          [
+            3.469099996857235e-27,
+            0.0268828404440582
+          ]
+        ],
+        "columns": [
+          "X_center_even",
+          "Z_center_odd"
+        ]
+      },
+      "true_gap": 1.6335801756998727,
+      "true_transfer_edge": 0.7212885345461837,
+      "false_gap_factor": 1.35,
+      "false_gap_claim": 2.205333237194828,
+      "claimed_transfer_edge": 0.6433498275257191,
+      "finite_window": [
+        {
+          "degree": 0,
+          "x_only_ritz": 0.21282820990538923,
+          "block_ritz": 0.4874071806863058,
+          "x_only_hankel_rank": 1,
+          "block_hankel_rank": 2,
+          "x_only_false_gap_localizer_min": 0.08272101855330324,
+          "block_false_gap_localizer_min": 0.08272101855330324
+        },
+        {
+          "degree": 1,
+          "x_only_ritz": 0.3679879014076479,
+          "block_ritz": 0.6894014415926849,
+          "x_only_hankel_rank": 2,
+          "block_hankel_rank": 4,
+          "x_only_false_gap_localizer_min": 0.00046524956644327167,
+          "block_false_gap_localizer_min": -0.002853633481696139
+        },
+        {
+          "degree": 2,
+          "x_only_ritz": 0.43292519538063556,
+          "block_ritz": 0.7156804482650937,
+          "x_only_hankel_rank": 3,
+          "block_hankel_rank": 6,
+          "x_only_false_gap_localizer_min": 5.007410485438819e-06,
+          "block_false_gap_localizer_min": -0.006689224208376208
+        },
+        {
+          "degree": 3,
+          "x_only_ritz": 0.450493023005308,
+          "block_ritz": 0.7203841915006337,
+          "x_only_hankel_rank": 4,
+          "block_hankel_rank": 8,
+          "x_only_false_gap_localizer_min": 4.5521243939362585e-08,
+          "block_false_gap_localizer_min": -0.009631892371862847
+        },
+        {
+          "degree": 4,
+          "x_only_ritz": 0.453496599462128,
+          "block_ritz": 0.7210932854110413,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 10,
+          "x_only_false_gap_localizer_min": 3.622356200109471e-10,
+          "block_false_gap_localizer_min": -0.01147353646693729
+        },
+        {
+          "degree": 5,
+          "x_only_ritz": 0.4536081217610337,
+          "block_ritz": 0.7212096909577834,
+          "x_only_hankel_rank": 5,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 2.3707802472125607e-12,
+          "block_false_gap_localizer_min": -0.012531024622206309
+        },
+        {
+          "degree": 6,
+          "x_only_ritz": 0.4539198313099714,
+          "block_ritz": 0.7212319136509083,
+          "x_only_hankel_rank": 6,
+          "block_hankel_rank": 11,
+          "x_only_false_gap_localizer_min": 1.223471796866095e-14,
+          "block_false_gap_localizer_min": -0.013114071004411802
+        }
+      ]
+    }
+  ]
+}
