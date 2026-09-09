@@ -1,5 +1,8 @@
 # AQFT / Operational Coherence Series — five v2 papers + exact verification suites
 
+<!-- RESEARCH-UPDATE-2026-09-09 -->
+> **Research update · 9 September 2026:** [verified source cards, limits and next experiments](research/updates/2026-09-09.md) · [machine-readable dossier](research/updates/2026-09-09.json).
+
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
 Five companion papers that cite one another (ai.viXra 2512 series), each at

@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0",
+  "reviewed_on": "2026-09-09",
+  "window": {
+    "start": "2026-09-03",
+    "end": "2026-09-09",
+    "calendar_week_start": "2026-09-07"
+  },
+  "coverage": "targeted, non-exhaustive",
+  "repository_card": {
+    "repository": "lluiseriksson/aqft-split-inclusion-series",
+    "source_ids": [
+      "2609.02865",
+      "2609.09033",
+      "2609.04905",
+      "2608.31001"
+    ],
+    "local_anchors": [
+      "README.md",
+      "papers/0060-clustering-recovery",
+      "papers/0061-maintenance-work",
+      "papers/0070-rate-inheritance"
+    ],
+    "frontier": "The v2 series distinguishes conditional reattachment from Petz recovery, explicit maintenance baselines and Davies-locality limitations.",
+    "bridge_hypothesis": "Place no-disentangler quantifiers beside the code-restricted recovery claim, and collision-model work beside the battery-accounted maintenance theorem. Universal state coverage is lost when restricting to a code; physical reset resources are lost when a bath map is treated as free.",
+    "next_finite_task": "Write the input class, reference system, channel uniformity and trace-distance error in one table. For a two-qubit collision cycle compute system, ancilla and reset work separately before comparing with the maintenance bound.",
+    "falsifier": "Reject any contradiction with no-disentanglers unless universal coverage holds. Reject a power-floor comparison if ancilla resetting or the baseline-achievability assumption is omitted.",
+    "related_repositories": [
+      "additive-gkls-leaky-boundary",
+      "support-leakage-rapid-maintenance",
+      "many-body-filling-maintenance-floor"
+    ],
+    "proposal_status": "speculative; not executed or formally verified",
+    "eliminated_hypotheses": [],
+    "inspected_commit": "078c39aefbd3b9a2e81ce1b02b2769f6f10716f1"
+  },
+  "sources": [
+    {
+      "id": "arxiv:2609.02865",
+      "arxiv_id": "2609.02865",
+      "title": "A quantum oracle separation between QMA(2) and QMA",
+      "authors": [
+        "Bostanci, John",
+        "Grewal, Sabee",
+        "Haferkamp, Jonas",
+        "Huang, Andrew",
+        "Hwang, Yeongwoo",
+        "Natarajan, Anand",
+        "Nirkhe, Chinmay"
+      ],
+      "first_submitted": "2026-09-02",
+      "latest_revision": "2026-09-02",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.02865v1",
+      "doi": "10.48550/arXiv.2609.02865",
+      "verified_on": "2026-09-09",
+      "recency": "background",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "Abstract and submission history",
+      "source_claim": "Bostanci and collaborators report a quantum-oracle separation of QMA(2) from QMA and derive exponential input-size requirements for approximate disentanglers with total error below one.",
+      "limits": "Oracle separation is not an unrelativized class separation. Universal coverage of separable states is much stronger than recovery of one reference state or a restricted code. First posted 2 September.",
+      "tags": [
+        "quantum-information",
+        "complexity",
+        "oracle",
+        "recovery"
+      ],
+      "abstract_page_sha256": "5dbfd3097348097f9b5481637c66edaf74372f5bdbf9a6cc304b500614a761e2",
+      "reviewed_full_text_sha256": "4116752d155e1cfb96cd5535960cd139c6c42ba1f7038e71d635c2dc6f10b12e",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2609.09033",
+      "arxiv_id": "2609.09033",
+      "title": "Semidefinite extension complexity of the separable set, with applications to approximate disentanglers",
+      "authors": [
+        "Gharibian, Sevag",
+        "Hecht, Carsten",
+        "Rudolph, Dorian"
+      ],
+      "first_submitted": "2026-09-08",
+      "latest_revision": "2026-09-08",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.09033v1",
+      "doi": "10.48550/arXiv.2609.09033",
+      "verified_on": "2026-09-09",
+      "recency": "new-this-calendar-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v1: introduction, Theorem 1.1, Corollary 1.2, Section 3 and formalization links",
+      "source_claim": "Gharibian, Hecht and Rudolph give dimension- and accuracy-dependent lower bounds for semidefinite representations of separable-state optimization in the HNW model. The paper links a companion Lean development.",
+      "limits": "The common feasible region and objective-independent embedding are essential. This is not a lower bound for every SDP or for unrestricted SAT circuits. The paper credits a stronger concurrent disentangler result to Bostanci et al.; its SDP result has a distinct scope. External Lean proofs were not rebuilt here.",
+      "tags": [
+        "sdp",
+        "complexity",
+        "quantum-information",
+        "positivity"
+      ],
+      "abstract_page_sha256": "6704d827f366629248a30d0017209930487fcadf51ade39e2b38c4181d311fb4",
+      "reviewed_full_text_sha256": "c19e3f8ed52b8ad1283d56f96ad826d54d779a5a0be161402de83465ff7b563b",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2609.04905",
+      "arxiv_id": "2609.04905",
+      "title": "Ancilla mediated steady-state engineering in open quantum systems",
+      "authors": [
+        "Pal, Soham",
+        "Hovhannisyan, Karen",
+        "Porat, Omri",
+        "Dutta, Shovan",
+        "Anders, Janet",
+        "Knowles, Helena"
+      ],
+      "first_submitted": "2026-09-04",
+      "latest_revision": "2026-09-04",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.04905v1",
+      "doi": "10.48550/arXiv.2609.04905",
+      "verified_on": "2026-09-09",
+      "recency": "new-in-trailing-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v1: protocol and thermodynamic accounting",
+      "source_claim": "An NV-centre ancilla experiment implements collision-model reservoir engineering, including anti-thermalization and a steady-state quantum battery. Work, heat and coherence are tracked per collision.",
+      "limits": "Pulsed interactions and ancilla resets need not define the same fixed additive GKLS control class. A mixed steady-state battery is not exact maintenance of a rank-deficient target at zero reset cost.",
+      "tags": [
+        "lindblad",
+        "control",
+        "thermodynamics",
+        "collision-models"
+      ],
+      "abstract_page_sha256": "c93bf40d0379025e5b692f5970c1daf5b4ad4721fcb80e1ce5f983e8c6c454f7",
+      "reviewed_full_text_sha256": "6177b0f0f4887a3f8f598104b23a15fbac0623be1e8676ce2026d34208f0d90f",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2608.31001",
+      "arxiv_id": "2608.31001",
+      "title": "Work Extraction Across a Thermodynamic Hierarchy in Quantum Many-Body Systems",
+      "authors": [
+        "Hokkyo, Akihiro",
+        "Ueda, Masahito"
+      ],
+      "first_submitted": "2026-08-31",
+      "latest_revision": "2026-08-31",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2608.31001v1",
+      "doi": "10.48550/arXiv.2608.31001",
+      "verified_on": "2026-09-09",
+      "recency": "background",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "Abstract and submission history",
+      "source_claim": "Hokkyo and Ueda formulate a hierarchy of allowed operations for work extraction and bound additional work through differences of entropy densities or mutual-information density.",
+      "limits": "An extraction advantage is not an achievable maintenance-power baseline. Specify spatial access, control duration and connectivity. First posted 31 August.",
+      "tags": [
+        "thermodynamics",
+        "locality",
+        "mutual-information"
+      ],
+      "abstract_page_sha256": "2b4d3c17345aff8f12d0596945341e101914d7a9dc3457b32e5763e5bd5387d7",
+      "reviewed_full_text_sha256": null,
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    }
+  ]
+}
