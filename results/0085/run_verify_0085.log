@@ -1,0 +1,6 @@
+A. min(-logF - (1-F)) over (0,1] = -0.000e+00  (>=0 required): HOLDS
+B. omega=0 witness rate R_opt vs distance eps (k = j0 - eps):
+   eps=1: R_opt=0.13465
+   eps=2: R_opt=0.08855
+   eps=3: R_opt=0.06843
+   monotone decreasing (upper envelope decays): YES

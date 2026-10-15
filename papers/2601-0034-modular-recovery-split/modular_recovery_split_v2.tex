@@ -1,0 +1,283 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Modular Recovery from Split Inclusions\\
+{\large A B-minimal bridge from QFT collar geometry to approximate state
+reconstruction}\\
+{\normalsize Version 2}}
+\author{Lluis Eriksson\\ Independent Researcher\\ \texttt{lluiseriksson@gmail.com}}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In algebraic quantum field theory (AQFT), local algebras are typically
+Type III factors, so density matrices and von Neumann entropies are
+unavailable for bounded regions. We formulate a B-minimal continuum analog
+of the lattice ``collar $\Rightarrow$ Markovness $\Rightarrow$ recovery''
+mechanism by combining: (i) the split property as the mathematical
+replacement of a buffer (collar), (ii) Araki relative entropy to define a
+split-regularized conditional mutual information $I^{\mathcal{N}}_\omega
+(A:C|B)$ relative to fixed Type I interpolating data $\mathcal{N}$, and
+(iii) modular/twirled Petz recovery as an explicit candidate recovery
+channel. Assuming an FR-type recoverability inequality in the fixed-split
+setting, we obtain quantitative recovery bounds in a fidelity-based error
+metric (purified distance). We conclude with a conditional holographic
+remark. \emph{v2 corrects the fidelity-convention factor in the assumed
+FR-type inequality:} with the squared (Bures/Uhlmann-squared) convention
+used throughout, the importable finite-dimensional motivation gives
+$-\log F_B \le I$, not $-\log F_B \le \tfrac12 I$; v1's half-form is
+strictly stronger than its motivation and is refuted as a
+finite-dimensional anchor on 40/40 random tripartite states (the corrected
+form holds on 40/40) -- the same factor-2 correction applied in 2512.0101
+v2 and 2601.0020 v2. The recovery theorem's constant changes by $\sqrt2$;
+the exponent is unaffected. v2 further adds series positioning, a
+compatibility remark with the split-regularized CMI of 2601.0020, a
+concrete demonstration that $I^{\mathcal{N}}$ can be negative for
+unfavorable split data -- nonnegativity of $I^{\mathcal{N}}$ is part of
+the good-split-data regime, not automatic -- and a finite-dimensional
+verification suite for every checkable ingredient of the dictionary.
+\end{abstract}
+
+\section{Introduction}
+In finite-dimensional quantum systems, small conditional mutual
+information (CMI) implies approximate recoverability \cite{FR}. In
+continuum QFT, local algebras are typically Type III \cite{Haag,
+Yngvason}: no density matrices, no finite von Neumann entropies for
+bounded regions. This note provides a minimal framework importing the
+CMI$\Rightarrow$recovery mechanism into AQFT, with the dictionary:
+collar/buffer $\rightsquigarrow$ split property; von Neumann entropy
+$\rightsquigarrow$ Araki relative entropy; Petz/twirled Petz
+$\rightsquigarrow$ modular (twirled) Petz channel. The CMI here is
+split-regularized relative to fixed Type I interpolating data
+$\mathcal{N}$, and the FR-type bound is an \emph{assumption}: the
+contribution is a clean continuum dictionary separating geometric input
+(control of $I^{\mathcal{N}}_\omega$) from information-theoretic input
+(recoverability), not a universal Type III recovery theorem.
+
+\paragraph{Series positioning (added in v2).} This note is the Type III
+capstone of the clustering--recovery program: it is the target of the
+conjectural sections of 2512.0060 (Conj.~5.1) \cite{S0060}, 2512.0101
+(Conj.~1, CMI route, whose v2 fixes the same factor corrected here)
+\cite{S0101}, 2601.0007 (Conj.~8.1 and its Type III roadmap via
+noncommutative $L^p$) \cite{S0007}, and 2601.0031 (Conj.~6.4)
+\cite{S0031}. The companion 2601.0020 \cite{S0020} defines a
+split-regularized CMI by a complementary route; see
+Remark~\ref{rem:compat}.
+
+\section{Preliminaries}
+We assume a local net $\mathcal{O} \mapsto \mathcal{A}(\mathcal{O})
+\subset \mathcal{B}(\mathcal{H})$ with isotony and locality \cite{Haag,
+BR}; for bounded regions the algebras are typically Type III$_1$
+\cite{Yngvason}, so ``discarding $C$'' is restriction $\omega_{AB} :=
+\omega_{ABC}|_{\mathcal{A}_{AB}}$. An inclusion $\mathcal{M}_1 \subset
+\mathcal{M}_2$ is \emph{split} if there is a Type I factor $\mathcal{N}$
+with $\mathcal{M}_1 \subset \mathcal{N} \subset \mathcal{M}_2$
+\cite{DL, BW}; the interpolating factor is not unique, and we fix one
+choice wherever split is invoked (superscript $\mathcal{N}$). Araki
+relative entropy $S(\omega\|\varphi)$ is defined via relative modular
+operators \cite{Araki1, Araki2}; $F_B(\omega, \varphi) \in [0,1]$ denotes
+Bures fidelity in the \emph{squared} convention (in Type I it reduces to
+Uhlmann fidelity squared, $\|\sqrt\rho\sqrt\sigma\|_1^2$), and the
+purified distance is $P(\omega,\varphi) := \sqrt{1 - F_B(\omega,
+\varphi)}$.
+
+\section{Split-regularized conditional mutual information}
+Fix a tripartition $A$--$B$--$C$ with collar $B$ and a normal faithful
+$\omega \in S(\mathcal{A}_{ABC})$.
+\begin{assumption}[Fixed split data $\mathcal{N}$]
+\label{ass:split}
+The collar geometry supports split inclusions inducing fixed
+identifications $\mathcal{A}_{AB} \cong \mathcal{A}_A \bar\otimes
+\mathcal{A}_B$ and $\mathcal{A}_{ABC} \cong \mathcal{A}_A \bar\otimes
+\mathcal{A}_{BC}$; the totality of fixed choices is denoted $\mathcal{N}$.
+\end{assumption}
+\begin{definition}[Split-regularized CMI]
+$I^{\mathcal{N}}_\omega(A:B) := S(\omega_{AB}\|\omega_A \otimes
+\omega_B)$, $I^{\mathcal{N}}_\omega(A:BC) := S(\omega_{ABC}\|\omega_A
+\otimes \omega_{BC})$, and
+\[
+I^{\mathcal{N}}_\omega(A:C|B) := I^{\mathcal{N}}_\omega(A:BC) -
+I^{\mathcal{N}}_\omega(A:B).
+\]
+\end{definition}
+\begin{remark}[Dependence on $\mathcal{N}$ and (non-)negativity;
+sharpened in v2]
+\label{rem:Ndep}
+We do not claim canonicity in $\mathcal{N}$, nor $I^{\mathcal{N}}_\omega
+(A:C|B) \ge 0$ for arbitrary fixed data. v2 makes this concrete: in the
+finite-dimensional dictionary check (Section~\ref{sec:verif}), taking a
+state with $A$ nearly uncorrelated from $BC$ and rotating only the
+$A|B$-layer identification by a generic unitary yields
+$I^{\mathcal{N}} < 0$ on 20/20 sampled identifications (range $[-0.46,
+-0.18]$ against $I(A:BC) = 0.05$). Nonnegativity is thus a genuine
+restriction on good split data, not a formality.
+\end{remark}
+\begin{remark}[Compatibility with 2601.0020 (added in v2)]
+\label{rem:compat}
+2601.0020 \cite{S0020} defines a split-regularized CMI by embedding
+$\iota_w: \mathcal{A}^{(w)}_{ABC} \hookrightarrow \mathcal{A}(ABC)$ and
+computing the Type I CMI of the induced state $\omega \circ \iota_w$; here
+we fix split identifications and take a difference of Araki relative
+entropies. In Type I with the natural factorization both reduce to the
+standard CMI (chain rule; verified to machine precision in the suite), so
+they are complementary regularizations of the same target; away from the
+natural choice they differ, and each carries its own scheme dependence.
+\end{remark}
+
+\section{Recovery channels and the modular/twirled Petz candidate}
+Channels are normal CP unital maps in Heisenberg picture, acting on states
+via the predual. A recovery channel on the collar is
+$\mathcal{R}_{B\to BC,*}: S(\mathcal{A}_B) \to S(\mathcal{A}_{BC})$, and
+the recovered state is $\tilde\omega_{ABC} := (\mathrm{id}_A \otimes
+\mathcal{R}_{B\to BC,*})(\omega_{AB})$ under the fixed identifications.
+The twirled modular Petz channel is, schematically,
+$\mathcal{R}^{\rm tw}_{B\to BC} = \int dt\, \beta_0(t)\, \sigma^{\varphi_B}_t
+\circ \mathcal{R}^{\rm mod}_{B\to BC} \circ \sigma^{\varphi_{BC}}_{-t}$
+with $\beta_0(t) = \tfrac{\pi}{4}\,{\rm sech}^2(\pi t/2)$ (the universal
+weight of \cite{JRSWW}; it integrates to 1 -- verified in the suite); the
+rigorous construction uses standard form and Connes cocycles \cite{JRSWW,
+SutterTH}.
+
+\begin{assumption}[FR-type recoverability in the fixed-split setting;
+factor corrected in v2]
+\label{ass:fr}
+In the setting of Assumption~\ref{ass:split}, assume
+$I^{\mathcal{N}}_\omega(A:C|B)$ is finite and nonnegative and that there
+exists a recovery channel $\mathcal{R}_{B\to BC,*}$ (e.g.\ the twirled
+modular Petz channel) such that
+\[
+-\log F_B\bigl(\omega_{ABC},\, \tilde\omega_{ABC}\bigr) \;\le\;
+I^{\mathcal{N}}_\omega(A:C|B).
+\]
+\end{assumption}
+\begin{remark}[Correction note]
+\label{rem:frfix}
+v1 assumed $-\log F_B \le \tfrac12 I^{\mathcal{N}}$. With $F_B$ in the
+squared convention (Definition of Section~2), the importable
+finite-dimensional motivation -- universal recovery \cite{FR, JRSWW} --
+gives $I \ge -\log F$; the $\tfrac12$ belongs to the root-fidelity form
+$I \ge -2\log f$. The v1 half-form is \emph{strictly stronger} than its
+motivation: on random 3-qubit states with Petz recovery the suite finds
+$-\log F \le I$ on 40/40 draws but $-\log F \le \tfrac12 I$ on 0/40.
+This is the same factor-2 correction applied in 2512.0101 v2 and
+2601.0020 v2; stating the assumption in the importable form keeps the
+conjectural target honest.
+\end{remark}
+
+\begin{theorem}[From split-CMI to recovery error (conditional; constant
+updated in v2)]
+\label{thm:main}
+Assume Assumptions~\ref{ass:split} and \ref{ass:fr}. If for collar width
+$w$ one has $I^{\mathcal{N}}_\omega(A:C|B) \le K e^{-\alpha w}$, then
+there exists a recovery channel with
+\[
+P\bigl(\omega_{ABC}, \tilde\omega_{ABC}\bigr) \;\le\; \sqrt{K}\,
+e^{-\alpha w/2}.
+\]
+\end{theorem}
+\begin{proof}
+$1 - F_B \le -\log F_B \le I^{\mathcal{N}} \le K e^{-\alpha w}$; take
+square roots. (v1's constant $\sqrt{K/2}$ corresponded to the stronger
+half-form assumption.)
+\end{proof}
+
+\section{What is proved vs.\ what is assumed}
+\emph{Defined:} the split-dependent quantity $I^{\mathcal{N}}_\omega
+(A:C|B)$ via Araki relative entropy under fixed split data.
+\emph{Assumed:} the FR-type inequality (Assumption~\ref{ass:fr}), now in
+its importable form. \emph{Concluded:} collar-width decay of
+$I^{\mathcal{N}}$ implies decay of the purified-distance recovery error.
+The split choice $\mathcal{N}$ is part of the regularization scheme.
+
+\section{Physical hooks}
+Split is expected under nuclearity \cite{BW}; Reeh--Schlieder provides
+cyclic/separating vectors for modular theory. In massive QFTs with
+exponential clustering it is natural to expect $I^{\mathcal{N}}_\omega
+(A:C|B) \le K e^{-\alpha w}$ for fixed-size $A$ and appropriate
+geometries -- this is precisely the continuum target of the lattice
+program: Gaussian/lattice evidence in 2512.0060 \cite{S0060} and
+2601.0007 \cite{S0007}, non-Gaussian CMI route in 2512.0101 \cite{S0101},
+Gibbs-state CMI inputs collected in 2601.0020 \cite{S0020}.
+
+\section{Conditional holographic remark}
+As in v1: under a bulk--boundary interface in which subregion duality is
+an approximate recovery statement for code subalgebras, a boundary collar
+$B$ with small $I^{\mathcal{N}}_\omega(A:C|B)$ provides a sufficient
+condition for approximate recovery from the collar, hence conditionally
+for quantitative entanglement wedge reconstruction.
+
+\section{Verification suite (added in v2)}
+\label{sec:verif}
+\texttt{verification/2601-0034/verify\_2601\_0034.py} checks every
+finite-dimensional ingredient of the dictionary: (1) with natural Type I
+data, $I^{\mathcal{N}} = $ standard CMI (chain rule, machine precision);
+(2) the $\mathcal{N}$-dependence demo of Remark~\ref{rem:Ndep}
+($I^{\mathcal{N}} < 0$ on 20/20 rotated identifications for an
+$A$-uncorrelated state); (3) $\int \beta_0 = 1$; (4) the
+finite-dimensional anchor of Assumption~\ref{ass:fr}: corrected form
+40/40, v1 half-form 0/40 (Remark~\ref{rem:frfix}); (5) the arithmetic of
+Theorem~\ref{thm:main} with the corrected constant.
+
+\section{Discussion}
+This B-minimal note isolates a continuum version of the
+collar$\Rightarrow$recovery mechanism in AQFT, with explicit split
+dependence and a clean separation of geometric and information-theoretic
+inputs -- now with the assumed input stated in the form its
+finite-dimensional motivation can actually support. Nonnegativity of $I^{\mathcal{N}}$ is part of the
+good-split-data regime, not automatic (Remark~\ref{rem:Ndep}). Open
+problems: proving Assumption~\ref{ass:fr} as a theorem in the fixed-split
+setting with explicit constants (the Haagerup $L^p$ route sketched in 2601.0007's
+Type III roadmap), and understanding stability with respect to the split
+choice $\mathcal{N}$.
+
+\section*{Note added in v2}
+One correction and three additions, all verified where checkable. (1)
+\emph{FR factor:} Assumption~\ref{ass:fr} restated in the importable
+squared-fidelity form $-\log F_B \le I^{\mathcal{N}}$ (v1's half-form is
+refuted as a finite-dimensional anchor on 40/40 draws);
+Theorem~\ref{thm:main}'s constant becomes $\sqrt{K}$. Third occurrence of
+this factor in the series (2512.0101 v2, 2601.0020 v2). (2)
+\emph{Compatibility:} Remark~\ref{rem:compat} relates the present
+$I^{\mathcal{N}}$ to the split-regularized CMI of 2601.0020 (both reduce
+to standard CMI for natural Type I data; verified). (3)
+\emph{$\mathcal{N}$-dependence made concrete:} Remark~\ref{rem:Ndep} now
+carries an explicit negative-$I^{\mathcal{N}}$ demonstration. (4) Series
+positioning and verification suite added; v1 cited no companion papers.
+
+\begin{thebibliography}{16}
+\bibitem{FR} O. Fawzi and R. Renner, Commun. Math. Phys. \textbf{340}
+(2015) 575--611.
+\bibitem{Haag} R. Haag, \emph{Local Quantum Physics}, 2nd ed., Springer
+(1996).
+\bibitem{Yngvason} J. Yngvason, Rep. Math. Phys. \textbf{55} (2005)
+135--147.
+\bibitem{BR} O. Bratteli and D. W. Robinson, \emph{Operator Algebras and
+Quantum Statistical Mechanics 1}, 2nd ed., Springer (1987).
+\bibitem{Araki1} H. Araki, Publ. RIMS Kyoto Univ. \textbf{11} (1976)
+809--833.
+\bibitem{Araki2} H. Araki, Publ. RIMS Kyoto Univ. \textbf{13} (1977)
+173--192.
+\bibitem{DL} S. Doplicher and R. Longo, Invent. Math. \textbf{75} (1984)
+493--536.
+\bibitem{BW} D. Buchholz and E. H. Wichmann, Commun. Math. Phys.
+\textbf{106} (1986) 321--344.
+\bibitem{SutterTH} D. Sutter, M. Tomamichel, and A. W. Harrow, IEEE Trans.
+Inf. Theory \textbf{62} (2016) 2907--2913.
+\bibitem{JRSWW} M. Junge, R. Renner, D. Sutter, M. M. Wilde, and A.
+Winter, Ann. Henri Poincar\'e \textbf{19} (2018) 2955--2978.
+\bibitem{S0060} L. Eriksson, ai.viXra:2512.0060 (2025; v2 2026).
+\bibitem{S0101} L. Eriksson, ai.viXra:2512.0101 (2025; v2 2026).
+\bibitem{S0007} L. Eriksson, ai.viXra:2601.0007 (2026; v2 2026).
+\bibitem{S0020} L. Eriksson, ai.viXra:2601.0020 (2026; v2 2026).
+\bibitem{S0031} L. Eriksson, ai.viXra:2601.0031 (2026; v2 2026).
+\end{thebibliography}
+\end{document}

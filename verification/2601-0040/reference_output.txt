@@ -1,0 +1,15 @@
+[N disponibles: [8, 9, 10]; beta=12.0, |A|=2, hx=[0.8, 0.9, 0.94, 0.96, 0.98, 1.0]]
+== 1-2) picos, baseline off-critico y realce ==
+  eps=0.003: N=8: pico=5.00@hx=0.9(cens) base=5.00(cens) realce=+0.00 | N=9: pico=5.73@hx=0.94 base=5.31 realce=+0.42 | N=10: pico=6.12@hx=0.94 base=5.39 realce=+0.74
+  eps=0.005: N=8: pico=4.84@hx=0.94 base=4.51 realce=+0.33 | N=9: pico=5.20@hx=0.94 base=4.66 realce=+0.54 | N=10: pico=5.43@hx=0.94 base=4.54 realce=+0.88
+  pico crece con N (eps=0.003): OK [['5.00', '5.73', '6.12']]
+    baseline: ['5.00', '5.31', '5.39']  -> el baseline TAMBIEN crece: confound |C| real
+  pico crece con N (eps=0.005): OK [['4.84', '5.20', '5.43']]
+    baseline: ['4.51', '4.66', '4.54']  -> el baseline TAMBIEN crece: confound |C| real
+== 3) indistinguibilidad de formas funcionales ==
+  eps=0.003: kappa(power)=0.913 R2=0.9723 | log R2=0.9813 | lineal R2=0.9716
+  formas indistinguibles (eps=0.003): OK [spread 0.0097]
+  eps=0.005: kappa(power)=0.512 R2=0.9871 | log R2=0.9905 | lineal R2=0.9833
+  formas indistinguibles (eps=0.005): OK [spread 0.0072]
+
+ALL CHECKS PASSED

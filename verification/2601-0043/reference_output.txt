@@ -1,0 +1,22 @@
+[L=14, |A|=3, |C|=4, w in {2,3,4}, delta=1e-12]
+== 1) Tabla 1 regenerada ==
+  g=0.5: xi_rec=0.986 (v1: 1.433)  R2=0.8325 (v1: 0.6501) [FLAG: R2 bajo, fit de 3 puntos]
+  g=1.0: xi_rec=3.794 (v1: 4.58)  R2=0.9800 (v1: 0.9276)
+  g=2.0: xi_rec=0.640 (v1: 0.6515)  R2=1.0000 (v1: 0.999)
+== 2) test in-model de la Conjetura 8.1 ==
+  g=0.5: xi_rec=0.986  xi_corr(ZZ conexo)=1.005  ratio=0.98
+  g=1.0: xi_rec=3.794  xi_corr(ZZ conexo)=7.095  ratio=0.53
+  g=2.0: xi_rec=0.640  xi_corr(ZZ conexo)=1.225  ratio=0.52
+  (Conjetura 8.1: mismo orden de magnitud en fases gapped; en g=1 ambos crecen)
+
+PARTES 1-2 COMPLETADAS
+D simetrizada (eps=1e-3, cap=gap+2):
+[[0. 4. 5. 8.]
+ [4. 0. 2. 5.]
+ [5. 2. 0. 2.]
+ [8. 5. 2. 0.]]
+embedding 1D: [-4.141 -0.791  1.068  3.864]  orden: [0, 1, 2, 3]
+  MDS recupera el orden de la cadena: OK
+score de violacion triangular: max=1.000 (discretizacion/cap)
+  violaciones triangulares acotadas por el cap: OK [max 1.00]
+DEMO OK

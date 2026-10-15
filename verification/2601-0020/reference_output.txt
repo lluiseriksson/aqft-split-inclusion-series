@@ -1,0 +1,25 @@
+== 1) CMI del campo de Markov 1D ==
+  I(A:C|B)=0 con w=1: OK [I=8.88e-16]
+  I(A:C|B)=0 con w=2: OK [I=4.44e-16]
+  I(A:C|B)=0 con w=3: OK [I=4.44e-16]
+== 2-3) Prop A.4: literal (v1) vs corregida (v2, B+2r) ==
+  A.4 literal (v1): 2/200 violaciones (max exceso 1.829e-01)
+  A.4 corregida (v2): 0 violaciones: OK [0/200]
+== 4) lambda'_B sobre V_A, c'_A->B y corolario diagonal ==
+  [A={0,1,2}, B={3,4,5}] lambda'_B(V_A) = 0.000000   c'_A->B = 0.118419   cota c'*lam = 0.000000
+  corolario diagonal end-to-end [A={0,1,2}, B={3,4,5}]: OK [0/100]
+  [A={0,1,2}, B={3,4}] lambda'_B(V_A) = 0.000000   c'_A->B = 0.091497   cota c'*lam = 0.000000
+  corolario diagonal end-to-end [A={0,1,2}, B={3,4}]: OK [0/100]
+  [A={2} (dentro de B+2r, visible a D_B)] lambda'_B(V_A) = 0.265802   c'_A->B = 1.000000   cota c'*lam = 0.265802
+  corolario diagonal end-to-end [A={2} (dentro de B+2r, visible a D_B)]: OK [0/100]
+  hallazgo estructural: en 1D, V_A contiene funciones del spin frontera
+  invisibles a D_B => lambda'=0 salvo que A quede dentro del vecindario collar;
+  existe geometria con lambda'_B(V_A) > 0: OK [lam=0.2658]
+== 5) factor Fawzi-Renner corregido ==
+  aritmetica: 1-e^{-d} <= d: OK
+  I >= -log F(Petz): 40/40 draws la cumplen
+  I >= -2 log F (factor v1): 0/40 draws la cumplen (si <40, el factor 2 sobreclama)
+  FR corregido consistente: OK [0/40]
+
+ALL MANDATORY CHECKS PASSED
+[resultado clave A.4: literal viola 2/200; corregida 0/200]

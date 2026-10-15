@@ -1,0 +1,594 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\ASSUMED}{\textcolor{orange}{\textbf{[ASSUMED]}}}
+\newcommand{\PROVED}{\textcolor{green!60!black}{\textbf{[PROVED]}}}
+\newcommand{\IMPORTED}{\textcolor{blue}{\textbf{[IMPORTED]}}}
+\newcommand{\Erec}{E_{\mathrm{rec}}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\Sn}{\mathcal{S}_n}
+
+\title{Split-regularized recoverability in Type III AQFT\\
+\large Conditional expectations, split-dependent CMI, and an
+audit-friendly recoverability contract}
+\author{Lluis Eriksson}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Local algebras in relativistic quantum field theory are typically Type
+III, so reduced density matrices and von Neumann entropies are not
+available without additional structure. We give a B-minimal,
+audit-friendly interface for recoverability in Type III AQFT: we fix a
+collar geometry and a split datum $N$ (an intermediate Type I factor)
+and define (i) a split-regularized conditional mutual information (CMI)
+and (ii) a Bures-fidelity-based recovery error for normal states. We
+isolate, as explicit assumptions, the two hard bridges needed for an
+exponential recoverability statement in Type III: (a) existence of an
+$\omega_0$-preserving conditional expectation onto $N$ (a Takesaki-type
+condition) and (b) an FR-type inequality in the fixed split
+implementation. We prove a conditional theorem: if split-regularized CMI
+decays exponentially in the collar width and an FR-type inequality holds
+in that split, then recoverability error decays exponentially, with
+constants tracked explicitly. This paper makes no Clay mass-gap claim
+and does not invoke von Neumann entropy on Type III algebras without
+split regularization. \emph{v2 (no v1 number is changed):} the
+cross-reference labels are repaired (in v1 every assumption and theorem
+was typeset as ``Definition~$x.y$'') and Table~\ref{tab:fals} is
+re-typeset; a direction slip in the recovery candidate is corrected ---
+under CE the GNS-adjoint $E_{\omega_0}^{\sharp\omega_0}$ is provably the
+\emph{inclusion} $\iota: N \hookrightarrow \cM$, so the operational
+candidate aligned with the recovery task is the predual
+$(E_{\omega_0})_*$ (Remark~\ref{rem:direction}); the finite-dimensional
+reduction is proved rather than remarked, including the equivalence of
+the two split-regularized CMI definitions and $c_{\mathrm{FR}} = 1$ in
+the fixed conventions (Lemma~\ref{lem:findim}); a constructive instance
+of CE with product reference state is proved
+(Proposition~\ref{prop:ce}); series positioning is added; and a
+verification suite instantiates the entire contract end to end in the
+Type I regime (gapped transverse-field Ising collar: CMI decay with
+$\alpha \approx 1.06$, Petz-type reconstruction (the finite-dimensional Type I anchor) satisfying
+$\Erec \le I^{(N)}$ at every width in the generated dataset, and the
+$\omega_0$-adjoint identity $E^{\sharp\omega_0} = \iota$ at machine
+precision).
+\end{abstract}
+
+\section{Scope and philosophy}
+
+\textbf{Goal.} Provide a standalone, typed interface note for
+recoverability in Type III AQFT that:
+\begin{itemize}
+\item avoids traces and finite-dimensional density matrices on Type III
+algebras,
+\item makes all dependence on the \emph{split datum} explicit,
+\item separates proved content from bridge assumptions with
+falsification routes.
+\end{itemize}
+
+\textbf{Non-goals.} We do not prove the Clay Yang--Mills mass gap and do
+not claim that the split property alone implies exponential decay of a
+Markovness proxy.
+
+\textbf{Parameter convention.} Throughout, $\epsilon$ is a
+\textbf{geometric} collar/separation parameter, while $\delta$ denotes
+\textbf{tolerances} (regularization, thresholds). They are never
+interchanged.
+
+\section{Setup: regions, algebras, and normal states}
+
+We work in a Haag--Kastler setting: to each spacetime region $O$ we
+associate a von Neumann algebra $\cA(O)$ acting on a Hilbert space
+$\mathcal{H}$, with isotony and locality. Fix three regions $A, B, C$
+where $B$ is a collar separating $A$ from $C$ at scale $\epsilon$.
+
+\begin{definition}[D1: tripartition at the algebra level]
+\label{def:tripart}
+Define the relevant local algebras
+\[
+\cA_A := \cA(A), \qquad \cA_B := \cA(B), \qquad \cA_{BC} := \cA(B \cup
+C), \qquad \cA_{ABC} := \cA(A \cup B \cup C).
+\]
+A state $\omega$ is a \emph{normal} state on $\cA_{ABC}$, and $\omega_X$
+denotes its restriction to $\cA_X$.
+\end{definition}
+
+\begin{remark}[Why we work with normal states]
+\label{rem:normal}
+Normal states are the natural notion of states on von Neumann algebras
+in AQFT and interact well with modular theory, conditional expectations,
+and Bures-type metrics.
+\end{remark}
+
+\section{Split datum (Type I implementation)}
+
+\begin{assumption}[SPLIT: split inclusion datum]
+\label{ass:split}
+\ASSUMED. There exists a slightly thickened collar $B'$ with $B \subset
+B' \subset B \cup C$ and an intermediate Type I factor $N$ such that
+\[
+\cA(B) \subset N \subset \cA(B') \subset \cA(B \cup C) = \cA_{BC}.
+\]
+We call $N$ the \emph{split datum} associated with the collar geometry
+at scale $\epsilon$ \cite{DL}.
+\end{assumption}
+
+\begin{remark}[Typing intent]
+\label{rem:typing}
+SPLIT is not a decay statement. It is a structural input allowing a Type
+I bookkeeping compatible with the collar geometry. All quantities
+defined below are explicitly $N$-dependent.
+\end{remark}
+
+\begin{assumption}[SEL: split selection rule]
+\label{ass:sel}
+\ASSUMED. A selection rule $\epsilon \mapsto N(\epsilon)$ is fixed for
+the regime of interest. All constants in decay statements are allowed to
+depend on the chosen selection rule, but such dependence must be
+declared.
+\end{assumption}
+
+\section{Channels and the recovery task (Heisenberg picture)}
+
+\begin{remark}[Heisenberg picture convention]
+\label{rem:heisenberg}
+All channels between von Neumann algebras are taken in the Heisenberg
+picture: a channel $\Phi: \cM_2 \to \cM_1$ is normal, completely
+positive and unital. Its predual action on normal states is $\Phi_*:
+\Sn(\cM_1) \to \Sn(\cM_2)$ given by $\Phi_*(\omega) := \omega \circ
+\Phi$.
+\end{remark}
+
+\begin{definition}[D2: recovery channel and split-implemented recovery]
+\label{def:recovery}
+Fix a split datum $N$ for the collar geometry (as in
+Assumption~\ref{ass:split}). A recovery channel is a normal CP unital
+map (Heisenberg picture) $\cR: \cA_{BC} \to \cA_B$. Its predual map acts
+on normal states by $\cR_*(\varphi) := \varphi \circ \cR$, hence $\cR_*:
+\Sn(\cA_B) \to \Sn(\cA_{BC})$.
+
+Given a normal state $\omega$ on $\cA_{ABC}$, the
+\emph{split-implemented recovered state} (associated with the chosen
+split datum $N$) is defined by applying $\cR_*$ on the $B$-leg \emph{in
+the fixed split implementation induced by $N$}:
+\[
+\widetilde{\omega}^{(N)}_{ABC} := (\mathrm{id} \otimes \cR_*)\bigl(
+\omega^{(N)}_{AB}\bigr),
+\]
+where $\omega^{(N)}_{AB}$ denotes the $AB$ marginal in that fixed split
+implementation.
+\end{definition}
+
+\begin{remark}[Typing discipline]
+\label{rem:discipline}
+In Type III, $\cA(A \cup B)$ is not canonically a tensor product $\cA_A
+\bar{\otimes} \cA_B$. Accordingly, the notation $(\mathrm{id} \otimes
+\cR_*)(\omega^{(N)}_{AB})$ is shorthand for the standard tensor-leg
+application performed \emph{inside the chosen split implementation
+associated with $N$}. All dependence on this choice is tracked by the
+superscript $(N)$.
+\end{remark}
+
+\section{Error metric in Type III: Bures fidelity and purified distance}
+
+\begin{definition}[D3: fidelity/distance convention]
+\label{def:fidelity}
+Let $\omega, \varphi$ be normal states on a von Neumann algebra. We use
+the \emph{squared} Bures fidelity $F_B(\omega, \varphi) \in [0,1]$ (so
+$F_B = 1$ iff $\omega = \varphi$) \cite{Uhlmann}. As a convenient
+monotone error parameter we adopt $P(\omega, \varphi) := \sqrt{1 -
+F_B(\omega, \varphi)}$.
+\end{definition}
+
+\begin{definition}[D4: split-implemented recovery error functional]
+\label{def:erec}
+Fix a split datum $N$. Given $\omega$ on $\cA_{ABC}$ and a recovery
+channel $\cR: \cA_{BC} \to \cA_B$, define
+\[
+\Erec(\omega; \cR; N) := -\log F_B\bigl(\omega_{ABC},
+\widetilde{\omega}^{(N)}_{ABC}\bigr),
+\]
+where $\widetilde{\omega}^{(N)}_{ABC}$ is as in
+Definition~\ref{def:recovery}.
+\end{definition}
+
+\begin{remark}[Convention discipline]
+\label{rem:convention}
+Different papers vary by using unsquared fidelity, Bures distance, or
+$-2\log(\cdot)$. This note fixes Definitions~\ref{def:fidelity} and
+\ref{def:erec}; any imported inequality must be aligned to these
+conventions by an explicit constant (see Assumption~\ref{ass:frsplit};
+in the fixed conventions the finite-dimensional FR inequality imports
+with $c_{\mathrm{FR}} = 1$, Lemma~\ref{lem:findim}).
+\end{remark}
+
+\section{Conditional expectations and an Accardi--Cecchini recovery
+candidate}
+
+The Type III-specific ingredient is an $\omega_0$-preserving conditional
+expectation onto the split factor.
+
+\begin{assumption}[CE: $\omega_0$-preserving conditional expectation
+onto $N$]
+\label{ass:ce}
+\ASSUMED. Fix a faithful normal reference state $\omega_0$ on $\cA_{BC}$
+(e.g.\ a KMS state). Let $\cM := \cA_{BC}$, $\cN := N$ with $N$ the
+split datum from Assumption~\ref{ass:split}. Assume there exists a
+normal completely positive unital idempotent map $E_{\omega_0}: \cM \to
+\cN$ such that $\omega_0 \circ E_{\omega_0} = \omega_0$.
+\end{assumption}
+
+\begin{remark}[Why CE is a genuine assumption]
+\label{rem:cegenuine}
+Existence of an $\omega_0$-preserving conditional expectation is tied to
+modular invariance / Takesaki-type conditions and is not automatic
+\cite{Takesaki}. This note isolates CE explicitly to prevent quantifier
+drift. (A constructive Type I instance is proved in
+Proposition~\ref{prop:ce}.)
+\end{remark}
+
+\begin{definition}[D5: GNS-adjoint w.r.t.\ $\omega_0$]
+\label{def:gnsadjoint}
+Let $\Phi: \cM \to \cN$ be normal CP and let $\omega_0$ be faithful.
+Define $\langle X, Y \rangle_{\omega_0} := \omega_0(X^* Y)$. When it
+exists, the $\omega_0$-adjoint $\Phi^{\sharp\omega_0}: \cN \to \cM$ is
+defined by $\langle \Phi(X), Y \rangle_{\omega_0} = \langle X,
+\Phi^{\sharp\omega_0}(Y) \rangle_{\omega_0}$ for all $X \in \cM$, $Y \in
+\cN$.
+\end{definition}
+
+\begin{definition}[D6: Accardi--Cecchini / Petz-dual candidate]
+\label{def:ac}
+Assume CE and that the $\omega_0$-adjoint exists for $E_{\omega_0}$.
+Define the canonical recovery candidate $\cR^{\mathrm{AC}} :=
+E_{\omega_0}^{\sharp\omega_0}: \cN \to \cM$.
+\end{definition}
+
+\begin{remark}[Candidate vs existential recovery]
+\label{rem:candidate}
+This note does not claim that $\cR^{\mathrm{AC}}$ achieves an FR-type
+bound pointwise; it provides a canonical, typed candidate under CE.
+Proving optimality or near-optimality of $\cR^{\mathrm{AC}}$ is a
+separate problem. (See Remark~\ref{rem:direction} for the v2 correction
+of the candidate's direction.)
+\end{remark}
+
+\begin{remark}[v2 correction: $E^{\sharp\omega_0} = \iota$, and the
+operational candidate is the predual]
+\label{rem:direction}
+\PROVED\ (v2). Under CE the GNS-adjoint of Definition~\ref{def:ac} can
+be computed exactly: for $X \in \cM$, $Y \in \cN$, the module property
+of conditional expectations and $\omega_0$-invariance give
+\[
+\langle E_{\omega_0}(X), Y\rangle_{\omega_0}
+= \omega_0\bigl(E_{\omega_0}(X)^* Y\bigr)
+= \omega_0\bigl(E_{\omega_0}(X^* \iota(Y))\bigr)
+= \omega_0\bigl(X^* \iota(Y)\bigr)
+= \langle X, \iota(Y)\rangle_{\omega_0},
+\]
+so $E_{\omega_0}^{\sharp\omega_0} = \iota$, the \emph{inclusion} $\cN
+\hookrightarrow \cM$. Consequently the predual of
+$\cR^{\mathrm{AC}} = \iota$ is the \emph{restriction} $\Sn(\cM) \to
+\Sn(\cN)$ --- the wrong direction for the recovery task of
+Definition~\ref{def:recovery}. The operational recovery candidate
+aligned with D2 is the \emph{predual of the conditional expectation
+itself}, $(E_{\omega_0})_*: \Sn(\cN) \to \Sn(\cM)$ (reattachment), while
+the pair $(E_{\omega_0}, \iota)$ is precisely the GNS-adjoint duality
+pair. This matches the corrected trace-predual duality of the companion
+2601.0046 (v2), where the same direction discipline was established for
+the Accardi--Cecchini generalized conditional expectation. The
+verification suite checks $E^{\sharp\omega_0} = \iota$ and the explicit
+reattachment form of $(E_{\omega_0})_*$ at machine precision in the Type
+I instance of Proposition~\ref{prop:ce}.
+\end{remark}
+
+\section{Split-regularized conditional mutual information}
+
+We define a split-regularized CMI $I^{(N)}_\omega(A : C | B)$ that is
+meaningful given a split datum $N$.
+
+\subsection{Two definitions (kept explicitly $N$-dependent)}
+
+\begin{definition}[D7a: split-implemented CMI (Type I bookkeeping)]
+\label{def:cmia}
+Assume SPLIT and fix $N$. Use the induced Type I implementation to
+represent the relevant inclusions in a tensor-product bookkeeping
+compatible with $(A, B, C)$. Define $I^{(N)}_\omega(A : C | B)$ by
+applying the usual Type I CMI formula inside that implementation (with
+the conventions fixed by the chosen implementation), allowing the value
+$+\infty$ if the expression diverges.
+\end{definition}
+
+\begin{definition}[D7b: Araki-relative-entropy CMI (alternative)]
+\label{def:cmib}
+Alternatively, define $I^{(N)}_\omega(A : C | B)$ using Araki relative
+entropy in standard form on the relevant inclusions, with explicit
+dependence on the same split datum $N$ and the chosen inclusions.
+\end{definition}
+
+\begin{remark}[No equivalence claimed in general]
+\label{rem:noequiv}
+We do not assume Definition~\ref{def:cmia} and Definition~\ref{def:cmib}
+coincide in full generality. Any equivalence statement must be proved or
+explicitly assumed (see Appendix~\ref{app:equiv}; the finite-dimensional
+case is \emph{proved} in v2, Lemma~\ref{lem:findim}).
+\end{remark}
+
+\section{Main contract: conditional exponential recoverability}
+
+\begin{assumption}[CMI-DECAY: split-regularized exponential Markov
+bound]
+\label{ass:cmidecay}
+\ASSUMED. Assume Assumption~\ref{ass:sel} and work with the selected
+split data $N(\epsilon)$. Fix a family of normal states
+$\{\omega^{(\epsilon)}\}_\epsilon$ on $\cA_{ABC}$ (or a declared state
+class, stated explicitly). Assume there exist constants $K > 0$ and
+$\alpha > 0$ such that for all $\epsilon$ in the regime of interest,
+\[
+I^{(N(\epsilon))}_{\omega^{(\epsilon)}}(A : C | B) \le K e^{-\alpha
+\epsilon}.
+\]
+Constants may depend on the model, the state family/class, and the
+selection rule $\epsilon \mapsto N(\epsilon)$, but not on $\epsilon$
+itself.
+\end{assumption}
+
+\begin{assumption}[FR-SPLIT: FR-type inequality in the fixed split]
+\label{ass:frsplit}
+\ASSUMED\ (import/bridge). Fix the split datum $N$ and a choice of
+split-regularized CMI definition (either Definition~\ref{def:cmia} or
+Definition~\ref{def:cmib}). Assume there exists a universal constant
+$c_{\mathrm{FR}} > 0$ (depending only on the conventions
+Definitions~\ref{def:fidelity} and \ref{def:erec} and the chosen CMI
+definition) such that for every normal state $\omega$ on $\cA_{ABC}$
+there exists a recovery channel $\cR: \cA_{BC} \to \cA_B$ (in the fixed
+split implementation) satisfying
+\[
+\Erec(\omega; \cR; N) \le c_{\mathrm{FR}}\, I^{(N)}_\omega(A : C | B).
+\]
+\end{assumption}
+
+\begin{theorem}[T1: conditional exponential recoverability (Type III,
+split-regularized)]
+\label{thm:contract}
+\PROVED\ (given Assumptions~\ref{ass:cmidecay} and \ref{ass:frsplit}).
+Under Assumptions~\ref{ass:cmidecay} and \ref{ass:frsplit}, for each
+$\epsilon$ there exists a recovery channel $\cR$ such that
+\[
+\Erec(\omega; \cR; N(\epsilon)) \le c_{\mathrm{FR}}\, K\,
+e^{-\alpha\epsilon}.
+\]
+Equivalently, with $P$ as in Definition~\ref{def:fidelity},
+$P\bigl(\omega_{ABC}, \widetilde{\omega}^{(N(\epsilon))}_{ABC}\bigr) \le
+\sqrt{1 - \exp(-c_{\mathrm{FR}} K e^{-\alpha\epsilon})}$.
+\end{theorem}
+
+\begin{proof}
+Combine Assumption~\ref{ass:cmidecay} with Assumption~\ref{ass:frsplit}
+and the definition of $\Erec$ in Definition~\ref{def:erec}. The
+purified-distance form follows from Definition~\ref{def:fidelity}.
+\end{proof}
+
+\begin{remark}[Where the real work is]
+\label{rem:realwork}
+T1 is a contract statement. The substantive work in applications is: (i)
+verifying CMI-DECAY for a concrete AQFT model and a concrete selection
+rule $\epsilon \mapsto N(\epsilon)$, and (ii) importing/proving an
+FR-type inequality in the fixed split implementation aligned to the
+conventions Definitions~\ref{def:fidelity} and \ref{def:erec}.
+\end{remark}
+
+\section{Falsification matrix (minimal)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{3.0cm} p{2.2cm} p{4.2cm} p{4.6cm}}
+\hline
+\textbf{Item} & \textbf{Status} & \textbf{Verification proxy} &
+\textbf{Concrete falsifier} \\
+\hline
+SPLIT ($N(\epsilon)$ exists) & \ASSUMED & cite conditions; construct
+$N(\epsilon)$ & exhibit model/geometry where split fails \\
+SEL (selection rule fixed) & \ASSUMED & specify $N(\epsilon)$ explicitly
+& show ambiguity changes constants qualitatively \\
+CE ($E_{\omega_0}$ exists) & \ASSUMED\ general; instance \PROVED\ (v2) &
+check modular invariance / Takesaki condition & exhibit Takesaki
+obstruction / lack of $\omega_0$-invariance \\
+CMI-DECAY & \ASSUMED & estimate $I^{(N)}_\omega(A:C|B)$ vs $\epsilon$ &
+show non-decay or slower-than-claimed decay \\
+FR-SPLIT & \ASSUMED\ general; Type I import \PROVED\ (v2) & import a
+theorem aligned to Definitions~\ref{def:fidelity} and \ref{def:erec} &
+give a counterexample under stated definitions \\
+\hline
+\end{tabular}
+\caption{Minimal falsification matrix for the Type III recoverability
+interface (re-typeset in v2; v1's table had overlapping column text).}
+\label{tab:fals}
+\end{table}
+
+\section{Compatibility with finite-dimensional benchmarks}
+
+\begin{remark}[Finite-dimensional reduction]
+\label{rem:findim}
+When the relevant algebras are Type I (finite-dimensional), the split
+datum can be taken canonically and split-regularized CMI reduces to the
+usual finite-dimensional CMI. In that regime, FR-type inequalities
+reduce to their standard QIT forms, up to the constant $c_{\mathrm{FR}}$
+determined by conventions. (Proved in v2 as Lemma~\ref{lem:findim}.)
+\end{remark}
+
+\begin{lemma}[Finite-dimensional reduction, proved form (v2)]
+\label{lem:findim}
+\PROVED. Let $\cA_{ABC} = B(\mathcal{H}_A \otimes \mathcal{H}_B \otimes
+\mathcal{H}_C)$ with all factors finite-dimensional, and take the
+canonical split datum $N = B(\mathcal{H}_B)$. Then: (i)
+Definition~\ref{def:cmia} and Definition~\ref{def:cmib} coincide:
+\[
+S_{AB} + S_{BC} - S_B - S_{ABC}
+= D\bigl(\rho_{ABC} \,\|\, \rho_A \otimes \rho_{BC}\bigr)
+- D\bigl(\rho_{AB} \,\|\, \rho_A \otimes \rho_B\bigr),
+\]
+where in finite dimension Araki relative entropy equals the standard
+$D(\rho\|\sigma) = \mathrm{Tr}\,\rho(\log\rho - \log\sigma)$. (ii) In
+the conventions of Definitions~\ref{def:fidelity} and \ref{def:erec}
+(squared Bures fidelity, $\Erec = -\log F_B$), the Fawzi--Renner theorem
+\cite{FR} imports as FR-SPLIT with $c_{\mathrm{FR}} = 1$: there exists a
+recovery channel (a rotated Petz map) with
+$\Erec \le I(A:C|B)$.
+\end{lemma}
+
+\begin{proof}
+(i) Expanding both relative entropies with marginals of the same global
+state, $D(\rho_{ABC}\|\rho_A \otimes \rho_{BC}) = S_A + S_{BC} -
+S_{ABC}$ (mutual information $I(A:BC)$) and $D(\rho_{AB}\|\rho_A \otimes
+\rho_B) = S_A + S_B - S_{AB}$ ($I(A:B)$); the difference is the chain
+rule $I(A:BC) - I(A:B) = I(A:C|B)$, which equals the entropy
+combination. In finite dimension Araki's definition reduces to the
+standard trace formula, so D7b built on these inclusions is the
+right-hand side. (ii) Fawzi--Renner \cite{FR} states $I(A:C|B) \ge
+-\log F$ with $F$ the squared fidelity of recovery for a rotated Petz
+channel; since Definition~\ref{def:erec} uses $\Erec = -\log F_B$ with
+squared $F_B$, the import constant is exactly $1$. (This is the
+convention discipline of Remark~\ref{rem:convention}; with unsquared
+fidelity the constant would be $2$, the recurring factor tracked across
+this series.)
+\end{proof}
+
+\begin{proposition}[A constructive CE instance (v2)]
+\label{prop:ce}
+\PROVED. Let $\cM = B(\mathcal{H}_N \otimes \mathcal{H}_K)$, $\cN =
+B(\mathcal{H}_N) \otimes \mathbf{1}_K$, and let $\omega_0 =
+\mathrm{Tr}[(\rho_N \otimes \rho_K)\,\cdot\,]$ be a faithful product
+state. Then $E_{\omega_0}(X) := \mathrm{Tr}_K[(\mathbf{1} \otimes
+\rho_K) X] \otimes \mathbf{1}_K$ is a normal CP unital idempotent map
+onto $\cN$ with $\omega_0 \circ E_{\omega_0} = \omega_0$: the Takesaki
+condition is satisfied constructively. Its GNS-adjoint is the inclusion
+(Remark~\ref{rem:direction}), and its predual acts as the explicit
+reattachment $(E_{\omega_0})_*(\varphi_N) = \varphi_N \otimes \rho_K$.
+\end{proposition}
+
+\begin{proof}
+Unitality, idempotence and complete positivity are immediate from the
+form of $E_{\omega_0}$ (partial trace against a state followed by tensor
+extension). $\omega_0$-invariance:
+$\omega_0(E_{\omega_0}(X)) = \mathrm{Tr}[\rho_N\,
+\mathrm{Tr}_K((\mathbf{1} \otimes \rho_K)X)] = \mathrm{Tr}[(\rho_N
+\otimes \rho_K) X] = \omega_0(X)$. The predual form follows by pairing
+$\varphi_N \circ E_{\omega_0}$ against arbitrary $X$. The suite verifies
+all five properties numerically (Choi positivity to $10^{-16}$).
+\end{proof}
+
+\begin{remark}[Series positioning (v2)]
+\label{rem:series}
+This note is the AQFT companion referenced as ``forthcoming'' across the
+series. The two CMI definitions correspond to the series'
+split-regularized variants: D7a is the embedded (Type I bookkeeping)
+CMI of 2601.0020, D7b is the Araki-difference CMI of 2601.0034, and the
+split-implementation discipline follows 2601.0046, whose corrected
+trace-predual duality is what Remark~\ref{rem:direction} instantiates
+for CE. Finite-dimensional FR/Petz numerics aligned with these
+conventions appear in 2601.0007 and 2601.0035; collar-geometry CMI
+decay and its saturation structure in 2601.0050. The verification suite
+(\texttt{verification/2601-0065/}) instantiates the full contract in the
+Type I regime: a gapped transverse-field Ising collar ($g = 1.5$, $A$
+fixed at $2$ sites, $C$ at $4$, collar width $w = 1..4$) gives
+$I^{(N)} \approx 0.20\, e^{-1.06 w}$, and the Petz-type/CE-pullback reconstruction channel
+satisfies $\Erec \le I^{(N)}$ at every width in the generated dataset,
+i.e.\ the chain of Theorem~\ref{thm:contract} holds end to end with
+$c_{\mathrm{FR}} = 1$.
+\end{remark}
+
+\section*{Note added in v2}
+No v1 definition, assumption, theorem statement or numbering is changed;
+new v2 material is appended at the end of the affected sections. v2: (1)
+repairs the cross-reference labels --- in v1 every reference was typeset
+as ``Definition~$x.y$'' regardless of environment, so e.g.\ ``given
+Definitions 8.1 and 8.2'' in v1 denotes
+Assumptions~\ref{ass:cmidecay} and \ref{ass:frsplit}, and ``as in
+Definition 3.1'' denotes Assumption~\ref{ass:split}; (2) re-typesets
+Table~\ref{tab:fals} (overlapping, partially illegible entries in v1);
+(3) corrects a direction slip in the recovery candidate: under CE the
+GNS-adjoint $E_{\omega_0}^{\sharp\omega_0}$ is provably the inclusion
+$\iota$, so the predual of $\cR^{\mathrm{AC}}$ as defined in v1 is a
+restriction, not a recovery; the operational candidate is
+$(E_{\omega_0})_*$ (Remark~\ref{rem:direction}, verified at machine
+precision); (4) proves the finite-dimensional reduction, including
+D7a $=$ D7b and the $c_{\mathrm{FR}} = 1$ import of Fawzi--Renner in the
+fixed conventions (Lemma~\ref{lem:findim}), settling
+Appendix~\ref{app:equiv} in the Type I regime; (5) proves a constructive
+CE instance with product reference state (Proposition~\ref{prop:ce});
+(6) adds series positioning (v1 cited no companion papers;
+Remark~\ref{rem:series}) and the verification suite instantiating the
+entire contract end to end in the Type I regime.
+
+\appendix
+
+\section{Optional: equivalence of CMI definitions}
+\label{app:equiv}
+
+If one wants to identify Definition~\ref{def:cmia} and
+Definition~\ref{def:cmib} (for a fixed choice of inclusions and split
+data), this requires an explicit theorem-level statement. In full
+(Type III) generality this paper does not assume such equivalence; it
+should be treated as \IMPORTED\ (with hypotheses restated verbatim) or
+as \ASSUMED\ (with a falsification route). \emph{v2:} in the
+finite-dimensional (Type I) regime the equivalence is \PROVED\
+(Lemma~\ref{lem:findim}(i)) and verified numerically to machine
+precision.
+
+\section{Reference-state dependence and model dependence}
+\label{app:refstate}
+
+The CE assumption (Assumption~\ref{ass:ce}) depends on the choice of
+faithful normal reference state $\omega_0$. In AQFT applications, a
+natural choice is often a KMS state. Any claim using CE should
+explicitly record which $\omega_0$ is used and whether $\omega_0$ varies
+with $\epsilon$.
+
+\begin{thebibliography}{12}
+\bibitem{DL} S. Doplicher and R. Longo, \emph{Standard and split
+inclusions of von Neumann algebras}, Invent. Math. \textbf{75}, 493--536
+(1984).
+\bibitem{Takesaki} M. Takesaki, \emph{Theory of Operator Algebras I},
+Springer, 1979.
+\bibitem{Petz} D. Petz, \emph{Sufficient subalgebras and the relative
+entropy of states of a von Neumann algebra}, Commun. Math. Phys.
+\textbf{105}, 123--131 (1986).
+\bibitem{FR} O. Fawzi and R. Renner, \emph{Quantum conditional mutual
+information and approximate Markov chains}, Commun. Math. Phys.
+\textbf{340}, 575--611 (2015).
+\bibitem{Uhlmann} A. Uhlmann, \emph{The ``transition probability'' in
+the state space of a $*$-algebra}, Rep. Math. Phys. \textbf{9}, 273--279
+(1976).
+\bibitem{STH} D. Sutter, M. Tomamichel, and P. Harremo\"es,
+\emph{Strengthened monotonicity of relative entropy via pinched Petz
+recovery map}, IEEE Trans. Inf. Theory \textbf{62}, 2907--2913 (2016).
+\bibitem{S0046} L. Eriksson, ai.viXra:2601.0046 (2026; v2 2026).
+\bibitem{S0034} L. Eriksson, ai.viXra:2601.0034 (2026; v2 2026).
+\bibitem{S0020} L. Eriksson, ai.viXra:2601.0020 (2026; v2 2026).
+\bibitem{S0035} L. Eriksson, ai.viXra:2601.0035 (2026; v2 2026).
+\bibitem{S0007} L. Eriksson, ai.viXra:2601.0007 (2026; v2 2026).
+\bibitem{S0050} L. Eriksson, ai.viXra:2601.0050 (2026; v2 2026).
+\end{thebibliography}
+
+\end{document}

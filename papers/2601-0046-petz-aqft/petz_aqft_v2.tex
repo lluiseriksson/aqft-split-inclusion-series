@@ -1,0 +1,287 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Erec}{E_{\rm rec}}
+
+\title{Petz Recoverability in AQFT via Conditional Expectations\\
+{\large A framework and a conditional exponential recovery bound}\\
+{\normalsize Version 2}}
+\author{Lluis Eriksson\\ Independent Researcher\\ \texttt{lluiseriksson@gmail.com}}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We formulate an operational notion of recoverability in algebraic quantum
+field theory for type III local von Neumann algebras. Fixing a faithful
+normal KMS reference state and assuming a state-preserving conditional
+expectation, we define the recovery channel and, working in a fixed split
+implementation for each separation $r$, we assume (i) exponential decay of
+split-implemented conditional mutual information and (ii) a
+CMI-to-recovery inequality. Under these explicit bridge assumptions we
+obtain a conditional exponential recoverability bound $\Erec(r) \le
+g(C_1 e^{-m_{\rm CMI} r})$. \emph{v2 corrects the duality underlying the
+construction:} v1 defined the Petz-type channel as the
+``Accardi--Cecchini adjoint'' via the pairing $\omega(Z\,\mathcal{R}(X))
+= \omega(\varepsilon(Z)X)$ and ``proved'' finite-dimensional consistency
+with the standard Petz map; that identity is \emph{false in general} (the
+printed proof contains an invalid cyclicity step; numerically the
+identity fails at order $10^{-1}$ on random faithful states, holding only
+in commuting/product situations). The correct statement, proved and
+machine-verified here, is that the standard Petz map is the
+\emph{trace-predual} of the generalized (Accardi--Cecchini) conditional
+expectation; accordingly, v2 defines the recovery channel in
+Schr\"odinger picture as precomposition with the conditional expectation.
+This also repairs a type/direction error in v1's recovered-state
+definition, whose corrected form $\tilde\omega := \omega|_{AB} \circ
+\Psi_r$ (with $\Psi_r$ the normal extension of $\mathrm{id}_A \otimes
+\varepsilon$) reproduces the standard Petz reconstruction exactly in
+finite dimensions. We further relabel v1's finite-dimensional map as the
+generalized conditional expectation (its Takesaki module property fails
+generically -- verified), record that for a \emph{true} state-preserving
+conditional expectation the recovery is the CE-pullback, and add series
+positioning: this note is the AQFT capstone announced by the companions,
+its split-implemented CMI is one of three compatible regularizations in
+the series, and the numerical program deferred by v1 has since been
+executed. The main theorem is unchanged: a conditional framework
+statement isolating the missing bridge assumptions.
+\end{abstract}
+
+\section{Introduction}
+Local algebras in AQFT are typically type III, so reduced density
+matrices and partial traces are unavailable in the naive sense. This note
+is intentionally conservative: assuming quantitative conditional
+independence and a CMI-to-recovery bridge (both explicit), one obtains an
+exponential bound on a fidelity-based recovery error for a recovery
+channel built from a conditional expectation. The main statement is a
+conditional theorem isolating AQFT-correct infrastructure; the bridge
+assumptions are the open technical problem.
+
+\paragraph{Series positioning (added in v2).} This is the AQFT companion
+announced in 2601.0043/0044 \cite{S0043, S0044} and the sibling of the
+Type III capstone 2601.0034 \cite{S0034}: there, recovery is the
+universal/twirled modular Petz candidate with an assumed FR-type
+inequality in purified distance; here, recovery is built from a
+state-preserving conditional expectation in a fixed split implementation.
+The split-implemented CMI of Section~\ref{sec:bridge} is the third
+regularized CMI of the series -- alongside the embedded-state CMI of
+2601.0020 \cite{S0020} and the Araki-difference CMI of 2601.0034 -- and
+all three reduce to the standard CMI for natural Type I data. The
+``numerical outlook'' deferred in v1 has been executed in the companions:
+TFIM pipelines in 2601.0043 v2 and a first $\mathbb{Z}_2$ gauge testbed
+in 2601.0044 v2. Upstream: 2512.0060/0101 and 2601.0007
+\cite{S0060, S0101, S0007}.
+
+\section{Tripartition geometry and split implementations}
+As in v1 (unchanged): Haag--Kastler net, faithful normal KMS state
+$\omega_\beta$; tripartition $A$--$B$--$C$ with collar $B$ and separation
+$r$; Assumption (fixed split implementation): for each $r$ a normal
+$*$-isomorphism $\alpha_r : \mathcal{A}(A\cup B\cup C) \to M_{ABC}(r)
+\cong B(\mathcal{H}_A^{(r)}) \bar\otimes B(\mathcal{H}_B^{(r)})
+\bar\otimes B(\mathcal{H}_C^{(r)})$ mapping each local algebra into its
+factor, with pushed-forward state $\omega^r_\beta$; and generation of the
+unions by the corresponding subalgebras.
+
+\section{Finite-dimensional warm-up (corrected in v2)}
+\label{sec:warmup}
+The CMI-to-recovery prototype is unchanged: by Fawzi--Renner \cite{FR}
+there is a recovery channel with $-\log F \le c_{\rm FR}\,
+I_\rho(A{:}C|B)$; with the squared-fidelity convention one may take
+$c_{\rm FR} = 1$ (this is the importable constant; cf.\ the factor
+corrections in 2512.0101 v2 and companions), and the FR map need not be
+the Petz map.
+
+\begin{definition}[Generalized conditional expectation; relabeled in v2]
+\label{def:gce}
+For faithful $\rho_{BC} > 0$ with $\rho_B := \Tr_C\rho_{BC}$, define
+$E_{BC\to B} : B(\mathcal{H}_B \otimes \mathcal{H}_C) \to
+B(\mathcal{H}_B) \otimes \mathbf{1}_C$ by
+\[
+E_{BC\to B}(Z) := \rho_B^{-1/2}\, \Tr_C\!\bigl(\rho_{BC}^{1/2} Z
+\rho_{BC}^{1/2}\bigr)\, \rho_B^{-1/2} \otimes \mathbf{1}_C .
+\]
+$E$ is normal, unital, completely positive and $\omega$-preserving
+($\omega = \Tr(\rho_{BC}\,\cdot)$), but it is \emph{not} a conditional
+expectation in the Takesaki sense: the module property
+$E(X_B \otimes \mathbf{1}) = X_B \otimes \mathbf{1}$ and idempotency fail
+for generic $\rho_{BC}$ (suite: deviations of order $0.5$ on random
+faithful states). It is the \emph{generalized} (Accardi--Cecchini)
+conditional expectation \cite{AC}; v1 called it ``the $\omega$-preserving
+conditional expectation,'' which we correct.
+\end{definition}
+
+\begin{proposition}[Correct duality: Petz is the trace-predual of $E$;
+replaces v1's Prop.~3.3]
+\label{prop:predual}
+With $E_0(Z) := \rho_B^{-1/2}\Tr_C(\rho_{BC}^{1/2}Z\rho_{BC}^{1/2})
+\rho_B^{-1/2}$ and the standard Petz map
+$\mathcal{R}^{\rm Petz}_{B\to BC}(X_B) = \rho_{BC}^{1/2}
+(\rho_B^{-1/2}X_B\rho_B^{-1/2}\otimes\mathbf{1}_C)\rho_{BC}^{1/2}$, one
+has, for all $X_B$ and all $Y \in B(\mathcal{H}_B\otimes\mathcal{H}_C)$,
+\[
+\Tr\bigl[\mathcal{R}^{\rm Petz}_{B\to BC}(X_B)\, Y\bigr] \;=\;
+\Tr\bigl[X_B\, E_0(Y)\bigr] :
+\]
+the Petz map is the adjoint of $E$ with respect to the \emph{trace}
+pairing, i.e.\ the predual map $E_*$ on density operators.
+\end{proposition}
+\begin{proof}
+$\Tr[\rho_{BC}^{1/2}(\rho_B^{-1/2}X_B\rho_B^{-1/2}\otimes\mathbf{1})
+\rho_{BC}^{1/2} Y] = \Tr[(\rho_B^{-1/2}X_B\rho_B^{-1/2}\otimes\mathbf{1})
+\rho_{BC}^{1/2}Y\rho_{BC}^{1/2}] = \Tr_B[\rho_B^{-1/2}X_B\rho_B^{-1/2}
+\Tr_C(\rho_{BC}^{1/2}Y\rho_{BC}^{1/2})] = \Tr[X_B E_0(Y)]$. (Verified to
+$2\times10^{-15}$ on random states.)
+\end{proof}
+
+\begin{remark}[v1's pairing is false in general]
+\label{rem:pairingfalse}
+v1 defined the ``Petz dual'' by $\omega(Z\,\mathcal{R}(X)) =
+\omega(E(Z)X)$ and offered a finite-dimensional proof that the standard
+Petz map satisfies it. The proof's cyclicity step (moving a single
+$\rho_{BC}^{1/2}$ through the trace) is invalid, and the identity fails
+numerically at order $10^{-1}$ on random faithful $\rho_{BC}$ (suite);
+the same holds for naive GNS- and KMS-weighted variants. The identity
+\emph{does} hold in commuting situations -- e.g.\ for product
+$\rho_{BC} = \rho_B \otimes \rho_C$, where the true conditional
+expectation exists, its predual is $X_B \mapsto X_B \otimes \rho_C$
+(equal to the Petz map there), and v1's pairing is satisfied with
+$\mathcal{R}$ the inclusion. All of this is machine-verified.
+\end{remark}
+
+\section{Fidelity and recovery error}
+As in v1: $F(\varphi,\psi)$ the squared transition probability
+(Uhlmann--Araki) for normal states \cite{Araki, AR}, monotone under
+normal CP unital maps; $\Erec := -\log F(\omega, \tilde\omega)$.
+
+\section{Recovery channel from a conditional expectation (reformulated
+in v2)}
+\begin{assumption}[$\omega_\beta$-preserving conditional expectation;
+unchanged]
+\label{ass:ce}
+There exists a normal conditional expectation $\varepsilon_{BC\to B} :
+\mathcal{A}(B\cup C) \to \mathcal{A}(B)$ with $\omega_\beta \circ
+\varepsilon_{BC\to B} = \omega_\beta|_{\mathcal{A}(B\cup C)}$ (a
+nontrivial, Takesaki-type modular-invariance condition \cite{AC}).
+\end{assumption}
+\begin{definition}[Recovery as CE-pullback; replaces v1's Defs.~5.3/6.1]
+\label{def:recovered}
+Fix $r$ and let $\Psi_r : \alpha_r(\mathcal{A}(A\cup B\cup C)) \to
+\alpha_r(\mathcal{A}(A\cup B))$ be the normal unital completely positive
+extension of $\mathrm{id}_A \otimes \alpha_r\varepsilon_{BC\to B}
+\alpha_r^{-1}$ provided factor-wise by the split implementation. Define
+the recovered state
+\[
+\tilde\omega^{\,r,ABC}_\beta := \omega^{\,r,AB}_\beta \circ \Psi_r ,
+\qquad
+\Erec(r) := -\log F\bigl(\omega^r_\beta,\, \tilde\omega^{\,r,ABC}_\beta
+\bigr),
+\]
+computable in the type I split algebra by $*$-isomorphism invariance of
+$F$ (v1's Lemma 6.5, unchanged and correct).
+\end{definition}
+\begin{remark}[What was wrong in v1's Definition 6.1]
+v1 built a map $\Phi_r$ on products $XY \mapsto X\,\mathcal{R}^{\rm
+Petz}(Y)$, which has type $\alpha_r(\mathcal{A}(A\cup B)) \to
+\alpha_r(\mathcal{A}(A\cup B\cup C))$, and then set $\tilde\omega :=
+\omega^{AB}\circ\Phi_r$ -- ill-typed, since $\omega^{AB}$ is a functional
+on the \emph{domain} of $\Phi_r$, not its range. The corrected
+Definition~\ref{def:recovered} composes in the admissible direction, and
+in finite dimensions it reproduces the standard Schr\"odinger Petz
+reconstruction $(\mathrm{id}_A \otimes E_*)(\rho_{AB})$ exactly (suite:
+$3\times10^{-16}$), consistently with Proposition~\ref{prop:predual}.
+For a \emph{true} conditional expectation
+(Assumption~\ref{ass:ce}) the recovered state is the CE-pullback
+$\omega_{AB}\circ(\mathrm{id}\otimes\varepsilon)$, exact precisely on
+states for which $\mathcal{A}(A\cup B)$ is sufficient.
+\end{remark}
+
+\section{Bridge assumptions and conditional theorem}
+\label{sec:bridge}
+Unchanged from v1 modulo the corrected $\Erec$: split-implemented CMI
+$I^{\omega_\beta, r}(A{:}C|B)$ via density operators in the fixed
+implementation (scheme-dependent; an Araki formulation would refine it --
+cf.\ the compatibility remark in 2601.0034 v2);
+Assumption (CMI decay): $I^{\omega_\beta,r}(A{:}C|B) \le C_1
+e^{-m_{\rm CMI} r}$; Assumption (CMI-to-recovery): $\Erec(r) \le
+g(I^{\omega_\beta,r}(A{:}C|B))$ with monotone $g$, $g(t)\to0$.
+\begin{theorem}[Conditional exponential recoverability; unchanged]
+Under the standing assumptions, $\Erec(r) \le g(C_1 e^{-m_{\rm CMI} r})$;
+if $g(t) \le ct$ in the relevant range, $\Erec(r) \le (cC_1)
+e^{-m_{\rm CMI} r}$.
+\end{theorem}
+
+\section{Verification suite (added in v2)}
+\texttt{verification/2601-0046/verify\_2601\_0046.py}: identifies the
+correct duality pairing (trace-predual exact at $2\times10^{-15}$; v1's
+$\omega$-pairing fails at $0.77$; naive GNS/KMS variants fail similarly);
+verifies that $E$ of Definition~\ref{def:gce} is unital and
+$\omega$-preserving but violates the module property (order $0.5$);
+verifies the product-case statements of Remark~\ref{rem:pairingfalse};
+verifies that the corrected recovered state equals the standard Petz
+reconstruction in finite dimensions; and anchors $c_{\rm FR} = 1$
+(squared convention) on random tripartite states with Petz recovery
+(40/40).
+
+\section{Discussion and outlook}
+As in v1: exponential clustering motivates the CMI-decay assumption; the
+nuclearity/modular-nuclearity program (quantitative split, finite-rank
+approximants, stability of fidelity under limits) is the route to
+\emph{deriving} the bridge assumptions \cite{BDL}. Updated: the numerical
+program deferred by v1 is now executed in the companions -- lattice
+CMI/Petz pipelines (2601.0043 v2) and a first $\mathbb{Z}_2$
+lattice-gauge testbed (2601.0044 v2), whose ladder-level lessons
+(separation condition; floor management) transfer to any future
+continuum-approximation scheme.
+
+\section*{Note added in v2}
+The conditional theorem, the bridge assumptions, and the split
+implementation are unchanged. v2 corrects the operational core:
+(1) v1's defining pairing for the ``Petz dual'' is false in general
+(Remark~\ref{rem:pairingfalse}; invalid cyclicity step in its Prop.~3.3;
+refuted numerically at order $10^{-1}$), and the correct duality is the
+trace-predual identity of Proposition~\ref{prop:predual};
+(2) the recovery channel is accordingly defined as CE-pullback
+(Definition~\ref{def:recovered}), which also repairs the type/direction
+error in v1's Definition 6.1 and reproduces standard Petz exactly in
+finite dimensions;
+(3) v1's finite-dimensional map is relabeled as the generalized
+(Accardi--Cecchini) conditional expectation, its Takesaki module property
+failing generically (verified);
+(4) series positioning added (three compatible split-CMI regularizations;
+differentiation from 2601.0034; numerical program executed in
+2601.0043/0044 v2), plus the verification suite. The bridge assumptions
+remain the open technical frontier.
+
+\begin{thebibliography}{12}
+\bibitem{Petz} D. Petz, Commun. Math. Phys. \textbf{105} (1986)
+123--131.
+\bibitem{AC} L. Accardi and C. Cecchini, J. Funct. Anal. \textbf{45}
+(1982) 245--273.
+\bibitem{Araki} H. Araki, Publ. RIMS Kyoto Univ. \textbf{11} (1976)
+809--833.
+\bibitem{AR} H. Araki and G. A. Raggio, Lett. Math. Phys. \textbf{6}
+(1982) 237--240.
+\bibitem{BDL} D. Buchholz, C. D'Antoni, and R. Longo, J. Funct. Anal.
+\textbf{88} (1990) 233--250.
+\bibitem{FR} O. Fawzi and R. Renner, Commun. Math. Phys. \textbf{340}
+(2015) 575--611.
+\bibitem{S0034} L. Eriksson, ai.viXra:2601.0034 (2026; v2 2026).
+\bibitem{S0043} L. Eriksson, ai.viXra:2601.0043 (2026; v2 2026).
+\bibitem{S0044} L. Eriksson, ai.viXra:2601.0044 (2026; v2 2026).
+\bibitem{S0020} L. Eriksson, ai.viXra:2601.0020 (2026; v2 2026).
+\bibitem{S0060} L. Eriksson, ai.viXra:2512.0060 (2025; v2 2026).
+\bibitem{S0101} L. Eriksson, ai.viXra:2512.0101 (2025; v2 2026).
+\bibitem{S0007} L. Eriksson, ai.viXra:2601.0007 (2026; v2 2026).
+\end{thebibliography}
+\end{document}

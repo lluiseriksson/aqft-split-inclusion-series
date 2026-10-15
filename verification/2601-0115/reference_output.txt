@@ -1,0 +1,26 @@
+  base canonica: dim = 8: OK
+== 1) inyectividad y estructura vN (lema v2) ==
+  desc -> (alpha, kR, kC) inyectivo en las 6 regiones: OK [=> S_alg = entropia vN de una descomposicion en sectores]
+== 2) lema del estado uniforme: cuantizacion y CMI exactas ==
+  S_alg(uniforme) exactas: (log2, 2log2, 2log2, log2, log2, 0): OK [err max 2.2e-16]
+  CMI(uniforme) = 0 exacta (I1 e I2): OK [I1=2.2e-16 I2=0.0e+00]
+== 3) lema strong-mixing: psi_0 -> uniforme monotono en t ==
+  grafo kNN (k=3, alpha=0) conexo: OK
+  overlap con uniforme monotono -> 1: OK [ov: 0.89247 -> 0.9999999]
+  PR -> dim: OK [PR(t=1000)=7.99999]
+== 4) sweep completo (grid de v1) ==
+  purity: S(1..4) ~ 0 en todo el sweep: OK
+  SSA empirica: I >= -1e-12 en todo el sweep: OK [min I = 6.5e-18]
+  punto strong-mixing (0, 100): PR ~ 8 y CMI_sum < 1e-4: OK [PR=7.9994 Isum=4.39e-07]
+  cuantizacion en (0,100): |S - n log2| < 1e-3: OK
+== 5) baseline Haar (seccion 9.4.1 de v1, ejecutada) ==
+  mediana Haar de I_sum >> I_sum(strong-mixing): OK [mediana=0.389, p05=0.158, ratio x885337]
+  SSA empirica tambien en Haar (min >= -1e-12): OK [min 2.5e-02]
+== 6) ablacion k_nn (seccion 9.4.2) ==
+  k=1 (conexo): PR ~ 8 y CMI pequena: OK [PR=7.989 Isum=1.1e-04]
+  k=2 (conexo): PR ~ 8 y CMI pequena: OK [PR=7.999 Isum=1.1e-05]
+  k=5 (conexo): PR ~ 8 y CMI pequena: OK [PR=8.000 Isum=2.0e-07]
+== 7) grid fino de t_mix (seccion 9.4.3) ==
+  transicion: S23 crece de ~0 (diagonal) a ~2log2 (mixing): OK [S23: 0.0e+00 -> 1.3831]
+
+ALL CHECKS PASSED

@@ -1,0 +1,23 @@
+== 1) identificacion del pairing de dualidad correcto ==
+  (a) traza-predual: err 2.0e-15
+  (b) pairing de v1 (Def 5.3): err 7.7e-01  -> FALSO como esta impreso
+  (c) GNS: err 7.5e-01
+  (d) KMS: err 8.2e-01
+  traza-predual exacta (R = E_* en dim finita): OK
+  pairing de v1 refutado: OK [err 0.77]
+  E unital: OK
+  E omega-preservante: OK
+== 2) E NO es esperanza condicional verdadera ==
+  propiedad de modulo FALLA (generalizada, no Takesaki): OK [desviacion 0.581]
+  (no idempotente: |E(E(Z))-E(Z)|max = 0.301)
+== 3) CE verdadera (caso producto): predual = tensorizar con rho_C ==
+  CE verdadera: modulo OK: OK
+  pairing v1 vale en el caso conmutativo/producto (con R=inclusion): OK [err 9.0e-16]
+  predual(CE) = X_B ox rho_C = Petz(producto): OK
+  E generalizada = CE verdadera en el caso producto: OK
+== 4) Def 6.1 corregida = reconstruccion Petz estandar ==
+  omega_AB o (id ox E) = Petz Schrodinger: OK [err 2.8e-16]
+== 5) ancla c_FR (convencion cuadrada) ==
+  I >= -log F(Petz): c_FR = 1 importable (cuadrada): OK [0/40]
+
+ALL CHECKS PASSED

@@ -1,0 +1,7 @@
+[SMOKE N=6, |A|=2, ws=[1, 2, 3], |C| por w: [3, 2, 1]]
+  smoke finite nonnegative Petz/CMI grid: OK
+  smoke E_best monotona no creciente: OK
+  smoke d_eff policy returns in-grid/censor pairs: OK [(1, False), (1, False), (1, False)]
+  smoke Petz errors nontrivial: OK
+
+ALL CHECKS PASSED

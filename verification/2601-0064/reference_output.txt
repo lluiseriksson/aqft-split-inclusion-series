@@ -1,0 +1,22 @@
+== 0) sanidad: estacionariedad y balance detallado ==
+  L(sigma) = 0: OK [1.2e-13]
+  KMS: gamma(-w) = e^{-bw} gamma(w): OK
+== 1) identidad omega=0 (Thm 5.5) ==
+  E^(0)(O) = g(0)/2 ||[S(0),O]||^2_{2,s} (20 O aleatorios): OK [err max 2.9e-16]
+  [S(0), sigma^{1/2}] = 0 (Lemma 5.4): OK
+== 2) envolvente Fourier (Lemma 3.3) ==
+  |gamma(w;eps)| <= ||g||_1 f(eps) en malla (w,eps): OK [margen min 0.024, ||g||_1=1.596]
+== 3) Delta-MONO para pinching de energia (v2) ==
+  covarianza Delta o L = L o Delta: OK [0.0e+00]
+  dC/dt analitico vs expm (dif. finita): OK [rel 3.8e-05]
+  Cdot_loss >= 0 en 50 estados (DPI+covarianza): OK [min 2.57e+00]
+== 4) BRIDGE-P: cota con constante explicita (v2) ==
+  r(rho) <= C_RIP f(eps) (90 estados, 3 eps): OK [peor r/(C_RIP f) = 2.05e-03]
+== 5) direccionalidad: spread kappa_up / kappa_down (Remark 4.4) ==
+  spread r(rho) con par debil (0,1), eta=0.05: OK [kappa_up/kappa_down ~ x805 (min en par ((0, 1),))]
+== 6) witness C1 (Cor 5.7) ==
+  existe O con ratio >= c > 0 y E^(0) >= g(0)c/2 ||O||^2: OK [c = 3.792]
+== 7) consistencia con 2601.0023 v2 ==
+  plain-commutator exacta en w=0, se desvia a w!=0: OK [dev(0)=2.2e-16, max dev(w!=0)=0.57]
+
+ALL CHECKS PASSED

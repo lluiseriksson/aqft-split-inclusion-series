@@ -1,0 +1,16 @@
+species                         computed      paper        match
+real scalar (xi)                1/6 - xi     1/6 - xi     OK
+real scalar minimal (xi=0)      1/6          1/6          OK
+complex scalar (xi=0)           1/3          1/3          OK
+Dirac fermion (4c)              1/3          1/3          OK
+Weyl fermion (2c)               1/6          1/6          OK
+Majorana fermion                1/6          1/6          OK
+gauge vector + ghosts           -2/3         -2/3         OK
+
+ALL SEELEY-DEWITT COEFFICIENTS MATCH: True
+
+Induced-Newton sign (Gind>0 iff A1^eff>0):
+  minimal real scalar A1=+1/6 -> Gind>0 : True
+  non-minimal scalar xi=1/4 A1=-1/12 -> Gind<0 : True
+  conformal scalar (D=4) xi=1/6 A1=0 -> no EH contribution : True
+  gauge vector+ghosts A1=-2/3 -> Gind<0 : True

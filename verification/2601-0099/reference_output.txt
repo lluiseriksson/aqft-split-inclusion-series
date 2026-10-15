@@ -1,0 +1,19 @@
+== 1) validacion contra ED de espines (L=8, h=1.5) ==
+  S(bloque) free-fermion = ED espines (4 bloques): OK [err max 3.2e-13]
+  I(A:C|B) free-fermion = ED (w=2): OK [dif 5.5e-13]
+== 2) identidad Eq.(3) en cadena abierta L=400, h=1.5 ==
+  I = 2 S_cut - S(B) vs directa (max sobre w=1..12): OK [dif max 1.1e-11]
+== 3) replica del punto gapped de la Tabla 1 ==
+    I(w): w=1:7.64e-02  w=2:2.38e-02  w=3:8.73e-03  w=4:3.38e-03  w=5:1.35e-03  w=6:5.47e-04
+    fits: (6, 11): xi=1.149  (6, 12): xi=1.153  (7, 12): xi=1.158
+  xi_rec^(early) ventana (6,11) ~ 1.149 de v1 (|dif| < 0.05): OK [xi=1.149 (v1: 1.149, metodo independiente)]
+  sensibilidad de ventana estrecha (spread < 5%): OK [[1.149, 1.158] (v1: [1.149, 1.158])]
+== 4) near-critical h=1.005: regimen pre-asintotico ==
+  xi_local(w) creciente en todo el rango (pre-asintotico, como v1): OK [xi_local: 5.7 -> 24.2]
+  jerarquia de regimenes: I_nearcrit >> I_gapped en w=8: OK [ratio 4231]
+== 5) replica TeNPy iMPS del punto gapped (best-effort) ==
+  TeNPy: I(w) puntual = free-fermion L=400 (w=1..8, rel < 2%): OK [dev max 4.48e-05]
+    informacional: xi_rec(4,8)=1.117 (v1, ventana (6,11): 1.149)
+
+ALL CHECKS PASSED
+(parte 5 ejecutada con --tenpy; ver NOTES)

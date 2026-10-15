@@ -1,0 +1,339 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\title{Program A: Semi-Infinite Conditional Mutual Information in the 1D
+TFIM (iMPS)}
+\author{Lluis Eriksson\\
+\small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{January 2026 (v1); July 2026 (v2)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study an information-theoretic notion of locality---approximate
+quantum Markov behavior---via the conditional mutual information (CMI)
+$I(A : C \mid B(w))$ in a semi-infinite geometry of the 1D
+transverse-field Ising model (TFIM). Using infinite matrix product
+states (iMPS), we compute $I(A : C \mid B(w))$ as a function of the
+collar width $w$ separating two semi-infinite regions. In a
+representative gapped point ($h = 1.5$), we observe clean exponential
+decay and a rapid plateau of the local effective-length estimator,
+yielding an early-decay length $\xi^{(\mathrm{early})}_{\mathrm{rec}}$
+comparable to the iMPS transfer-matrix correlation length
+$\xi_{\mathrm{corr}}$. Near criticality ($h = 1.005$), the local
+estimator increases throughout the accessible range, indicating a
+pre-asymptotic regime; we therefore report a fixed-window effective
+length and a window-sensitivity range as a systematic uncertainty. All
+generated assets used here (two JSONL data streams, the figure, and the
+LaTeX table snippet) are included in the Overleaf project. \emph{v2 (no
+v1 number is changed):} Appendix~\ref{app:data} is repaired (in v1 the
+data-source filenames were typeset in math mode and the near-critical
+entry was missing entirely); Table~\ref{tab:programA} is re-typeset
+(collided columns in v1); the Colab scripts of Appendix~\ref{app:scripts}
+are shipped as runnable files in the series repository rather than as
+listings; series positioning is added --- this paper is a numerical
+instantiation of the A-CMI hypothesis of the contract note
+ai.viXra:2601.0066 in a semi-infinite 1D geometry; and an
+\emph{independent} verification suite (free fermions via Jordan--Wigner,
+no tensor networks) reproduces the gapped point of
+Table~\ref{tab:programA} exactly ($\xi^{(\mathrm{early})}_{\mathrm{rec}}
+= 1.149$ on the main window, window sensitivity $[1.149, 1.158]$, both
+matching v1 digit for digit), verifies the operational identity
+Eq.~\eqref{eq:identity} to $10^{-11}$, and reproduces the rising
+near-critical $\xi_{\mathrm{local}}(w)$; a TeNPy cross-check reproduces
+the free-fermion $I(w)$ pointwise to $5\times10^{-5}$ relative.
+\end{abstract}
+
+\section{Introduction and motivation}
+
+A quantitative notion of locality in many-body quantum states is
+\emph{approximate quantum Markov structure}, commonly diagnosed via the
+conditional mutual information (CMI) $I(A : C \mid B)$. Small CMI
+implies the existence of a recovery channel acting on $B$ that
+approximately reconstructs correlations between $A$ and $C$
+(recoverability viewpoint), making $I(A : C \mid B)$ a sharp tool to
+test how a buffer region $B$ shields distant regions. This perspective
+has been developed in quantum information theory and connects naturally
+to physical expectations such as exponential clustering in gapped phases
+and area-law entanglement \cite{FR, BHOS, SFR, SBT, BH}.
+
+\textbf{Goal (Program A).} We perform a controlled iMPS computation of
+the \emph{semi-infinite} CMI $I(A : C \mid B(w))$ in the 1D
+transverse-field Ising model (TFIM), where $A$ and $C$ are semi-infinite
+and $B$ is a contiguous collar of width $w$. We compare an early-decay
+length extracted from $I(A : C \mid B(w))$ to the iMPS transfer-matrix
+correlation length in a gapped regime, and we document pre-asymptotic
+behavior near criticality when $w_{\max} \ll \xi_{\mathrm{corr}}$.
+
+\section{Model and numerical setup}
+
+We study the TFIM Hamiltonian
+\begin{equation}
+H = -J \sum_i \sigma^z_i \sigma^z_{i+1} - h \sum_i \sigma^x_i,
+\label{eq:ham}
+\end{equation}
+with $J = 1$. Ground states are computed in the thermodynamic limit
+using TeNPy iMPS with a two-site unit cell. We report the effective bond
+dimension $\chi_{\mathrm{eff}}$ after canonicalization.
+
+\textbf{Convention note.} All results reported here follow TeNPy's TFIM
+implementation with $J = 1$ and transverse field parameter $g = h$ in
+the code; the unit of length is one lattice site, and the unit cell
+contains two sites. We define $\xi_{\mathrm{corr}}$ as the iMPS
+transfer-matrix correlation length returned by TeNPy's
+\texttt{correlation\_length2()} (in lattice-site units).
+
+\section{Observable: semi-infinite CMI}
+
+We consider a contiguous tripartition $A$--$B$--$C$ where $A$ and $C$
+are semi-infinite and $B$ is a collar of width $w$. We evaluate
+\begin{equation}
+I(A : C \mid B(w)) = S(AB) + S(BC) - S(B) - S(ABC).
+\label{eq:cmi}
+\end{equation}
+Operationally, in the semi-infinite geometry considered here ($A$ and
+$C$ semi-infinite, $B$ finite of width $w$) and for a globally pure
+state, the CMI can be evaluated via the finite identity
+\begin{equation}
+I(A : C \mid B(w)) = 2 S_{\mathrm{cut}} - S(B(w)),
+\label{eq:identity}
+\end{equation}
+where $S_{\mathrm{cut}}$ is the entanglement entropy across a single cut
+separating a semi-infinite half-chain from its complement, and
+$S(B(w))$ is the von Neumann entropy of the finite block $B$. With a
+two-site unit cell, we average over the two inequivalent cut positions
+(as done in the Appendix scripts). Equation~\eqref{eq:identity} follows
+from global purity and the entropy identities $S(AB) = S(C)$, $S(BC) =
+S(A)$, and $S(ABC) = 0$, yielding a finite cancellation in the
+semi-infinite geometry with finite $B(w)$.
+
+We also define a local effective-length estimator
+\begin{equation}
+\xi_{\mathrm{local}}(w) := \bigl[\log I(A : C \mid B(w))(w) - \log I(A :
+C \mid B(w))(w+1)\bigr]^{-1}.
+\label{eq:xilocal}
+\end{equation}
+A plateau in $\xi_{\mathrm{local}}(w)$ indicates an approximately
+exponential tail.
+
+\section{Results}
+
+Figure~\ref{fig:money} shows $I(A : C \mid B(w))(w)$ and
+$\xi_{\mathrm{local}}(w)$ for the gapped and near-critical runs included
+in this Overleaf project. Dashed lines show exponential fits on the
+fixed window $w \in [6, 11]$.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\linewidth]{fig1.png}
+\caption{\textbf{CMI decay and local effective length.} Left: $I(A : C
+\mid B(w))(w)$ on a semi-log scale. Right: $\xi_{\mathrm{local}}(w)$.}
+\label{fig:money}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Program A summary (semi-infinite geometry).}
+$\xi_{\mathrm{rec}}^{(\mathrm{early})}$ is extracted from an exponential
+fit to $I(A:C\mid B(w))$ on a fixed window (main choice: $(6, 11)$).
+Window sensitivity is reported across $[(6,11), (6,12), (7,12)]$.
+$\chi_{\mathrm{eff}}$ is the effective bond dimension after
+canonicalization. $\xi_{\mathrm{corr}}$ is the iMPS transfer-matrix
+correlation length. (Re-typeset in v2; v1's table had collided
+columns.)}
+\label{tab:programA}
+\begin{tabular}{l c c c c}
+\toprule
+Regime & $h$ & $\chi_{\mathrm{eff}}$ & $\xi_{\mathrm{corr}}$ &
+$\xi_{\mathrm{rec}}^{(\mathrm{early})}$ \\
+\midrule
+Gapped & 1.500 & 13 & 1.120 & 1.149 \\
+Near-critical (from256$\to$512) & 1.005 & 110 & 87.774 & 20.485 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\begin{minipage}{0.94\linewidth}
+\small
+\textbf{Window sensitivity.} Gapped:
+$\xi_{\mathrm{rec}}^{(\mathrm{early})} \in [1.149, 1.158]$.
+Near-critical: $\xi_{\mathrm{rec}}^{(\mathrm{early})} \in [20.485,
+22.017]$.
+\end{minipage}
+\end{table}
+
+\section{Discussion}
+
+\textbf{Why $\xi_{\mathrm{rec}}^{(\mathrm{early})} \approx
+\xi_{\mathrm{corr}}$ in the gapped regime is meaningful.} In a gapped 1D
+phase, connected correlations decay exponentially with distance, and the
+iMPS transfer matrix encodes this via a finite correlation length
+$\xi_{\mathrm{corr}}$. The observation that $I(A : C \mid B(w))$ decays
+approximately exponentially and yields an early-decay scale comparable
+to $\xi_{\mathrm{corr}}$ supports the picture that the same
+transfer-matrix gap governing two-point clustering also controls the
+onset of approximate Markov structure under a finite buffer.
+
+\textbf{Why the near-critical regime does not reach the asymptotic
+tail.} Near criticality the correlation length grows rapidly, and our
+accessible collar widths satisfy $w_{\max} \ll \xi_{\mathrm{corr}}$. In
+this pre-asymptotic window, the local estimator
+$\xi_{\mathrm{local}}(w)$ increases with $w$ rather than plateauing,
+indicating that an effective length extracted from a short window should
+be interpreted as a scale characterizing the accessible range, not the
+true asymptotic decay length.
+
+\textbf{Systematic effects.} We report window sensitivity of
+$\xi_{\mathrm{rec}}^{(\mathrm{early})}$ as a minimal systematic
+uncertainty. A more complete error budget would additionally include
+finite-$\chi$ effects (iMPS truncation), which can be probed by
+repeating the pipeline at multiple $\chi_{\max}$ and examining
+convergence of $I(A : C \mid B(w))$ at fixed $w$ as $\chi_{\max} \to
+\infty$.
+
+\textbf{Series positioning (v2).} Within the series this paper is a
+numerical instantiation of the A-CMI hypothesis --- the single
+falsifiable input of the closed recoverability lane of the contract note
+ai.viXra:2601.0066 (v2) --- in a semi-infinite 1D geometry: the gapped
+row of Table~\ref{tab:programA} exhibits exactly the $I \le K
+e^{-\alpha w}$ behavior that A-CMI postulates, with the constants
+measured rather than assumed, while the near-critical row documents how
+A-CMI degrades as $\xi_{\mathrm{corr}}$ exits the accessible window.
+The rising $\xi_{\mathrm{local}}(w)$ under a short window is the same
+functional-form indistinguishability phenomenon documented for
+finite-size pipelines in ai.viXra:2601.0040 (v2), and the collar-CMI
+methodology connects to ai.viXra:2601.0050 (finite collar geometries and
+their saturation structure), ai.viXra:2601.0038 (finite-size $d_{\rm
+eff}$ pipelines), and the Type III interface ai.viXra:2601.0065 (where
+split-regularized CMI decay is the corresponding assumption). The v2
+verification suite adds what none of these had: a tensor-network-free
+cross-check of the entire pipeline (free fermions via Jordan--Wigner on
+an open chain of $L = 400$ sites), which reproduces the gapped
+$\xi_{\mathrm{rec}}^{(\mathrm{early})}$ and its window-sensitivity range
+digit for digit.
+
+\section{Conclusions and outlook}
+
+We computed semi-infinite conditional mutual information $I(A : C \mid
+B(w))$ in the TFIM using iMPS and observed: (i) clean exponential decay
+and a rapid $\xi_{\mathrm{local}}(w)$ plateau in a gapped point, with
+$\xi_{\mathrm{rec}}^{(\mathrm{early})}$ comparable to
+$\xi_{\mathrm{corr}}$; and (ii) a strongly running
+$\xi_{\mathrm{local}}(w)$ near criticality consistent with $w_{\max} \ll
+\xi_{\mathrm{corr}}$. Immediate extensions are (a) convergence studies
+in $\chi$ and (b) broader model coverage to test universality of the
+relation between recoverability length scales and transfer-matrix
+correlation lengths.
+
+\section{Reproducibility}
+
+This Overleaf project is populated by uploading four generated files:
+the figure \texttt{moneyplot\_CMI\_xilocal.png}, the table snippet
+\texttt{summary.tex}, and two JSONL streams containing the points for
+$I(A : C \mid B(w))$. To regenerate these assets, run the Colab build
+scripts (shipped as files, Appendix~\ref{app:scripts}) and upload the
+resulting zip (or the four files) to the root of the Overleaf project.
+\emph{v2:} an independent verification suite
+(\texttt{verification/2601-0099/verify\_2601\_0099.py} in the series
+repository) reproduces the gapped point and the identity
+Eq.~\eqref{eq:identity} without tensor networks, and cross-checks TeNPy
+against it; see the Note added below.
+
+\section*{Note added in v2}
+No v1 number, fit window, or conclusion is changed. v2: (1) repairs
+Appendix~\ref{app:data}, whose v1 rendering typeset the data-source
+filenames in math mode (subscript soup) and dropped the near-critical
+entry entirely; (2) re-typesets Table~\ref{tab:programA}, whose v1
+rendering collided the $\chi_{\mathrm{eff}}$ and $\xi_{\mathrm{corr}}$
+columns (``110.00087.774''); (3) ships the five Colab scripts of
+Appendix~\ref{app:scripts} as runnable, syntax-checked files in the
+series repository instead of typeset listings; (4) adds series
+positioning (v1 cited no companion papers): this paper instantiates the
+A-CMI hypothesis of ai.viXra:2601.0066; (5) adds an independent
+verification suite: a Jordan--Wigner free-fermion computation on an open
+chain ($L = 400$; engine validated against exact diagonalization of the
+spin chain at $L = 8$ to $10^{-13}$) reproduces the gapped
+$\xi_{\mathrm{rec}}^{(\mathrm{early})} = 1.149$ on the main window
+$(6,11)$ and the window-sensitivity range $[1.149, 1.158]$ --- both
+identical to v1's Table~\ref{tab:programA} digit for digit by a method
+with no tensor networks --- verifies Eq.~\eqref{eq:identity} against the
+direct entropy combination to $10^{-11}$, and reproduces the rising
+near-critical $\xi_{\mathrm{local}}(w)$ ($5.7 \to 24.2$ across the
+accessible range); a TeNPy iMPS run ($\chi = 16$ suffices;
+$\chi_{\mathrm{eff}} = 13$ in v1) then agrees with the free-fermion
+$I(w)$ pointwise to $5\times10^{-5}$ relative for $w \le 8$. The
+$\chi = 128/512$ production numbers of Table~\ref{tab:programA} remain
+sourced from the v1 checkpoints and Colab scripts.
+
+\appendix
+
+\section{Data sources used in this project}
+\label{app:data}
+
+(Repaired in v2; v1 typeset these filenames in math mode and omitted the
+second entry.)
+
+\begin{itemize}
+\item Gapped JSONL: \texttt{cmi\_h1p5\_chi128\_semiinf\_STREAM.jsonl}
+\item Near-critical JSONL:
+\texttt{cmi\_from256\_h1p005\_chi512\_semiinf\_STREAM.jsonl}
+\end{itemize}
+
+\section{Colab scripts to regenerate the four uploaded files}
+\label{app:scripts}
+
+v1 embedded the five Colab scripts as typeset listings; v2 ships them as
+runnable, syntax-checked files in the series repository under
+\texttt{verification/2601-0099/colab/}, transcribed verbatim from v1's
+Appendix B (the v1 PDF remains the typeset source):
+
+\begin{itemize}
+\item \texttt{00\_env\_and\_install.py} --- pinned TeNPy install
+(\texttt{v1.1.0}) and environment freeze;
+\item \texttt{01\_dmrg\_ground\_states.py} --- iDMRG checkpoints:
+gapped $h{=}1.5$ ($\chi{=}128$), near-critical $h{=}1.005$
+($\chi{=}256 \to 512$ ramp);
+\item \texttt{02\_cmi\_jsonl.py} --- semi-infinite CMI streams via
+Eq.~\eqref{eq:identity}, averaged over the two unit-cell cuts;
+\item \texttt{03\_figure\_and\_summary.py} --- money plot and LaTeX
+table snippet with the fixed fit windows;
+\item \texttt{04\_package\_and\_manifest.py} --- root-clean zip of the
+four Overleaf assets with SHA256 manifest.
+\end{itemize}
+
+The scripts assume Google Drive mounted at \texttt{/content/drive} with
+\texttt{PROJECT\_DIR} set to the working folder.
+
+\begin{thebibliography}{9}
+\bibitem{FR} O. Fawzi and R. Renner, \emph{Quantum conditional mutual
+information and approximate Markov chains}, Commun. Math. Phys.
+\textbf{340}, 575--611 (2015).
+\bibitem{BHOS} F. G. S. L. Brand\~ao, A. W. Harrow, J. Oppenheim, and
+S. Strelchuk, \emph{Quantum conditional mutual information,
+reconstructed states, and state redistribution}, Phys. Rev. Lett.
+\textbf{115}, 050501 (2015).
+\bibitem{SFR} D. Sutter, O. Fawzi, and R. Renner, \emph{Universal
+recovery map for approximate Markov chains}, arXiv:1504.07251 (2015).
+\bibitem{SBT} D. Sutter, M. Berta, and M. Tomamichel,
+\emph{Multivariate trace inequalities}, Commun. Math. Phys.
+\textbf{352}, 37--58 (2017).
+\bibitem{BH} F. G. S. L. Brand\~ao and M. Horodecki, \emph{Exponential
+decay of correlations implies area law}, Commun. Math. Phys.
+\textbf{333}, 761--798 (2015).
+\bibitem{S0066} L. Eriksson, ai.viXra:2601.0066 (2026; v2 2026).
+\bibitem{S0065} L. Eriksson, ai.viXra:2601.0065 (2026; v2 2026).
+\bibitem{S0050} L. Eriksson, ai.viXra:2601.0050 (2026; v2 2026).
+\bibitem{S0040} L. Eriksson, ai.viXra:2601.0040 (2026; v2 2026).
+\bibitem{S0038} L. Eriksson, ai.viXra:2601.0038 (2026; v2 2026).
+\end{thebibliography}
+
+\end{document}

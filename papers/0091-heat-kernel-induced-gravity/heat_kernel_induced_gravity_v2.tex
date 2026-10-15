@@ -1,0 +1,284 @@
+\documentclass[11pt,a4paper]{article}
+
+% ======================================================================
+%  Technical Appendix: Heat Kernel, Fermions, and the Sign of Induced
+%  Gravity. Version 2 (July 2026). v1: December 2025 (ai.viXra:2512.0091v1).
+%  This is a self-contained heat-kernel / induced-gravity support piece,
+%  topically adjacent to (not part of) the coherence-maintenance series.
+%  Main changes (Appendix): the physics is UNCHANGED and correct -- v1 had
+%  no error; this v2 (i) updates the companion references to their v2
+%  revisions, (ii) adds a symbolic verification of the full Seeley-DeWitt
+%  a1 coefficient table and the induced-Newton sign column (all seven
+%  species checked, distributed as verification/0091/verify_0091.py), and
+%  (iii) tightens the scope note so the link to the "resource boundary /
+%  cut" program is stated as heuristic, not load-bearing.
+% ======================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newcommand{\Aeff}{A_1^{(\mathrm{eff})}}
+
+\title{Technical Appendix: Heat Kernel, Fermions, and the Sign of Induced
+Gravity\\[2mm]
+\large (Sign conventions fixed; Laplacian/Lichnerowicz hinge made explicit)}
+\author{Lluis Eriksson\\ \small Independent Researcher\\
+\small \texttt{lluiseriksson@gmail.com}}
+\date{July 4, 2026 \quad (v2; v1: December 2025) \quad ai.viXra:2512.0091}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Scope note.} This appendix is a self-contained heat-kernel
+computation of the sign of the induced Einstein--Hilbert term from integrating
+out matter fields. It is \emph{topically adjacent} to the coherence-
+maintenance / ``resource boundary'' program (the induced-gravity sign is a
+curvature-sector bookkeeping that the program refers to heuristically), but it
+is \emph{not} load-bearing for any result in that series and depends on none
+of it; the cross-references \cite{GML,MC,QCB,Davies,RIP,Closure,Stress,HCut,Work,Clustering}
+are for context only. It does not attempt a UV completion nor a physical
+determination of $G_{\mathrm{phys}}$. \textbf{v2}: the physics is unchanged
+(v1 contained no error); this revision updates companion references to their
+v2 revisions and adds a symbolic verification of the full coefficient table
+(Appendix~\ref{app:verif}).}}
+\end{center}
+
+\begin{abstract}
+We derive the local contribution proportional to the scalar curvature $R$ in
+the Euclidean one-loop effective action obtained by integrating out matter
+fields on a curved background. Using a Schwinger cutoff $\varepsilon =
+\Lambda^{-2}$ and the Seeley--DeWitt coefficient $a_1$, we extract the
+quadratically divergent term multiplying $\int d^4x\sqrt{g}\,R$. We fix a
+single Euclidean convention for the Einstein--Hilbert action, state an explicit
+Laplacian convention, and write the Lichnerowicz/Weitzenb\"ock identity in a
+sign-robust form so that the fermionic contribution is unambiguous. We provide
+a unified bookkeeping coefficient $\Aeff$ such that
+\[
+W_R^{\mathrm{total}} = -\frac{\Aeff}{32\pi^2}\Lambda^2
+\int d^4x\sqrt{g}\,R,
+\]
+and hence an induced Newton constant $G_{\mathrm{ind}}$ via comparison with the
+Euclidean Einstein--Hilbert action. We include the minimal gauge${+}$ghost
+package in background Feynman gauge, a species table, and a reproducible
+symbolic check of every entry.
+\end{abstract}
+
+\section{Conventions and notation}
+
+\subsection{Lorentzian geometry and curvature sign}
+Lorentzian signature $(-,+,+,+)$ and the Wald/MTW convention
+\[
+R^a{}_{bcd} = \partial_c\Gamma^a_{bd} - \partial_d\Gamma^a_{bc}
++ \Gamma^a_{ce}\Gamma^e_{bd} - \Gamma^a_{de}\Gamma^e_{bc},
+\quad R_{bd} = R^a{}_{bad}, \quad R = g^{bd}R_{bd}.
+\]
+
+\subsection{Euclidean formulation and Einstein--Hilbert action}
+Heat-kernel calculations are done in $D=4$ Euclidean signature. We fix
+\[
+S_E^{\mathrm{EH}} = -\frac{1}{16\pi G}\int d^4x\sqrt{g}\,R,
+\qquad
+S_L = \frac{1}{16\pi G}\int d^4x\sqrt{-g}\,R,
+\]
+with $S_E = -iS_L$ when topological/eta phases are irrelevant for the local
+divergent coefficient extracted here.
+
+\subsection{Laplacian, Laplace-type operators, Schwinger cutoff}
+$\nabla^2 \equiv g^{\mu\nu}\nabla_\mu\nabla_\nu$, so $-\nabla^2$ is positive; a
+Laplace-type operator is $P = -\nabla^2 + X(x)$ with $X$ a local endomorphism.
+Schwinger proper-time with $\varepsilon = \Lambda^{-2}$:
+\[
+\ln\det P = -\int_\varepsilon^\infty \frac{ds}{s}\,\mathrm{Tr}\,e^{-sP}.
+\]
+
+\subsection{Fermionic hinge: Lichnerowicz/Weitzenb\"ock}
+$D_E \equiv \gamma^\mu\nabla_\mu$ with Euclidean $(\gamma^\mu)^\dagger =
+\gamma^\mu$ and $(D_E)^\dagger = -D_E$;
+$[\nabla_\mu,\nabla_\nu]\psi = \tfrac14 R_{\mu\nu\rho\sigma}\gamma^{\rho\sigma}
+\psi$, $\gamma^{\rho\sigma} = \tfrac12[\gamma^\rho,\gamma^\sigma]$. In
+sign-robust form,
+\[
+-D_E^2 = -\nabla^2 + \tfrac14 R.
+\]
+Here $\nabla^2$ is the connection Laplacian on spinors (not the de Rham
+Laplacian on forms).
+
+\section{Heat kernel expansion and $a_1$}
+With $K(s;x,y) = \langle x|e^{-sP}|y\rangle$,
+\[
+\mathrm{Tr}\,e^{-sP} \sim \frac{1}{(4\pi s)^2}\int d^4x\sqrt{g}
+\big(a_0 + a_1 s + a_2 s^2 + \cdots\big),
+\quad
+a_0 = \mathrm{tr}\,\mathbf{1},\;\;
+a_1 = \mathrm{tr}\big(\tfrac16 R - X\big).
+\]
+For a real scalar with $X = m^2 + \xi R$: $a_{1,R} = \tilde a_1 R$,
+$\tilde a_1 = \tfrac16 - \xi$; the $-m^2$ piece renormalizes the cosmological
+term, not $\int\sqrt{g}\,R$.
+
+\section{Scalars: extraction of $\int\sqrt{g}\,R$}
+$W_{\mathrm{scalar}} = \tfrac12\ln\det P = -\tfrac12\int_\varepsilon^\infty
+\tfrac{ds}{s}\mathrm{Tr}\,e^{-sP}$; using $\int_\varepsilon^\infty ds\,s^{-2}
+= \Lambda^2$,
+\[
+W_R^{\mathrm{scalar}} = -\frac{\tilde a_1}{32\pi^2}\Lambda^2
+\int d^4x\sqrt{g}\,R.
+\]
+
+\section{Dirac fermions: reduction to Laplace type}
+$S_F = \int d^4x\sqrt{g}\,\bar\psi(D_E + m)\psi$, $W_{\mathrm{ferm}} =
+-\ln\det(D_E + m)$. With $\ln\det(D_E+m) = \tfrac12\ln\det[(D_E+m)^\dagger
+(D_E+m)] + i\Theta$ and $P_D := (D_E+m)^\dagger(D_E+m) = -D_E^2 + m^2 =
+-\nabla^2 + m^2 + \tfrac14 R$, so $X_D = m^2 + \tfrac14 R$ and
+\[
+a_1^{(P_D)} = \tfrac16 R - X_D = -\tfrac{1}{12}R - m^2,
+\qquad
+\mathrm{tr}\,a_{1,R}^{(P_D)} = 4\cdot\big(-\tfrac{1}{12}\big)R = -\tfrac13 R.
+\]
+Because $W_{\mathrm{ferm}} = -\tfrac12\ln\det P_D = +\tfrac12
+\int_\varepsilon^\infty\tfrac{ds}{s}\mathrm{Tr}\,e^{-sP_D}$ (the fermionic
+sign flip),
+\[
+W_R^{\mathrm{ferm}} = -\frac{1}{96\pi^2}\Lambda^2\int d^4x\sqrt{g}\,R.
+\]
+The phase $i\Theta$ and zero modes matter in chiral/topological settings but do
+not modify this local coefficient for a massive Dirac field in a smooth
+background.
+
+\section{Gauge fields and ghosts (spin-1), Feynman gauge}
+Per generator, $\alpha=1$: $(P_1)_\mu{}^\nu = -\delta_\mu^\nu\nabla^2 +
+R_\mu{}^\nu$, ghost $P_{\mathrm{gh}} = -\nabla^2$,
+$W_{\mathrm{gauge}} = \tfrac12\ln\det P_1 - \ln\det P_{\mathrm{gh}}$. With
+$E_\mu{}^\nu = R_\mu{}^\nu$,
+\[
+\mathrm{tr}\,a_{1,R}^{(1\text{-form})} = \tfrac16\,\mathrm{tr}\,\mathbf 1
+- \mathrm{tr}\,E = \tfrac46 - 1 = -\tfrac13 R;
+\]
+the ghost (complex Grassmann scalar) enters with the opposite sign of a
+complex boson ($\tfrac13 R$), giving $\mathrm{tr}\,a_{1,R}^{(\mathrm{gh})} =
+-\tfrac13 R$, hence
+\[
+\Aeff(\text{vector}+\text{ghosts}) = -\tfrac23 \quad(\text{per generator}).
+\]
+
+\section{Unified convention and induced Newton constant}
+Define $\Aeff$ by $W_R^{\mathrm{total}} = -\dfrac{\Aeff}{32\pi^2}\Lambda^2
+\int d^4x\sqrt{g}\,R$. Comparing with $S_E^{\mathrm{EH}}$ and identifying
+$S_{E,\mathrm{induced}}^{\mathrm{EH}} = W_R^{\mathrm{total}}$,
+\[
+\frac{1}{16\pi G_{\mathrm{ind}}} = \frac{\Aeff}{32\pi^2}\Lambda^2
+\quad\Longrightarrow\quad
+G_{\mathrm{ind}} = \frac{2\pi}{\Aeff\,\Lambda^2},
+\qquad
+G_{\mathrm{ind}} > 0 \iff \Aeff > 0.
+\]
+
+\section{Species table (unified convention)}
+\begin{center}
+\begin{tabular}{lcl}
+\toprule
+Species & $\Aeff$ & Comment\\
+\midrule
+Real scalar (general $\xi$) & $\tfrac16 - \xi$ & $X = m^2 + \xi R$\\
+Real scalar (minimal) & $+\tfrac16$ & $\xi = 0$\\
+Complex scalar & $2(\tfrac16 - \xi)$ & two real d.o.f.\\
+Dirac fermion (4 comp.) & $+\tfrac13$ & derived above\\
+Weyl fermion (2 comp.) & $+\tfrac16$ & half of Dirac\\
+Majorana fermion & $+\tfrac16$ & half of Dirac\\
+Gauge vector ${+}$ ghosts & $-\tfrac23$ & per generator, Feynman gauge\\
+\bottomrule
+\end{tabular}
+\end{center}
+Every entry is verified symbolically in Appendix~\ref{app:verif}.
+
+\section{Sign examples}
+\begin{itemize}
+\item Minimal real scalar: $\Aeff = \tfrac16 > 0 \Rightarrow G_{\mathrm{ind}} >
+0$.
+\item Non-minimally coupled real scalar with $\xi = \tfrac14$: $\Aeff =
+\tfrac16 - \tfrac14 = -\tfrac{1}{12} < 0 \Rightarrow G_{\mathrm{ind}} < 0$.
+\item Conformally coupled real scalar in $D=4$ ($\xi_{\mathrm{conf}} =
+\tfrac{D-2}{4(D-1)} = \tfrac16$): $\Aeff = 0$; it does not contribute to the
+induced Einstein--Hilbert term at this order. This does not remove the usual
+conformal-anomaly / $a_2$ curvature-squared terms; it only says that the
+quadratically divergent Einstein--Hilbert $R$-term vanishes for the
+conformally coupled scalar.
+\item Gauge vector (per generator): $\Aeff = -\tfrac23 < 0 \Rightarrow
+G_{\mathrm{ind}} < 0$ for that sector alone.
+\end{itemize}
+The net sign for a given model is $\sum_{\mathrm{species}} \Aeff$ weighted by
+multiplicities; realistic spectra require summing all sectors (this appendix
+provides the per-species bookkeeping, not a spectrum-specific determination).
+
+\appendix
+
+\section{Symbolic verification}\label{app:verif}
+
+Distributed as \texttt{verification/0091/verify\_0091.py} (SymPy). It
+reconstructs each $\Aeff$ from $a_1 = \mathrm{tr}(\tfrac16 R - X)$ with the
+Lichnerowicz shift $X_D = m^2 + \tfrac14 R$ for spinors, the fermionic
+overall sign flip ($W_{\mathrm{ferm}} = -\tfrac12\ln\det P_D$), and the ghost
+entering as minus a complex boson, and checks all seven table entries:
+$\tfrac16-\xi$, $\tfrac16$, $\tfrac13$, $\tfrac13$, $\tfrac16$, $\tfrac16$,
+$-\tfrac23$ --- all match. The induced-Newton sign column ($G_{\mathrm{ind}}
+> 0 \iff \Aeff > 0$) is checked on the minimal scalar ($+$), the non-minimally coupled scalar with
+$\xi=\tfrac14$ ($-$), the conformally coupled scalar in $D=4$ ($\xi=\tfrac16$,
+vanishing contribution), and the gauge sector ($-$). Result: \textsc{all Seeley--DeWitt coefficients
+match}.
+
+\section{Changes relative to version 1}
+
+\begin{enumerate}
+\item \textbf{Physics unchanged (no error in v1).} The coefficient table and
+sign bookkeeping are correct and verified (Appendix~\ref{app:verif}); this is
+the sole paper in the program requiring no mathematical rectification.
+\item \textbf{Verification added:} symbolic check of the full $a_1$ table and
+the induced-Newton sign, distributed with the paper.
+\item \textbf{References updated} to the v2 revisions of the companion series;
+the ``resource boundary / cut'' link is restated as heuristic and non-load-
+bearing (scope note).
+\end{enumerate}
+
+\begin{thebibliography}{99}\small
+\bibitem{GML} L.~Eriksson, \emph{Geometry, Membranes, and Life as a Resource
+Boundary}, ai.viXra:2512.0085, v2 (2026; v1: 2025).
+\bibitem{MC} L.~Eriksson, \emph{The Maintenance Constraint}, ai.viXra:2512.0084,
+v2 (2026; v1: 2025).
+\bibitem{QCB} L.~Eriksson, \emph{Operational Coherence Maintenance and the
+Quantum--Classical Boundary}, ai.viXra:2512.0081, v2 (2026; v1: 2025).
+\bibitem{Davies} L.~Eriksson, \emph{Finite-Dimensional Davies Interface Lemmas
+and TFIM Witness Tests}, ai.viXra:2512.0073, v2 (2026; v1: 2025).
+\bibitem{RIP} L.~Eriksson, \emph{The Rate Inheritance Principle},
+ai.viXra:2512.0072, v2 (2026; v1: 2025).
+\bibitem{Closure} L.~Eriksson, \emph{Operational Coherence Maintenance: Proven
+Results, Conditional Interfaces, and Open Dynamical Gaps}, ai.viXra:2512.0071,
+v2 (2026; v1: 2025).
+\bibitem{Stress} L.~Eriksson, \emph{Stress Testing the Rate Inheritance
+Principle}, ai.viXra:2512.0070, v2 (2026; v1: 2025).
+\bibitem{HCut} L.~Eriksson, \emph{The Heisenberg Cut as a Resource Boundary},
+ai.viXra:2512.0064, v2 (2026; v1: 2025).
+\bibitem{Work} L.~Eriksson, \emph{The Conditional Maintenance Work Theorem},
+ai.viXra:2512.0061, v2 (2026; v1: 2025).
+\bibitem{Clustering} L.~Eriksson, \emph{Clustering, Recovery, and Locality in
+AQFT}, ai.viXra:2512.0060, v2 (2026; v1: 2025).
+\bibitem{Gilkey} P.~B.~Gilkey, \emph{Invariance Theory, the Heat Equation, and
+the Atiyah--Singer Index Theorem}, CRC Press (1995).
+\bibitem{Vassilevich} D.~V.~Vassilevich, \emph{Heat kernel expansion: user's
+manual}, Phys. Rept. \textbf{388} (2003) 279, arXiv:hep-th/0306138.
+\bibitem{Avramidi} I.~G.~Avramidi, \emph{Heat Kernel and Quantum Gravity},
+Lecture Notes in Physics (2000).
+\bibitem{Sakharov} A.~D.~Sakharov, \emph{Vacuum quantum fluctuations in curved
+space and the theory of gravitation}, Dokl. Akad. Nauk SSSR \textbf{177}
+(1967) 70.
+\bibitem{BarvinskyVilkovisky} A.~O.~Barvinsky and G.~A.~Vilkovisky, \emph{The
+generalized Schwinger--DeWitt technique}, Phys. Rept. \textbf{119} (1985) 1.
+\end{thebibliography}
+
+\end{document}

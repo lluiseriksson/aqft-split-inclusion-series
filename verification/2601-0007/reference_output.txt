@@ -1,0 +1,17 @@
+== 1) fidelity anchors ==
+  vac|squeezed r=0.3: OK
+  vac|TMSV r=0.9: OK
+  thermal|thermal (Marian): OK
+  [thewalrus not installed: optional cross-check skipped]
+== 2-8) random-draw suite, n1=n2 in {1,2,3} ==
+  n1=n2=1 (150 draws): OK [violations phys:0 L62id:0 L62hs:0 P61:0 P62:0 C62:0 chain:0 thm:0 cnew:0]
+  n1=n2=2 (150 draws): OK [violations phys:0 L62id:0 L62hs:0 P61:0 P62:0 C62:0 chain:0 thm:0 cnew:0]
+  n1=n2=3 (150 draws): OK [violations phys:0 L62id:0 L62hs:0 P61:0 P62:0 C62:0 chain:0 thm:0 cnew:0]
+  empirical C2 on sampled domain: C2_emp = 0.1427 (= 1.1419 x 1/8; worst direction at n1=1, ||K||=1.960e-03)
+  -> certifies Lemma 5.1 existence claim with explicit empirical constant;
+     confirms Remark 7.2: 1/8 is a directional benchmark, not uniform.
+== 9) collar sweep (Bessel envelope, n1=n2=2) ==
+  1-F decae con r: OK [3.86e-06 -> 5.91e-12]
+  cota collar-suppressed domina y decae: OK [1.39e-05 -> 1.91e-11]
+
+ALL CHECKS PASSED

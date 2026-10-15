@@ -1,0 +1,17 @@
+== PART 1: scalar on S^4, P = -Lap (X = 0) ==
+  tr a1(scalar) = R/6: got +1.999991  expected +2.000000  |diff|=9.42e-06  OK
+== PART 2: Dirac on S^4, P_D = -Lap + R/4 (Lichnerowicz) ==
+  tr a1(Dirac) = -R/3: got -4.000001  expected -4.000000  |diff|=7.89e-07  OK
+== PART 3: 1-forms on S^4, P_1 = -Lap + Ric (Feynman gauge) ==
+  tr a1(1-form) = -R/3: got -4.000006  expected -4.000000  |diff|=5.60e-06  OK
+  A1_eff(vector+ghosts) = -2/3: got -0.666666  expected -0.666667  |diff|=1.10e-06  OK
+== PART 4: bookkeeping (exact algebra) ==
+  conformal scalar xi=1/6 -> A1 = 0: got +0.000000  expected +0.000000  |diff|=0.00e+00  OK
+  Dirac = 2 x minimal scalar: got +0.333333  expected +0.333333  |diff|=0.00e+00  OK
+  vector = -4 x minimal scalar: got -0.666667  expected -0.666667  |diff|=0.00e+00  OK
+  1/G: unified A1 == (N0+2N1/2-4N1)/12pi: got +79577.471546  expected +79577.471546  |diff|=1.46e-11  OK
+  sign: minimal scalar -> G>0: got +1.000000  expected +1.000000  |diff|=0.00e+00  OK
+  sign: xi=1/4 scalar -> G<0: got -1.000000  expected -1.000000  |diff|=0.00e+00  OK
+  sign: vector+ghosts -> G<0: got -1.000000  expected -1.000000  |diff|=0.00e+00  OK
+
+ALL CHECKS PASSED

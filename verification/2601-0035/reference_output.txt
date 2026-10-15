@@ -1,0 +1,13 @@
+[N=9, LA=2, J=1.0, hx=1.0]
+  hz=0.0 beta=2.0: mu_CMI=1.671  max r=-logF/I = 0.138  (media escala v1: 0.277)
+  hz=0.0 beta=3.0: mu_CMI=1.146  max r=-logF/I = 0.200  (media escala v1: 0.399)
+  hz=0.0 beta=5.0: mu_CMI=0.757  max r=-logF/I = 0.293  (media escala v1: 0.587)
+  hz=0.5 beta=2.0: mu_CMI=2.920  max r=-logF/I = 0.251  (media escala v1: 0.501)
+  hz=0.5 beta=3.0: mu_CMI=3.293  max r=-logF/I = 0.460  (media escala v1: 0.920)
+  hz=0.5 beta=5.0: mu_CMI=3.622  max r=-logF/I = 0.616  (media escala v1: 1.231)
+  ratio FR corregido r < 1 en todo el grid: OK [max 0.616]
+  con la media escala de v1 hay 'overshoots' (artefacto): OK [1 casos]
+  decaimiento CMI exponencial (mu > 0): OK [min mu 0.76]
+  1-F <= -log F: OK
+
+ALL CHECKS PASSED

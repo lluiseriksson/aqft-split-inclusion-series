@@ -1,0 +1,23 @@
+== 1) L1: 1 - F <= -log F (Lemma 4.3) ==
+  1 - F <= -log F en 2e5 puntos de (0,1]: OK [min gap -0.0e+00 (en F=1)]
+== 2) disciplina de convenciones: c_FR = 1 con F cuadrada ==
+  -log F = -2 log f_raiz (identidad de alineacion): OK [8.9e-16]
+  mezclar convenciones produce factor 2 (trampa documentada): OK [0.5x exacto]
+== 3) Example 6.1: Markov exacto => recovery perfecto ==
+  I(A:C|B) = 0 (estructura HJPW): OK [I=0.0e+00]
+  Petz-type F = 1 (recovery perfecto): OK [1-F=4.9e-15]
+== 4) carril cerrado instanciado: TFIM g=1.5, A=2, C=3, B=w ==
+    w=1: I=7.172e-02  E_rec=4.311e-02  1-F=4.219e-02
+    w=2: I=2.162e-02  E_rec=9.560e-03  1-F=9.514e-03
+    w=3: I=7.724e-03  E_rec=3.358e-03  1-F=3.352e-03
+    w=4: I=2.913e-03  E_rec=1.260e-03  1-F=1.260e-03
+  T2 con c_FR=1: E_rec <= I(A:C|B) en w=1..4 (dataset generado): OK
+  A-CMI instanciada: I ~ K e^{-alpha w}, alpha > 0: OK [alpha=1.06 K=1.95e-01]
+  T3: E_rec <= c_FR K e^{-alpha w}: OK
+  cadena L1: 1 - F <= E_rec <= c_FR K e^{-alpha w}: OK
+== 5) Example 6.2: dephasing puro, envolventes kappa ==
+  C_Delta(T_t rho) monotona decreciente (10 estados): OK
+  Cdot_loss >= 0 en la familia: OK [min r=4.61e-02]
+  spread kappa_up/kappa_down >> 1 (direccionalidad, Remark 3.10): OK [x100 (4.61e-02 .. 4.61e+00)]
+
+ALL CHECKS PASSED
