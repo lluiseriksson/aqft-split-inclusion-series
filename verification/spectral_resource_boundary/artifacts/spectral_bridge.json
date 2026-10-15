@@ -1,0 +1,128 @@
+{
+  "claim_scope": "Exact finite spectral/moment certificates and deterministic toy-model checks only; not a Yang-Mills mass-gap or Riemann-hypothesis proof.",
+  "continuous_spectral_triangle": {
+    "energies": [
+      2.0,
+      3.0,
+      5.0
+    ],
+    "false_gap_claim": 2.1,
+    "false_gap_test_time": 30.0,
+    "false_gap_violation_ratio": 5.7387248351972815,
+    "minimum_gap_envelope_margin_on_grid": 0.0,
+    "resolvent_gap_bound": "1/3",
+    "resolvent_value": "1/4",
+    "resolvent_x": "1/1",
+    "true_gap": 2.0,
+    "weights": [
+      0.2857142857142857,
+      0.42857142857142855,
+      0.2857142857142857
+    ]
+  },
+  "rate_squaring_check": {
+    "absolute_slope_error": 1.1964651491780387e-10,
+    "analytic_log_rate_slope": -4.0,
+    "fit_time_end": 40.0,
+    "fit_time_start": 20.0,
+    "fitted_intercept": -2.5055259329355266,
+    "fitted_log_rate_slope": -4.0000000001196465
+  },
+  "schema_version": 1,
+  "transfer_moment_certificate": {
+    "atoms": [
+      "1/2",
+      "1/3",
+      "1/5"
+    ],
+    "gram_coefficients_theta_good": [
+      "0/1",
+      "1/14",
+      "3/35"
+    ],
+    "hankel_H2": [
+      [
+        "1/1",
+        "12/35",
+        "137/1050"
+      ],
+      [
+        "12/35",
+        "137/1050",
+        "1697/31500"
+      ],
+      [
+        "137/1050",
+        "1697/31500",
+        "22307/945000"
+      ]
+    ],
+    "localizing_L2_theta_bad": [
+      [
+        "2/35",
+        "1/150",
+        "-53/31500"
+      ],
+      [
+        "1/150",
+        "-53/31500",
+        "-1943/945000"
+      ],
+      [
+        "-53/31500",
+        "-1943/945000",
+        "-38033/28350000"
+      ]
+    ],
+    "localizing_L2_theta_good": [
+      [
+        "11/70",
+        "43/1050",
+        "179/15750"
+      ],
+      [
+        "43/1050",
+        "179/15750",
+        "787/236250"
+      ],
+      [
+        "179/15750",
+        "787/236250",
+        "3611/3543750"
+      ]
+    ],
+    "moments_b0_to_b6": [
+      "1/1",
+      "12/35",
+      "137/1050",
+      "1697/31500",
+      "22307/945000",
+      "305717/28350000",
+      "616061/121500000"
+    ],
+    "negative_witness": [
+      "1/1",
+      "-8/1",
+      "15/1"
+    ],
+    "negative_witness_value": "-9/560",
+    "status_bad": "NOT_PSD_BY_EXACT_RATIONAL_WITNESS",
+    "status_good": "PSD_BY_EXACT_ATOMIC_GRAM_DECOMPOSITION",
+    "theta_bad": "2/5",
+    "theta_good": "1/2",
+    "weights": [
+      "2/7",
+      "3/7",
+      "2/7"
+    ]
+  },
+  "two_horizon_example": {
+    "affordability_horizon": 3.800451229771041,
+    "budget": 1e-06,
+    "impossibility_horizon": 3.4538776394910684,
+    "lower_power_factor": 1.0,
+    "rate_exponent": 4.0,
+    "uncertainty_width": 0.3465735902799727,
+    "upper_power_factor": 4.0
+  }
+}

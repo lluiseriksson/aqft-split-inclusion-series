@@ -1,0 +1,46 @@
+{
+  "execution_surface": "Google Colab Pro+",
+  "notebook": "colab_annni_scale.ipynb",
+  "drive_copy_url": "https://colab.research.google.com/drive/1wOhY-Q9Qajx7Oq_xcOK6fBXt-llelUzM",
+  "source_commit": "0d7b4c094a4bd614f9b19bad3259f840e28b26c8",
+  "environment": {"python": "3.12.13", "numpy": "2.0.2", "scipy": "1.16.3"},
+  "full_result_sha256": "eec275a1db1306358cfcad6507021984d93ebd237212be53d4142718e096700a",
+  "summary": [
+    {
+      "L": 12,
+      "dimension": 4096,
+      "true_gap": 1.6335801756999686,
+      "true_edge": 0.7212885345461698,
+      "X_overlap_first": 1.9743791195507273e-32,
+      "Z_overlap_first": 0.31836857183338546,
+      "block_N6_edge": 0.721231913649775,
+      "block_N6_abs_error": 5.662089639479895e-05,
+      "block_first_false_gap_witness_degree": 1,
+      "X_first_false_gap_witness_degree": null
+    },
+    {
+      "L": 14,
+      "dimension": 16384,
+      "true_gap": 1.5729199985515656,
+      "true_edge": 0.73009252980818,
+      "X_overlap_first": 2.8081141924759617e-30,
+      "Z_overlap_first": 0.28899980992807917,
+      "block_N6_edge": 0.7300061054023881,
+      "block_N6_abs_error": 8.642440579187394e-05,
+      "block_first_false_gap_witness_degree": 1,
+      "X_first_false_gap_witness_degree": null
+    },
+    {
+      "L": 16,
+      "dimension": 65536,
+      "true_gap": 1.5293121573340187,
+      "true_edge": 0.7364879300516193,
+      "X_overlap_first": 1.1678658626831912e-31,
+      "Z_overlap_first": 0.2643741783873074,
+      "block_N6_edge": 0.7363890221027383,
+      "block_N6_abs_error": 9.890794888101073e-05,
+      "block_first_false_gap_witness_degree": 1,
+      "X_first_false_gap_witness_degree": null
+    }
+  ]
+}

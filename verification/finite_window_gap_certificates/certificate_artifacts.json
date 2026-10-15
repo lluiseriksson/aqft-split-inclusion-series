@@ -1,0 +1,357 @@
+{
+  "exact_flat_extension": {
+    "atoms": [
+      "1/5",
+      "1/2",
+      "4/5"
+    ],
+    "probe_matrix": [
+      [
+        "1",
+        "0"
+      ],
+      [
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "1"
+      ]
+    ],
+    "moments_B0_to_B5": [
+      [
+        [
+          "2",
+          "1"
+        ],
+        [
+          "1",
+          "2"
+        ]
+      ],
+      [
+        [
+          "7/10",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "13/10"
+        ]
+      ],
+      [
+        [
+          "29/100",
+          "1/4"
+        ],
+        [
+          "1/4",
+          "89/100"
+        ]
+      ],
+      [
+        [
+          "133/1000",
+          "1/8"
+        ],
+        [
+          "1/8",
+          "637/1000"
+        ]
+      ],
+      [
+        [
+          "641/10000",
+          "1/16"
+        ],
+        [
+          "1/16",
+          "4721/10000"
+        ]
+      ],
+      [
+        [
+          "3157/100000",
+          "1/32"
+        ],
+        [
+          "1/32",
+          "35893/100000"
+        ]
+      ]
+    ],
+    "rank_H0": 2,
+    "rank_H1": 3,
+    "rank_H2": 3,
+    "flat_at_degree_1": true,
+    "quotient_pivot_indices": [
+      0,
+      1,
+      2
+    ],
+    "generalized_characteristic_polynomial": "-9*(2*lambda - 1)*(5*lambda - 4)*(5*lambda - 1)/5000",
+    "recovered_visible_atoms": [
+      "1/5",
+      "1/2",
+      "4/5"
+    ],
+    "recovery_exact": true,
+    "recovered_visible_edge": "4/5",
+    "recovered_visible_mass": "-2*log(2) + log(5)"
+  },
+  "finite_noise_hidden_atom": {
+    "base_atoms": [
+      0.25,
+      0.55,
+      0.72
+    ],
+    "base_weights": [
+      0.2,
+      0.5,
+      0.3
+    ],
+    "hidden_atom_location": 1.0,
+    "hidden_atom_weight": 1e-08,
+    "max_moment": 40,
+    "max_absolute_moment_change": 9.999994105645114e-09,
+    "within_componentwise_noise_radius": true,
+    "base_transfer_edge": 0.72,
+    "contaminated_transfer_edge": 1.0,
+    "base_mass_lower_bound": 0.3285040669720361,
+    "contaminated_mass_lower_bound": 0.0
+  },
+  "chebyshev_visibility": {
+    "claimed_edge_theta": 0.8,
+    "outlier_separation_delta": 0.1,
+    "minimum_visible_mass_gamma": 0.01,
+    "atoms": [
+      0.15,
+      0.45,
+      0.78,
+      0.9
+    ],
+    "weights": [
+      0.198,
+      0.297,
+      0.495,
+      0.01
+    ],
+    "max_degree": 14,
+    "first_degree_from_analytic_bound": 6,
+    "first_degree_from_robust_visibility_bound": 6,
+    "first_degree_with_noise_safe_certificate": 5,
+    "degrees": [
+      {
+        "degree": 0,
+        "chebyshev_normalizer": 1.0,
+        "stopband_alpha": 1.0,
+        "analytic_localizer_upper_bound": 0.799,
+        "actual_localizer_value": 0.24155000000000004,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 1.8e-14,
+        "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.799000000000036,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.24155000000003604,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 1,
+        "chebyshev_normalizer": 1.25,
+        "stopband_alpha": 0.8,
+        "analytic_localizer_upper_bound": 0.5110000000000001,
+        "actual_localizer_value": 0.03793274000000002,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 1.4111999999999998e-13,
+        "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.5110000000002823,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.03793274000028226,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 2,
+        "chebyshev_normalizer": 2.125,
+        "stopband_alpha": 0.47058823529411764,
+        "analytic_localizer_upper_bound": 0.1761626297577855,
+        "actual_localizer_value": 0.02338833655709678,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 2.201356401384083e-12,
+        "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.1761626297621882,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.023388336561499495,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 3,
+        "chebyshev_normalizer": 4.0625,
+        "stopband_alpha": 0.24615384615384617,
+        "analytic_localizer_upper_bound": 0.047473372781065094,
+        "actual_localizer_value": 0.006345242721419453,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 2.8270761656804735e-11,
+        "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.047473372837606616,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.006345242777960976,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 4,
+        "chebyshev_normalizer": 8.03125,
+        "stopband_alpha": 0.1245136186770428,
+        "analytic_localizer_upper_bound": 0.011402912988841617,
+        "actual_localizer_value": 0.00188452834059092,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 3.3982152934942236e-10,
+        "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.011402913668484676,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.0018845290202339786,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 5,
+        "chebyshev_normalizer": 16.015625,
+        "stopband_alpha": 0.0624390243902439,
+        "analytic_localizer_upper_bound": 0.0021189054134443785,
+        "actual_localizer_value": -0.0008336299715097084,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 4.014489670175371e-09,
+        "analytic_bound_detects_outlier": false,
+        "robust_visibility_certificate_upper_bound": 0.002118913442423719,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": -0.0008336219425303681,
+        "certificate_survives_moment_error": true
+      },
+      {
+        "degree": 6,
+        "chebyshev_normalizer": 32.0078125,
+        "stopband_alpha": 0.031242372467659263,
+        "analytic_localizer_upper_bound": -0.00021913133007363716,
+        "actual_localizer_value": -0.0008974187846433768,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 4.72179640566561e-08,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.00021903689414552385,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0008973243487152635,
+        "certificate_survives_moment_error": true
+      },
+      {
+        "degree": 7,
+        "chebyshev_normalizer": 64.00390625,
+        "stopband_alpha": 0.015624046383887702,
+        "analytic_localizer_upper_bound": -0.0008047113396753005,
+        "actual_localizer_value": -0.0009526920321150101,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 5.547628964422043e-07,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.0008036018138824161,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0009515825063221257,
+        "certificate_survives_moment_error": true
+      },
+      {
+        "degree": 8,
+        "chebyshev_normalizer": 128.001953125,
+        "stopband_alpha": 0.007812380792529411,
+        "analytic_localizer_upper_bound": -0.000951173365082014,
+        "actual_localizer_value": -0.0009945777113898654,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 6.516108347125851e-06,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.0009381411483877623,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0009815454946956136,
+        "certificate_survives_moment_error": true
+      },
+      {
+        "degree": 9,
+        "chebyshev_normalizer": 256.0009765625,
+        "stopband_alpha": 0.0039062350988956496,
+        "analytic_localizer_upper_bound": -0.0009877930618817246,
+        "actual_localizer_value": -0.0009984776464989405,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 7.653134885010447e-05,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": -0.0008347303641815157,
+        "robust_visibility_bound_detects_outlier": true,
+        "realized_measure_certificate_upper_bound": -0.0008454149487987316,
+        "certificate_survives_moment_error": true
+      },
+      {
+        "degree": 10,
+        "chebyshev_normalizer": 512.00048828125,
+        "stopband_alpha": 0.0019531231373566271,
+        "analytic_localizer_upper_bound": -0.0009969482480082577,
+        "actual_localizer_value": -0.0009994847467169159,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 0.0008988412260794187,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 0.0008007342041505797,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.0007981977054419215,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 11,
+        "chebyshev_normalizer": 1024.000244140625,
+        "stopband_alpha": 0.0009765622671694119,
+        "analytic_localizer_upper_bound": -0.0009992370609106728,
+        "actual_localizer_value": -0.0010004665236920118,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 0.010556616271101191,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 0.02011399548129171,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.02011276601851037,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 12,
+        "chebyshev_normalizer": 2048.0001220703125,
+        "stopband_alpha": 0.0004882812208961713,
+        "analytic_localizer_upper_bound": -0.0009998092651594562,
+        "actual_localizer_value": -0.0010024696588516232,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 0.12398410786860407,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 0.24696840647204868,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 0.24696574607835653,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 13,
+        "chebyshev_normalizer": 4096.000061035156,
+        "stopband_alpha": 0.00024414062136202125,
+        "analytic_localizer_upper_bound": -0.0009999523162856007,
+        "actual_localizer_value": -0.0010468721389770511,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 1.4561536088934623,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 2.911307265470639,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 2.9112603456479476,
+        "certificate_survives_moment_error": false
+      },
+      {
+        "degree": 14,
+        "chebyshev_normalizer": 8192.000030517578,
+        "stopband_alpha": 0.00012207031204525265,
+        "analytic_localizer_upper_bound": -0.0009999880790711338,
+        "actual_localizer_value": -0.0014375925064086907,
+        "componentwise_moment_error": 1e-14,
+        "worst_case_polynomial_error_radius": 17.102056279324316,
+        "analytic_bound_detects_outlier": true,
+        "robust_visibility_certificate_upper_bound": 34.20311257056956,
+        "robust_visibility_bound_detects_outlier": false,
+        "realized_measure_certificate_upper_bound": 34.202674966142226,
+        "certificate_survives_moment_error": false
+      }
+    ]
+  }
+}
