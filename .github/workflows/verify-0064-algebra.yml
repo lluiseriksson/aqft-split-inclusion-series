@@ -1,0 +1,32 @@
+name: 0064 local-sink algebra
+on:
+  push:
+    paths:
+      - 'README.md'
+      - 'verification/0064/local_sink_asymptotics.md'
+      - 'verification/0064/check_local_sink_algebra.py'
+      - 'verification/0064/modelA.py'
+      - '.github/workflows/verify-0064-algebra.yml'
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'verification/0064/local_sink_asymptotics.md'
+      - 'verification/0064/check_local_sink_algebra.py'
+      - 'verification/0064/modelA.py'
+      - '.github/workflows/verify-0064-algebra.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-algebra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact identities and rejection controls
+        run: python verification/0064/check_local_sink_algebra.py --self-test
+      - name: Same checks with assertions disabled
+        run: python -O verification/0064/check_local_sink_algebra.py --self-test

@@ -14,7 +14,7 @@ relies on the approximations being tested.
 |---|---|---|---|
 | **0060** — *Clustering, Recovery, and Locality in AQFT* | `papers/0060-clustering-recovery/` | `verification/0060/` | Kinematics: split inclusions, collar-suppressed vacuum correlations (Bessel/Combes–Thomas), reconstruction-fidelity theorem |
 | **0061** — *The Conditional Maintenance Work Theorem* | `papers/0061-maintenance-work/` | `verification/0061/` | Thermodynamics: battery-accounted power floors for maintaining states/coherence; Type III blueprint uses 0060's split machinery |
-| **0064** — *The Heisenberg Cut as a Resource Boundary* | `papers/0064-heisenberg-cut/` | `verification/0064/` | Dynamics/interpretation: exact rate inheritance through gapped buffers; grounds its maintenance inequality in 0061 (v2) and its geometry in 0060 |
+| **0064** — *The Heisenberg Cut as a Resource Boundary* | `papers/0064-heisenberg-cut/` | `verification/0064/` | Dynamics/interpretation: local-sink asymptotics under the isolated-pole hypotheses below; grounds its maintenance inequality in 0061 (v2) and its geometry in 0060 |
 | **0070** — *Stress Testing the Rate Inheritance Principle* | `papers/0070-rate-inheritance/` | `verification/0070/` | Stress test: Davies-generator regime where rate inheritance fails; ceiling/floor envelopes; resource-horizon no-go |
 | **0071** — *Operational Coherence Maintenance (closure note)* | `papers/0071-program-closure/` | none of its own — its verification is *inherited* from the 0060/0061/0064/0070 suites | The map: proved core / conditional interfaces / hinge status, updated to the v2 series. Upload last: it is the closure map of the other four |
 
@@ -44,14 +44,18 @@ explicit Landauer achievability (conditional), and a genuinely assumption-free
 free-baseline case (pure dephasing). (3) New unconditional floor
 P_min ≥ k_B T σ(ρ) via Spohn, with the rate-Pythagoras split verified to 1e−13.
 
-**0064** (v2 received; revised here): rate inheritance proved exactly in the
-quasi-free class, κ(ε) = P(ε)e^(−2q(ω_b)ε), slopes matching the analytic law
-(fitted 0.8106 vs 0.8109 at ω₀=0; validation of the covariance solver at
-1e−16/1e−15); v1's windowed-proxy evidence withdrawn after a critical-point
-control. Revision here: the maintenance inequality is now grounded in 0061
-(v2)'s free-baseline theorem (pointer-basis dephasing is exactly that case),
-companion references updated to v2, contact email added, and script paths made
-portable.
+**0064** (v2 received; revised here): the finite-width rapidity spectra and
+fitted slopes are numerical evidence for local-sink suppression; they alone do
+not prove a subexponential prefactor for all widths. The
+[local asymptotics note](verification/0064/local_sink_asymptotics.md) derives a
+positive prefactor and a controlled remainder for a simple isolated sub-gap
+half-line pole. It also identifies the two maximum-probe-weight modes for
+sufficiently weak nonzero coupling and sufficiently large width. These
+thresholds are qualitative: the table couplings 0.1/0.3 and omega_0=0 are not
+certified by this argument. The archived v2 TEX/PDF, model and results are
+unchanged; this note supplies the current 0064 scope and is not a revised paper.
+The v1 windowed-proxy evidence remains withdrawn. The earlier v2 maintenance
+interface and companion-reference changes remain as recorded in the manuscript.
 
 **0070** (v2 written here, replaces v1): (1) v1's envelope κ(ε) is a *supremum*
 (ceiling) but its no-go needs a *floor*; both are now defined and computed —
@@ -142,9 +146,13 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
 - **0061**: P_min and efficient-baseline theorems proved in the stroboscopic
   finite-dimensional battery model; difference-of-infima corollary needs
   classical Landauer achievability (explicit); general-E/Type III conditional.
-- **0064**: exact rate inheritance proved in the quasi-free class only; the
-  interacting-buffer version is an explicit conjecture; the maintenance
-  inequality is a theorem in 0061's battery model (free-baseline case) and an
+- **0064**: the local-sink note proves a branch asymptotic for fixed mu>2,
+  g!=0, gamma>0 and a simple pole with 0<omega_*<mu-2; matching the program's
+  selector additionally uses the qualitative weak-coupling regime above.
+  Its exact-algebra CI does not verify the analytic limit or selector proof,
+  and the note has internal review only. It does not establish the law for
+  every quasi-free parameter or interacting buffer. The maintenance inequality
+  remains a theorem in 0061's battery model (free-baseline case) and an
   interface statement beyond it; no Born-rule claims.
 - **0070**: all envelopes are exact-diagonalization results *within the Davies
   model class* at N=6 (secular nonlocality quantified in its Section 7); the
