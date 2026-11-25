@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper below."
+title: "aqft-split-inclusion-series"
+type: software
+authors:
+  - family-names: Eriksson
+    given-names: Lluis
+repository-code: "https://github.com/lluiseriksson/aqft-split-inclusion-series"
+preferred-citation:
+  type: generic
+  title: "Clustering, Recovery, and Locality in Algebraic Quantum Field Theory: Quantitative Bounds via Split Inclusions and Modular Theory"
+  authors:
+    - family-names: Eriksson
+      given-names: Lluis
+  year: 2025
+  url: "https://airr.science/papers/ARR-2025-7GXFT1VQV98JNA6Q/"
+  notes: "AIRR ARR-2025-7GXFT1VQV98JNA6Q; ai.viXra 2512.0060"
