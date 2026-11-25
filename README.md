@@ -5,7 +5,7 @@
 
 Author: Lluis Eriksson (lluiseriksson@gmail.com). July 2026 (v2 revisions); v1s: December 2025.
 
-Five companion papers that cite one another (ai.viXra 2512 series), each at
+Five companion papers that cite one another (December 2025 series), each at
 version 2, with every correction driven or confirmed by exact numerical
 verification. Scripts and reference logs are included; nothing in the checks
 relies on the approximations being tested.
