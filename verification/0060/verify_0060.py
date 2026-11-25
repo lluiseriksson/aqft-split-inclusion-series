@@ -1,5 +1,5 @@
 """
-Verificacion exacta de ai.viXra:2512.0060 (Clustering-Recovery Bridge).
+Verificacion exacta de AIRR ARR-2025-7GXFT1VQV98JNA6Q (Clustering-Recovery Bridge).
 Todo en espacio de Fock truncado (2 modos), sin aproximaciones gaussianas:
   A. Prop 2.14 / Lemma D.2: mapa de Petz exacto vs formula del paper,
      barrido en pureza de rho_0 (limite puro = contraejemplo analitico).

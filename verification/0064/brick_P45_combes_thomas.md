@@ -130,5 +130,5 @@ cluster expansion with holes, the fluctuation integral, M4/M5, or anything in
 stands exactly as written.
 
 *Provenance: derived and numerically validated in the session of 2026-07-03/04
-(exact quasi-free Lindblad solvers, ai.viXra:2512.0064v2 companion work);
+(exact quasi-free Lindblad solvers, [ARR-2025-1Q29S482V08T1VV0](https://airr.science/papers/ARR-2025-1Q29S482V08T1VV0/) companion work);
 oracle cross-checked to 1e-15 against brute-force inversion.*
