@@ -165,11 +165,11 @@ connecting the Combes–Thomas machinery to a Lean brick in a separate project.
 This repository accompanies the following papers by Lluis Eriksson.
 AIRR status is the archive's own label for the record; it is not peer review.
 
-| Title | AIRR | ai.viXra | AIRR status |
-|---|---|---|---|
-| Clustering, Recovery, and Locality in Algebraic Quantum Field Theory: Quantitative Bounds via Split Inclusions and Modular Theory | [ARR-2025-7GXFT1VQV98JNA6Q](https://airr.science/papers/ARR-2025-7GXFT1VQV98JNA6Q/) | [2512.0060](https://www.ai.vixra.org/abs/2512.0060) | archived |
-| The Conditional Maintenance Work Theorem: Operational Power Lower Bounds from Energy Pinching and a Split-Inclusion Blueprint for Type III AQFT | [ARR-2025-76C3S3SSMP8HJ8NF](https://airr.science/papers/ARR-2025-76C3S3SSMP8HJ8NF/) | [2512.0061](https://www.ai.vixra.org/abs/2512.0061) | archived |
-| The Heisenberg Cut as a Resource Boundary: An Operational Outlook from Coherence Maintenance Costs | [ARR-2025-1Q29S482V08T1VV0](https://airr.science/papers/ARR-2025-1Q29S482V08T1VV0/) | [2512.0064](https://www.ai.vixra.org/abs/2512.0064) | archived |
-| Stress Testing the Rate Inheritance Principle: Spectral Decoherence Rates and an Operational Resource Horizon | [ARR-2025-1D8QJ84MY09CNBJ8](https://airr.science/papers/ARR-2025-1D8QJ84MY09CNBJ8/) | [2512.0070](https://www.ai.vixra.org/abs/2512.0070) | archived |
-| Operational Coherence Maintenance: Proven Results, Conditional Interfaces, and Open Dynamical Gaps | [ARR-2025-13JDAZFXPP81EBY4](https://airr.science/papers/ARR-2025-13JDAZFXPP81EBY4/) | [2512.0071](https://www.ai.vixra.org/abs/2512.0071) | archived |
+| Title | AIRR | AIRR status |
+|---|---|---|
+| Clustering, Recovery, and Locality in Algebraic Quantum Field Theory: Quantitative Bounds via Split Inclusions and Modular Theory | [ARR-2025-7GXFT1VQV98JNA6Q](https://airr.science/papers/ARR-2025-7GXFT1VQV98JNA6Q/) | archived |
+| The Conditional Maintenance Work Theorem: Operational Power Lower Bounds from Energy Pinching and a Split-Inclusion Blueprint for Type III AQFT | [ARR-2025-76C3S3SSMP8HJ8NF](https://airr.science/papers/ARR-2025-76C3S3SSMP8HJ8NF/) | archived |
+| The Heisenberg Cut as a Resource Boundary: An Operational Outlook from Coherence Maintenance Costs | [ARR-2025-1Q29S482V08T1VV0](https://airr.science/papers/ARR-2025-1Q29S482V08T1VV0/) | archived |
+| Stress Testing the Rate Inheritance Principle: Spectral Decoherence Rates and an Operational Resource Horizon | [ARR-2025-1D8QJ84MY09CNBJ8](https://airr.science/papers/ARR-2025-1D8QJ84MY09CNBJ8/) | archived |
+| Operational Coherence Maintenance: Proven Results, Conditional Interfaces, and Open Dynamical Gaps | [ARR-2025-13JDAZFXPP81EBY4](https://airr.science/papers/ARR-2025-13JDAZFXPP81EBY4/) | archived |
 <!-- papers-index:end -->
